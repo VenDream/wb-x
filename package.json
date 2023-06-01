@@ -3,23 +3,43 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "commit": "git-cz",
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "tsx scripts/lint.ts",
+    "fix": "tsx scripts/fix.ts"
   },
   "dependencies": {
-    "@types/node": "20.1.7",
-    "@types/react": "18.2.6",
-    "@types/react-dom": "18.2.4",
-    "autoprefixer": "10.4.14",
-    "eslint": "8.40.0",
-    "eslint-config-next": "13.4.4",
     "next": "13.4.4",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.2",
+    "tailwindcss": "3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "20.1.7",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "autoprefixer": "10.4.14",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "npm-run-all": "^4.1.5",
+    "picocolors": "^1.0.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "sass": "^1.62.1",
+    "tsx": "^3.12.7",
     "typescript": "5.0.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
