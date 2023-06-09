@@ -13,9 +13,6 @@ execSync('eslint --ext .js,.jsx,.ts,.tsx ./ --cache --quiet --fix', {
   stdio: 'inherit',
 });
 
-execSync(
-  'prettier --write "**/*.{css,scss,sass,js,jsx,ts,tsx,json,yml,yaml,md}"',
-  {
-    stdio: 'inherit',
-  }
-);
+execSync('prettier --write "**/*.{css,js,jsx,ts,tsx,json,yml,yaml,md}"', {
+  stdio: 'inherit',
+});

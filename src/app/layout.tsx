@@ -7,6 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { LayoutBody, LayoutHeader } from '@/components/layout';
+
 import './globals.scss';
 
 export const metadata = {
@@ -14,14 +16,15 @@ export const metadata = {
   description: 'wb-x app',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: ChildrenProps) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="min-h-screen">
+        <LayoutBody>
+          <LayoutHeader></LayoutHeader>
+          {children}
+        </LayoutBody>
+      </body>
     </html>
   );
 }
