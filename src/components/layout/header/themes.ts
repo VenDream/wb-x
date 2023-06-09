@@ -9,11 +9,15 @@
 
 const THEMES = [
   {
-    name: '🌝 亮色',
+    name: 'Light',
     id: 'light',
   },
   {
-    name: '🌚 暗色',
+    name: 'Retro',
+    id: 'retro',
+  },
+  {
+    name: 'Dark',
     id: 'dark',
   },
 ];

@@ -8,5 +8,5 @@
  */
 
 export default function Home() {
-  return <div className="home">Home page</div>;
+  return <div className="home p-4">Home page</div>;
 }

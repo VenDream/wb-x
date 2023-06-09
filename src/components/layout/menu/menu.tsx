@@ -1,3 +1,5 @@
+'use client';
+
 /*
  * Layout menu
  *
@@ -7,22 +9,38 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import './menu.sass';
+import { ROUTES } from '@/contants';
+import cx from 'classnames';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Menu() {
+  const pathname = usePathname();
+
   return (
-    <aside className="h-full">
-      <div className="logo px-4 py-2">
-        <a className="btn-ghost btn text-xl normal-case">WB-X</a>
+    <aside className="flex h-full flex-col">
+      <div className="logo px-4 py-2 shadow-sm">
+        <Link
+          href={ROUTES.HOME}
+          className="base-200 btn-ghost btn text-xl normal-case"
+        >
+          WB-X
+        </Link>
       </div>
-      <div className="menu">
-        <ul className="layout-menu menu w-60 p-4 text-base-content">
-          <li>
-            <a>Menu1</a>
-          </li>
-          <li>
-            <a>Menu2</a>
-          </li>
+      <div className="menu flex-1">
+        <ul className="layout-menu menu menu-md h-full w-60 gap-2">
+          {Object.entries(ROUTES).map(([routeName, routePath]) => {
+            const isActive = pathname === routePath;
+            const cls = cx({ active: isActive });
+
+            return (
+              <li key={routeName} className={cls}>
+                <Link className={isActive ? 'active' : ''} href={routePath}>
+                  {routeName}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </aside>

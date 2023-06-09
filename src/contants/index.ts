@@ -7,6 +7,11 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+export const ROUTES = {
+  HOME: '/',
+  DASHBOARD: '/dashboard',
+};
+
 export const DRAWER_IDS = {
   LAYOUT: 'layout',
 };

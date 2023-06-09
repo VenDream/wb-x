@@ -11,7 +11,7 @@ import ThemeChange from './theme-change';
 
 export default function Header() {
   return (
-    <header className="layout-header sticky top-0 z-30 flex h-16 w-full">
+    <header className="layout-header sticky top-0 z-30 flex h-16 w-full shadow-sm">
       <nav className="navbar w-full justify-end">
         <div className="flex-none">
           <ThemeChange></ThemeChange>

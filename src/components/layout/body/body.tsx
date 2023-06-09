@@ -10,8 +10,6 @@
 import Menu from '@/components/layout/menu';
 import { DRAWER_IDS } from '@/contants';
 
-import './body.sass';
-
 export default function Body({ children }: ChildrenProps) {
   return (
     <main className="layout-body drawer drawer-open">

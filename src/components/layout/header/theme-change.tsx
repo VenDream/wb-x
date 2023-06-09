@@ -20,7 +20,7 @@ export default function ThemeChange() {
 
   return (
     <div className="theme-change dropdown-bottom dropdown-end dropdown-hover dropdown">
-      <label className="btn m-1">主题</label>
+      <label className="btn m-1">Themes</label>
       <ul className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow">
         {THEMES.map(theme => {
           return (
