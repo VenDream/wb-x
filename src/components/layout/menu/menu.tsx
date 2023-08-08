@@ -19,10 +19,10 @@ export default function Menu() {
 
   return (
     <aside className="flex h-full flex-col">
-      <div className="logo px-4 py-2 shadow-sm">
+      <div className="logo h-16 px-4 py-2 shadow-sm">
         <Link
           href={ROUTES.HOME}
-          className="base-200 btn-ghost btn text-xl normal-case"
+          className="base-200 btn btn-ghost text-xl normal-case"
         >
           WB-X
         </Link>

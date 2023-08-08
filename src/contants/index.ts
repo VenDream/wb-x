@@ -9,7 +9,7 @@
 
 export const ROUTES = {
   HOME: '/',
-  DASHBOARD: '/dashboard',
+  SETTINGS: '/settings',
 };
 
 export const DRAWER_IDS = {

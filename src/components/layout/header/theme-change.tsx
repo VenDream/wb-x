@@ -19,9 +19,9 @@ export default function ThemeChange() {
   }, []);
 
   return (
-    <div className="theme-change dropdown-bottom dropdown-end dropdown-hover dropdown">
+    <div className="theme-change dropdown dropdown-end dropdown-bottom dropdown-hover">
       <label className="btn m-1">Themes</label>
-      <ul className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow">
+      <ul className="menu dropdown-content rounded-box w-52 bg-base-100 p-2 shadow">
         {THEMES.map(theme => {
           return (
             <li
