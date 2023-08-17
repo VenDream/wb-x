@@ -20,8 +20,8 @@ export default function Home() {
   };
 
   return (
-    <div className="home p-4">
-      <div className="hero rounded border-2 bg-base-200">
+    <div className="home">
+      <div className="hero rounded bg-base-200">
         <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Hello there</h1>

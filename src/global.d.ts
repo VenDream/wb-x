@@ -11,4 +11,5 @@ import { PropsWithChildren } from 'react';
 
 declare global {
   type ChildrenProps<T = any> = PropsWithChildren<T>;
+  type ParamsBody = { params: Record<string, any> };
 }

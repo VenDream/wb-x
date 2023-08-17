@@ -7,9 +7,9 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { LayoutBody, LayoutHeader } from '@/components/layout';
-
 import './globals.scss';
+
+import { LayoutBody, LayoutHeader } from '@/components/layout';
 
 export const metadata = {
   title: 'wb-x',
@@ -19,11 +19,9 @@ export const metadata = {
 export default function RootLayout({ children }: ChildrenProps) {
   return (
     <html lang="en">
-      <body className="min-h-screen">
-        <LayoutBody>
-          <LayoutHeader></LayoutHeader>
-          {children}
-        </LayoutBody>
+      <body className="flex h-screen flex-col">
+        <LayoutHeader></LayoutHeader>
+        <LayoutBody>{children}</LayoutBody>
       </body>
     </html>
   );

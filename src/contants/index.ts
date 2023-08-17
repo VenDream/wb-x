@@ -7,11 +7,49 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+/** route paths */
 export const ROUTES = {
   HOME: '/',
   SETTINGS: '/settings',
 };
 
-export const DRAWER_IDS = {
-  LAYOUT: 'layout',
+/** localStorage keys */
+export const LS_KEYS = {
+  THEME: 'WB_X_THEME',
 };
+
+/**
+ * themes
+ * @refer https://daisyui.com/docs/themes/
+ */
+export const THEMES = [
+  'light',
+  'dark',
+  'cupcake',
+  'bumblebee',
+  'emerald',
+  'corporate',
+  'synthwave',
+  'retro',
+  'cyberpunk',
+  'valentine',
+  'halloween',
+  'garden',
+  'forest',
+  'aqua',
+  'lofi',
+  'pastel',
+  'fantasy',
+  'wireframe',
+  'black',
+  'luxury',
+  'dracula',
+  'cmyk',
+  'autumn',
+  'business',
+  'acid',
+  'lemonade',
+  'night',
+  'coffee',
+  'winter',
+];

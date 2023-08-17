@@ -1,3 +1,5 @@
+'use client';
+
 /*
  * Settings Page
  *
@@ -7,6 +9,21 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { useState } from 'react';
+import { Tabs } from 'react-daisyui';
+
+const { Tab } = Tabs;
+
 export default function Settings() {
-  return <div className="settings p-4">Settings page</div>;
+  const [tab, setTab] = useState(0);
+
+  return (
+    <div className="settings">
+      <Tabs value={tab} onChange={setTab} boxed>
+        <Tab value={0}>Tab1</Tab>
+        <Tab value={1}>Tab2</Tab>
+        <Tab value={2}>Tab3</Tab>
+      </Tabs>
+    </div>
+  );
 }
