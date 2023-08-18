@@ -9,17 +9,11 @@
  * Copyright © 2014-2023 VenDream. All Rights Reserved.
  */
 
+import { Menu, MenuItem } from '@/components/daisyui';
 import { ROUTES } from '@/contants';
-import { Cog6ToothIcon, HomeIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { usePathname, useRouter } from 'next/navigation';
-import React from 'react';
-import { Menu } from 'react-daisyui';
-
-const ICONS: Record<keyof typeof ROUTES, React.ReactNode> = {
-  HOME: <HomeIcon className="h-5 w-5"></HomeIcon>,
-  SETTINGS: <Cog6ToothIcon className="h-5 w-5"></Cog6ToothIcon>,
-};
+import ICONS from './icons';
 
 export default function Leftsider() {
   const pathname = usePathname();
@@ -32,11 +26,11 @@ export default function Leftsider() {
   return (
     <Menu className="text-base-conten h-full w-60 gap-2 bg-base-200 p-4">
       {Object.entries(ROUTES).map(([k, p]) => (
-        <Menu.Item key={k} onClick={() => go(p)}>
+        <MenuItem key={k} onClick={() => go(p)}>
           <a className={clsx({ active: pathname === p })}>
             {ICONS[k as keyof typeof ROUTES]} {k}
           </a>
-        </Menu.Item>
+        </MenuItem>
       ))}
     </Menu>
   );

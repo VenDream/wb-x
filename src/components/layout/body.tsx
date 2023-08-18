@@ -1,5 +1,3 @@
-'use client';
-
 /*
  * Root layout body
  *
@@ -9,8 +7,8 @@
  * Copyright © 2014-2023 VenDream. All Rights Reserved.
  */
 
+import { Drawer } from '@/components/daisyui';
 import Leftsider from '@/components/leftsider';
-import { Drawer } from 'react-daisyui';
 
 import './body.sass';
 
@@ -20,7 +18,7 @@ export default function LayoutBody({ children }: ChildrenProps) {
       <Drawer
         className="drawer-open"
         sideClassName="h-auto"
-        side={<Leftsider></Leftsider>}
+        side={<Leftsider />}
         contentClassName="layout-content ml-4 p-4 overflow-auto"
       >
         <div className="rounded text-base-content">{children}</div>

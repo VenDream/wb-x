@@ -9,18 +9,21 @@
  * Copyright © 2014-2023 VenDream. All Rights Reserved.
  */
 
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Theme as ThemeProvoder,
+  useTheme,
+} from '@/components/daisyui';
 import { LS_KEYS, THEMES } from '@/contants';
 import {
   CheckCircleIcon,
   ChevronDownIcon,
   SwatchIcon,
 } from '@heroicons/react/24/outline';
-import {
-  Button,
-  Dropdown,
-  Theme as ThemeProvoder,
-  useTheme,
-} from 'react-daisyui';
 
 import { useCallback, useEffect } from 'react';
 import './theme-change.sass';
@@ -49,18 +52,18 @@ function ThemeConsumer() {
   return (
     <div className="theme-change">
       <Dropdown end>
-        <Dropdown.Toggle button={false}>
+        <DropdownToggle button={false}>
           <Button color="ghost">
-            <SwatchIcon className="h-5 w-5" />
+            <SwatchIcon />
             <span className="text-sm">THEMES</span>
-            <ChevronDownIcon className="h-5 w-5" />
+            <ChevronDownIcon />
           </Button>
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-lg bg-base-300 shadow">
+        </DropdownToggle>
+        <DropdownMenu className="z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-lg bg-base-300 shadow">
           {THEMES.map((t, i) => {
             const isSelected = t === theme;
             return (
-              <Dropdown.Item key={i} anchor={false}>
+              <DropdownItem key={i} anchor={false}>
                 <div className="theme-item flex" onClick={() => switchTheme(t)}>
                   <div
                     data-theme={t}
@@ -68,7 +71,7 @@ function ThemeConsumer() {
                   >
                     <div className="left-block flex w-2/3 items-center">
                       {isSelected ? (
-                        <CheckCircleIcon className="mr-1 h-5 w-5"></CheckCircleIcon>
+                        <CheckCircleIcon className="mr-1"></CheckCircleIcon>
                       ) : (
                         <div className="mr-1 h-5 w-5"></div>
                       )}
@@ -82,10 +85,10 @@ function ThemeConsumer() {
                     </div>
                   </div>
                 </div>
-              </Dropdown.Item>
+              </DropdownItem>
             );
           })}
-        </Dropdown.Menu>
+        </DropdownMenu>
       </Dropdown>
     </div>
   );
@@ -94,7 +97,7 @@ function ThemeConsumer() {
 export default function ThemeChange() {
   return (
     <ThemeProvoder>
-      <ThemeConsumer></ThemeConsumer>
+      <ThemeConsumer />
     </ThemeProvoder>
   );
 }
