@@ -6,7 +6,7 @@
  * @Author: VenDream
  * @Date: 2023-08-15 16:23:57
  *
- * Copyright © 2014-2023 VenDream. All Rights Reserved.
+ * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
 import {

@@ -6,7 +6,7 @@
  * @Author: VenDream
  * @Date: 2023-08-17 10:18:19
  *
- * Copyright © 2014-2023 VenDream. All Rights Reserved.
+ * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
 import { Menu, MenuItem } from '@/components/daisyui';

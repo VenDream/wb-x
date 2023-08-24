@@ -4,11 +4,11 @@
  * @Author: VenDream
  * @Date: 2023-08-17 09:59:05
  *
- * Copyright © 2014-2023 VenDream. All Rights Reserved.
+ * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
 import { Drawer } from '@/components/daisyui';
-import Leftsider from '@/components/leftsider';
+import Leftsider from './leftsider';
 
 import './body.sass';
 

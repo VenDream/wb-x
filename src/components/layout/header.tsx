@@ -4,11 +4,11 @@
  * @Author: VenDream
  * @Date: 2023-08-16 17:52:04
  *
- * Copyright © 2014-2023 VenDream. All Rights Reserved.
+ * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
 import { Navbar, NavbarEnd, NavbarStart } from '@/components/daisyui';
-import ThemeChange from '@/components/theme-change';
+import ThemeChange from './theme-change';
 
 export default function Header() {
   return (

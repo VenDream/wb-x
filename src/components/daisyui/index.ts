@@ -6,7 +6,7 @@
  * @Author: VenDream
  * @Date: 2023-08-18 11:59:07
  *
- * Copyright © 2014-2023 VenDream. All Rights Reserved.
+ * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
 import { Dropdown, Menu, Navbar, Stats, Tabs } from 'react-daisyui';
