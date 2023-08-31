@@ -9,7 +9,9 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import useToast from '@/components/common/toast';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -23,8 +25,15 @@ type RouterRefreshProps = ChildrenProps<{
 }>;
 
 export default function RouterRefresh(props: RouterRefreshProps) {
+  const t = useTranslations('global');
   const router = useRouter();
+  const { showSuccessTips } = useToast();
   const { className, auto, interval = 3000, children } = props;
+
+  const onBtnClick = () => {
+    router.refresh();
+    showSuccessTips(t('misc.routerRefreshSuccess'));
+  };
 
   useEffect(() => {
     if (!auto) return;
@@ -45,7 +54,10 @@ export default function RouterRefresh(props: RouterRefreshProps) {
   }, [auto, interval, router]);
 
   return (
-    <div className={clsx('router-refresh', className)} onClick={router.refresh}>
+    <div
+      className={clsx('router-refresh inline-block', className)}
+      onClick={onBtnClick}
+    >
       {children}
     </div>
   );

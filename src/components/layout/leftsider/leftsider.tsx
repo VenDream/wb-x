@@ -12,24 +12,22 @@
 import { Menu, MenuItem } from '@/components/daisyui';
 import { ROUTES } from '@/contants';
 import clsx from 'clsx';
-import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { usePathname } from 'next-intl/client';
+import Link from 'next-intl/link';
 import ICONS from './icons';
 
 export default function Leftsider() {
   const pathname = usePathname();
-  const router = useRouter();
-
-  const go = (path: string) => {
-    router.push(path);
-  };
+  const t = useTranslations('global.pages');
 
   return (
     <Menu className="text-base-conten h-full w-60 gap-2 bg-base-200 p-4">
       {Object.entries(ROUTES).map(([k, p]) => (
-        <MenuItem key={k} onClick={() => go(p)}>
-          <a className={clsx({ active: pathname === p })}>
-            {ICONS[k as keyof typeof ROUTES]} {k}
-          </a>
+        <MenuItem key={k}>
+          <Link href={p} className={clsx({ active: p === pathname })}>
+            {ICONS[k as keyof typeof ROUTES]} {t(k.toLowerCase())}
+          </Link>
         </MenuItem>
       ))}
     </Menu>

@@ -10,6 +10,7 @@
 import { PropsWithChildren } from 'react';
 
 declare global {
+  type LocaleProps<T = any> = T & { params: { locale: string } };
   type ChildrenProps<T = any> = PropsWithChildren<T>;
   type ParamsBody = { params: Record<string, any> };
 }

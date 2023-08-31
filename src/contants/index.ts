@@ -7,6 +7,12 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+/** locales */
+export const LANGS = {
+  en: 'en-US',
+  zh: 'zh-CN',
+};
+
 /** route paths */
 export const ROUTES = {
   HOME: '/',

@@ -1,0 +1,56 @@
+{
+  "global": {
+    "pages": {
+      "home": "Home",
+      "settings": "Settings"
+    },
+    "locale": {
+      "switcherLabel": "LANGS"
+    },
+    "theming": {
+      "switcherLabel": "THEMES"
+    },
+    "status": {
+      "info": "Info",
+      "success": "Success",
+      "error": "Error",
+      "caution": "Caution"
+    },
+    "action": {
+      "cancel": "Cancel",
+      "ok": "OK",
+      "save": "Save",
+      "refresh": "Refresh",
+      "loading": "Loading",
+      "retry": "Retry"
+    },
+    "dialog": {
+      "title": "Dialog Title",
+      "body": "Dialog Body"
+    },
+    "misc": {
+      "systemDown": "System down",
+      "routerRefreshSuccess": "Successfully refreshed"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Database Info",
+      "records": "records",
+      "totalDbSize": "Total File Size",
+      "totalUsers": "Total Users",
+      "totalStatuses": "Total Statuses",
+      "totalRetweetStatuses": "Total Retweet Statuses",
+      "totalRotns": "Total ROTNs"
+    },
+    "settings": {
+      "sysConfig": {
+        "title": "Save Config",
+        "confirm": "This operation will trigger the service to restart, continue ?",
+        "nothingChanged": "Nothing changed",
+        "fetchFailed": "Failed to fetch config，please retry",
+        "saveFailed": "Failed to save config，please retry"
+      }
+    }
+  }
+}

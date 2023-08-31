@@ -1,0 +1,56 @@
+{
+  "global": {
+    "pages": {
+      "home": "首页",
+      "settings": "设置"
+    },
+    "locale": {
+      "switcherLabel": "语言"
+    },
+    "theming": {
+      "switcherLabel": "主题"
+    },
+    "status": {
+      "info": "提示",
+      "success": "成功",
+      "error": "失败",
+      "caution": "警告"
+    },
+    "action": {
+      "cancel": "取消",
+      "ok": "确认",
+      "save": "保存",
+      "refresh": "刷新",
+      "loading": "加载中",
+      "retry": "重试"
+    },
+    "dialog": {
+      "title": "弹窗标题",
+      "body": "弹窗内容"
+    },
+    "misc": {
+      "systemDown": "服务暂不可用",
+      "routerRefreshSuccess": "刷新成功"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "数据库信息",
+      "records": "条",
+      "totalDbSize": "文件总大小",
+      "totalUsers": "用户记录总数",
+      "totalStatuses": "微博记录总数",
+      "totalRetweetStatuses": "转发微博记录总数",
+      "totalRotns": "ROTN记录总数"
+    },
+    "settings": {
+      "sysConfig": {
+        "title": "保存配置",
+        "confirm": "此操作会触发服务重启，继续 ?",
+        "nothingChanged": "配置无变化",
+        "fetchFailed": "获取配置失败，请重试",
+        "saveFailed": "保存配置失败，请重试"
+      }
+    }
+  }
+}

@@ -7,7 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getApiHost } from '@/utils';
+import { getApiHost } from '@/utils/api-host';
+import { get } from '@/utils/request';
 
 interface DbInfo {
   /** db file size */
@@ -26,8 +27,7 @@ interface DbInfo {
 
 /** get database info */
 export async function getDatabaseInfo() {
-  const apiHost = getApiHost();
-  const res = await fetch(apiHost + '/api/db/info');
-  const info = (await res.json()).data as DbInfo;
+  const url = getApiHost() + '/api/db/info';
+  const info = await get<DbInfo>(url);
   return info;
 }

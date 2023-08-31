@@ -7,4 +7,16 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-export {};
+import { get, post } from '@/utils/request';
+
+/** get system config */
+export async function getSystemConfig() {
+  const config = await get<string>('/api/config');
+  return config;
+}
+
+/** save system config */
+export async function saveSystemConfig(configStr: string) {
+  const rlt = await post('/api/config', { config: configStr });
+  return rlt;
+}

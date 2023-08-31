@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDatabaseInfo } from '@/api';
+import { getDatabaseInfo } from '@/api/server';
 import Counter from '@/components/common/counter';
 import RouterRefresh from '@/components/common/router-refresh';
 import { Button, Stat, StatItem, Stats } from '@/components/daisyui';
@@ -18,6 +18,7 @@ import {
   InboxStackIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
+import { getTranslator } from 'next-intl/server';
 import React from 'react';
 
 interface StatUnitProps {
@@ -31,9 +32,7 @@ function StatUnit({ title, value, desc, icon }: StatUnitProps) {
   return (
     <Stat>
       <StatItem variant="figure">{icon}</StatItem>
-      <StatItem variant="title" className="font-bold">
-        {title}
-      </StatItem>
+      <StatItem variant="title">{title}</StatItem>
       <StatItem variant="value" className="text-primary">
         <Counter to={value}></Counter>
       </StatItem>
@@ -42,8 +41,11 @@ function StatUnit({ title, value, desc, icon }: StatUnitProps) {
   );
 }
 
-export default async function Home() {
+export default async function Home({ params: { locale } }: LocaleProps) {
   const dbInfo = await getDatabaseInfo();
+  const gt = await getTranslator(locale, 'global');
+  const ht = await getTranslator(locale, 'pages.home');
+
   const { fileSize = '0MB', records } = dbInfo || {};
   const { user = 0, status = 0, retweetStatus = 0, rotn = 0 } = records || {};
   const fileSizeNum = +fileSize.split('MB')[0] || 0;
@@ -51,33 +53,33 @@ export default async function Home() {
 
   const statUnits: StatUnitProps[] = [
     {
-      title: 'Total DB FileSize',
+      title: ht('totalDbSize'),
       value: fileSizeNum,
       desc: 'MB',
       icon: <CubeIcon className={iconClass} />,
     },
     {
-      title: 'Total Users',
+      title: ht('totalUsers'),
       value: user,
-      desc: 'records',
+      desc: ht('records'),
       icon: <UsersIcon className={iconClass} />,
     },
     {
-      title: 'Total Statuses',
+      title: ht('totalStatuses'),
       value: status,
-      desc: 'records',
+      desc: ht('records'),
       icon: <InboxStackIcon className={iconClass} />,
     },
     {
-      title: 'Total Retweet Statuses',
+      title: ht('totalRetweetStatuses'),
       value: retweetStatus,
-      desc: 'records',
+      desc: ht('records'),
       icon: <InboxStackIcon className={iconClass} />,
     },
     {
-      title: 'Total ROTNs',
+      title: ht('totalRotns'),
       value: rotn,
-      desc: 'records',
+      desc: ht('records'),
       icon: <InboxStackIcon className={iconClass} />,
     },
   ];
@@ -85,18 +87,19 @@ export default async function Home() {
   return (
     <div className="page-home">
       <h1 className="mb-1 flex items-center text-2xl">
-        <CircleStackIcon className="mr-1 h-8 w-8" />
-        Database Info
+        <CircleStackIcon className="relative top-[-2px] mr-1 h-8 w-8" />
+        {ht('title')}
       </h1>
-      <Stats className="stats-vertical my-4 border shadow lg:stats-horizontal">
+      <Stats className="stats-vertical my-4 drop-shadow lg:stats-horizontal">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}
       </Stats>
-      <RouterRefresh auto>
-        <Button color="primary" className="flex">
+      <br />
+      <RouterRefresh>
+        <Button color="primary" className="flex" size="sm">
           <ArrowPathIcon className="mr-1" />
-          Refresh
+          {gt('action.refresh')}
         </Button>
       </RouterRefresh>
     </div>

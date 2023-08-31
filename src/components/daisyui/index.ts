@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Dropdown, Menu, Navbar, Stats, Tabs } from 'react-daisyui';
+import { Dropdown, Indicator, Menu, Navbar, Stats, Tabs } from 'react-daisyui';
 
 /* -------------------------------------------------------------------------- */
 /*                  FIXME: DO NOT support sub-compoennts yet                  */
@@ -24,16 +24,32 @@ const {
 } = Dropdown;
 const { Item: MenuItem } = Menu;
 const { Tab } = Tabs;
+const { Item: IndicatorItem } = Indicator;
 
 /* -------------------------------------------------------------------------- */
 /*                                 re-exports                                 */
 /* -------------------------------------------------------------------------- */
-export { Button, Divider, Drawer, Theme, useTheme } from 'react-daisyui';
+export {
+  Alert,
+  Badge,
+  Button,
+  Divider,
+  Drawer,
+  Join,
+  Loading,
+  Modal,
+  Theme,
+  Toast,
+  useTheme,
+} from 'react-daisyui';
+
 export {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Indicator,
+  IndicatorItem,
   Menu,
   MenuItem,
   Navbar,
@@ -46,3 +62,5 @@ export {
   Tab,
   Tabs,
 };
+
+export type { AlertProps, ModalProps, ToastProps } from 'react-daisyui';

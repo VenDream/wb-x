@@ -24,12 +24,14 @@ import {
   ChevronDownIcon,
   SwatchIcon,
 } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 import { useCallback, useEffect } from 'react';
 import './theme-change.sass';
 
 function ThemeConsumer() {
   const { theme, setTheme } = useTheme();
+  const t = useTranslations('global.theming');
 
   const applyTheme = useCallback(
     (t: string) => {
@@ -55,7 +57,7 @@ function ThemeConsumer() {
         <DropdownToggle button={false}>
           <Button color="ghost">
             <SwatchIcon />
-            <span className="text-sm">THEMES</span>
+            <span className="text-sm">{t('switcherLabel')}</span>
             <ChevronDownIcon />
           </Button>
         </DropdownToggle>
@@ -71,7 +73,7 @@ function ThemeConsumer() {
                   >
                     <div className="left-block flex w-2/3 items-center">
                       {isSelected ? (
-                        <CheckCircleIcon className="mr-1"></CheckCircleIcon>
+                        <CheckCircleIcon className="mr-1" />
                       ) : (
                         <div className="mr-1 h-5 w-5"></div>
                       )}
