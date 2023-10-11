@@ -9,7 +9,7 @@
 
 import EditConfig from './edit-config';
 
-export default async function Settings() {
+export default function Settings() {
   return (
     <div className="settings">
       <EditConfig />

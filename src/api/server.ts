@@ -9,25 +9,17 @@
 
 import { getApiHost } from '@/utils/api-host';
 import { get } from '@/utils/request';
+import { appendURLParams } from '@/utils/url';
 
-interface DbInfo {
-  /** db file size */
-  fileSize: string;
-  records: {
-    /** user records */
-    user: number;
-    /** status records */
-    status: number;
-    /** retweet status records */
-    retweetStatus: number;
-    /** rotn records */
-    rotn: number;
-  };
+export async function getDbUsers(params: PaginationParams) {
+  let url = getApiHost() + '/api/db/user/list';
+  url = appendURLParams(url, params);
+  const users = await get<Backend.UserList>(url);
+  return users;
 }
 
-/** get database info */
 export async function getDatabaseInfo() {
   const url = getApiHost() + '/api/db/info';
-  const info = await get<DbInfo>(url);
+  const info = await get<Backend.DbInfo>(url);
   return info;
 }

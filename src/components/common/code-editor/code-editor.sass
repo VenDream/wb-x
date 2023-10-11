@@ -3,6 +3,9 @@
 
   .code-editor__pre, .code-editor__textarea
     outline: none
+    -webkit-text-stroke: 0 !important
 
     & > pre
       @apply bg-base-100 #{!important}
+      & > code
+        font-family: monospace

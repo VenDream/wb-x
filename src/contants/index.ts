@@ -16,6 +16,7 @@ export const LANGS = {
 /** route paths */
 export const ROUTES = {
   HOME: '/',
+  USERS: '/users/list',
   SETTINGS: '/settings',
 };
 
@@ -23,6 +24,8 @@ export const ROUTES = {
 export const LS_KEYS = {
   THEME: 'WB_X_THEME',
 };
+
+export const PAGINATION_LIMIT = 10;
 
 /**
  * themes

@@ -8,10 +8,11 @@
  */
 
 import { ROUTES } from '@/contants';
-import { Cog6ToothIcon, HomeIcon } from '@heroicons/react/24/outline';
+import { Cog6ToothIcon, HomeIcon, UserIcon } from '@heroicons/react/24/outline';
 
 const ICONS: Record<keyof typeof ROUTES, React.ReactNode> = {
   HOME: <HomeIcon />,
+  USERS: <UserIcon />,
   SETTINGS: <Cog6ToothIcon />,
 };
 

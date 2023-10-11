@@ -2,6 +2,7 @@
   "global": {
     "pages": {
       "home": "首页",
+      "users": "用户",
       "settings": "设置"
     },
     "locale": {
@@ -28,7 +29,12 @@
       "title": "弹窗标题",
       "body": "弹窗内容"
     },
+    "paginator": {
+      "jumpTo": "跳至",
+      "page": "页"
+    },
     "misc": {
+      "notFound": "此页面不存在",
       "systemDown": "服务暂不可用",
       "routerRefreshSuccess": "刷新成功"
     }

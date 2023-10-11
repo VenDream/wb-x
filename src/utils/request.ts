@@ -61,6 +61,7 @@ export async function post<T = Record<string, any>>(
 ) {
   try {
     const res = await fetch(url, {
+      ...opts,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

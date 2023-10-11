@@ -31,13 +31,16 @@ const { Item: IndicatorItem } = Indicator;
 /* -------------------------------------------------------------------------- */
 export {
   Alert,
+  Avatar,
   Badge,
   Button,
   Divider,
   Drawer,
+  Input,
   Join,
   Loading,
   Modal,
+  Pagination,
   Theme,
   Toast,
   useTheme,

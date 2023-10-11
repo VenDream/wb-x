@@ -15,17 +15,27 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next-intl/client';
 import Link from 'next-intl/link';
+import { useCallback } from 'react';
 import ICONS from './icons';
 
 export default function Leftsider() {
   const pathname = usePathname();
   const t = useTranslations('global.pages');
 
+  const isActive = useCallback(
+    (routePath: string) => {
+      return routePath === '/'
+        ? pathname === routePath
+        : pathname.includes(routePath);
+    },
+    [pathname]
+  );
+
   return (
     <Menu className="text-base-conten h-full w-60 gap-2 bg-base-200 p-4">
       {Object.entries(ROUTES).map(([k, p]) => (
         <MenuItem key={k}>
-          <Link href={p} className={clsx({ active: p === pathname })}>
+          <Link href={p} className={clsx({ active: isActive(p) })}>
             {ICONS[k as keyof typeof ROUTES]} {t(k.toLowerCase())}
           </Link>
         </MenuItem>

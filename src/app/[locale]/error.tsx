@@ -30,7 +30,7 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error /** showErrorTips */]);
 
   return (
-    <div className="flex max-h-full min-h-[10rem] flex-col items-center justify-center rounded border border-error text-error">
+    <div className="flex max-h-full min-h-[10rem] flex-col items-center justify-center text-error">
       <div className="flex items-center text-lg">
         <XCircleIcon className="mr-1 h-6 w-6" />
         {t('misc.systemDown')} :(
