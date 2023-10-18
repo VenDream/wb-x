@@ -2,7 +2,9 @@
   "global": {
     "pages": {
       "home": "首页",
-      "users": "用户",
+      "weibo": "微博",
+      "rotn": "ROTN",
+      "user": "用户",
       "settings": "设置"
     },
     "locale": {
@@ -48,6 +50,13 @@
       "totalStatuses": "微博记录总数",
       "totalRetweetStatuses": "转发微博记录总数",
       "totalRotns": "ROTN记录总数"
+    },
+    "rotn": {
+      "type": {
+        "all": "全部",
+        "ro": "RO",
+        "tn": "TN"
+      }
     },
     "settings": {
       "sysConfig": {

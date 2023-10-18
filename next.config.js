@@ -13,6 +13,25 @@ const withNextIntl = require('next-intl/plugin')('./src/i18n.ts');
 const nextConfig = withNextIntl({
   reactStrictMode: true,
   transpilePackages: ['react-daisyui'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '*.esmplus.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.esmplus.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mk.dev.rabbitpre.com.cn',
+        port: '',
+      },
+    ],
+  },
   async rewrites() {
     return [
       {

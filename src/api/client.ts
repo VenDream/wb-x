@@ -8,6 +8,24 @@
  */
 
 import { get, post } from '@/utils/request';
+import { appendURLParams } from '@/utils/url';
+
+type ROTNPaginationParams = PaginationParams & {
+  type?: Backend.ROTN_TYPE;
+};
+
+/**
+ * get db rotns
+ *
+ * @export
+ * @param {ROTNPaginationParams} params params
+ */
+export async function getDbROTNs(params: ROTNPaginationParams) {
+  let url = '/api/db/rotn/list';
+  url = appendURLParams(url, params);
+  const items = await get<Backend.ROTNItemList>(url);
+  return items;
+}
 
 /** get system config */
 export async function getSystemConfig() {

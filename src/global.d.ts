@@ -21,6 +21,21 @@ declare global {
   }
 
   namespace Backend {
+    type ROTN_TYPE = 'ALL' | 'RO' | 'TN';
+
+    interface ROTNItem {
+      /** id */
+      id: string;
+      /** type */
+      type: Type;
+      /** item name */
+      name: string;
+      /** original url */
+      url: string;
+      /** item images */
+      images: string[];
+    }
+
     interface User {
       /** id */
       id: string;
@@ -51,6 +66,12 @@ declare global {
         /** rotn records */
         rotn: number;
       };
+    }
+
+    interface ROTNItemList {
+      items: ROTNItem[];
+      count: number;
+      total?: number;
     }
 
     interface UserList {

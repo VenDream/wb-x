@@ -2,7 +2,9 @@
   "global": {
     "pages": {
       "home": "Home",
-      "users": "Users",
+      "weibo": "Weibo",
+      "rotn": "ROTN",
+      "user": "User",
       "settings": "Settings"
     },
     "locale": {
@@ -48,6 +50,13 @@
       "totalStatuses": "Total Statuses",
       "totalRetweetStatuses": "Total Retweet Statuses",
       "totalRotns": "Total ROTNs"
+    },
+    "rotn": {
+      "type": {
+        "all": "ALL",
+        "ro": "RO",
+        "tn": "TN"
+      }
     },
     "settings": {
       "sysConfig": {

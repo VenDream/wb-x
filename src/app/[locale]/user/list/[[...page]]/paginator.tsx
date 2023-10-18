@@ -22,7 +22,7 @@ export default function Paginator(props: PaginatorProps) {
   const { total, pageSize, defaultCurrent } = props;
 
   const routeTo = (page: number) => {
-    const targetPage = ROUTES.USERS + '/' + page;
+    const targetPage = ROUTES.USER + '/' + page;
     router.push(targetPage);
   };
 

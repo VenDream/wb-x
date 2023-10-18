@@ -39,7 +39,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className="flex h-screen flex-col">
+      <body className="flex h-screen min-w-[980px] flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ToastProvider>
             <LayoutHeader />
