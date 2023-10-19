@@ -8,7 +8,7 @@
  */
 
 import { Avatar } from '@/components/daisyui';
-import React from 'react';
+import { STYLES } from '@/contants';
 
 interface UsersListProps {
   users: Backend.User[];
@@ -19,15 +19,6 @@ export const LOGO =
 
 export default function UsersList(props: UsersListProps) {
   const { users = [] } = props;
-
-  const ellipsisStyle: React.CSSProperties = {
-    overflow: 'hidden',
-    lineHeight: 1.5,
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
-  };
 
   return (
     <div className="mb-12 grid grid-cols-2 gap-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -55,8 +46,8 @@ export default function UsersList(props: UsersListProps) {
               <span className="mr-3">粉丝: {followersCount || 0}</span>
             </p>
             <p
-              className="mt-2 h-[3em] w-[80%] text-center text-xs text-gray-400"
-              style={ellipsisStyle}
+              className="mt-2 w-[80%] text-center text-xs text-gray-400"
+              style={STYLES.TWO_LINE_ELLIPSIS_TEXT}
               title={desc}
             >
               简介: {desc || '-'}

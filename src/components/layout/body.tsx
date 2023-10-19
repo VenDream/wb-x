@@ -21,7 +21,7 @@ export default function LayoutBody({ children }: ChildrenProps) {
         side={<Leftsider />}
         contentClassName="layout-content ml-4 p-4 overflow-auto"
       >
-        <div className="rounded text-base-content">{children}</div>
+        {children}
       </Drawer>
     </div>
   );

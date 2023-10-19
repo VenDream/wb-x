@@ -10,12 +10,15 @@
  */
 
 import { getDbROTNs } from '@/api/client';
+import Image from '@/components/common/image';
 import useToast from '@/components/common/toast';
 import { Loading, Tab, Tabs } from '@/components/daisyui';
-import { IMG_PLACEHOLDER, PAGINATION_LIMIT } from '@/contants';
+import { IMG_PLACEHOLDER, PAGINATION_LIMIT, STYLES } from '@/contants';
+import { useThrottleFn } from 'ahooks';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
+const SCROLL_LOADING_THRESHOLD = 200;
 
 export default function ROTN() {
   const t = useTranslations('pages.rotn');
@@ -29,9 +32,10 @@ export default function ROTN() {
   const fetchItems = useCallback(async () => {
     try {
       setIsLoading(true);
-      const offset = pageNo * PAGINATION_LIMIT;
+      const limit = PAGINATION_LIMIT * 2;
+      const offset = pageNo * limit;
       const { items } = await getDbROTNs({
-        limit: PAGINATION_LIMIT,
+        limit,
         offset,
         type: itemType,
       });
@@ -45,6 +49,17 @@ export default function ROTN() {
     }
   }, [itemType, pageNo, showErrorTips]);
 
+  const handleScrollLoading = (evt: React.MouseEvent<HTMLDivElement>) => {
+    const container = evt.target as HTMLDivElement;
+    if (!container || isLoading) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    if (scrollTop + clientHeight >= scrollHeight - SCROLL_LOADING_THRESHOLD) {
+      setPageNo(pageNo + 1);
+    }
+  };
+  const { run: onScroll } = useThrottleFn(handleScrollLoading, { wait: 300 });
+
   const switchItemType = (type: Backend.ROTN_TYPE) => {
     setItemType(type);
     setPageNo(0);
@@ -56,7 +71,7 @@ export default function ROTN() {
   }, [fetchItems]);
 
   return (
-    <div className="rotn-page">
+    <div className="rotn-page flex h-full flex-col">
       <Tabs boxed className="mb-4" value={itemType} onChange={switchItemType}>
         <Tab className="w-32" value="ALL">
           {t('type.all')}
@@ -68,27 +83,36 @@ export default function ROTN() {
           {t('type.tn')}
         </Tab>
       </Tabs>
-      <div className="item-list grid grid-cols-3 gap-4 lg:grid-cols-4 xl:grid-cols-5">
-        {items.map(item => (
-          <div key={item.id} className="item flex flex-col p-4 shadow">
-            <p>{'img' || item.name}</p>
-            <div className="item-imgs mt-4 flex gap-1">
-              {item.images.slice(0, 3).map((img, idx) => (
-                <div key={idx} className="relative h-20 w-20">
-                  <Image
-                    fill
-                    alt="ROTN_IMG"
-                    src={IMG_PLACEHOLDER || img}
-                    className="object-contain shadow"
-                    placeholder={IMG_PLACEHOLDER}
-                  />
-                </div>
-              ))}
+      <div
+        style={{ scrollbarGutter: 'stable' }}
+        className="item-list-wrapper flex-1 overflow-auto pr-4"
+        onScroll={onScroll}
+      >
+        <div className="item-list grid grid-cols-3 gap-6 xl:grid-cols-4">
+          {items.map(item => (
+            <div
+              key={item.id}
+              className="item flex flex-col rounded border p-4 transition-all hover:bg-base-200 hover:shadow"
+            >
+              <p style={STYLES.TWO_LINE_ELLIPSIS_TEXT}>{'IMG' || item.name}</p>
+              <div className="item-imgs mt-4 flex justify-around gap-1">
+                {item.images.slice(0, 3).map((img, imgIdx) => (
+                  <div key={imgIdx} className="relative h-20 w-16">
+                    <Image
+                      fill
+                      alt="IMG"
+                      sizes="4rem"
+                      src={IMG_PLACEHOLDER || img}
+                      className="rounded border object-cover p-1"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        {isLoading && <Loading size="lg" className="mt-4" />}
       </div>
-      {isLoading && <Loading size="lg" className="mt-4" />}
     </div>
   );
 }

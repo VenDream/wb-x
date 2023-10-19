@@ -7,6 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import React from 'react';
+
 /** locales */
 export const LANGS = {
   en: 'en-US',
@@ -67,3 +69,19 @@ export const THEMES = [
 
 export const IMG_PLACEHOLDER =
   'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiM4ODg4ODgiIGQ9Ik01IDIxcS0uODI1IDAtMS40MTMtLjU4OFQzIDE5VjVxMC0uODI1LjU4OC0xLjQxM1Q1IDNoMTRxLjgyNSAwIDEuNDEzLjU4OFQyMSA1djE0cTAgLjgyNS0uNTg4IDEuNDEzVDE5IDIxSDVabTAtMmgxNFY1SDV2MTRabTAgMFY1djE0Wm0yLTJoMTBxLjMgMCAuNDUtLjI3NXQtLjA1LS41MjVsLTIuNzUtMy42NzVxLS4xNS0uMi0uNC0uMnQtLjQuMkwxMS4yNSAxNkw5LjQgMTMuNTI1cS0uMTUtLjItLjQtLjJ0LS40LjJsLTIgMi42NzVxLS4yLjI1LS4wNS41MjVUNyAxN1ptMS41LTdxLjYyNSAwIDEuMDYzLS40MzhUMTAgOC41cTAtLjYyNS0uNDM4LTEuMDYzVDguNSA3cS0uNjI1IDAtMS4wNjMuNDM4VDcgOC41cTAgLjYyNS40MzggMS4wNjNUOC41IDEwWiIvPjwvc3ZnPg==';
+
+export const IMG_ERROR_PLACEHOLDER =
+  'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiM4ODg4ODgiIGQ9Ik01IDIxcS0uODI1IDAtMS40MTMtLjU4OFQzIDE5VjVxMC0uODI1LjU4OC0xLjQxM1Q1IDNoMTRxLjgyNSAwIDEuNDEzLjU4OFQyMSA1djE0cTAgLjgyNS0uNTg4IDEuNDEzVDE5IDIxSDVabTEtOC40MjVsNC00bDQgNGw0LTRsMSAxVjVINXY2LjU3NWwxIDFaTTUgMTloMTR2LTYuNmwtMS0xbC00IDRsLTQtNGwtNCA0bC0xLTFWMTlabTAgMHYtNi42djJWNXYxNFoiLz48L3N2Zz4=';
+
+export type PRESET_STYLE = 'TWO_LINE_ELLIPSIS_TEXT';
+export const STYLES: Record<PRESET_STYLE, React.CSSProperties> = {
+  TWO_LINE_ELLIPSIS_TEXT: {
+    overflow: 'hidden',
+    lineHeight: 1.5,
+    height: '3em',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+  },
+};
