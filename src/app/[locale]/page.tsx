@@ -41,7 +41,7 @@ function StatUnit({ title, value, desc, icon }: StatUnitProps) {
   );
 }
 
-export default async function Home({ params: { locale } }: LocaleProps) {
+export default async function Page({ params: { locale } }: LocaleProps) {
   const dbInfo = await getDatabaseInfo();
   const gt = await getTranslator(locale, 'global');
   const ht = await getTranslator(locale, 'pages.home');

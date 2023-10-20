@@ -14,26 +14,18 @@ type ROTNPaginationParams = PaginationParams & {
   type?: Backend.ROTN_TYPE;
 };
 
-/**
- * get db rotns
- *
- * @export
- * @param {ROTNPaginationParams} params params
- */
-export async function getDbROTNs(params: ROTNPaginationParams) {
+export async function getDbRotnList(params: ROTNPaginationParams) {
   let url = '/api/db/rotn/list';
   url = appendURLParams(url, params);
   const items = await get<Backend.ROTNItemList>(url);
   return items;
 }
 
-/** get system config */
 export async function getSystemConfig() {
   const config = await get<string>('/api/config');
   return config;
 }
 
-/** save system config */
 export async function saveSystemConfig(configStr: string) {
   const rlt = await post('/api/config', { config: configStr });
   return rlt;

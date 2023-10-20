@@ -12,7 +12,7 @@
 import IPaginator, {
   PaginatorProps as IPaginatorProps,
 } from '@/components/common/paginator';
-import { ROUTES } from '@/contants';
+import { MAIN_ROUTES } from '@/contants';
 import { useRouter } from 'next/navigation';
 
 type PaginatorProps = Omit<IPaginatorProps, 'onCurrentPageChange'>;
@@ -22,7 +22,7 @@ export default function Paginator(props: PaginatorProps) {
   const { total, pageSize, defaultCurrent } = props;
 
   const routeTo = (page: number) => {
-    const targetPage = ROUTES.USER + '/' + page;
+    const targetPage = MAIN_ROUTES.USER + '/' + page;
     router.push(targetPage);
   };
 

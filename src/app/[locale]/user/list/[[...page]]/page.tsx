@@ -13,7 +13,7 @@ import { notFound } from 'next/navigation';
 import Paginator from './paginator';
 import UsersList from './user-list';
 
-export default async function Users({ params }: ParamsBody) {
+export default async function Page({ params }: ParamsBody) {
   const { page = 1 } = params;
   if (page && isNaN(page)) notFound();
 

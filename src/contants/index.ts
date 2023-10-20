@@ -15,13 +15,18 @@ export const LANGS = {
   zh: 'zh-CN',
 };
 
-/** route paths */
-export const ROUTES = {
+/** main route paths */
+export const MAIN_ROUTES = {
   HOME: '/',
   WEIBO: '/status/list',
   ROTN: '/rotn/list',
   USER: '/user/list',
   SETTINGS: '/settings',
+};
+
+/** secondary route paths */
+export const SECONDARY_ROUTES = {
+  ROTN_ITEM_DETAIL: '/rotn/item',
 };
 
 /** localStorage keys */

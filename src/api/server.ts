@@ -11,6 +11,13 @@ import { getApiHost } from '@/utils/api-host';
 import { get } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
+export async function getDbRotnItem(id: string) {
+  let url = getApiHost() + '/api/db/rotn';
+  url = appendURLParams(url, { id });
+  const item = await get<Backend.ROTNItem>(url);
+  return item;
+}
+
 export async function getDbUsers(params: PaginationParams) {
   let url = getApiHost() + '/api/db/user/list';
   url = appendURLParams(url, params);

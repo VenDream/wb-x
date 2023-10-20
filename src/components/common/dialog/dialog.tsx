@@ -9,7 +9,14 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Modal, ModalProps } from '@/components/daisyui';
+import {
+  Button,
+  Modal,
+  ModalActions,
+  ModalBody,
+  ModalHeader,
+  ModalProps,
+} from '@/components/daisyui';
 import {
   ExclamationCircleIcon,
   InformationCircleIcon,
@@ -80,12 +87,12 @@ export default function useDialog() {
 
       return (
         <IDialog className="rounded-md" {...dialogProps}>
-          <Modal.Header className="flex items-center text-base">
+          <ModalHeader className="flex items-center text-base">
             {icon}
             {title}
-          </Modal.Header>
-          <Modal.Body className="text-sm">{body}</Modal.Body>
-          <Modal.Actions>
+          </ModalHeader>
+          <ModalBody className="text-sm">{body}</ModalBody>
+          <ModalActions>
             {!hideCancelBtn && (
               <Button size="sm" onClick={cancel}>
                 {cancelBtnLabel}
@@ -96,7 +103,7 @@ export default function useDialog() {
                 {okBtnLabel}
               </Button>
             )}
-          </Modal.Actions>
+          </ModalActions>
         </IDialog>
       );
     },

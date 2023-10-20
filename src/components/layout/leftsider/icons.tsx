@@ -7,10 +7,10 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { ROUTES } from '@/contants';
+import { MAIN_ROUTES } from '@/contants';
 import { Cog6ToothIcon, HomeIcon, UserIcon } from '@heroicons/react/24/outline';
 
-const ICONS: Record<keyof typeof ROUTES, React.ReactNode> = {
+const ICONS: Record<keyof typeof MAIN_ROUTES, React.ReactNode> = {
   HOME: <HomeIcon />,
   WEIBO: (
     <svg

@@ -15,7 +15,7 @@ import {
   NavbarEnd,
   NavbarStart,
 } from '@/components/daisyui';
-import { ROUTES } from '@/contants';
+import { MAIN_ROUTES } from '@/contants';
 import Link from 'next-intl/link';
 import LocaleChange from './locale-change';
 import ThemeChange from './theme-change';
@@ -31,7 +31,7 @@ export default function Header() {
           >
             x
           </Badge>
-          <Link href={ROUTES.HOME}>
+          <Link href={MAIN_ROUTES.HOME}>
             <Button color="ghost" size="md" className="text-2xl font-bold">
               @W__B
             </Button>

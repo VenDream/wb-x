@@ -56,7 +56,8 @@
         "all": "全部",
         "ro": "RO",
         "tn": "TN"
-      }
+      },
+      "sourceURL": "源链接"
     },
     "settings": {
       "sysConfig": {

@@ -9,7 +9,15 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Dropdown, Indicator, Menu, Navbar, Stats, Tabs } from 'react-daisyui';
+import {
+  Dropdown,
+  Indicator,
+  Menu,
+  Modal,
+  Navbar,
+  Stats,
+  Tabs,
+} from 'react-daisyui';
 
 /* -------------------------------------------------------------------------- */
 /*                  FIXME: DO NOT support sub-compoennts yet                  */
@@ -25,6 +33,12 @@ const {
 const { Item: MenuItem } = Menu;
 const { Tab } = Tabs;
 const { Item: IndicatorItem } = Indicator;
+const {
+  Header: ModalHeader,
+  Body: ModalBody,
+  Actions: ModalActions,
+  Legacy: ModalLegacy,
+} = Modal;
 
 /* -------------------------------------------------------------------------- */
 /*                                 re-exports                                 */
@@ -39,7 +53,6 @@ export {
   Input,
   Join,
   Loading,
-  Modal,
   Pagination,
   Theme,
   Toast,
@@ -55,6 +68,11 @@ export {
   IndicatorItem,
   Menu,
   MenuItem,
+  Modal,
+  ModalActions,
+  ModalBody,
+  ModalHeader,
+  ModalLegacy,
   Navbar,
   NavbarCenter,
   NavbarEnd,

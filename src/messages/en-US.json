@@ -56,7 +56,8 @@
         "all": "ALL",
         "ro": "RO",
         "tn": "TN"
-      }
+      },
+      "sourceURL": "Source URL"
     },
     "settings": {
       "sysConfig": {

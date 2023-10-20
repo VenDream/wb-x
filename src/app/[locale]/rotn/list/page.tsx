@@ -9,18 +9,24 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDbROTNs } from '@/api/client';
+import { getDbRotnList } from '@/api/client';
 import Image from '@/components/common/image';
 import useToast from '@/components/common/toast';
 import { Loading, Tab, Tabs } from '@/components/daisyui';
-import { IMG_PLACEHOLDER, PAGINATION_LIMIT, STYLES } from '@/contants';
+import {
+  IMG_PLACEHOLDER,
+  PAGINATION_LIMIT,
+  SECONDARY_ROUTES,
+  STYLES,
+} from '@/contants';
 import { useThrottleFn } from 'ahooks';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const SCROLL_LOADING_THRESHOLD = 200;
 
-export default function ROTN() {
+export default function Page() {
   const t = useTranslations('pages.rotn');
   const { showErrorTips } = useToast();
 
@@ -34,7 +40,7 @@ export default function ROTN() {
       setIsLoading(true);
       const limit = PAGINATION_LIMIT * 2;
       const offset = pageNo * limit;
-      const { items } = await getDbROTNs({
+      const { items } = await getDbRotnList({
         limit,
         offset,
         type: itemType,
@@ -61,6 +67,8 @@ export default function ROTN() {
   const { run: onScroll } = useThrottleFn(handleScrollLoading, { wait: 300 });
 
   const switchItemType = (type: Backend.ROTN_TYPE) => {
+    if (type === itemType) return;
+
     setItemType(type);
     setPageNo(0);
     setItems([]);
@@ -90,25 +98,29 @@ export default function ROTN() {
       >
         <div className="item-list grid grid-cols-3 gap-6 xl:grid-cols-4">
           {items.map(item => (
-            <div
+            <Link
               key={item.id}
-              className="item flex flex-col rounded border p-4 transition-all hover:bg-base-200 hover:shadow"
+              href={`${SECONDARY_ROUTES.ROTN_ITEM_DETAIL}/${item.id}`}
             >
-              <p style={STYLES.TWO_LINE_ELLIPSIS_TEXT}>{'IMG' || item.name}</p>
-              <div className="item-imgs mt-4 flex justify-around gap-1">
-                {item.images.slice(0, 3).map((img, imgIdx) => (
-                  <div key={imgIdx} className="relative h-20 w-16">
-                    <Image
-                      fill
-                      alt="IMG"
-                      sizes="4rem"
-                      src={IMG_PLACEHOLDER || img}
-                      className="rounded border object-cover p-1"
-                    />
-                  </div>
-                ))}
+              <div className="item flex flex-col rounded border p-4 transition-all hover:bg-base-200 hover:shadow">
+                <p style={STYLES.TWO_LINE_ELLIPSIS_TEXT}>
+                  {'IMG' || item.name}
+                </p>
+                <div className="item-imgs mt-4 flex justify-around gap-1">
+                  {item.images.slice(0, 3).map((img, imgIdx) => (
+                    <div key={imgIdx} className="relative h-20 w-16">
+                      <Image
+                        fill
+                        alt="IMG"
+                        sizes="4rem"
+                        src={IMG_PLACEHOLDER || img}
+                        className="rounded border object-cover p-1"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         {isLoading && <Loading size="lg" className="mt-4" />}
