@@ -59,6 +59,11 @@
       },
       "sourceURL": "源链接"
     },
+    "user": {
+      "follows": "关注",
+      "followers": "粉丝",
+      "desc": "简介"
+    },
     "settings": {
       "sysConfig": {
         "title": "保存配置",

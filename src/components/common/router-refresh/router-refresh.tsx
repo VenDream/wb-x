@@ -10,9 +10,9 @@
  */
 
 import useToast from '@/components/common/toast';
+import { useRouter } from '@/navigation';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 type RouterRefreshProps = ChildrenProps<{

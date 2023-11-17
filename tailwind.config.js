@@ -1,3 +1,12 @@
+/*
+ * Tailwind Config
+ *
+ * @Author: VenDream
+ * @Date: 2023-08-24 17:19:21
+ *
+ * Copyright © 2023 VenDream. All Rights Reserved.
+ */
+
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */

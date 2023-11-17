@@ -11,7 +11,7 @@
 
 import RotnItem from '@/app/[locale]/rotn/item/[id]/item';
 import { ModalBody, ModalHeader, ModalLegacy } from '@/components/daisyui';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 
 interface RotnItemDetailModalProps {
   item: Backend.ROTNItem;

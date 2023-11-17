@@ -1,8 +1,8 @@
 /*
- * @Todo: 请补充模块描述
+ * Next Config
  *
  * @Author: VenDream
- * @Date: 2023-11-17 11:49:41
+ * @Date: 2023-11-17 16:58:00
  *
  * Copyright © 2023 VenDream. All Rights Reserved.
  */

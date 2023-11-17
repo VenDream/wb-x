@@ -9,6 +9,7 @@
 
 import { Avatar } from '@/components/daisyui';
 import { STYLES } from '@/contants';
+import { useTranslations } from 'next-intl';
 
 interface UsersListProps {
   users: Backend.User[];
@@ -19,6 +20,7 @@ export const LOGO =
 
 export default function UsersList(props: UsersListProps) {
   const { users = [] } = props;
+  const t = useTranslations('pages.user');
 
   return (
     <div className="mb-12 grid grid-cols-2 gap-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -42,15 +44,19 @@ export default function UsersList(props: UsersListProps) {
               {name || '-'}
             </p>
             <p className="mt-2 w-[80%] text-center text-xs text-gray-400">
-              <span className="mr-3">关注: {followCount || 0}</span>
-              <span className="mr-3">粉丝: {followersCount || 0}</span>
+              <span className="mr-3">
+                {t('follows')}: {followCount || 0}
+              </span>
+              <span className="mr-3">
+                {t('followers')}: {followersCount || 0}
+              </span>
             </p>
             <p
               className="mt-2 w-[80%] text-center text-xs text-gray-400"
               style={STYLES.TWO_LINE_ELLIPSIS_TEXT}
               title={desc}
             >
-              简介: {desc || '-'}
+              {t('desc')}: {desc || '-'}
             </p>
           </div>
         );

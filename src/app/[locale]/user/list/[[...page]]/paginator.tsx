@@ -13,7 +13,7 @@ import IPaginator, {
   PaginatorProps as IPaginatorProps,
 } from '@/components/common/paginator';
 import { MAIN_ROUTES } from '@/contants';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 
 type PaginatorProps = Omit<IPaginatorProps, 'onCurrentPageChange'>;
 

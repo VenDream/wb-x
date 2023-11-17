@@ -59,6 +59,11 @@
       },
       "sourceURL": "Source URL"
     },
+    "user": {
+      "follows": "follows",
+      "followers": "followers",
+      "desc": "desc"
+    },
     "settings": {
       "sysConfig": {
         "title": "Save Config",
