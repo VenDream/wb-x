@@ -13,8 +13,7 @@ import { Menu, MenuItem } from '@/components/daisyui';
 import { MAIN_ROUTES } from '@/contants';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { usePathname } from 'next-intl/client';
-import Link from 'next-intl/link';
+import { Link, usePathname } from '@/navigation';
 import { useCallback } from 'react';
 import ICONS from './icons';
 

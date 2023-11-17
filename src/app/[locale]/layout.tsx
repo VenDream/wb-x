@@ -13,7 +13,10 @@ import { ToastProvider } from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS } from '@/contants';
 import { NextIntlClientProvider } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+
+const locales = Object.values(LANGS);
 
 export const metadata = {
   title: 'WB-X',
@@ -21,7 +24,7 @@ export const metadata = {
 };
 
 export function generateStaticParams() {
-  return Object.values(LANGS).map(locale => ({
+  return locales.map(locale => ({
     locale,
   }));
 }
@@ -30,6 +33,8 @@ export default async function RootLayout({
   children,
   params: { locale },
 }: ChildrenProps) {
+  if (!locales.includes(locale)) notFound();
+
   let messages;
   try {
     messages = (await import(`../../messages/${locale}.json`)).default;
@@ -37,16 +42,18 @@ export default async function RootLayout({
     notFound();
   }
 
+  unstable_setRequestLocale(locale);
+
   return (
     <html lang={locale}>
-      <body className="flex h-screen min-w-[980px] flex-col">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider messages={messages}>
+        <body className="flex h-screen min-w-[980px] flex-col">
           <ToastProvider>
             <LayoutHeader />
             <LayoutBody>{children}</LayoutBody>
           </ToastProvider>
-        </NextIntlClientProvider>
-      </body>
+        </body>
+      </NextIntlClientProvider>
     </html>
   );
 }

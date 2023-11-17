@@ -2,12 +2,12 @@
  * @Todo: 请补充模块描述
  *
  * @Author: VenDream
- * @Date: 2023-09-07 13:49:37
+ * @Date: 2023-11-17 11:49:41
  *
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-const withNextIntl = require('next-intl/plugin')('./src/i18n.ts');
+const withNextIntl = require('next-intl/plugin')();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withNextIntl({
@@ -31,6 +31,16 @@ const nextConfig = withNextIntl({
         port: '',
       },
     ],
+  },
+  webpack: function (config) {
+    config.module.rules.push({
+      test: /\.m?js$/,
+      type: 'javascript/auto',
+      resolve: {
+        fullySpecified: false,
+      },
+    });
+    return config;
   },
   async rewrites() {
     return [

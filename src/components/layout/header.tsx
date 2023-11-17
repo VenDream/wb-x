@@ -16,7 +16,7 @@ import {
   NavbarStart,
 } from '@/components/daisyui';
 import { MAIN_ROUTES } from '@/contants';
-import Link from 'next-intl/link';
+import { Link } from '@/navigation';
 import LocaleChange from './locale-change';
 import ThemeChange from './theme-change';
 

@@ -17,14 +17,13 @@ import {
   DropdownToggle,
 } from '@/components/daisyui';
 import { LANGS } from '@/contants';
+import { Link, usePathname } from '@/navigation';
 import {
   CheckCircleIcon,
   ChevronDownIcon,
   LanguageIcon,
 } from '@heroicons/react/24/outline';
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname } from 'next-intl/client';
-import Link from 'next-intl/link';
 import Image from 'next/image';
 
 const Flags: Record<keyof typeof LANGS, string> = {

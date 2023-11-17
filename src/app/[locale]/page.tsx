@@ -18,7 +18,7 @@ import {
   InboxStackIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
-import { getTranslator } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import React from 'react';
 
 interface StatUnitProps {
@@ -43,8 +43,8 @@ function StatUnit({ title, value, desc, icon }: StatUnitProps) {
 
 export default async function Page({ params: { locale } }: LocaleProps) {
   const dbInfo = await getDatabaseInfo();
-  const gt = await getTranslator(locale, 'global');
-  const ht = await getTranslator(locale, 'pages.home');
+  const gt = await getTranslations({ locale, namespace: 'global' });
+  const ht = await getTranslations({ locale, namespace: 'pages.home' });
 
   const { fileSize = '0MB', records } = dbInfo || {};
   const { user = 0, status = 0, retweetStatus = 0, rotn = 0 } = records || {};

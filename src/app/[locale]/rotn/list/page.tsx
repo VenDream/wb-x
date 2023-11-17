@@ -19,9 +19,9 @@ import {
   SECONDARY_ROUTES,
   STYLES,
 } from '@/contants';
+import { Link } from '@/navigation';
 import { useThrottleFn } from 'ahooks';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const SCROLL_LOADING_THRESHOLD = 200;

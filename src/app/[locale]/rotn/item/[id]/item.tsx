@@ -35,10 +35,9 @@ export default function RotnItem(props: RotnItemProps) {
           <div key={idx} className="image-item">
             <Image
               autoSize
-              // width={400}
-              src={!IMG_PLACEHOLDER || image}
+              src={IMG_PLACEHOLDER || image}
               alt="IMG"
-              className="invisible object-contain p-1"
+              className="min-w-[40em] object-contain p-1"
             />
           </div>
         ))}
