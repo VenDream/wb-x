@@ -27,6 +27,11 @@
       "loading": "加载中",
       "retry": "重试"
     },
+    "dataFetching": {
+      "noMore": "没有更多数据了",
+      "noData": "暂无数据",
+      "loadMore": "加载更多"
+    },
     "dialog": {
       "title": "弹窗标题",
       "body": "弹窗内容"

@@ -11,18 +11,20 @@ import Image from '@/components/common/image';
 import { IMG_PLACEHOLDER } from '@/contants';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import React from 'react';
 
 interface RotnItemProps {
+  title?: React.ReactNode;
   item: Backend.ROTNItem;
 }
 
 export default function RotnItem(props: RotnItemProps) {
-  const { item } = props;
+  const { title, item } = props;
   const t = useTranslations('pages.rotn');
 
   return (
     <div className="rotn-item">
-      <h1 className="text-lg">ROTN - No.{item.id}</h1>
+      {title || <h1 className="text-lg">ROTN - No.{item.id}</h1>}
       <p className="mt-4">{item.name}</p>
       <p className="mt-4 text-sm">
         {t('sourceURL')}：

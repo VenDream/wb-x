@@ -48,7 +48,11 @@ function ThemeConsumer() {
 
   useEffect(() => {
     const t = window.localStorage.getItem(LS_KEYS.THEME);
-    if (t) applyTheme(t);
+    t && applyTheme(t);
+    setTimeout(() => {
+      const root = document.getElementsByTagName('html')[0];
+      root.classList.remove('rendering');
+    });
   }, [applyTheme]);
 
   return (

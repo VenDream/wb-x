@@ -8,6 +8,55 @@
       Proxima Nova,
       system-ui,
       sans-serif;
+
+    .loading-mask {
+      display: none;
+    }
+
+    &.rendering {
+      .layout-header,
+      .layout-body {
+        display: none;
+      }
+
+      .loading-mask {
+        display: flex;
+      }
+    }
+
+    &::-webkit-scrollbar,
+    & *::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb,
+    & *::-webkit-scrollbar-thumb {
+      @apply rounded bg-gray-200;
+    }
+
+    &::-webkit-scrollbar-track,
+    & *::-webkit-scrollbar-track {
+      @apply rounded bg-gray-100;
+    }
+
+    &[data-theme='dark'],
+    &[data-theme='synthwave'],
+    &[data-theme='halloween'],
+    &[data-theme='forest'],
+    &[data-theme='aqua'],
+    &[data-theme='black'],
+    &[data-theme='luxury'],
+    &[data-theme='dracula'],
+    &[data-theme='business'],
+    &[data-theme='night'],
+    &[data-theme='coffee'] {
+      &::-webkit-scrollbar-thumb,
+      & *::-webkit-scrollbar-thumb,
+      &::-webkit-scrollbar-track,
+      & *::-webkit-scrollbar-track {
+        @apply bg-opacity-10;
+      }
+    }
   }
 }
 
@@ -17,4 +66,8 @@ svg {
 
 .btn {
   font-weight: 500;
+}
+
+.border-regular {
+  @apply border border-base-content border-opacity-10;
 }

@@ -27,6 +27,11 @@
       "loading": "Loading",
       "retry": "Retry"
     },
+    "dataFetching": {
+      "noMore": "No more data",
+      "noData": "Empty data",
+      "loadMore": "Load more"
+    },
     "dialog": {
       "title": "Dialog Title",
       "body": "Dialog Body"

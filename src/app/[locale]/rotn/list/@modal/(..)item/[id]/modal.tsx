@@ -26,11 +26,13 @@ export default function RotnItemDetailModal(props: RotnItemDetailModalProps) {
       open
       onClickBackdrop={router.back}
       style={{ scrollbarGutter: 'stable' }}
-      className="w-11/12 max-w-5xl overflow-auto"
+      className="rotn-item-modal h-3/4 w-3/4 max-w-5xl overflow-auto rounded-md"
     >
-      <ModalHeader>ROTN - No.{item.id}</ModalHeader>
       <ModalBody>
-        <RotnItem item={item} />
+        <RotnItem
+          item={item}
+          title={<ModalHeader>ROTN - No.{item.id}</ModalHeader>}
+        />
       </ModalBody>
     </ModalLegacy>
   );

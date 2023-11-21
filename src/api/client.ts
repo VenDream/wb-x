@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { sleep } from '@/utils/common';
 import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
@@ -17,6 +18,7 @@ type ROTNPaginationParams = PaginationParams & {
 export async function getDbRotnList(params: ROTNPaginationParams) {
   let url = '/api/db/rotn/list';
   url = appendURLParams(url, params);
+  await sleep(500);
   const items = await get<Backend.ROTNItemList>(url);
   return items;
 }

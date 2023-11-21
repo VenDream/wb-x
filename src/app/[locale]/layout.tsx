@@ -45,13 +45,16 @@ export default async function RootLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="rendering">
       <NextIntlClientProvider messages={messages}>
-        <body className="flex h-screen min-w-[980px] flex-col">
+        <body className="flex h-screen min-w-[1200px] flex-col overflow-hidden">
           <ToastProvider>
             <LayoutHeader />
             <LayoutBody>{children}</LayoutBody>
           </ToastProvider>
+          <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
+            <div className="loading loading-dots text-gray-500"></div>
+          </div>
         </body>
       </NextIntlClientProvider>
     </html>

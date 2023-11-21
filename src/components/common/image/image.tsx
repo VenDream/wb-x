@@ -72,12 +72,14 @@ export default function CommonImage(props: NextImageProps) {
     detect();
   }, [autoSize, imgSize, restProps.fill, src]);
 
+  const isPlaceholder = imgSrc === IMG_PLACEHOLDER;
+
   return (
     <NextImage
       {...restProps}
       {...imgSize}
       src={imgSrc}
-      placeholder={placeholder}
+      placeholder={isPlaceholder ? 'empty' : placeholder}
       onError={() => setImgSrc(IMG_ERROR_PLACEHOLDER)}
     />
   );
