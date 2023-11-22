@@ -8,41 +8,60 @@
  */
 
 import Image from '@/components/common/image';
-import { IMG_PLACEHOLDER } from '@/contants';
+import { Breadcrumbs, BreadcrumbsItem } from '@/components/daisyui';
+import { IMG_PLACEHOLDER, MAIN_ROUTES } from '@/contants';
+import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
-import React from 'react';
 
 interface RotnItemProps {
-  title?: React.ReactNode;
   item: Backend.ROTNItem;
+  hideBreadcrumbs?: boolean;
 }
 
 export default function RotnItem(props: RotnItemProps) {
-  const { title, item } = props;
-  const t = useTranslations('pages.rotn');
+  const { item, hideBreadcrumbs } = props;
+  const t1 = useTranslations('pages.rotn');
+  const t2 = useTranslations('global.pages');
 
   return (
-    <div className="rotn-item">
-      {title || <h1 className="text-lg">ROTN - No.{item.id}</h1>}
-      <p className="mt-4">{item.name}</p>
-      <p className="mt-4 text-sm">
-        {t('sourceURL')}：
-        <Link href={item.url} target="_blank" className="link">
-          {item.url}
-        </Link>
-      </p>
-      <div className="image-list flex flex-col">
-        {item.images.map((image, idx) => (
-          <div key={idx} className="image-item">
-            <Image
-              autoSize
-              src={IMG_PLACEHOLDER || image}
-              alt="IMG"
-              className="min-w-[40em] object-contain p-1"
-            />
-          </div>
-        ))}
+    <div className="rotn-item flex h-full flex-1 flex-col">
+      {hideBreadcrumbs ? (
+        <p className="mb-2 rounded bg-base-200 p-2">
+          {item.type} - {item.id}
+        </p>
+      ) : (
+        <Breadcrumbs className="mb-4 rounded bg-base-200 px-2">
+          <BreadcrumbsItem>
+            <Link href={MAIN_ROUTES.ROTN}>{t2('rotn')}</Link>
+          </BreadcrumbsItem>
+          <BreadcrumbsItem>
+            {item.type} - {item.id}
+          </BreadcrumbsItem>
+        </Breadcrumbs>
+      )}
+      <div
+        className="flex-1 overflow-auto px-2"
+        style={{ scrollbarGutter: 'stable' }}
+      >
+        <p className="mt-4">{item.name}</p>
+        <p className="mt-4 text-sm">
+          {t1('sourceURL')}：
+          <Link href={item.url} target="_blank" className="link">
+            {item.url}
+          </Link>
+        </p>
+        <div className="image-list flex flex-col">
+          {item.images.map((image, idx) => (
+            <div key={idx} className="image-item">
+              <Image
+                autoSize
+                src={IMG_PLACEHOLDER || image}
+                alt="IMG"
+                className="min-w-[40em] object-contain p-1"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

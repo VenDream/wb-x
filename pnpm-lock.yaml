@@ -5,9 +5,9 @@ overrides:
 
 specifiers:
   '@heroicons/react': ^2.0.18
-  '@types/node': 20.9.3
+  '@types/node': 20.9.4
   '@types/react': 18.2.38
-  '@types/react-dom': 18.2.16
+  '@types/react-dom': 18.2.17
   ahooks: ^3.7.8
   autoprefixer: 10.4.16
   clsx: ^2.0.0
@@ -60,9 +60,9 @@ dependencies:
   tailwindcss: 3.3.5
 
 devDependencies:
-  '@types/node': 20.9.3
+  '@types/node': 20.9.4
   '@types/react': 18.2.38
-  '@types/react-dom': 18.2.16
+  '@types/react-dom': 18.2.17
   autoprefixer: 10.4.16_postcss@8.4.31
   commitizen: 4.3.0
   cross-env: 7.0.3
@@ -152,15 +152,15 @@ packages:
       '@commitlint/execute-rule': 17.4.0
       '@commitlint/resolve-extends': 17.4.4
       '@commitlint/types': 17.4.4
-      '@types/node': 20.9.3
+      '@types/node': 20.9.4
       chalk: 4.1.2
       cosmiconfig: 8.1.3
-      cosmiconfig-typescript-loader: 4.3.0_7cxfp4zfxihjbidzzgdig4irey
+      cosmiconfig-typescript-loader: 4.3.0_3fnmti6y62orzeuserau2e27uq
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
-      ts-node: 10.9.1_iw6jm5eqcmsh4b74y3ocu2mca4
+      ts-node: 10.9.1_5xa7ann3nsiih6eik7qmdfv2xe
       typescript: 5.3.2
     transitivePeerDependencies:
       - '@swc/core'
@@ -741,8 +741,8 @@ packages:
       '@types/unist': 3.0.0
     dev: false
 
-  /@types/node/20.9.3:
-    resolution: {integrity: sha512-nk5wXLAXGBKfrhLB0cyHGbSqopS+nz0BUgZkUQqSHSSgdee0kssp1IAqlQOu333bW+gMNs2QREx7iynm19Abxw==}
+  /@types/node/20.9.4:
+    resolution: {integrity: sha512-wmyg8HUhcn6ACjsn8oKYjkN/zUzQeNtMy44weTJSM6p4MMzEOuKbA3OjJ267uPCOW7Xex9dyrNTful8XTQYoDA==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -750,8 +750,8 @@ packages:
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
-  /@types/react-dom/18.2.16:
-    resolution: {integrity: sha512-766c37araZ9vxtYs25gvY2wNdFWsT2ZiUvOd0zMhTaoGj6B911N8CKQWgXXJoPMLF3J82thpRqQA7Rf3rBwyJw==}
+  /@types/react-dom/18.2.17:
+    resolution: {integrity: sha512-rvrT/M7Df5eykWFxn6MYt5Pem/Dbyc1N8Y0S9Mrkw2WFCRiqUgw9P7ul2NpwsXCSM1DVdENzdG9J5SreqfAIWg==}
     dependencies:
       '@types/react': 18.2.38
     dev: true
@@ -1374,7 +1374,7 @@ packages:
     resolution: {integrity: sha512-SmmCYnOniSsAa9GqWOeLqc179lfr5TRu5b4QFDkbsrJ5TZjPJx85wtOr3zn+1dbeNiXDKGPbZ72IKbPhLXh/Lg==}
     dev: true
 
-  /cosmiconfig-typescript-loader/4.3.0_7cxfp4zfxihjbidzzgdig4irey:
+  /cosmiconfig-typescript-loader/4.3.0_3fnmti6y62orzeuserau2e27uq:
     resolution: {integrity: sha512-NTxV1MFfZDLPiBMjxbHRwSh5LaLcPMwNdCutmnHJCKoVnlvldPWlllonKwrsRJ5pYZBIBGRWWU2tfvzxgeSW5Q==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -1383,9 +1383,9 @@ packages:
       ts-node: '>=10'
       typescript: '>=3'
     dependencies:
-      '@types/node': 20.9.3
+      '@types/node': 20.9.4
       cosmiconfig: 8.1.3
-      ts-node: 10.9.1_iw6jm5eqcmsh4b74y3ocu2mca4
+      ts-node: 10.9.1_5xa7ann3nsiih6eik7qmdfv2xe
       typescript: 5.3.2
     dev: true
     optional: true
@@ -4589,7 +4589,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: false
 
-  /ts-node/10.9.1_iw6jm5eqcmsh4b74y3ocu2mca4:
+  /ts-node/10.9.1_5xa7ann3nsiih6eik7qmdfv2xe:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -4608,7 +4608,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.9.3
+      '@types/node': 20.9.4
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3

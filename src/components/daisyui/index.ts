@@ -10,6 +10,7 @@
  */
 
 import {
+  Breadcrumbs,
   Dropdown,
   Indicator,
   Menu,
@@ -33,6 +34,7 @@ const {
 const { Item: MenuItem } = Menu;
 const { Tab } = Tabs;
 const { Item: IndicatorItem } = Indicator;
+const { Item: BreadcrumbsItem } = Breadcrumbs;
 const {
   Header: ModalHeader,
   Body: ModalBody,
@@ -60,6 +62,8 @@ export {
 } from 'react-daisyui';
 
 export {
+  Breadcrumbs,
+  BreadcrumbsItem,
   Dropdown,
   DropdownItem,
   DropdownMenu,

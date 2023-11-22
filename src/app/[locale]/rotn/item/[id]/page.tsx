@@ -15,7 +15,7 @@ export default async function Page({ params }: ParamsBody) {
   const item = await getDbRotnItem(id);
 
   return (
-    <div className="rotn-item-detail">
+    <div className="rotn-item-detail h-full">
       <RotnItem item={item} />
     </div>
   );

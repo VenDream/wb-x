@@ -10,7 +10,7 @@
  */
 
 import RotnItem from '@/app/[locale]/rotn/item/[id]/item';
-import { ModalBody, ModalHeader, ModalLegacy } from '@/components/daisyui';
+import { ModalBody, ModalLegacy } from '@/components/daisyui';
 import { useRouter } from '@/navigation';
 
 interface RotnItemDetailModalProps {
@@ -25,14 +25,10 @@ export default function RotnItemDetailModal(props: RotnItemDetailModalProps) {
     <ModalLegacy
       open
       onClickBackdrop={router.back}
-      style={{ scrollbarGutter: 'stable' }}
-      className="rotn-item-modal h-3/4 w-3/4 max-w-5xl overflow-auto rounded-md"
+      className="rotn-item-modal h-3/4 w-3/4 max-w-5xl rounded-sm !p-2"
     >
-      <ModalBody>
-        <RotnItem
-          item={item}
-          title={<ModalHeader>ROTN - No.{item.id}</ModalHeader>}
-        />
+      <ModalBody className="h-full">
+        <RotnItem item={item} hideBreadcrumbs />
       </ModalBody>
     </ModalLegacy>
   );
