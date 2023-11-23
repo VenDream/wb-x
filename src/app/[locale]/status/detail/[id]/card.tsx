@@ -69,7 +69,7 @@ export default function Card(props: CardProps) {
           className="status-text text-sm leading-6 tracking-tight"
           dangerouslySetInnerHTML={{ __html: text }}
         ></div>
-        <div className="status-images grid grid-cols-3">
+        <div className="status-images grid grid-cols-3 items-center justify-items-center">
           {images.map((img, idx) => (
             <Image
               key={idx}

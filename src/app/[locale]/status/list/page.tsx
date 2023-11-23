@@ -31,7 +31,7 @@ export default function Page() {
   const fetchStatuses = useCallback(async () => {
     try {
       setIsLoading(true);
-      const limit = PAGINATION_LIMIT / 2;
+      const limit = PAGINATION_LIMIT;
       const offset = pageNo * limit;
       const { statuses = [] } = await getDbStatusList({
         limit,
