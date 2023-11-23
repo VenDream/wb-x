@@ -14,6 +14,7 @@ const nextConfig = withNextIntl({
   reactStrictMode: true,
   transpilePackages: ['react-daisyui'],
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'http',

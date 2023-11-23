@@ -34,6 +34,7 @@ export default function CommonImage(props: NextImageProps) {
     placeholder = IMG_PLACEHOLDER,
     width,
     height,
+    loading = 'eager',
     ...restProps
   } = props;
 
@@ -50,7 +51,7 @@ export default function CommonImage(props: NextImageProps) {
       typeof imgSize.width !== 'number' ||
       typeof imgSize.height !== 'number'
     ) {
-      setImgSrc(src);
+      setImgSrc(IMG_PLACEHOLDER || src);
       return;
     }
 
@@ -65,7 +66,7 @@ export default function CommonImage(props: NextImageProps) {
       } catch (err) {
         console.error(err);
       } finally {
-        setImgSrc(src as string);
+        setImgSrc(IMG_PLACEHOLDER || (src as string));
       }
     };
 
@@ -79,6 +80,7 @@ export default function CommonImage(props: NextImageProps) {
       {...restProps}
       {...imgSize}
       src={imgSrc}
+      loading={loading}
       placeholder={isPlaceholder ? 'empty' : placeholder}
       onError={() => setImgSrc(IMG_ERROR_PLACEHOLDER)}
     />

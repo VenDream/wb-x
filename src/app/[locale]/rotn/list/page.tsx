@@ -14,12 +14,7 @@ import Image from '@/components/common/image';
 import NoData from '@/components/common/no-data';
 import useToast from '@/components/common/toast';
 import { Button, Loading, Tab, Tabs } from '@/components/daisyui';
-import {
-  IMG_PLACEHOLDER,
-  PAGINATION_LIMIT,
-  SECONDARY_ROUTES,
-  STYLES,
-} from '@/contants';
+import { PAGINATION_LIMIT, SECONDARY_ROUTES, STYLES } from '@/contants';
 import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
@@ -77,17 +72,17 @@ export default function Page() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'tween', duration: 0.2 }}
       >
-        <div className="item border-regular flex flex-col rounded p-4 transition-all hover:bg-base-200">
+        <div className="item border-regular-20 flex flex-col rounded p-4 transition-all hover:bg-base-200">
           <p style={STYLES.TWO_LINE_ELLIPSIS_TEXT}>{'IMG' || item.name}</p>
-          <div className="item-imgs mt-4 flex justify-around gap-1">
+          <div className="item-imgs mt-4 flex justify-around gap-4">
             {item.images.slice(0, 3).map((img, imgIdx) => (
-              <div key={imgIdx} className="relative h-20 w-16">
+              <div key={imgIdx} className="relative h-60 w-40">
                 <Image
                   fill
                   alt="IMG"
                   sizes="4rem"
-                  src={IMG_PLACEHOLDER || img}
-                  className="border-regular rounded object-cover p-1"
+                  src={img}
+                  className="border-regular-20 rounded object-contain p-1"
                 />
               </div>
             ))}
@@ -114,7 +109,7 @@ export default function Page() {
         style={{ scrollbarGutter: 'stable' }}
         className="item-list-wrapper flex-1 overflow-auto pr-4"
       >
-        <div className="item-list grid grid-cols-3 gap-6 xl:grid-cols-4">
+        <div className="item-list grid grid-cols-2 gap-6 xl:grid-cols-3">
           {items.map(item => (
             <Link
               key={item.id}

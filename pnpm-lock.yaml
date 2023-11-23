@@ -22,7 +22,7 @@ specifiers:
   jotai: ^2.5.1
   lint-staged: ^15.1.0
   next: 14.0.3
-  next-intl: 3.1.2
+  next-intl: 3.1.3
   npm-run-all: ^4.1.5
   picocolors: ^1.0.0
   postcss: 8.4.31
@@ -34,10 +34,10 @@ specifiers:
   react-simple-code-editor: ^0.13.1
   sass: ^1.69.5
   shiki: ^0.14.5
-  shikiji: ^0.6.13
+  shikiji: ^0.7.0
   tailwind-merge: ^2.0.0
   tailwindcss: 3.3.5
-  tsx: ^4.2.0
+  tsx: ^4.3.0
   typescript: 5.3.2
 
 dependencies:
@@ -48,14 +48,14 @@ dependencies:
   framer-motion: 10.16.5_biqbaboplfbrettd7655fr4n2y
   jotai: 2.5.1_vefaa57jiikjg7ztnhkaom6nr4
   next: 14.0.3_2sxiyfzeap2fgw7t7svnurc6pi
-  next-intl: 3.1.2_next@14.0.3+react@18.2.0
+  next-intl: 3.1.3_next@14.0.3+react@18.2.0
   postcss: 8.4.31
   react: 18.2.0
   react-daisyui: 4.1.2_sueewsgvki5k6t5vunqh2xlrma
   react-dom: 18.2.0_react@18.2.0
   react-simple-code-editor: 0.13.1_biqbaboplfbrettd7655fr4n2y
   shiki: 0.14.5
-  shikiji: 0.6.13
+  shikiji: 0.7.0
   tailwind-merge: 2.0.0
   tailwindcss: 3.3.5
 
@@ -76,7 +76,7 @@ devDependencies:
   prettier: 3.1.0
   prettier-plugin-tailwindcss: 0.5.7_prettier@3.1.0
   sass: 1.69.5
-  tsx: 4.2.0
+  tsx: 4.3.0
   typescript: 5.3.2
 
 packages:
@@ -1150,10 +1150,6 @@ packages:
       electron-to-chromium: 1.4.490
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11_browserslist@4.21.10
-    dev: true
-
-  /buffer-from/1.1.2:
-    resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
     dev: true
 
   /buffer/5.7.1:
@@ -3379,8 +3375,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /next-intl/3.1.2_next@14.0.3+react@18.2.0:
-    resolution: {integrity: sha512-uVCklsWiYVHklIjhAn152cdmNW+nLll0nhbR4or47sj6t8I2Kd2JOsgoNuJi3XuTOoitdIdNFE+Vwyh56VzGOw==}
+  /next-intl/3.1.3_next@14.0.3+react@18.2.0:
+    resolution: {integrity: sha512-pjR6px7qj5i7gNgFMFlk6nX8Y0A2xeoYUYXEMrvg9dg3peRuZYGpcf6r46+paEd2JvvIZSb7WzlUH98nu5S5HQ==}
     peerDependencies:
       next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -3389,7 +3385,7 @@ packages:
       negotiator: 0.6.3
       next: 14.0.3_2sxiyfzeap2fgw7t7svnurc6pi
       react: 18.2.0
-      use-intl: 3.1.2_react@18.2.0
+      use-intl: 3.1.3_react@18.2.0
     dev: false
 
   /next/14.0.3_2sxiyfzeap2fgw7t7svnurc6pi:
@@ -4231,8 +4227,8 @@ packages:
       vscode-textmate: 8.0.0
     dev: false
 
-  /shikiji/0.6.13:
-    resolution: {integrity: sha512-4T7X39csvhT0p7GDnq9vysWddf2b6BeioiN3Ymhnt3xcy9tXmDcnsEFVxX18Z4YcQgEE/w48dLJ4pPPUcG9KkA==}
+  /shikiji/0.7.0:
+    resolution: {integrity: sha512-Tzx9pS9ixMVNsfZjeOoJWR3t3Vw054LU/r2euAGSRJPg8/v1sumxZsZQrajai2jpksn0qT3HJXcqzNaiJcJSag==}
     dependencies:
       hast-util-to-html: 9.0.0
     dev: false
@@ -4270,18 +4266,6 @@ packages:
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
-
-  /source-map-support/0.5.21:
-    resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
-    dependencies:
-      buffer-from: 1.1.2
-      source-map: 0.6.1
-    dev: true
-
-  /source-map/0.6.1:
-    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
-    engines: {node: '>=0.10.0'}
-    dev: true
 
   /space-separated-tokens/2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
@@ -4647,14 +4631,13 @@ packages:
       typescript: 5.3.2
     dev: true
 
-  /tsx/4.2.0:
-    resolution: {integrity: sha512-hvAXAz4KUYNyjXOjJJgyjT7YOGFUNLC8jnODI6Omc/wGKaZ7z0FvW5d2haqg1GLfX49H3nZOpLYRlHMYGI8Wbw==}
+  /tsx/4.3.0:
+    resolution: {integrity: sha512-zalfbBdr7tvYok5sSbnsv4uL+DhT1wRZwbWwuOXjhH8YtJxN2bpl6lpXMxuPThMAKzZ2qgrhuf5ckq/uSsm3CA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
       esbuild: 0.18.20
       get-tsconfig: 4.7.2
-      source-map-support: 0.5.21
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -4798,8 +4781,8 @@ packages:
       punycode: 2.3.0
     dev: true
 
-  /use-intl/3.1.2_react@18.2.0:
-    resolution: {integrity: sha512-kUmAiYi/ZB2jk/CeRY/IVzp+DRzBkLk2SmeN3DqMf2N9h/oRTm6qlrYzlOCYWdYPpPOJ7rUM7JERiaWox9mIIQ==}
+  /use-intl/3.1.3_react@18.2.0:
+    resolution: {integrity: sha512-rYP1O+RiVef8/iMdZxYp4KIuPszzFQQMzp1y0pMm1VBRdrwWw9YA5j2bEIbjxRk6DaVGW+cpW9mdPe5X2snNvg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:

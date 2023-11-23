@@ -15,9 +15,6 @@ interface UsersListProps {
   users: Backend.User[];
 }
 
-export const LOGO =
-  'https://mk.dev.rabbitpre.com.cn/common/content/assets/images/default-app-cover.png';
-
 export default function UsersList(props: UsersListProps) {
   const { users = [] } = props;
   const t = useTranslations('pages.user');
@@ -34,7 +31,7 @@ export default function UsersList(props: UsersListProps) {
             className="flex flex-col items-center justify-between rounded-lg p-4 transition-all hover:bg-base-200"
           >
             <Avatar
-              src={LOGO || avatar}
+              src={avatar}
               border
               size="sm"
               shape="circle"

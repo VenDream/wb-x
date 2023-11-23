@@ -25,7 +25,7 @@ export default function RotnItemDetailModal(props: RotnItemDetailModalProps) {
     <ModalLegacy
       open
       onClickBackdrop={router.back}
-      className="rotn-item-modal h-3/4 w-3/4 max-w-5xl rounded-sm !p-2"
+      className="rotn-item-modal h-5/6 w-3/4 max-w-5xl rounded-sm !p-2"
     >
       <ModalBody className="h-full">
         <RotnItem item={item} hideBreadcrumbs />

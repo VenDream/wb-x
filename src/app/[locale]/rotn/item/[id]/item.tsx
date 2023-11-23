@@ -9,7 +9,7 @@
 
 import Image from '@/components/common/image';
 import { Breadcrumbs, BreadcrumbsItem } from '@/components/daisyui';
-import { IMG_PLACEHOLDER, MAIN_ROUTES } from '@/contants';
+import { MAIN_ROUTES } from '@/contants';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -50,14 +50,14 @@ export default function RotnItem(props: RotnItemProps) {
             {item.url}
           </Link>
         </p>
-        <div className="image-list flex flex-col">
+        <div className="image-list flex flex-col items-center">
           {item.images.map((image, idx) => (
             <div key={idx} className="image-item">
               <Image
                 autoSize
-                src={IMG_PLACEHOLDER || image}
+                src={image}
                 alt="IMG"
-                className="min-w-[40em] object-contain p-1"
+                className="min-w-[10em] max-w-[30em] object-contain p-1"
               />
             </div>
           ))}

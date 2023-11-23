@@ -90,7 +90,7 @@ export default async function Page({ params: { locale } }: LocaleProps) {
         <CircleStackIcon className="relative top-[-2px] mr-1 h-8 w-8" />
         {ht('title')}
       </h1>
-      <Stats className="border-regular stats-vertical my-4 2xl:stats-horizontal">
+      <Stats className="border-regular-20 stats-vertical my-4 2xl:stats-horizontal">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}

@@ -52,10 +52,10 @@ export default function Page() {
   }, [fetchStatuses]);
 
   return (
-    <div className="status-list flex h-full flex-col">
+    <div className="status-list m-auto h-full max-w-2xl ">
       <div
         style={{ scrollbarGutter: 'stable' }}
-        className="status-list-wrapper overflow-auto"
+        className="status-list-wrapper flex flex-col gap-2 overflow-auto"
       >
         {statusList.map(status => (
           <p key={status.id}>{status.id}</p>
