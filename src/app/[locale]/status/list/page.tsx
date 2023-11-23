@@ -16,6 +16,7 @@ import { Button, Loading } from '@/components/daisyui';
 import { PAGINATION_LIMIT } from '@/contants';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
+import StatusCard from '../detail/[id]/card';
 
 export default function Page() {
   const { showErrorTips } = useToast();
@@ -52,13 +53,13 @@ export default function Page() {
   }, [fetchStatuses]);
 
   return (
-    <div className="status-list m-auto h-full max-w-2xl ">
+    <div className="status-list m-auto h-full">
       <div
         style={{ scrollbarGutter: 'stable' }}
-        className="status-list-wrapper flex flex-col gap-2 overflow-auto"
+        className="status-list-wrapper flex flex-col items-center gap-4 overflow-auto"
       >
         {statusList.map(status => (
-          <p key={status.id}>{status.id}</p>
+          <StatusCard key={status.id} status={status} />
         ))}
         <div className="flex h-[6rem] items-center justify-center">
           {isLoading ? (

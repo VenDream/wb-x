@@ -11,6 +11,13 @@ import { getApiHost } from '@/utils/api-host';
 import { get } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
+export async function getDbStatusDetail(id: string) {
+  let url = getApiHost() + '/api/db/status';
+  url = appendURLParams(url, { id });
+  const status = await get<Backend.Status>(url);
+  return status;
+}
+
 export async function getDbRotnItem(id: string) {
   let url = getApiHost() + '/api/db/rotn';
   url = appendURLParams(url, { id });

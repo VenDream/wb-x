@@ -54,69 +54,52 @@ declare global {
     /*                                 Status                                 */
     /* ---------------------------------------------------------------------- */
     interface Status {
-      /** 微博Id */
+      /** id */
       id: string;
-      /** 微博bid */
-      bid: string;
-      /** 作者 */
+      /** author */
       user: User;
-      /** 正文 */
+      /** content (rich text) */
       text: string;
-      /** 正文(纯文本) */
+      /** content (plaintext) */
       rawText: string;
-      /** 创建时间 */
+      /** create time */
       createdAt: string;
-      /** 来源 */
+      /** source */
       source: string;
-      /** 附图数量 */
+      /** images count */
       imagesCount: number;
-      /** 图片(原图) */
-      images: Image[];
-      /** 视频(1080P) */
+      /** image urls */
+      images: string[];
+      /** video */
       video: Video | null;
-      /** 转发 */
+      /** reposts count */
       repostsCount: number;
-      /** 评论 */
+      /** comments count */
       commentsCount: number;
-      /** 点赞 */
+      /** attitudes count */
       attitudesCount: number;
-      /** 是否置顶 */
-      isTop: boolean;
-      /** 是否有查看权限 */
-      visible: boolean;
-      /** 转发的微博 */
+      /** retweeted status */
       retweetedStatus?: Status;
     }
 
-    interface Image {
-      /** 图片Id */
-      id: string;
-      /** 图片url(原图) */
-      url: string;
-      /** 图片宽度 */
-      width: number;
-      /** 图片高度 */
-      height: number;
-    }
-
     interface Video {
-      /** 视频Id */
+      /** id */
       id: string;
-      /** 归属的微博Id */
+      /** mid */
       mid: string;
-      /** 视频创作者Id */
+      /** uid */
       uid: string;
-      /** 临时视频链接(1080P，一般是一小时后过期) */
+      /** url (temporary) */
       url?: string;
-      /** 视频标题 */
+      /** title */
       title: string;
-      /** 视频封面 */
+      /** cover */
       cover: string;
-      /** 话题 */
+      /** topics */
       topics: string;
-      /** 时长 */
+      /** duration */
       duration: number;
-      /** 格式化的时长 */
+      /** duration string */
       durationStr: string;
     }
 

@@ -34,7 +34,7 @@ specifiers:
   react-simple-code-editor: ^0.13.1
   sass: ^1.69.5
   shiki: ^0.14.5
-  shikiji: ^0.7.0
+  shikiji: ^0.7.1
   tailwind-merge: ^2.0.0
   tailwindcss: 3.3.5
   tsx: ^4.3.0
@@ -55,7 +55,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-simple-code-editor: 0.13.1_biqbaboplfbrettd7655fr4n2y
   shiki: 0.14.5
-  shikiji: 0.7.0
+  shikiji: 0.7.1
   tailwind-merge: 2.0.0
   tailwindcss: 3.3.5
 
@@ -4227,8 +4227,8 @@ packages:
       vscode-textmate: 8.0.0
     dev: false
 
-  /shikiji/0.7.0:
-    resolution: {integrity: sha512-Tzx9pS9ixMVNsfZjeOoJWR3t3Vw054LU/r2euAGSRJPg8/v1sumxZsZQrajai2jpksn0qT3HJXcqzNaiJcJSag==}
+  /shikiji/0.7.1:
+    resolution: {integrity: sha512-w/zKRaYe6RhkksZily2WG7yzz/g6qJsqrJom9OVbhLd4pzONXbVNWOlNHYhpMJ1SRvRp7CWVbh3MXy34bLKV4g==}
     dependencies:
       hast-util-to-html: 9.0.0
     dev: false
