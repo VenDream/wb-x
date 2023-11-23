@@ -9,11 +9,13 @@
 
 import Image from '@/components/common/image';
 import { Avatar } from '@/components/daisyui';
+import { getImageVariants } from '@/utils/weibo';
 import {
   ArrowUpOnSquareIcon,
   ChatBubbleLeftIcon,
   HandThumbUpIcon,
 } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 
 import './card.sass';
 
@@ -21,6 +23,8 @@ interface CardProps {
   classname?: string;
   status: Backend.Status;
 }
+
+const MAX_DISPLAY_IMAGES = 9;
 
 const AVATAR =
   'https://mk.sit.rabbitpre.com.cn/common/content/assets/images/default-app-cover.png';
@@ -39,6 +43,8 @@ export default function Card(props: CardProps) {
     attitudesCount,
     retweetedStatus,
   } = props.status;
+
+  const remainImagesNum = images.length - MAX_DISPLAY_IMAGES;
 
   return (
     <div
@@ -69,18 +75,37 @@ export default function Card(props: CardProps) {
           className="status-text text-sm leading-6 tracking-tight"
           dangerouslySetInnerHTML={{ __html: text }}
         ></div>
-        <div className="status-images grid grid-cols-3 items-center justify-items-center">
-          {images.map((img, idx) => (
-            <Image
-              key={idx}
-              src={img}
-              width={150}
-              height={150}
-              alt="IMG"
-              className="object-cover"
-            />
-          ))}
-        </div>
+        {images.length > 0 && (
+          <div className="status-images grid grid-cols-3 items-center justify-items-center gap-1">
+            {images.slice(0, MAX_DISPLAY_IMAGES).map((img, idx) => {
+              const { sm } = getImageVariants(img);
+              const hasMore =
+                idx === MAX_DISPLAY_IMAGES - 1 && remainImagesNum > 0;
+              const dataProps = hasMore
+                ? { 'data-remains': `+${remainImagesNum}` }
+                : {};
+
+              return (
+                <div
+                  key={idx}
+                  {...dataProps}
+                  className={clsx(
+                    'aspect-square h-full w-full rounded shadow',
+                    {
+                      'has-more': hasMore,
+                    }
+                  )}
+                >
+                  <Image
+                    src={sm}
+                    alt="IMG"
+                    className="aspect-square h-full w-full object-cover"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
         {retweetedStatus && (
           <div className="status-repost">
             <Card
@@ -90,19 +115,19 @@ export default function Card(props: CardProps) {
           </div>
         )}
       </div>
-      <div className="card-footer p-4">
+      <div className="card-footer px-4">
         <div className="status-actions flex gap-4 text-xs tracking-tighter text-gray-500">
-          <span className="flex items-center justify-center">
-            <HandThumbUpIcon className="mr-1 h-4 w-4" />
-            {attitudesCount || 0}
+          <span className="flex flex-1 items-center justify-center">
+            <ArrowUpOnSquareIcon className="mr-1 h-4 w-4" />
+            {repostsCount || 0}
           </span>
-          <span className="flex items-center justify-center">
+          <span className="flex flex-1 items-center justify-center">
             <ChatBubbleLeftIcon className="mr-1 h-4 w-4" />
             {commentsCount || 0}
           </span>
-          <span className="flex items-center justify-center">
-            <ArrowUpOnSquareIcon className="mr-1 h-4 w-4" />
-            {repostsCount || 0}
+          <span className="flex flex-1 items-center justify-center">
+            <HandThumbUpIcon className="mr-1 h-4 w-4" />
+            {attitudesCount || 0}
           </span>
         </div>
       </div>

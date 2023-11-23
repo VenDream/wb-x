@@ -9,3 +9,13 @@
       margin: 0 0.125rem
       width: 1rem
       height: 1rem
+
+  .status-images
+    .has-more
+      @apply relative
+
+      &:after
+        content: attr(data-remains)
+        background: rgba(0, 0, 0, 0.7)
+
+        @apply absolute top-0 left-0 w-full h-full flex items-center justify-center text-2xl text-white rounded
