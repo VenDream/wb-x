@@ -16,7 +16,7 @@ import { Button, Loading } from '@/components/daisyui';
 import { PAGINATION_LIMIT } from '@/contants';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
-import StatusCard from '../detail/[id]/card';
+import StatusCard from '../detail/[id]/_card';
 
 export default function Page() {
   const { showErrorTips } = useToast();

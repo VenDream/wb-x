@@ -31,6 +31,8 @@ export const SECONDARY_ROUTES = {
   ROTN_ITEM_DETAIL: '/rotn/item',
 };
 
+export const WEIBO_HOST = 'https://weibo.com';
+
 /** localStorage keys */
 export const LS_KEYS = {
   THEME: 'WB_X_THEME',

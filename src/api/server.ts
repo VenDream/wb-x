@@ -18,6 +18,13 @@ export async function getDbStatusDetail(id: string) {
   return status;
 }
 
+export async function getDbRetweetStatusDetail(id: string) {
+  let url = getApiHost() + '/api/db/retweet_status';
+  url = appendURLParams(url, { id });
+  const status = await get<Backend.Status>(url);
+  return status;
+}
+
 export async function getDbRotnItem(id: string) {
   let url = getApiHost() + '/api/db/rotn';
   url = appendURLParams(url, { id });

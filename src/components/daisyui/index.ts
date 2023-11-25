@@ -58,6 +58,7 @@ export {
   Pagination,
   Theme,
   Toast,
+  Tooltip,
   useTheme,
 } from 'react-daisyui';
 
