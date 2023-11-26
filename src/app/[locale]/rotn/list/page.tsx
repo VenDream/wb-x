@@ -66,23 +66,26 @@ export default function Page() {
   }, [fetchItems]);
 
   const renderAniItem = useCallback((item: Backend.ROTNItem) => {
+    const images = item.images.slice(-4);
+
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'tween', duration: 0.2 }}
       >
-        <div className="item border-regular-20 flex flex-col rounded p-4 transition-all hover:bg-base-200">
-          <p style={STYLES.TWO_LINE_ELLIPSIS_TEXT}>{'IMG' || item.name}</p>
-          <div className="item-imgs mt-4 flex justify-around gap-4">
-            {item.images.slice(0, 3).map((img, imgIdx) => (
-              <div key={imgIdx} className="relative h-60 w-40">
+        <div className="item border-regular-20 flex flex-col rounded p-4 shadow-sm transition-all hover:bg-base-200">
+          <p style={STYLES.TWO_LINE_ELLIPSIS_TEXT}>
+            {item.type} - {item.id} - {item.name}
+          </p>
+          <div className="item-imgs mt-2 flex flex-wrap justify-start">
+            {images.map((img, imgIdx) => (
+              <div key={imgIdx} className="relative h-64 basis-1/2 p-2 xl:h-96">
                 <Image
-                  fill
                   alt="IMG"
                   sizes="4rem"
                   src={img}
-                  className="border-regular-20 rounded object-contain p-1"
+                  className="border-regular-20 h-full w-full rounded object-cover"
                 />
               </div>
             ))}
@@ -110,15 +113,17 @@ export default function Page() {
         className="item-list-wrapper flex-1 overflow-auto pr-4"
       >
         <div className="item-list grid grid-cols-2 gap-6 xl:grid-cols-3">
-          {items.map(item => (
-            <Link
-              key={item.id}
-              scroll={false}
-              href={`${SECONDARY_ROUTES.ROTN_ITEM_DETAIL}/${item.id}`}
-            >
-              {renderAniItem(item)}
-            </Link>
-          ))}
+          {items
+            .filter(item => item.images.length > 0)
+            .map(item => (
+              <Link
+                key={item.id}
+                scroll={false}
+                href={`${SECONDARY_ROUTES.ROTN_ITEM_DETAIL}/${item.id}`}
+              >
+                {renderAniItem(item)}
+              </Link>
+            ))}
         </div>
         <div className="flex h-[6rem] items-center justify-center">
           {isLoading ? (

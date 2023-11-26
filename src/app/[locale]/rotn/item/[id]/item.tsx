@@ -23,11 +23,13 @@ export default function RotnItem(props: RotnItemProps) {
   const t1 = useTranslations('pages.rotn');
   const t2 = useTranslations('global.pages');
 
+  if (item.images.length <= 0) return null;
+
   return (
     <div className="rotn-item flex h-full flex-1 flex-col">
       {hideBreadcrumbs ? (
         <p className="mb-2 rounded bg-base-200 p-2">
-          {item.type} - {item.id}
+          {item.type} - {item.id} - {item.name}
         </p>
       ) : (
         <Breadcrumbs className="mb-4 rounded bg-base-200 px-2">
@@ -43,21 +45,21 @@ export default function RotnItem(props: RotnItemProps) {
         className="flex-1 overflow-auto px-2"
         style={{ scrollbarGutter: 'stable' }}
       >
-        <p className="mt-4">{item.name}</p>
+        {!hideBreadcrumbs && <p className="mt-4">{item.name}</p>}
         <p className="mt-4 text-sm">
           {t1('sourceURL')}：
           <Link href={item.url} target="_blank" className="link">
             {item.url}
           </Link>
         </p>
-        <div className="image-list flex flex-col items-center">
+        <div className="image-list mt-4 flex flex-col items-center gap-4">
           {item.images.map((image, idx) => (
             <div key={idx} className="image-item">
               <Image
                 autoSize
                 src={image}
                 alt="IMG"
-                className="min-w-[10em] max-w-[30em] object-contain p-1"
+                className="border-redular-50 min-w-[10em] max-w-[56.25em] rounded object-contain p-1 shadow"
               />
             </div>
           ))}

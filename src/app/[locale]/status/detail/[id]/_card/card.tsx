@@ -33,7 +33,7 @@ export default function Card(props: CardProps) {
         href={`${WEIBO_HOST}/detail/${status.id}`}
         className="group absolute right-[-70px] top-[-4px] flex w-[170px] rotate-45 transform items-center justify-center bg-base-300 py-3 shadow"
       >
-        <span className="text-red-400 group-hover:text-red-500">
+        <span className="text-base-400 group-hover:text-red-500">
           {ICONS.WEIBO}
         </span>
       </Link>

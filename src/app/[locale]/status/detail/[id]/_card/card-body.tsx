@@ -62,7 +62,7 @@ export default function CardBody(props: CardBodyProps) {
                   <Image
                     src={sm}
                     alt="IMG"
-                    className="aspect-square h-full w-full object-cover"
+                    className="aspect-square h-full w-full rounded object-cover"
                   />
                 </div>
               );
