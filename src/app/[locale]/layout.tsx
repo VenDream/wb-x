@@ -53,7 +53,7 @@ export default async function RootLayout({
             <LayoutBody>{children}</LayoutBody>
           </ToastProvider>
           <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
-            <div className="loading loading-dots text-gray-500"></div>
+            <div className="loading loading-dots text-gray-500" />
           </div>
         </body>
       </NextIntlClientProvider>

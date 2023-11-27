@@ -7,10 +7,13 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { IMG_PLACEHOLDER } from '@/contants';
+
 interface ImageVariants {
   sm: string;
   md: string;
   lg: string;
+  filename?: string;
 }
 
 /**
@@ -38,9 +41,9 @@ export function getImageVariants(src: string): ImageVariants {
   const [, host, , img] = src.match(matchRegex) || [];
   if (!host || !img) return defaultVariants;
 
-  const sm = fixHttps(`${host}/orj360/${img}`);
-  const md = fixHttps(`${host}/mw690/${img}`);
-  const lg = fixHttps(`${host}/large/${img}`);
+  const sm = !IMG_PLACEHOLDER || fixHttps(`${host}/orj360/${img}`);
+  const md = !IMG_PLACEHOLDER || fixHttps(`${host}/mw690/${img}`);
+  const lg = !IMG_PLACEHOLDER || fixHttps(`${host}/large/${img}`);
 
-  return { sm, md, lg };
+  return { sm, md, lg, filename: img };
 }

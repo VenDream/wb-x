@@ -13,9 +13,14 @@ import clsx from 'clsx';
 import Card from './card';
 import { cardBody } from './variants';
 
+import { Slide, useLightbox } from '@/components/common/lightbox';
+
+import { useMemo, useState } from 'react';
 import './card-body.sass';
 
 const MAX_DISPLAY_IMAGES = 9;
+const AVATAR =
+  'https://mk.sit.rabbitpre.com.cn/common/content/assets/images/default-app-cover.png';
 
 interface CardBodyProps {
   status: Backend.Status;
@@ -26,10 +31,32 @@ export default function CardBody(props: CardBodyProps) {
   const { isRetweet } = props;
   const { user, text, images, retweetedStatus } = props.status;
 
+  const [slideIdx, setSlideIdx] = useState(0);
+  const { openLightbox, renderLightbox } = useLightbox();
+  const slides = useMemo<Slide[]>(() => {
+    return images.map((img, idx) => {
+      const { md, filename } = getImageVariants(img);
+      return {
+        type: 'image',
+        src: AVATAR || md,
+        title: (
+          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+            {idx + 1} / {images.length} - {filename}
+          </p>
+        ),
+      };
+    });
+  }, [images]);
+
   const remainImagesNum = images.length - MAX_DISPLAY_IMAGES;
   const userName = isRetweet
     ? `<a href="/n/${user.name}" target="_blank">@${user.name}:</a>&nbsp;&nbsp;`
     : '';
+
+  const showLightbox = (idx: number) => {
+    setSlideIdx(idx);
+    openLightbox();
+  };
 
   return (
     <div className={cardBody({ type: isRetweet ? 'retweet' : 'default' })}>
@@ -58,6 +85,7 @@ export default function CardBody(props: CardBodyProps) {
                       'has-more': hasMore,
                     }
                   )}
+                  onClick={() => showLightbox(idx)}
                 >
                   <Image
                     src={sm}
@@ -74,6 +102,7 @@ export default function CardBody(props: CardBodyProps) {
             <Card isRetweet status={retweetedStatus}></Card>
           </div>
         )}
+        {renderLightbox({ slides, index: slideIdx })}
       </div>
     </div>
   );

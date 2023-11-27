@@ -1,13 +1,4 @@
 /*
- * @Todo: 请补充模块描述
- *
- * @Author: VenDream
- * @Date: 2023-11-25 16:49:57
- *
- * Copyright © 2023 VenDream. All Rights Reserved.
- */
-
-/*
  * Card Class Variants
  *
  * @Author: VenDream
