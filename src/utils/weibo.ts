@@ -8,6 +8,7 @@
  */
 
 import { IMG_PLACEHOLDER } from '@/contants';
+import dayjs from 'dayjs';
 
 interface ImageVariants {
   sm: string;
@@ -46,4 +47,19 @@ export function getImageVariants(src: string): ImageVariants {
   const lg = !IMG_PLACEHOLDER || fixHttps(`${host}/large/${img}`);
 
   return { sm, md, lg, filename: img };
+}
+
+/**
+ * get weibo create time
+ *
+ * @export
+ * @param {string} ct createtime
+ */
+export function getCreateTime(ct: string) {
+  const createtime = dayjs(ct);
+  if (createtime.year() === dayjs().year()) {
+    return createtime.format('MM-DD[\xa0\xa0]HH:mm');
+  } else {
+    return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
+  }
 }

@@ -56,6 +56,13 @@
       "totalRetweetStatuses": "转发微博记录总数",
       "totalRotns": "ROTN记录总数"
     },
+    "status": {
+      "sourceFrom": "来自",
+      "postedOn": "发布于",
+      "video": {
+        "fetchFailed": "获取视频播放源失败，请重试"
+      }
+    },
     "rotn": {
       "type": {
         "all": "全部",

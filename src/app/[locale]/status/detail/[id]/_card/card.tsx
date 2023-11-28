@@ -17,6 +17,8 @@ import CardFooter from './card-footer';
 import CardHeader from './card-header';
 import { card } from './variants';
 
+import './card.sass';
+
 interface CardProps {
   status: Backend.Status;
   isRetweet?: boolean;

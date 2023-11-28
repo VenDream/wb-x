@@ -7,11 +7,13 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { getCreateTime } from '@/utils/weibo';
 import {
   ArrowUpOnSquareIcon,
   ChatBubbleLeftIcon,
   HandThumbUpIcon,
 } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 import { cardFooter } from './variants';
 
 interface CardFooterProps {
@@ -20,24 +22,34 @@ interface CardFooterProps {
 }
 
 export default function CardFooter(props: CardFooterProps) {
+  const t = useTranslations('pages.status');
   const { isRetweet } = props;
-  const { repostsCount, commentsCount, attitudesCount } = props.status;
+  const { createdAt, repostsCount, commentsCount, attitudesCount } =
+    props.status;
 
   return (
     <div className={cardFooter({ type: isRetweet ? 'retweet' : 'default' })}>
-      <div className="status-actions col-start-2 col-end-4 flex gap-4 text-xs tracking-tighter text-gray-500">
-        <span className="flex items-center">
-          <ArrowUpOnSquareIcon className="mr-1 h-4 w-4" />
-          {repostsCount || 0}
-        </span>
-        <span className="flex items-center">
-          <ChatBubbleLeftIcon className="mr-1 h-4 w-4" />
-          {commentsCount || 0}
-        </span>
-        <span className="flex items-center">
-          <HandThumbUpIcon className="mr-1 h-4 w-4" />
-          {attitudesCount || 0}
-        </span>
+      <div className="status-actions col-start-2 col-end-4 flex justify-between text-xs tracking-tight text-gray-500">
+        <div className="status-data flex gap-4">
+          <span className="flex items-center">
+            <ArrowUpOnSquareIcon className="mr-1 h-4 w-4" />
+            {repostsCount || 0}
+          </span>
+          <span className="flex items-center">
+            <ChatBubbleLeftIcon className="mr-1 h-4 w-4" />
+            {commentsCount || 0}
+          </span>
+          <span className="flex items-center">
+            <HandThumbUpIcon className="mr-1 h-4 w-4" />
+            {attitudesCount || 0}
+          </span>
+        </div>
+        {isRetweet && (
+          <div className="status-createtime flex items-center">
+            <span className="mr-2">{t('postedOn')}</span>
+            {getCreateTime(createdAt)}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -10,6 +10,7 @@
 import Image from '@/components/common/image';
 import { Breadcrumbs, BreadcrumbsItem } from '@/components/daisyui';
 import { MAIN_ROUTES } from '@/contants';
+import { FAKE_IMG } from '@/contants/debug';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -53,11 +54,11 @@ export default function RotnItem(props: RotnItemProps) {
           </Link>
         </p>
         <div className="image-list mt-4 flex flex-col items-center gap-4">
-          {item.images.map((image, idx) => (
+          {item.images.map((img, idx) => (
             <div key={idx} className="image-item">
               <Image
                 autoSize
-                src={image}
+                src={FAKE_IMG || img}
                 alt="IMG"
                 className="border-redular-50 min-w-[10em] max-w-[56.25em] rounded object-contain p-1 shadow"
               />

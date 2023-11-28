@@ -6,7 +6,7 @@ overrides:
 specifiers:
   '@heroicons/react': ^2.0.18
   '@types/node': 20.10.0
-  '@types/react': 18.2.38
+  '@types/react': 18.2.39
   '@types/react-dom': 18.2.17
   ahooks: ^3.7.8
   autoprefixer: 10.4.16
@@ -16,6 +16,7 @@ specifiers:
   cross-env: ^7.0.3
   cz-conventional-changelog: ^3.3.0
   daisyui: ^3.9.4
+  dayjs: ^1.11.10
   eslint: 8.54.0
   eslint-config-next: 14.0.3
   framer-motion: ^10.16.5
@@ -38,9 +39,9 @@ specifiers:
   shikiji: ^0.7.4
   tailwind-merge: ^2.0.0
   tailwindcss: 3.3.5
-  tsx: ^4.5.0
+  tsx: ^4.6.0
   typescript: 5.3.2
-  yet-another-react-lightbox: ^3.15.2
+  yet-another-react-lightbox: ^3.15.4
 
 dependencies:
   '@heroicons/react': 2.0.18_react@18.2.0
@@ -48,8 +49,9 @@ dependencies:
   class-variance-authority: 0.7.0
   clsx: 2.0.0
   daisyui: 3.9.4
+  dayjs: 1.11.10
   framer-motion: 10.16.5_biqbaboplfbrettd7655fr4n2y
-  jotai: 2.6.0_vefaa57jiikjg7ztnhkaom6nr4
+  jotai: 2.6.0_d6xr7427ryrc3fdigbbbatktku
   next: 14.0.1_2sxiyfzeap2fgw7t7svnurc6pi
   next-intl: 3.1.4_next@14.0.1+react@18.2.0
   postcss: 8.4.31
@@ -61,11 +63,11 @@ dependencies:
   shikiji: 0.7.4
   tailwind-merge: 2.0.0
   tailwindcss: 3.3.5
-  yet-another-react-lightbox: 3.15.2_biqbaboplfbrettd7655fr4n2y
+  yet-another-react-lightbox: 3.15.4_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
   '@types/node': 20.10.0
-  '@types/react': 18.2.38
+  '@types/react': 18.2.39
   '@types/react-dom': 18.2.17
   autoprefixer: 10.4.16_postcss@8.4.31
   commitizen: 4.3.0
@@ -80,7 +82,7 @@ devDependencies:
   prettier: 3.1.0
   prettier-plugin-tailwindcss: 0.5.7_prettier@3.1.0
   sass: 1.69.5
-  tsx: 4.5.0
+  tsx: 4.6.0
   typescript: 5.3.2
 
 packages:
@@ -757,11 +759,11 @@ packages:
   /@types/react-dom/18.2.17:
     resolution: {integrity: sha512-rvrT/M7Df5eykWFxn6MYt5Pem/Dbyc1N8Y0S9Mrkw2WFCRiqUgw9P7ul2NpwsXCSM1DVdENzdG9J5SreqfAIWg==}
     dependencies:
-      '@types/react': 18.2.38
+      '@types/react': 18.2.39
     dev: true
 
-  /@types/react/18.2.38:
-    resolution: {integrity: sha512-cBBXHzuPtQK6wNthuVMV6IjHAFkdl/FOPFIlkd81/Cd1+IqkHu/A+w4g43kaQQoYHik/ruaQBDL72HyCy1vuMw==}
+  /@types/react/18.2.39:
+    resolution: {integrity: sha512-Oiw+ppED6IremMInLV4HXGbfbG6GyziY3kqAwJYOR0PNbkYDmLWQA3a95EhdSmamsvbkJN96ZNN+YD+fGjzSBA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -3044,7 +3046,7 @@ packages:
     hasBin: true
     dev: false
 
-  /jotai/2.6.0_vefaa57jiikjg7ztnhkaom6nr4:
+  /jotai/2.6.0_d6xr7427ryrc3fdigbbbatktku:
     resolution: {integrity: sha512-Vt6hsc04Km4j03l+Ax+Sc+FVft5cRJhqgxt6GTz6GM2eM3DyX3CdBdzcG0z2FrlZToL1/0OAkqDghIyARWnSuQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
@@ -3056,7 +3058,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@types/react': 18.2.38
+      '@types/react': 18.2.39
       react: 18.2.0
     dev: false
 
@@ -4641,8 +4643,8 @@ packages:
       typescript: 5.3.2
     dev: true
 
-  /tsx/4.5.0:
-    resolution: {integrity: sha512-hgxdziy9KLaHh9KE+a6tIZFP6kb0MLq/1D0sJVifbGP4QVEYhy6+2FNn7MyCm1pMc63p9CW/L1OzdqTNPxs6rg==}
+  /tsx/4.6.0:
+    resolution: {integrity: sha512-HLHaDQ78mly4Pd5co6tWQOiNVYoYYAPUcwSSZK4bcs3zSEsg+/67LS/ReHook0E7DKPfe1J5jc0ocIhUrnaR4w==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
@@ -4967,8 +4969,8 @@ packages:
     engines: {node: '>= 14'}
     dev: true
 
-  /yet-another-react-lightbox/3.15.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-CtvbdBhpYy4Ip43J2lMcXPp9/jO1qoCMm3GQRwsJY76dEp2hcY5W+sXC7Sk4kU/TU0GJtmMiCNu3daMGRkPzDQ==}
+  /yet-another-react-lightbox/3.15.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-QiJc/l6LN6pFNm/O6mB2Kupj9XuvLDHUoex1Qb3H/66xJyQ1cL1FR8k206c+Yd1GOUB+oAmlNBF1SatCTe76IA==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16.8.0'

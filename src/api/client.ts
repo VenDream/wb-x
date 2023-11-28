@@ -23,6 +23,13 @@ export async function getDbStatusList(params: PaginationParams) {
   return statuses;
 }
 
+export async function getDbStatusVideo(id: string) {
+  let url = '/api/weibo/status/video';
+  url = appendURLParams(url, { id });
+  const videoUrl = await get<string>(url);
+  return videoUrl;
+}
+
 export async function getDbRotnList(params: ROTNPaginationParams) {
   let url = '/api/db/rotn/list';
   url = appendURLParams(url, params);

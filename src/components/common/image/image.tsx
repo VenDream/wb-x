@@ -51,7 +51,7 @@ export default function CommonImage(props: NextImageProps) {
       typeof imgSize.width !== 'number' ||
       typeof imgSize.height !== 'number'
     ) {
-      setImgSrc(IMG_PLACEHOLDER || src);
+      setImgSrc(src);
       return;
     }
 
@@ -66,7 +66,7 @@ export default function CommonImage(props: NextImageProps) {
       } catch (err) {
         console.error(err);
       } finally {
-        setImgSrc(IMG_PLACEHOLDER || (src as string));
+        setImgSrc(src as string);
       }
     };
 

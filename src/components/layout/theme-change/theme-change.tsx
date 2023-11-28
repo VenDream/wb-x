@@ -102,7 +102,7 @@ function ThemeConsumer() {
 
 export default function ThemeChange() {
   return (
-    <ThemeProvoder>
+    <ThemeProvoder className="bg-base-200/50">
       <ThemeConsumer />
     </ThemeProvoder>
   );

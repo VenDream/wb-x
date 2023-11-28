@@ -56,6 +56,13 @@
       "totalRetweetStatuses": "Total Retweet Statuses",
       "totalRotns": "Total ROTNs"
     },
+    "status": {
+      "sourceFrom": "from",
+      "postedOn": "posted on",
+      "video": {
+        "fetchFailed": "Failed to fetch video source，please retry"
+      }
+    },
     "rotn": {
       "type": {
         "all": "ALL",

@@ -21,8 +21,8 @@ export const card = cva(
   {
     variants: {
       type: {
-        default: ['w-[40rem]', 'bg-base-100', 'shadow-md'],
-        retweet: ['w-full', 'bg-base-200', 'shadow-none'],
+        default: ['w-[40rem]', 'bg-base-200/50', 'shadow-md'],
+        retweet: ['w-full', 'bg-base-300/50', 'shadow-none'],
       },
     },
   }
@@ -31,7 +31,7 @@ export const card = cva(
 export const cardBody = cva(['card-body'], {
   variants: {
     type: {
-      default: ['my-2', 'grid', 'grid-cols-[0.9fr,1.8fr,5fr]', 'gap-0', 'p-0'],
+      default: ['my-2', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
       retweet: ['p-2', 'pr-4'],
     },
   },
@@ -40,7 +40,7 @@ export const cardBody = cva(['card-body'], {
 export const cardFooter = cva(['card-footer'], {
   variants: {
     type: {
-      default: ['my-4', 'grid', 'grid-cols-[0.9fr,1.8fr,5fr]', 'gap-0', 'p-0'],
+      default: ['my-4', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
       retweet: ['p-2'],
     },
   },

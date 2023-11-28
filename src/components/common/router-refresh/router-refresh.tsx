@@ -11,9 +11,9 @@
 
 import useToast from '@/components/common/toast';
 import { useRouter } from '@/navigation';
-import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type RouterRefreshProps = ChildrenProps<{
   /** custome classname */
@@ -55,7 +55,7 @@ export default function RouterRefresh(props: RouterRefreshProps) {
 
   return (
     <div
-      className={clsx('router-refresh inline-block', className)}
+      className={twMerge('router-refresh inline-block', className)}
       onClick={onBtnClick}
     >
       {children}

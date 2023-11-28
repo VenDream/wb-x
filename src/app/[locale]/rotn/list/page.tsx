@@ -15,6 +15,7 @@ import NoData from '@/components/common/no-data';
 import useToast from '@/components/common/toast';
 import { Button, Loading, Tab, Tabs } from '@/components/daisyui';
 import { PAGINATION_LIMIT, SECONDARY_ROUTES, STYLES } from '@/contants';
+import { FAKE_IMG } from '@/contants/debug';
 import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
@@ -84,7 +85,7 @@ export default function Page() {
                 <Image
                   alt="IMG"
                   sizes="4rem"
-                  src={img}
+                  src={FAKE_IMG || img}
                   className="border-regular-20 h-full w-full rounded object-cover"
                 />
               </div>
