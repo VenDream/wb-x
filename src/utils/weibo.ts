@@ -7,13 +7,13 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { IMG_PLACEHOLDER } from '@/contants';
 import dayjs from 'dayjs';
 
 interface ImageVariants {
   sm: string;
   md: string;
   lg: string;
+  origin: string;
   filename?: string;
 }
 
@@ -28,6 +28,7 @@ export function getImageVariants(src: string): ImageVariants {
     sm: src,
     md: src,
     lg: src,
+    origin: src,
   };
 
   const fixHttps = (url: string) =>
@@ -42,11 +43,12 @@ export function getImageVariants(src: string): ImageVariants {
   const [, host, , img] = src.match(matchRegex) || [];
   if (!host || !img) return defaultVariants;
 
-  const sm = !IMG_PLACEHOLDER || fixHttps(`${host}/orj360/${img}`);
-  const md = !IMG_PLACEHOLDER || fixHttps(`${host}/mw690/${img}`);
-  const lg = !IMG_PLACEHOLDER || fixHttps(`${host}/large/${img}`);
+  const sm = fixHttps(`${host}/orj360/${img}`);
+  const md = fixHttps(`${host}/mw690/${img}`);
+  const lg = fixHttps(`${host}/mw2000/${img}`);
+  const origin = fixHttps(`${host}/large/${img}`);
 
-  return { sm, md, lg, filename: img };
+  return { sm, md, lg, origin, filename: img };
 }
 
 /**

@@ -31,10 +31,10 @@ export default function CardIamges(props: CardImagesProps) {
   const { openLightbox, renderLightbox } = useLightbox();
   const slides = useMemo<Slide[]>(() => {
     return images.map((img, idx) => {
-      const { md, filename } = getImageVariants(img);
+      const { lg, filename } = getImageVariants(img);
       return {
         type: 'image',
-        src: FAKE_IMG || md,
+        src: FAKE_IMG || lg,
         title: (
           <p className="h-[2rem] text-sm font-normal leading-[2rem]">
             {idx + 1} / {images.length} - {filename}

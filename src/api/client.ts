@@ -26,7 +26,7 @@ export async function getDbStatusList(params: PaginationParams) {
 export async function getDbStatusVideo(id: string) {
   let url = '/api/weibo/status/video';
   url = appendURLParams(url, { id });
-  const videoUrl = await get<string>(url);
+  const { video: videoUrl } = await get<{ video: string }>(url);
   return videoUrl;
 }
 
