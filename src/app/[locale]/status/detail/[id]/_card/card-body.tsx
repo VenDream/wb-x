@@ -29,7 +29,7 @@ export default function CardBody(props: CardBodyProps) {
     <div className={cardBody({ type: isRetweet ? 'retweet' : 'default' })}>
       <div className="col-start-2 col-end-4">
         <div
-          className="status-text mb-2 text-sm leading-6 tracking-tight"
+          className="status-text mb-2 pr-8 text-sm leading-6 tracking-tight"
           dangerouslySetInnerHTML={{ __html: userName + text }}
         ></div>
         <CardImages status={status} isRetweet={isRetweet} />

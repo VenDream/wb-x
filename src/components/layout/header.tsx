@@ -40,6 +40,7 @@ export default function Header() {
       </NavbarStart>
       <NavbarEnd>
         <LocaleChange />
+        <div className="divider mx-2"></div>
         <ThemeChange />
       </NavbarEnd>
     </Navbar>

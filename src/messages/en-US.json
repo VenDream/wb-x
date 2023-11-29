@@ -57,6 +57,9 @@
       "totalRotns": "Total ROTNs"
     },
     "status": {
+      "menu": {
+        "source": "View original post"
+      },
       "sourceFrom": "from",
       "postedOn": "posted on",
       "video": {

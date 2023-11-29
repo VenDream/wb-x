@@ -10,14 +10,7 @@
 import { cva } from 'class-variance-authority';
 
 export const card = cva(
-  [
-    'status-card',
-    'border-regular-10',
-    'rounded-md',
-    'p-4',
-    'relative',
-    'overflow-hidden',
-  ],
+  ['status-card', 'border-regular-10', 'rounded-md', 'p-4', 'relative'],
   {
     variants: {
       type: {
@@ -32,7 +25,7 @@ export const cardBody = cva(['card-body'], {
   variants: {
     type: {
       default: ['my-2', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
-      retweet: ['p-2', 'pr-4'],
+      retweet: ['p-2'],
     },
   },
 });

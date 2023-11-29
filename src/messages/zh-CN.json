@@ -57,6 +57,9 @@
       "totalRotns": "ROTN记录总数"
     },
     "status": {
+      "menu": {
+        "source": "查看原微博"
+      },
       "sourceFrom": "来自",
       "postedOn": "发布于",
       "video": {
