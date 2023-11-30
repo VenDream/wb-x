@@ -8,6 +8,8 @@ specifiers:
   '@types/node': 20.10.0
   '@types/react': 18.2.39
   '@types/react-dom': 18.2.17
+  '@types/react-window': ^1.8.8
+  '@types/react-window-infinite-loader': ^1.0.9
   ahooks: ^3.7.8
   autoprefixer: 10.4.16
   class-variance-authority: ^0.7.0
@@ -23,6 +25,7 @@ specifiers:
   husky: ^8.0.3
   jotai: ^2.6.0
   lint-staged: ^15.1.0
+  memoize-one: ^6.0.0
   next: 14.0.1
   next-intl: 3.1.4
   npm-run-all: ^4.1.5
@@ -34,6 +37,9 @@ specifiers:
   react-daisyui: ^4.1.2
   react-dom: 18.2.0
   react-simple-code-editor: ^0.13.1
+  react-virtualized-auto-sizer: ^1.0.20
+  react-window: ^1.8.10
+  react-window-infinite-loader: ^1.0.9
   sass: ^1.69.5
   shiki: ^0.14.5
   shikiji: ^0.7.4
@@ -52,6 +58,7 @@ dependencies:
   dayjs: 1.11.10
   framer-motion: 10.16.5_biqbaboplfbrettd7655fr4n2y
   jotai: 2.6.0_d6xr7427ryrc3fdigbbbatktku
+  memoize-one: 6.0.0
   next: 14.0.1_2sxiyfzeap2fgw7t7svnurc6pi
   next-intl: 3.1.4_next@14.0.1+react@18.2.0
   postcss: 8.4.31
@@ -59,6 +66,9 @@ dependencies:
   react-daisyui: 4.1.2_sueewsgvki5k6t5vunqh2xlrma
   react-dom: 18.2.0_react@18.2.0
   react-simple-code-editor: 0.13.1_biqbaboplfbrettd7655fr4n2y
+  react-virtualized-auto-sizer: 1.0.20_biqbaboplfbrettd7655fr4n2y
+  react-window: 1.8.10_biqbaboplfbrettd7655fr4n2y
+  react-window-infinite-loader: 1.0.9_biqbaboplfbrettd7655fr4n2y
   shiki: 0.14.5
   shikiji: 0.7.4
   tailwind-merge: 2.0.0
@@ -69,6 +79,8 @@ devDependencies:
   '@types/node': 20.10.0
   '@types/react': 18.2.39
   '@types/react-dom': 18.2.17
+  '@types/react-window': 1.8.8
+  '@types/react-window-infinite-loader': 1.0.9
   autoprefixer: 10.4.16_postcss@8.4.31
   commitizen: 4.3.0
   cross-env: 7.0.3
@@ -758,6 +770,19 @@ packages:
 
   /@types/react-dom/18.2.17:
     resolution: {integrity: sha512-rvrT/M7Df5eykWFxn6MYt5Pem/Dbyc1N8Y0S9Mrkw2WFCRiqUgw9P7ul2NpwsXCSM1DVdENzdG9J5SreqfAIWg==}
+    dependencies:
+      '@types/react': 18.2.39
+    dev: true
+
+  /@types/react-window-infinite-loader/1.0.9:
+    resolution: {integrity: sha512-gEInTjQwURCnDOFyIEK2+fWB5gTjqwx30O62QfxA9stE5aiB6EWkGj4UMhc0axq7/FV++Gs/TGW8FtgEx0S6Tw==}
+    dependencies:
+      '@types/react': 18.2.39
+      '@types/react-window': 1.8.8
+    dev: true
+
+  /@types/react-window/1.8.8:
+    resolution: {integrity: sha512-8Ls660bHR1AUA2kuRvVG9D/4XpRC6wjAaPT9dil7Ckc76eP9TKWZwwmgfq8Q1LANX3QNDnoU4Zp48A3w+zK69Q==}
     dependencies:
       '@types/react': 18.2.39
     dev: true
@@ -3279,6 +3304,14 @@ packages:
       unist-util-visit: 5.0.0
     dev: false
 
+  /memoize-one/5.2.1:
+    resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
+    dev: false
+
+  /memoize-one/6.0.0:
+    resolution: {integrity: sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==}
+    dev: false
+
   /memorystream/0.3.1:
     resolution: {integrity: sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw==}
     engines: {node: '>= 0.10.0'}
@@ -3948,6 +3981,40 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-virtualized-auto-sizer/1.0.20_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-OdIyHwj4S4wyhbKHOKM1wLSj/UDXm839Z3Cvfg2a9j+He6yDa6i5p0qQvEiCnyQlGO/HyfSnigQwuxvYalaAXA==}
+    peerDependencies:
+      react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
+      react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-window-infinite-loader/1.0.9_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-5Hg89IdU4Vrp0RT8kZYKeTIxWZYhNkVXeI1HbKo01Vm/Z7qztDvXljwx16sMzsa9yapRJQW3ODZfMUw38SOWHw==}
+    engines: {node: '>8.0.0'}
+    peerDependencies:
+      react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0
+      react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-window/1.8.10_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-Y0Cx+dnU6NLa5/EvoHukUD0BklJ8qITCtVEPY1C/nL8wwoZ0b5aEw8Ff1dOVHw7fCzMt55XfJDd8S8W8LCaUCg==}
+    engines: {node: '>8.0.0'}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.23.2
+      memoize-one: 5.2.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false

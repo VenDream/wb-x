@@ -58,7 +58,8 @@
     },
     "status": {
       "menu": {
-        "source": "View original post"
+        "source": "View original post",
+        "download": "Download images zip"
       },
       "sourceFrom": "from",
       "postedOn": "posted on",

@@ -65,3 +65,17 @@ export function getCreateTime(ct: string) {
     return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
   }
 }
+
+/**
+ * dedupe status list
+ *
+ * @export
+ * @param {Backend.Status[]} list status list
+ */
+export function dedupeStatusList(list: Backend.Status[]) {
+  const map = new Map<string, Backend.Status>();
+  list.forEach(status => {
+    map.set(status.id, status);
+  });
+  return Array.from(map.values());
+}

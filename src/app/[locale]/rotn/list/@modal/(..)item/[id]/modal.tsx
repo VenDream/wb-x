@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import RotnItem from '@/app/[locale]/rotn/item/[id]/item';
+import { RotnItem } from '@/app/[locale]/rotn/item';
 import { ModalBody, ModalLegacy } from '@/components/daisyui';
 import { useRouter } from '@/navigation';
 

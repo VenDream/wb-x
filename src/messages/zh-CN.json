@@ -58,7 +58,8 @@
     },
     "status": {
       "menu": {
-        "source": "查看原微博"
+        "source": "查看原微博",
+        "download": "下载图片压缩包"
       },
       "sourceFrom": "来自",
       "postedOn": "发布于",

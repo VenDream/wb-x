@@ -32,6 +32,8 @@ export const SECONDARY_ROUTES = {
 };
 
 export const WEIBO_HOST = 'https://weibo.com';
+export const WEIBO_IMAGES_DOWNLOAD_API =
+  '/api/weibo/status/images?responseType=zip';
 
 /** localStorage keys */
 export const LS_KEYS = {

@@ -102,7 +102,7 @@ export function ToastProvider(props: ChildrenProps) {
               key={id}
               icon={icon}
               status={status}
-              className="min-w-[200px] gap-1 rounded px-3 py-2 text-sm shadow"
+              className="border-regular-10 min-w-[200px] gap-1 rounded px-3 py-2 text-sm shadow"
             >
               {message || children}
             </Alert>

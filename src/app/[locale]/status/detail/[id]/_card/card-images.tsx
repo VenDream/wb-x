@@ -31,7 +31,7 @@ export default function CardIamges(props: CardImagesProps) {
   const { openLightbox, renderLightbox } = useLightbox();
   const slides = useMemo<Slide[]>(() => {
     return images.map((img, idx) => {
-      const { lg, filename } = getImageVariants(img);
+      const { lg, origin, filename } = getImageVariants(img);
       return {
         type: 'image',
         src: FAKE_IMG || lg,
@@ -40,6 +40,7 @@ export default function CardIamges(props: CardImagesProps) {
             {idx + 1} / {images.length} - {filename}
           </p>
         ),
+        download: FAKE_IMG || origin,
       };
     });
   }, [images]);
