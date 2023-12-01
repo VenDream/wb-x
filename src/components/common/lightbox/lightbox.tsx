@@ -75,6 +75,7 @@ export default function Lightbox(props: LightboxExternalProps) {
   return (
     <LightboxComponent
       noScroll={{ disabled: true }}
+      // controller={{ closeOnBackdropClick: true }}
       plugins={plugins}
       animation={animation}
       carousel={carousel}

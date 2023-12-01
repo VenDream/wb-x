@@ -15,7 +15,12 @@ import {
   DropdownToggle,
 } from '@/components/daisyui';
 import { WEIBO_HOST, WEIBO_IMAGES_DOWNLOAD_API } from '@/contants';
+import { WEIBO_ICON } from '@/contants/svgs';
 import { Link } from '@/navigation';
+import {
+  EllipsisHorizontalCircleIcon,
+  FolderArrowDownIcon,
+} from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
@@ -39,16 +44,17 @@ export default function CardMenu(props: CardHeaderProps) {
     <Dropdown className={className}>
       <DropdownToggle button={false}>
         <Button size="sm" color="ghost">
-          · · ·
+          <EllipsisHorizontalCircleIcon className="h-5 w-5" />
         </Button>
       </DropdownToggle>
-      <DropdownMenu className="border-regular-5 z-10 mt-2 w-44 rounded">
+      <DropdownMenu className="border-regular-5 z-10 mt-2 w-[180px] rounded">
         <DropdownItem anchor={false}>
           <Link
             target="_blank"
             className="rounded p-2"
             href={`${WEIBO_HOST}/detail/${id}`}
           >
+            {WEIBO_ICON}
             {t('source')}
           </Link>
         </DropdownItem>
@@ -59,6 +65,7 @@ export default function CardMenu(props: CardHeaderProps) {
               className="rounded p-2"
               href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
             >
+              <FolderArrowDownIcon />
               {t('download')}
             </a>
           </DropdownItem>

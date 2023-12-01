@@ -86,7 +86,6 @@ export default function StatusList() {
       ...rowHeightsRef.current,
       [idx]: height,
     };
-    console.log('set row height: ', idx, height);
   }, []);
 
   const itemData = getListCtx(statusList, setRowHeight);

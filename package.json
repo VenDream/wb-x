@@ -21,11 +21,11 @@
     "clsx": "^2.0.0",
     "daisyui": "^3.9.4",
     "dayjs": "^1.11.10",
-    "framer-motion": "^10.16.5",
+    "framer-motion": "^10.16.9",
     "jotai": "^2.6.0",
     "memoize-one": "^6.0.0",
     "next": "14.0.1",
-    "next-intl": "3.1.4",
+    "next-intl": "3.2.0",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-daisyui": "^4.1.2",
@@ -35,13 +35,13 @@
     "react-window": "^1.8.10",
     "react-window-infinite-loader": "^1.0.9",
     "shiki": "^0.14.5",
-    "shikiji": "^0.7.4",
+    "shikiji": "^0.7.5",
     "tailwind-merge": "^2.0.0",
     "tailwindcss": "3.3.5",
-    "yet-another-react-lightbox": "^3.15.4"
+    "yet-another-react-lightbox": "^3.15.5"
   },
   "devDependencies": {
-    "@types/node": "20.10.0",
+    "@types/node": "20.10.1",
     "@types/react": "18.2.39",
     "@types/react-dom": "18.2.17",
     "@types/react-window": "^1.8.8",
@@ -59,7 +59,7 @@
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "sass": "^1.69.5",
-    "tsx": "^4.6.0",
+    "tsx": "^4.6.1",
     "typescript": "5.3.2"
   },
   "config": {

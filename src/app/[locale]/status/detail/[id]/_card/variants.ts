@@ -21,7 +21,7 @@ export const card = cva(
   }
 );
 
-export const cardBody = cva(['card-body'], {
+export const cardBody = cva(['card-body', 'relative'], {
   variants: {
     type: {
       default: ['my-2', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
@@ -30,7 +30,7 @@ export const cardBody = cva(['card-body'], {
   },
 });
 
-export const cardFooter = cva(['card-footer'], {
+export const cardFooter = cva(['card-footer', 'relative'], {
   variants: {
     type: {
       default: ['my-4', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
