@@ -12,33 +12,35 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { VirtualListContext } from './context';
 import type { VirtualListRowItemProps } from './types';
 
-const GUTTER_SIZE = 10;
-
 export default function RowItem<T>(props: VirtualListRowItemProps<T>) {
   const { index, style } = props;
-  const { list, renderRowItemContent, setRowHeight } =
-    useContext(VirtualListContext);
+  const {
+    list,
+    gutter = 10,
+    renderRowItemContent,
+    setRowHeight,
+  } = useContext(VirtualListContext);
 
   const cardRef = useRef<HTMLDivElement>(null);
-  const gutter = index === 0 ? 0 : GUTTER_SIZE;
+  const GUTTER = index === 0 ? 0 : gutter;
 
   const [visible, setVisible] = useState(false);
 
   const itemStyle = {
     ...style,
-    top: index === 0 ? style.top : (style.top as number) + gutter,
+    top: index === 0 ? style.top : (style.top as number) + GUTTER,
   };
 
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
 
-    const cardH = card.getBoundingClientRect().height + gutter * 2;
+    const cardH = card.getBoundingClientRect().height + GUTTER * 2;
     setRowHeight(index, cardH);
     setTimeout(() => {
       setVisible(true);
     });
-  }, [gutter, index, setRowHeight]);
+  }, [GUTTER, index, setRowHeight]);
 
   return (
     <div

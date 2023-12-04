@@ -47,7 +47,7 @@ export default function CardMenu(props: CardHeaderProps) {
           <EllipsisHorizontalCircleIcon className="h-5 w-5" />
         </Button>
       </DropdownToggle>
-      <DropdownMenu className="border-regular-5 z-10 mt-2 w-[180px] rounded">
+      <DropdownMenu className="border-regular-5 z-10 mt-2 w-[185px] rounded">
         <DropdownItem anchor={false}>
           <Link
             target="_blank"

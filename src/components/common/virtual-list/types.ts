@@ -12,6 +12,8 @@ import React from 'react';
 export interface VirtualListCtx<T = any> {
   /** item data list */
   list: T[];
+  /** item gutter */
+  gutter?: number;
   /** row height updater */
   setRowHeight: (idx: number, height: number) => void;
   /** render row item content */
@@ -37,12 +39,14 @@ export interface VirtualListProps<T, R> {
   className?: string;
   /** page size */
   pageSize?: number;
-  /** how to concat new list */
-  concatList?: (prevList: T[], newList: T[]) => T[];
+  /** item gutter */
+  gutter?: number;
   /** loading threshold */
   loadingThreshold?: number;
   /** estimated row height */
   estimatedRowHeight?: number;
+  /** how to concat new list */
+  concatList?: (prevList: T[], newList: T[]) => T[];
 }
 
 export interface VirtualListRowProps<T> {

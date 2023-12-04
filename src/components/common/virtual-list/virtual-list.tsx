@@ -12,16 +12,15 @@
 import NoData from '@/components/common/no-data';
 import useToast from '@/components/common/toast';
 import clsx from 'clsx';
-import memoize from 'memoize-one';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Loading } from 'react-daisyui';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import { VirtualListContext } from './context';
 import ListRow from './list-row';
-import type { VirtualListCtx, VirtualListProps } from './types';
+import type { VirtualListProps } from './types';
 
 export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
   const {
@@ -29,9 +28,10 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
     getDataParser,
     getRowItemKey,
     renderRowItemContent,
+    className = '',
     pageSize = 10,
     concatList = Array.prototype.concat,
-    className = '',
+    gutter = 10,
     loadingThreshold = 5,
     estimatedRowHeight = 50,
   } = props;
@@ -53,8 +53,8 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
       const limit = pageSize;
       const offset = pageNo * limit;
       const parseListData = getDataParser();
-      const dataFetcher = getDataFetcher({ limit, offset });
-      const data = await dataFetcher();
+      const fetchListData = getDataFetcher({ limit, offset });
+      const data = await fetchListData();
       const list = parseListData(data);
 
       if (pageNo === 0) {
@@ -94,20 +94,18 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
     };
   }, []);
 
-  const isNoData = pageNo === 0 && isLoadAll;
-  const isFirstLoading = pageNo === 0 && isLoading;
-
-  const getListCtx = memoize(
-    (
-      list: T[],
-      setRowHeight: VirtualListCtx<T>['setRowHeight'],
-      renderRowItemContent: VirtualListCtx<T>['renderRowItemContent']
-    ) => ({
-      list,
+  const listCtx = useMemo(
+    () => ({
+      list: dataList,
+      gutter,
       setRowHeight,
       renderRowItemContent,
-    })
+    }),
+    [dataList, gutter, renderRowItemContent, setRowHeight]
   );
+
+  const isNoData = pageNo === 0 && isLoadAll;
+  const isFirstLoading = pageNo === 0 && isLoading;
 
   useEffect(() => {
     fetchDataList();
@@ -125,9 +123,7 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
         (isNoData || isFirstLoading) && 'flex items-center justify-center'
       )}
     >
-      <VirtualListContext.Provider
-        value={getListCtx(dataList, setRowHeight, renderRowItemContent)}
-      >
+      <VirtualListContext.Provider value={listCtx}>
         {isFirstLoading ? (
           <Loading color="primary" />
         ) : isNoData ? (
@@ -144,8 +140,8 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
                 {({ onItemsRendered, ref }) => (
                   <VariableSizeList
                     ref={(list: VariableSizeList) => {
-                      listRef.current = list;
                       ref(list);
+                      listRef.current = list;
                     }}
                     width={width}
                     height={height}
