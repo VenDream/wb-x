@@ -9,6 +9,11 @@
 
 import React from 'react';
 
+export interface VirtualListHandle {
+  /** reset pageNo to 0 */
+  resetPageNo: () => void;
+}
+
 export interface VirtualListCtx<T = any> {
   /** item data list */
   list: T[];
@@ -17,12 +22,7 @@ export interface VirtualListCtx<T = any> {
   /** row height updater */
   setRowHeight: (idx: number, height: number) => void;
   /** render row item content */
-  renderRowItemContent: (
-    /** content ref, for measuring row height */
-    ref: React.RefObject<HTMLDivElement>,
-    /** content data */
-    data: T
-  ) => React.ReactNode;
+  renderRowItemContent: (data: T) => React.ReactNode;
 }
 
 export interface VirtualListProps<T, R> {

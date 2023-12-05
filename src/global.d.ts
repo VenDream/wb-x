@@ -18,8 +18,11 @@ declare global {
   type ParamsBody = { params: Record<string, any> };
 
   interface PaginationParams {
+    /** page size */
     limit?: number;
+    /** offset */
     offset?: number;
+    /** need total flag */
     needTotal?: boolean;
   }
 
@@ -109,6 +112,19 @@ declare global {
       total?: number;
     }
 
+    interface StatusListFilterParams {
+      /** uid */
+      uid?: string;
+      /** keyword */
+      keyword?: string;
+      /** start date */
+      startDate?: string;
+      /** end date */
+      endDate?: string;
+      /** need total flag */
+      needTotal?: boolean;
+    }
+
     /* ---------------------------------------------------------------------- */
     /*                                  ROTN                                  */
     /* ---------------------------------------------------------------------- */
@@ -151,4 +167,13 @@ declare global {
       };
     }
   }
+}
+
+/**
+ * @refer https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref
+ */
+declare module 'react' {
+  function forwardRef<T, P = {}>(
+    render: (props: P, ref: ForwardedRef<T>) => ReactElement | null
+  ): (props: P & RefAttributes<T>) => ReactElement | null;
 }

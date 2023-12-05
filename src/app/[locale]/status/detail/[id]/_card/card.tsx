@@ -9,7 +9,6 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { forwardRef } from 'react';
 import CardBody from './card-body';
 import CardFooter from './card-footer';
 import CardHeader from './card-header';
@@ -23,12 +22,11 @@ interface CardProps {
   isRetweet?: boolean;
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>(function Card(props, ref) {
+export default function Card(props: CardProps) {
   const { status, isRetweet } = props;
 
   return (
     <div
-      ref={ref}
       data-id={status.id}
       className={card({ type: isRetweet ? 'retweet' : 'default' })}
     >
@@ -38,6 +36,4 @@ const Card = forwardRef<HTMLDivElement, CardProps>(function Card(props, ref) {
       <CardMenu status={status} isRetweet={isRetweet} />
     </div>
   );
-});
-
-export default Card;
+}

@@ -18,7 +18,7 @@ export function appendURLParams(url: string, params: Record<string, any>) {
   const fullUrl = url.startsWith('http') ? url : window.location.origin + url;
   const _url = new URL(fullUrl);
   for (const [k, v] of Object.entries(params)) {
-    _url.searchParams.append(k, encodeURIComponent(v));
+    _url.searchParams.append(k, v);
   }
   return _url.href;
 }

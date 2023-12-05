@@ -25,7 +25,8 @@
       "save": "保存",
       "refresh": "刷新",
       "loading": "加载中",
-      "retry": "重试"
+      "retry": "重试",
+      "search": "搜索"
     },
     "dataFetching": {
       "noMore": "没有更多数据了",
@@ -57,6 +58,11 @@
       "totalRotns": "ROTN记录总数"
     },
     "status": {
+      "filter": {
+        "keyword": "关键字",
+        "startDate": "开始日期",
+        "endDate": "结束日期 "
+      },
       "menu": {
         "source": "查看原微博",
         "download": "下载原图"

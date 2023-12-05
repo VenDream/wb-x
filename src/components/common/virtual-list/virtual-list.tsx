@@ -13,16 +13,32 @@ import NoData from '@/components/common/no-data';
 import useToast from '@/components/common/toast';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ForwardedRef,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Loading } from 'react-daisyui';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import { VirtualListContext } from './context';
 import ListRow from './list-row';
-import type { VirtualListProps } from './types';
+import type {
+  VirtualListCtx,
+  VirtualListHandle,
+  VirtualListProps,
+} from './types';
 
-export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
+const VirtualList = forwardRef(function VL<T, R>(
+  props: VirtualListProps<T, R>,
+  ref: ForwardedRef<VirtualListHandle>
+) {
   const {
     getDataFetcher,
     getDataParser,
@@ -94,7 +110,7 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
     };
   }, []);
 
-  const listCtx = useMemo(
+  const listCtx = useMemo<VirtualListCtx<T>>(
     () => ({
       list: dataList,
       gutter,
@@ -104,7 +120,7 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
     [dataList, gutter, renderRowItemContent, setRowHeight]
   );
 
-  const isNoData = pageNo === 0 && isLoadAll;
+  const isNoData = pageNo === 0 && isLoadAll && dataList.length === 0;
   const isFirstLoading = pageNo === 0 && isLoading;
 
   useEffect(() => {
@@ -115,6 +131,10 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
     pageNo > 0 && isLoadAll && showInfoTips(t('noMore'));
   }, [isLoadAll, pageNo, showInfoTips, t]);
 
+  useImperativeHandle(ref, () => ({
+    resetPageNo: () => setPageNo(0),
+  }));
+
   return (
     <div
       className={clsx(
@@ -123,12 +143,12 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
         (isNoData || isFirstLoading) && 'flex items-center justify-center'
       )}
     >
-      <VirtualListContext.Provider value={listCtx}>
-        {isFirstLoading ? (
-          <Loading color="primary" />
-        ) : isNoData ? (
-          <NoData />
-        ) : (
+      {isFirstLoading ? (
+        <Loading color="primary" />
+      ) : isNoData ? (
+        <NoData />
+      ) : (
+        <VirtualListContext.Provider value={listCtx}>
           <AutoSizer>
             {({ height, width }) => (
               <InfiniteLoader
@@ -162,8 +182,10 @@ export default function VirtualList<T, R>(props: VirtualListProps<T, R>) {
               </InfiniteLoader>
             )}
           </AutoSizer>
-        )}
-      </VirtualListContext.Provider>
+        </VirtualListContext.Provider>
+      )}
     </div>
   );
-}
+});
+
+export default VirtualList;

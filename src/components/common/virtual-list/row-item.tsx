@@ -21,7 +21,7 @@ export default function RowItem<T>(props: VirtualListRowItemProps<T>) {
     setRowHeight,
   } = useContext(VirtualListContext);
 
-  const cardRef = useRef<HTMLDivElement>(null);
+  const domRef = useRef<HTMLDivElement>(null);
   const GUTTER = index === 0 ? 0 : gutter;
 
   const [visible, setVisible] = useState(false);
@@ -32,7 +32,7 @@ export default function RowItem<T>(props: VirtualListRowItemProps<T>) {
   };
 
   useEffect(() => {
-    const card = cardRef.current;
+    const card = domRef.current;
     if (!card) return;
 
     const cardH = card.getBoundingClientRect().height + GUTTER * 2;
@@ -53,8 +53,10 @@ export default function RowItem<T>(props: VirtualListRowItemProps<T>) {
         }
       )}
     >
-      {/* @TODO add scrolling indicator */}
-      {renderRowItemContent(cardRef, list[index])}
+      <div ref={domRef} className="virtual-list-row-item-sizer">
+        {/* @TODO add scrolling indicator */}
+        {renderRowItemContent(list[index])}
+      </div>
     </div>
   );
 }

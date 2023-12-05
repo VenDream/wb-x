@@ -25,7 +25,8 @@
       "save": "Save",
       "refresh": "Refresh",
       "loading": "Loading",
-      "retry": "Retry"
+      "retry": "Retry",
+      "search": "Search"
     },
     "dataFetching": {
       "noMore": "No more data",
@@ -57,6 +58,11 @@
       "totalRotns": "Total ROTNs"
     },
     "status": {
+      "filter": {
+        "keyword": "Keyword",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
       "menu": {
         "source": "View original post",
         "download": "DL images zip"
