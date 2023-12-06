@@ -16,6 +16,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     'node_modules/daisyui/dist/**/*.js',
     'node_modules/react-daisyui/dist/**/*.js',
+    'node_modules/tailwind-datepicker-react/dist/**/*.js',
   ],
   theme: {
     extend: {},

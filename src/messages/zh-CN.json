@@ -26,7 +26,8 @@
       "refresh": "刷新",
       "loading": "加载中",
       "retry": "重试",
-      "search": "搜索"
+      "search": "搜索",
+      "reset": "重置"
     },
     "dataFetching": {
       "noMore": "没有更多数据了",
@@ -40,6 +41,11 @@
     "paginator": {
       "jumpTo": "跳至",
       "page": "页"
+    },
+    "datepicker": {
+      "select": "选择日期",
+      "today": "今天",
+      "clear": "清除"
     },
     "misc": {
       "notFound": "此页面不存在",
@@ -59,6 +65,7 @@
     },
     "status": {
       "filter": {
+        "uid": "UID",
         "keyword": "关键字",
         "startDate": "开始日期",
         "endDate": "结束日期 "

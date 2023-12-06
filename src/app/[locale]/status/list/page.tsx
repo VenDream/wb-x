@@ -38,7 +38,7 @@ export default function Page() {
     getRowItemKey: (_, list) => list.id,
     renderRowItemContent: data => <StatusCard status={data} />,
     concatList: (prevList, list) => dedupeStatusList([...prevList, ...list]),
-    className: 'status-list flex-1 w-full',
+    className: 'status-list pl-64 2xl:pl-0',
     estimatedRowHeight: 500,
   };
 
@@ -51,12 +51,12 @@ export default function Page() {
   );
 
   return (
-    <div className="relative flex h-full flex-col items-center">
+    <div className="relative h-full">
+      <VirtualList {...listProps} ref={listRef} />
       <Filter
         filterParams={filterParams}
         updateFilterParams={updateFilterParams}
       />
-      <VirtualList {...listProps} ref={listRef} />
     </div>
   );
 }

@@ -132,7 +132,10 @@ const VirtualList = forwardRef(function VL<T, R>(
   }, [isLoadAll, pageNo, showInfoTips, t]);
 
   useImperativeHandle(ref, () => ({
-    resetPageNo: () => setPageNo(0),
+    resetPageNo: () => {
+      setPageNo(0);
+      rowHeightsRef.current = {};
+    },
   }));
 
   return (

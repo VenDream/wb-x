@@ -18,6 +18,7 @@ type ROTNListParams = PaginationParams & {
 
 export async function getDbStatusList(params: StatusListParams) {
   let url = '/api/db/status/list';
+  if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
   const fistLoad = params.offset || 0 === 0;
   await sleep(fistLoad ? 500 : 0);

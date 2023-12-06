@@ -26,7 +26,8 @@
       "refresh": "Refresh",
       "loading": "Loading",
       "retry": "Retry",
-      "search": "Search"
+      "search": "Search",
+      "reset": "Reset"
     },
     "dataFetching": {
       "noMore": "No more data",
@@ -40,6 +41,11 @@
     "paginator": {
       "jumpTo": "Go to",
       "page": "Page"
+    },
+    "datepicker": {
+      "select": "Select Date",
+      "today": "Today",
+      "clear": "Clear"
     },
     "misc": {
       "notFound": "Page not found",
@@ -59,9 +65,10 @@
     },
     "status": {
       "filter": {
+        "uid": "UID",
         "keyword": "Keyword",
-        "startDate": "Start Date",
-        "endDate": "End Date"
+        "startDate": "StartDate",
+        "endDate": "EndDate"
       },
       "menu": {
         "source": "View original post",
