@@ -73,7 +73,9 @@
       },
       "menu": {
         "source": "View original post",
-        "download": "DL images zip"
+        "download": "DL images zip",
+        "copyUID": "Copy UID",
+        "copySuccessTips": "Copied successfully"
       },
       "sourceFrom": "from",
       "postedOn": "posted on",
