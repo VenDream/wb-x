@@ -112,6 +112,12 @@ declare global {
       total?: number;
     }
 
+    interface RetweetStatusList {
+      retweetStatuses: Status[];
+      count: number;
+      total?: number;
+    }
+
     interface StatusListFilterParams {
       /** uid */
       uid?: string;

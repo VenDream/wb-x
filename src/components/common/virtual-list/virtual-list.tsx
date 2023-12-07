@@ -166,6 +166,7 @@ const VirtualList = forwardRef(function VL<T, R>(
                       ref(list);
                       listRef.current = list;
                     }}
+                    className="!overflow-x-hidden"
                     width={width}
                     height={height}
                     useIsScrolling

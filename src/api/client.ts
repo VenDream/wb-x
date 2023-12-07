@@ -22,7 +22,26 @@ export async function getDbStatusList(params: StatusListParams) {
   url = appendURLParams(url, params);
   const fistLoad = params.offset || 0 === 0;
   await sleep(fistLoad ? 500 : 0);
-  const statuses = await get<Backend.StatusList>(url);
+  let statuses = await get<Backend.StatusList>(url);
+  // if no statuses, check retweet status instead
+  if (!statuses.statuses?.length) {
+    const retweetStatuses = await getDbRetweetStatusList(params);
+    statuses = {
+      total: retweetStatuses.total,
+      count: retweetStatuses.count,
+      statuses: retweetStatuses.retweetStatuses,
+    };
+  }
+  return statuses;
+}
+
+export async function getDbRetweetStatusList(params: StatusListParams) {
+  let url = '/api/db/retweet_status/list';
+  if (params.endDate) params.endDate += ' 23:59:59';
+  url = appendURLParams(url, params);
+  const fistLoad = params.offset || 0 === 0;
+  await sleep(fistLoad ? 500 : 0);
+  const statuses = await get<Backend.RetweetStatusList>(url);
   return statuses;
 }
 
