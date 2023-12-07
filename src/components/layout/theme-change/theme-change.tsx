@@ -18,7 +18,7 @@ import {
   Theme as ThemeProvoder,
   useTheme,
 } from '@/components/daisyui';
-import { LS_KEYS, THEMES } from '@/contants';
+import { DARK_THEMES, LS_KEYS, THEMES } from '@/contants';
 import {
   CheckCircleIcon,
   ChevronDownIcon,
@@ -35,7 +35,13 @@ function ThemeConsumer() {
 
   const applyTheme = useCallback(
     (t: string) => {
-      document.getElementsByTagName('html')[0].setAttribute('data-theme', t);
+      const html = document.getElementsByTagName('html')[0];
+      html.setAttribute('data-theme', t);
+      if (DARK_THEMES.includes(t)) {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
       setTheme(t);
     },
     [setTheme]

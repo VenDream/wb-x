@@ -45,7 +45,8 @@
     "datepicker": {
       "select": "Select Date",
       "today": "Today",
-      "clear": "Clear"
+      "clear": "Clear",
+      "weekDays": "Mo,Tu,We,Th,Fr,Sa,Su"
     },
     "misc": {
       "notFound": "Page not found",

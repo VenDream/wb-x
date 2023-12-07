@@ -11,19 +11,23 @@
 
 import { Input } from '@/components/daisyui';
 import { LANGS } from '@/contants';
+import { useMemoizedFn } from 'ahooks';
+import dayjs from 'dayjs';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IDatePicker from 'tailwind-datepicker-react';
 import type { IDatePickerProps } from 'tailwind-datepicker-react/types/Components/DatePicker';
 
-import dayjs from 'dayjs';
 import './datepicker.sass';
 
 type DatePickerProps = Omit<IDatePickerProps, 'show' | 'setShow'>;
 
+const DATEPICKER = 'wbx-datepicker';
+
 export default function DatePicker(props: DatePickerProps) {
   const t = useTranslations('global.datepicker');
   const locale = useLocale();
+  const isEn = locale === LANGS.en;
 
   const [show, setShow] = useState(false);
 
@@ -35,26 +39,41 @@ export default function DatePicker(props: DatePickerProps) {
       todayBtnText: t('today'),
       clearBtn: true,
       clearBtnText: t('clear'),
-      maxDate: new Date(),
       defaultDate: null,
-      language: locale === LANGS.en ? 'en' : 'zh',
+      language: isEn ? 'en' : 'zh',
       inputPlaceholderProp: t('select'),
-      datepickerClassNames: 'datepicker',
+      datepickerClassNames: DATEPICKER,
+      weekDays: t('weekDays').split(','),
       theme: {
         ...props.options?.theme,
-        background: 'bg-base-200 rounded border-regular-10 shadow',
-        todayBtn: '',
+        background: '!bg-base-100 border-regular-10 shadow',
+        todayBtn: '!btn-primary',
         clearBtn: '',
         icons: '',
         text: '',
-        disabledText: '!text-slate-500 pointer-events-none',
+        disabledText: '',
         input: '',
         inputIcon: '',
-        selected: '',
+        selected: '!btn-primary',
       },
       ...props.options,
     },
   };
+
+  const checkClickOutside = useMemoizedFn((evt: MouseEvent) => {
+    if (!show) return;
+    const target = evt.target as HTMLElement;
+    if (!target.closest(`.${DATEPICKER}`)) {
+      setShow(false);
+    }
+  });
+
+  useEffect(() => {
+    document.addEventListener('mousedown', checkClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', checkClickOutside);
+    };
+  }, [checkClickOutside]);
 
   return (
     <IDatePicker {...pickerProps} show={show} setShow={setShow}>

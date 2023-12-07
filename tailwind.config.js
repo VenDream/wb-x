@@ -24,6 +24,7 @@ module.exports = {
       sans: ['Lato', 'Helvetica', ...defaultTheme.fontFamily.sans],
     },
   },
+  darkMode: 'class',
   plugins: [require('daisyui')],
 
   // daisyui configs

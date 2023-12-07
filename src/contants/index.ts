@@ -26,7 +26,6 @@ export const MAIN_ROUTES = {
 
 /** secondary route paths */
 export const SECONDARY_ROUTES = {
-  USER_TIMELINE: '/user/timeline',
   STATUS_DETAIL: '/status/detail',
   ROTN_ITEM_DETAIL: '/rotn/item',
 };
@@ -76,6 +75,20 @@ export const THEMES = [
   'night',
   'coffee',
   'winter',
+];
+
+export const DARK_THEMES = [
+  'dark',
+  'synthwave',
+  'halloween',
+  'forest',
+  'aqua',
+  'black',
+  'luxury',
+  'dracula',
+  'business',
+  'night',
+  'coffee',
 ];
 
 export const IMG_PLACEHOLDER =

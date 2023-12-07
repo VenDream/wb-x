@@ -23,16 +23,20 @@ import {
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useState } from 'react';
 
 interface CardHeaderProps {
   status: Backend.Status;
   isRetweet?: boolean;
 }
 
+const ALIGN_END_TRIGGER_W = 1450;
+
 export default function CardMenu(props: CardHeaderProps) {
   const { status, isRetweet } = props;
   const { id } = props.status;
   const t = useTranslations('pages.status.menu');
+  const [alignEnd, setAlignEnd] = useState(false);
 
   const hasImages = status.images.length > 0;
   const className = clsx('status-menu absolute right-[14px]', {
@@ -40,8 +44,21 @@ export default function CardMenu(props: CardHeaderProps) {
     'top-[35px]': !isRetweet,
   });
 
+  const refreshAlignment = useCallback(() => {
+    const w = window.innerWidth;
+    setAlignEnd(w <= ALIGN_END_TRIGGER_W);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', refreshAlignment);
+    refreshAlignment();
+    return () => {
+      window.removeEventListener('resize', refreshAlignment);
+    };
+  }, [refreshAlignment]);
+
   return (
-    <Dropdown className={className}>
+    <Dropdown end={alignEnd} className={className}>
       <DropdownToggle button={false}>
         <Button size="sm" color="ghost">
           <EllipsisHorizontalCircleIcon className="h-5 w-5" />

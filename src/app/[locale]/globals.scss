@@ -39,17 +39,7 @@
       @apply rounded bg-gray-100;
     }
 
-    &[data-theme='dark'],
-    &[data-theme='synthwave'],
-    &[data-theme='halloween'],
-    &[data-theme='forest'],
-    &[data-theme='aqua'],
-    &[data-theme='black'],
-    &[data-theme='luxury'],
-    &[data-theme='dracula'],
-    &[data-theme='business'],
-    &[data-theme='night'],
-    &[data-theme='coffee'] {
+    &.dark {
       &::-webkit-scrollbar-thumb,
       & *::-webkit-scrollbar-thumb,
       &::-webkit-scrollbar-track,

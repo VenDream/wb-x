@@ -87,6 +87,9 @@ export default function Filter(props: FilterProps) {
                 startDate: dayjs(date).format('YYYY-MM-DD'),
               }))
             }
+            options={{
+              defaultDate: new Date(),
+            }}
           />
         </div>
         <div className="flex items-center justify-between gap-1">
@@ -100,6 +103,9 @@ export default function Filter(props: FilterProps) {
                 endDate: dayjs(date).format('YYYY-MM-DD'),
               }))
             }
+            options={{
+              defaultDate: new Date(),
+            }}
           />
         </div>
       </div>
