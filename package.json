@@ -21,10 +21,10 @@
     "clsx": "^2.0.0",
     "daisyui": "^3.9.4",
     "dayjs": "^1.11.10",
-    "framer-motion": "^10.16.12",
+    "framer-motion": "^10.16.14",
     "jotai": "^2.6.0",
     "next": "14.0.1",
-    "next-intl": "3.2.1",
+    "next-intl": "3.3.0",
     "postcss": "8.4.32",
     "react": "18.2.0",
     "react-daisyui": "^4.1.2",
@@ -37,12 +37,12 @@
     "shikiji": "^0.7.6",
     "tailwind-datepicker-react": "^1.4.3",
     "tailwind-merge": "^2.1.0",
-    "tailwindcss": "3.3.5",
+    "tailwindcss": "3.3.6",
     "yet-another-react-lightbox": "^3.15.6"
   },
   "devDependencies": {
-    "@types/node": "20.10.3",
-    "@types/react": "18.2.41",
+    "@types/node": "20.10.4",
+    "@types/react": "18.2.42",
     "@types/react-dom": "18.2.17",
     "@types/react-window": "^1.8.8",
     "@types/react-window-infinite-loader": "^1.0.9",
@@ -57,10 +57,10 @@
     "npm-run-all": "^4.1.5",
     "picocolors": "^1.0.0",
     "prettier": "^3.1.0",
-    "prettier-plugin-tailwindcss": "^0.5.7",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "sass": "^1.69.5",
     "tsx": "^4.6.2",
-    "typescript": "5.3.2"
+    "typescript": "5.3.3"
   },
   "config": {
     "commitizen": {

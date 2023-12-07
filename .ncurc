@@ -1,0 +1,7 @@
+{
+  "reject": [
+    "next",
+    "daisyui",
+    "react-daisyui"
+  ]
+}
