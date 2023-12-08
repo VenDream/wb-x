@@ -45,7 +45,7 @@ export default function Page() {
   const updateFilterParams = useCallback(
     (patch: Partial<Backend.StatusListFilterParams>) => {
       setFilterParams(params => ({ ...params, ...patch }));
-      listRef.current?.resetPageNo();
+      listRef.current?.reset();
     },
     []
   );

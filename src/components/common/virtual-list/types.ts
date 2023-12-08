@@ -10,8 +10,8 @@
 import React from 'react';
 
 export interface VirtualListHandle {
-  /** reset pageNo to 0 */
-  resetPageNo: () => void;
+  /** reset */
+  reset: () => void;
 }
 
 export interface VirtualListCtx<T = any> {
