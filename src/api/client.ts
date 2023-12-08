@@ -12,6 +12,11 @@ import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
 type StatusListParams = PaginationParams & Backend.StatusListFilterParams;
+type StatusCommentsParams = {
+  id: string;
+  maxId?: string;
+  orderBy?: Backend.StatusCommentOrderBy;
+};
 type ROTNListParams = PaginationParams & {
   type?: Backend.ROTN_TYPE;
 };
@@ -50,6 +55,13 @@ export async function getDbStatusVideo(id: string) {
   url = appendURLParams(url, { id });
   const { video: videoUrl } = await get<{ video: string }>(url);
   return videoUrl;
+}
+
+export async function getStatusComments(params: StatusCommentsParams) {
+  let url = '/api/weibo/status/comments';
+  url = appendURLParams(url, params);
+  const comments = await get<Backend.StatusCommentList>(url);
+  return comments;
 }
 
 export async function getDbRotnList(params: ROTNListParams) {

@@ -74,7 +74,7 @@ declare global {
       /** image urls */
       images: string[];
       /** video */
-      video: Video | null;
+      video: StatusVideo | null;
       /** reposts count */
       repostsCount: number;
       /** comments count */
@@ -85,7 +85,7 @@ declare global {
       retweetedStatus?: Status;
     }
 
-    interface Video {
+    interface StatusVideo {
       /** id */
       id: string;
       /** mid */
@@ -129,6 +129,38 @@ declare global {
       endDate?: string;
       /** need total flag */
       needTotal?: boolean;
+    }
+
+    type StatusCommentOrderBy = 'asc' | 'desc' | 'hot';
+
+    interface StatusComment {
+      /** comment Id */
+      id: string;
+      /** comment content (rich text) */
+      text: string;
+      /** source */
+      source: string;
+      /** comment content (plaintext) */
+      rawText: string;
+      /** comment create time */
+      createdAt: string;
+      /** comment likes count */
+      likesCount: number;
+      /** commnet user */
+      user: User & { isOP: boolean };
+      /** replay user */
+      replyUser: StatusComment['user'] | null;
+      /** is reply to self  */
+      isReplySelf: boolean;
+      /** comment replies */
+      comments: StatusComment[];
+    }
+
+    interface StatusCommentList {
+      comments: StatusComment[];
+      count: number;
+      total: number;
+      maxId: string;
     }
 
     /* ---------------------------------------------------------------------- */
