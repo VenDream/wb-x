@@ -69,7 +69,7 @@ export default function EditConfig() {
           code={config}
           lang="yaml"
           onSave={confirm}
-        ></CodeEditor>
+        />
       ) : null}
     </div>
   );

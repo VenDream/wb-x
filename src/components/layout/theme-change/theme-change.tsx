@@ -85,15 +85,15 @@ function ThemeConsumer() {
                       {isSelected ? (
                         <CheckCircleIcon className="mr-1" />
                       ) : (
-                        <div className="mr-1 h-5 w-5"></div>
+                        <div className="mr-1 h-5 w-5" />
                       )}
                       {t}
                     </div>
                     <div className="right-block flex h-4 gap-1">
-                      <div className="w-2 rounded bg-primary"></div>
-                      <div className="w-2 rounded bg-secondary"></div>
-                      <div className="w-2 rounded bg-accent"></div>
-                      <div className="w-2 rounded bg-neutral"></div>
+                      <div className="w-2 rounded bg-primary" />
+                      <div className="w-2 rounded bg-secondary" />
+                      <div className="w-2 rounded bg-accent" />
+                      <div className="w-2 rounded bg-neutral" />
                     </div>
                   </div>
                 </div>

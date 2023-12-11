@@ -34,7 +34,7 @@ function StatUnit({ title, value, desc, icon }: StatUnitProps) {
       <StatItem variant="figure">{icon}</StatItem>
       <StatItem variant="title">{title}</StatItem>
       <StatItem variant="value" className="text-primary">
-        <Counter to={value}></Counter>
+        <Counter to={value} />
       </StatItem>
       <StatItem variant="desc">{desc}</StatItem>
     </Stat>

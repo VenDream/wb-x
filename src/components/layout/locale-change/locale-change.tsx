@@ -56,7 +56,7 @@ export default function LocaleChange() {
                     {isSelected ? (
                       <CheckCircleIcon className="mr-1" />
                     ) : (
-                      <div className="mr-1 h-5 w-5"></div>
+                      <div className="mr-1 h-5 w-5" />
                     )}
                     {l}
                   </div>

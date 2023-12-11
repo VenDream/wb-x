@@ -32,6 +32,6 @@ export default function Paginator(props: PaginatorProps) {
       pageSize={pageSize}
       defaultCurrent={defaultCurrent}
       onCurrentPageChange={routeTo}
-    ></IPaginator>
+    />
   );
 }

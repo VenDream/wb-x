@@ -16,12 +16,7 @@ export default function NoData() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Image
-        src={NO_DATA}
-        alt="NO_DATA"
-        width={30}
-        placeholder={NO_DATA}
-      ></Image>
+      <Image src={NO_DATA} alt="NO_DATA" width={30} placeholder={NO_DATA} />
       <p className="text-gray mt-2 text-sm">{t('noData')}</p>
     </div>
   );

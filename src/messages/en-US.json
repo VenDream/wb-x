@@ -65,6 +65,12 @@
       "totalRotns": "Total ROTNs"
     },
     "status": {
+      "comments": {
+        "label": "Comments",
+        "orderByAsc": "Asc",
+        "orderByDesc": "Desc",
+        "orderByHot": "Hot"
+      },
       "filter": {
         "uid": "UID",
         "keyword": "Keyword",

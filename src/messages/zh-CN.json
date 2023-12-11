@@ -65,6 +65,12 @@
       "totalRotns": "ROTN记录总数"
     },
     "status": {
+      "comments": {
+        "label": "评论",
+        "orderByAsc": "正序",
+        "orderByDesc": "倒序",
+        "orderByHot": "热度"
+      },
       "filter": {
         "uid": "UID",
         "keyword": "关键字",

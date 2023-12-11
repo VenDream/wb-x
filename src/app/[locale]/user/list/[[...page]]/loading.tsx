@@ -12,7 +12,7 @@ import { Loading } from '@/components/daisyui';
 export default function LoadingUI() {
   return (
     <div className="flex h-48 items-center justify-center">
-      <Loading color="primary"></Loading>
+      <Loading color="primary" />
     </div>
   );
 }

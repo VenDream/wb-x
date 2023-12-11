@@ -31,12 +31,12 @@ export default function CardBody(props: CardBodyProps) {
         <div
           className="status-text mb-2 pr-8 text-sm leading-6 tracking-tight"
           dangerouslySetInnerHTML={{ __html: userName + text }}
-        ></div>
+        />
         <CardImages status={status} isRetweet={isRetweet} />
         <CardVideo status={status} isRetweet={isRetweet} />
         {retweetedStatus && (
           <div className="status-repost">
-            <Card isRetweet status={retweetedStatus}></Card>
+            <Card isRetweet status={retweetedStatus} />
           </div>
         )}
       </div>

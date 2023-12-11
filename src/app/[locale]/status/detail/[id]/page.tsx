@@ -10,6 +10,7 @@
 import { getDbRetweetStatusDetail, getDbStatusDetail } from '@/api/server';
 import NoData from '@/components/common/no-data';
 import StatusCard from './_card';
+import CommentList from './_card/comment-list';
 
 export default async function Page({ params }: ParamsBody) {
   const { id } = params;
@@ -23,8 +24,15 @@ export default async function Page({ params }: ParamsBody) {
   }
 
   return (
-    <div className="status-detail flex flex-col items-center overflow-auto py-4">
-      {status ? <StatusCard status={status} /> : <NoData />}
+    <div className="status-detail flex flex-col items-center overflow-auto">
+      {status ? (
+        <>
+          <StatusCard status={status} />
+          <CommentList id={id} />
+        </>
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 }

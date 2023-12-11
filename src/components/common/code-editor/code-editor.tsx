@@ -78,7 +78,7 @@ export default function CodeEditor(props: CodeEditorProps) {
               fontFamily: 'monospace',
               fontSize: 12,
             }}
-          ></Editor>
+          />
           <div className="mt-4">
             <Button size="sm" color="primary" onClick={() => onSave?.(code)}>
               <InboxArrowDownIcon className="mr-1" />

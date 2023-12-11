@@ -132,7 +132,7 @@ export default function Paginator(props: PaginatorProps) {
           size="sm"
           className="mx-2 w-16 p-2"
           onKeyDown={evt => jumpPage(evt.key)}
-        ></Input>
+        />
         {t('page')}
       </div>
     </div>

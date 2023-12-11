@@ -11,6 +11,7 @@
 
 import NoData from '@/components/common/no-data';
 import useToast from '@/components/common/toast';
+import { Loading } from '@/components/daisyui';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import {
@@ -23,7 +24,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Loading } from 'react-daisyui';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';

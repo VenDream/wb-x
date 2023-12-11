@@ -27,12 +27,12 @@ export default async function Page({ params }: ParamsBody) {
 
   return (
     <div className="users-page">
-      <UsersList users={users}></UsersList>
+      <UsersList users={users} />
       <Paginator
         total={total}
         pageSize={pageSize}
         defaultCurrent={pageNo + 1}
-      ></Paginator>
+      />
     </div>
   );
 }
