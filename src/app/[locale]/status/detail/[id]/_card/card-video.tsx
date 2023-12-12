@@ -14,18 +14,14 @@ import { FAKE_POSTER, FAKE_VIDEO } from '@/contants/debug';
 import { getImageVariants } from '@/utils/weibo';
 import { PlayIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import CardCtx from './context';
 
 const WIDTH = 1200 * 0.8;
 
-interface CardVideoProps {
-  status: Backend.Status;
-  isRetweet?: boolean;
-}
-
-export default function CardVideo(props: CardVideoProps) {
-  const { status } = props;
+export default function CardVideo() {
+  const { status } = useContext(CardCtx);
   const t = useTranslations('pages.status.video');
   const { showErrorTips } = useToast();
 
@@ -40,7 +36,7 @@ export default function CardVideo(props: CardVideoProps) {
     'before:content-[""], before:w-full before:h-full before:rounded'
   );
 
-  if (!status.video) return null;
+  if (!status || !status.video) return null;
 
   const { title, cover } = status.video;
   const { md: poster } = getImageVariants(cover);

@@ -27,7 +27,7 @@ export default async function Page({ params }: ParamsBody) {
     <div className="status-detail flex flex-col items-center overflow-auto">
       {status ? (
         <>
-          <StatusCard status={status} />
+          <StatusCard status={status} menu={{ viewComments: false }} />
           <CommentList id={id} />
         </>
       ) : (

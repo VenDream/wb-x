@@ -11,16 +11,13 @@ import { Avatar } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
 import { getCreateTime } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
+import CardCtx from './context';
 
-interface CardHeaderProps {
-  status: Backend.Status;
-  isRetweet?: boolean;
-}
-
-export default function CardHeader(props: CardHeaderProps) {
+export default function CardHeader() {
   const t = useTranslations('pages.status');
-  const { isRetweet } = props;
-  const { user, createdAt, source } = props.status;
+  const { status, isRetweet } = useContext(CardCtx);
+  const { user, createdAt, source } = status!;
 
   if (isRetweet) return null;
 

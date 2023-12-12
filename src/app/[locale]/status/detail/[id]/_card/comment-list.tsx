@@ -61,8 +61,8 @@ export default function CommentList(props: CommentListProps) {
 
   const switchOrderBy = useCallback((orderBy: Backend.StatusCommentOrderBy) => {
     maxIdRef.current = '';
+    setIsLoadAll(false);
     setOrderBy(orderBy);
-    setCommentList([]);
   }, []);
 
   useEffect(() => {

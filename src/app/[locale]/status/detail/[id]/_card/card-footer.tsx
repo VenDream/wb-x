@@ -14,18 +14,14 @@ import {
   HandThumbUpIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
+import CardCtx from './context';
 import { cardFooter } from './variants';
 
-interface CardFooterProps {
-  status: Backend.Status;
-  isRetweet?: boolean;
-}
-
-export default function CardFooter(props: CardFooterProps) {
+export default function CardFooter() {
   const t = useTranslations('pages.status');
-  const { isRetweet } = props;
-  const { createdAt, repostsCount, commentsCount, attitudesCount } =
-    props.status;
+  const { status, isRetweet } = useContext(CardCtx);
+  const { createdAt, repostsCount, commentsCount, attitudesCount } = status!;
 
   return (
     <div className={cardFooter({ type: isRetweet ? 'retweet' : 'default' })}>

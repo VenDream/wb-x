@@ -69,7 +69,9 @@
         "label": "Comments",
         "orderByAsc": "Asc",
         "orderByDesc": "Desc",
-        "orderByHot": "Hot"
+        "orderByHot": "Hot",
+        "replyTo": "replied to",
+        "op": "OP"
       },
       "filter": {
         "uid": "UID",
@@ -78,6 +80,7 @@
         "endDate": "EndDate"
       },
       "menu": {
+        "comments": "View comments",
         "source": "View original post",
         "download": "DL images zip",
         "copyUID": "Copy UID",

@@ -69,7 +69,9 @@
         "label": "评论",
         "orderByAsc": "正序",
         "orderByDesc": "倒序",
-        "orderByHot": "热度"
+        "orderByHot": "热度",
+        "replyTo": "回复",
+        "op": "博主"
       },
       "filter": {
         "uid": "UID",
@@ -78,6 +80,7 @@
         "endDate": "结束日期 "
       },
       "menu": {
+        "comments": "查看评论",
         "source": "查看原微博",
         "download": "下载原图",
         "copyUID": "复制UID",

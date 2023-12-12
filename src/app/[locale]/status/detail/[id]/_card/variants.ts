@@ -51,7 +51,7 @@ export const comment = cva(['comment-item', 'w-full'], {
   variants: {
     type: {
       default: [],
-      reply: ['bg-base-300/50'],
+      reply: ['rounded-md'],
     },
   },
 });
@@ -59,8 +59,15 @@ export const comment = cva(['comment-item', 'w-full'], {
 export const commentBody = cva(['item-body'], {
   variants: {
     type: {
-      default: ['my-2', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
-      reply: ['p-2'],
+      default: [
+        'my-2',
+        'grid',
+        'grid-cols-[1fr,8fr]',
+        'gap-0',
+        'p-0',
+        'text-sm',
+      ],
+      reply: ['text-xs'],
     },
   },
 });

@@ -12,18 +12,14 @@ import { Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_IMG } from '@/contants/debug';
 import { getImageVariants } from '@/utils/weibo';
 import clsx from 'clsx';
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
+import CardCtx from './context';
 
 const MAX_DISPLAY_IMAGES = 9;
 
-interface CardImagesProps {
-  status: Backend.Status;
-  isRetweet?: boolean;
-}
-
-export default function CardIamges(props: CardImagesProps) {
-  const { status } = props;
-  const { images } = status;
+export default function CardIamges() {
+  const { status } = useContext(CardCtx);
+  const { images } = status!;
 
   const remainImagesNum = images.length - MAX_DISPLAY_IMAGES;
 

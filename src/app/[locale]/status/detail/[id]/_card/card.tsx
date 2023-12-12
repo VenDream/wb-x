@@ -13,30 +13,39 @@ import CardBody from './card-body';
 import CardFooter from './card-footer';
 import CardHeader from './card-header';
 import CardMenu from './card-menu';
+import CardCtx, { DEFAULT_MENU } from './context';
+import type { CardContext, CardProps } from './types';
 import { card } from './variants';
 
+import { useMemo } from 'react';
 import './card.sass';
 
-interface CardProps {
-  status: Backend.Status;
-  isRetweet?: boolean;
-}
-
 export default function Card(props: CardProps) {
-  const { status, isRetweet } = props;
+  const { status, isRetweet, menu } = props;
+
+  const ctx = useMemo<CardContext>(
+    () => ({
+      status,
+      isRetweet: !!isRetweet,
+      menu: { ...DEFAULT_MENU, ...menu },
+    }),
+    [isRetweet, menu, status]
+  );
 
   return (
     <div
       data-id={status.id}
       className={card({ type: isRetweet ? 'retweet' : 'default' })}
     >
-      <CardHeader status={status} isRetweet={isRetweet} />
-      <CardBody status={status} isRetweet={isRetweet} />
-      <CardFooter status={status} isRetweet={isRetweet} />
-      <CardMenu status={status} isRetweet={isRetweet} />
-      {/* <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-base-200">
-        {status.id}
-      </div> */}
+      <CardCtx.Provider value={ctx}>
+        <CardHeader />
+        <CardBody />
+        <CardFooter />
+        <CardMenu />
+        {/* <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-base-200">
+          {status.id}
+        </div> */}
+      </CardCtx.Provider>
     </div>
   );
 }

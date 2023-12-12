@@ -7,19 +7,17 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { useContext } from 'react';
 import Card from './card';
 import CardImages from './card-images';
 import CardVideo from './card-video';
+import CardCtx from './context';
+import { preprocessStatusText } from './text-preprocessor';
 import { cardBody } from './variants';
 
-interface CardBodyProps {
-  status: Backend.Status;
-  isRetweet?: boolean;
-}
-
-export default function CardBody(props: CardBodyProps) {
-  const { status, isRetweet } = props;
-  const { user, text, video, retweetedStatus } = props.status;
+export default function CardBody() {
+  const { status, isRetweet, menu } = useContext(CardCtx);
+  const { user, text, retweetedStatus } = status!;
 
   const userName = isRetweet
     ? `<a href="/n/${user.name}" target="_blank">@${user.name}:</a>&nbsp;&nbsp;`
@@ -30,10 +28,12 @@ export default function CardBody(props: CardBodyProps) {
       <div className="col-start-2 col-end-4">
         <div
           className="status-text mb-2 pr-8 text-sm leading-6 tracking-tight"
-          dangerouslySetInnerHTML={{ __html: userName + text }}
+          dangerouslySetInnerHTML={{
+            __html: userName + preprocessStatusText(text),
+          }}
         />
-        <CardImages status={status} isRetweet={isRetweet} />
-        <CardVideo status={status} isRetweet={isRetweet} />
+        <CardImages />
+        <CardVideo />
         {retweetedStatus && (
           <div className="status-repost">
             <Card isRetweet status={retweetedStatus} />
