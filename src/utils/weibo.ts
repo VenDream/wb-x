@@ -10,10 +10,16 @@
 import dayjs from 'dayjs';
 
 interface ImageVariants {
-  sm: string;
-  md: string;
-  lg: string;
-  origin: string;
+  sm: string; // w360
+  md: string; // w690
+  lg: string; // w2000
+
+  bmiddle: string; // w440
+  thumbnail: string; // w80
+  woriginal: string; // woriginal
+
+  origin: string; // original
+
   filename?: string;
 }
 
@@ -28,6 +34,9 @@ export function getImageVariants(src: string): ImageVariants {
     sm: src,
     md: src,
     lg: src,
+    bmiddle: src,
+    thumbnail: src,
+    woriginal: src,
     origin: src,
   };
 
@@ -46,9 +55,12 @@ export function getImageVariants(src: string): ImageVariants {
   const sm = fixHttps(`${host}/orj360/${img}`);
   const md = fixHttps(`${host}/mw690/${img}`);
   const lg = fixHttps(`${host}/mw2000/${img}`);
+  const bmiddle = fixHttps(`${host}/bmiddle/${img}`);
+  const thumbnail = fixHttps(`${host}/thumbnail/${img}`);
+  const woriginal = fixHttps(`${host}/woriginal/${img}`);
   const origin = fixHttps(`${host}/large/${img}`);
 
-  return { sm, md, lg, origin, filename: img };
+  return { sm, md, lg, bmiddle, thumbnail, woriginal, origin, filename: img };
 }
 
 /**

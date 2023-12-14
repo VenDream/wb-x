@@ -138,6 +138,8 @@ declare global {
       id: string;
       /** comment content (rich text) */
       text: string;
+      /** comment images */
+      images: string[];
       /** source */
       source: string;
       /** comment content (plaintext) */
@@ -152,6 +154,10 @@ declare global {
       replyUser: StatusComment['user'] | null;
       /** is reply to self  */
       isReplySelf: boolean;
+      /** total replies */
+      totalReplies: number;
+      /** has more replies */
+      hasMoreReplies: boolean;
       /** comment replies */
       comments: StatusComment[];
     }
