@@ -64,6 +64,13 @@ export async function getStatusComments(params: StatusCommentsParams) {
   return comments;
 }
 
+export async function getStatusCommentsReplies(params: StatusCommentsParams) {
+  let url = '/api/weibo/status/comments/replies';
+  url = appendURLParams(url, params);
+  const comments = await get<Backend.StatusCommentList>(url);
+  return comments;
+}
+
 export async function getDbRotnList(params: ROTNListParams) {
   let url = '/api/db/rotn/list';
   url = appendURLParams(url, params);

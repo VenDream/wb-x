@@ -71,7 +71,8 @@
         "orderByDesc": "倒序",
         "orderByHot": "热度",
         "replyTo": "回复",
-        "op": "博主"
+        "op": "博主",
+        "totalReplies": "共{num}条回复"
       },
       "filter": {
         "uid": "UID",

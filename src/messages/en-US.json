@@ -71,7 +71,8 @@
         "orderByDesc": "Desc",
         "orderByHot": "Hot",
         "replyTo": "replied to",
-        "op": "OP"
+        "op": "OP",
+        "totalReplies": "{num} replies in total"
       },
       "filter": {
         "uid": "UID",

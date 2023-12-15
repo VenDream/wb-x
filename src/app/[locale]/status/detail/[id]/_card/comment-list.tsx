@@ -10,21 +10,17 @@
  */
 
 import { getStatusComments } from '@/api/client';
-import NoData from '@/components/common/no-data';
+import LoadingIndicator from '@/components/common/loading-indicator';
 import useToast from '@/components/common/toast';
-import { Button, Loading, Tab, Tabs } from '@/components/daisyui';
+import { Tab, Tabs } from '@/components/daisyui';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import CommentItem from './comment-item';
-
-interface CommentListProps {
-  id: string;
-}
+import type { CommentListProps } from './types';
 
 export default function CommentList(props: CommentListProps) {
   const { showErrorTips } = useToast();
-  const t1 = useTranslations('global.dataFetching');
-  const t2 = useTranslations('pages.status.comments');
+  const t = useTranslations('pages.status.comments');
 
   const maxIdRef = useRef('');
   const [total, setTotal] = useState(0);
@@ -73,17 +69,17 @@ export default function CommentList(props: CommentListProps) {
     <div className="status-comment-list border-regular-10 mt-4 w-[40rem] rounded bg-base-200/50 p-4 shadow-md">
       <div className="flex items-center justify-between border-b border-b-base-content/10 pb-2">
         <p className="text-lg">
-          {t2('label')} ({total})
+          {t('label')} ({total})
         </p>
         <Tabs value={orderBy} onChange={switchOrderBy}>
           <Tab className="p-1" value="hot">
-            {t2('orderByHot')}
+            {t('orderByHot')}
           </Tab>
           <Tab className="p-1" value="asc">
-            {t2('orderByAsc')}
+            {t('orderByAsc')}
           </Tab>
           <Tab className="p-1" value="desc">
-            {t2('orderByDesc')}
+            {t('orderByDesc')}
           </Tab>
         </Tabs>
       </div>
@@ -92,19 +88,12 @@ export default function CommentList(props: CommentListProps) {
           <CommentItem key={comment.id} comment={comment} />
         ))}
       </div>
-      <div className="flex h-[6rem] items-center justify-center">
-        {isLoading ? (
-          <Loading color="primary" />
-        ) : isLoadAll ? (
-          <p className="text-sm">{t1('noMore')}</p>
-        ) : commentList.length > 0 ? (
-          <Button size="sm" onClick={fetchCommentList}>
-            {t1('loadMore')}
-          </Button>
-        ) : (
-          <NoData />
-        )}
-      </div>
+      <LoadingIndicator
+        isLoading={isLoading}
+        isLoadAll={isLoadAll}
+        isNoData={commentList.length === 0}
+        loadMore={fetchCommentList}
+      />
     </div>
   );
 }

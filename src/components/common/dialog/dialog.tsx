@@ -9,6 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { ToastProvider } from '@/components/common/toast';
 import {
   Button,
   Modal,
@@ -17,12 +18,14 @@ import {
   ModalHeader,
   ModalProps,
 } from '@/components/daisyui';
+import { LANGS } from '@/contants';
+import { default as enUS, default as zhCN } from '@/messages/en-US.json';
 import {
   ExclamationCircleIcon,
   InformationCircleIcon,
   QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
-import { useTranslations } from 'next-intl';
+import { NextIntlClientProvider, useLocale, useTranslations } from 'next-intl';
 import React, { useCallback, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -36,6 +39,7 @@ type DialogProps = Omit<ModalProps, 'title'> & {
   okBtnLabel?: string;
   onCancel?: () => void;
   onOk?: () => void;
+  hideHeader?: boolean;
   hideCancelBtn?: boolean;
   hideOkBtn?: boolean;
 };
@@ -47,6 +51,7 @@ const Icons: Record<Status, React.ReactNode> = {
 };
 
 export default function useDialog() {
+  const locale = useLocale();
   const t = useTranslations('global');
   const { Dialog: IDialog, handleShow, handleHide } = Modal.useDialog();
   const defaultProps: DialogProps = useMemo(
@@ -60,6 +65,8 @@ export default function useDialog() {
     [t]
   );
 
+  const messages = locale === LANGS.en ? enUS : zhCN;
+
   const Dialog = useCallback(
     (props: DialogProps) => {
       const {
@@ -70,6 +77,7 @@ export default function useDialog() {
         okBtnLabel,
         onCancel,
         onOk,
+        hideHeader,
         hideCancelBtn,
         hideOkBtn,
         ...dialogProps
@@ -87,10 +95,12 @@ export default function useDialog() {
 
       return (
         <IDialog className="rounded-md" {...dialogProps}>
-          <ModalHeader className="flex items-center text-base">
-            {icon}
-            {title}
-          </ModalHeader>
+          {!hideHeader && (
+            <ModalHeader className="flex items-center text-base">
+              {icon}
+              {title}
+            </ModalHeader>
+          )}
           <ModalBody className="text-sm">{body}</ModalBody>
           <ModalActions>
             {!hideCancelBtn && (
@@ -122,12 +132,18 @@ export default function useDialog() {
         el.remove();
         propsCancel?.();
       };
-      root.render(<Dialog {...props} />);
+      root.render(
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <ToastProvider>
+            <Dialog {...props} />
+          </ToastProvider>
+        </NextIntlClientProvider>
+      );
       setTimeout(() => {
         handleShow();
       }, 0);
     },
-    [Dialog, handleShow]
+    [Dialog, handleShow, locale, messages]
   );
 
   return { show };

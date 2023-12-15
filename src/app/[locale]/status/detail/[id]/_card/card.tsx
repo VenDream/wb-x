@@ -9,6 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { useMemo } from 'react';
 import CardBody from './card-body';
 import CardFooter from './card-footer';
 import CardHeader from './card-header';
@@ -17,7 +18,6 @@ import CardCtx, { DEFAULT_MENU } from './context';
 import type { CardContext, CardProps } from './types';
 import { card } from './variants';
 
-import { useMemo } from 'react';
 import './card.sass';
 
 export default function Card(props: CardProps) {

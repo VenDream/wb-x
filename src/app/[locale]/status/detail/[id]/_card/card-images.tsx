@@ -7,78 +7,20 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import Image from '@/components/common/image';
-import { Slide, useLightbox } from '@/components/common/lightbox';
-import { FAKE_IMG } from '@/contants/debug';
-import { getImageVariants } from '@/utils/weibo';
-import clsx from 'clsx';
-import { useContext, useMemo, useState } from 'react';
+import ImageGrid from '@/components/common/image-grid';
+import { useContext } from 'react';
 import CardCtx from './context';
-
-const MAX_DISPLAY_IMAGES = 9;
 
 export default function CardIamges() {
   const { status } = useContext(CardCtx);
   const { images } = status!;
 
-  const remainImagesNum = images.length - MAX_DISPLAY_IMAGES;
-
-  const [slideIdx, setSlideIdx] = useState(0);
-  const { openLightbox, renderLightbox } = useLightbox();
-  const slides = useMemo<Slide[]>(() => {
-    return images.map((img, idx) => {
-      const { lg, origin, filename } = getImageVariants(img);
-      return {
-        type: 'image',
-        src: FAKE_IMG || lg,
-        title: (
-          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
-            {idx + 1} / {images.length} - {filename}
-          </p>
-        ),
-        download: FAKE_IMG || origin,
-      };
-    });
-  }, [images]);
-
-  const previewImages = (idx: number) => {
-    setSlideIdx(idx);
-    openLightbox();
-  };
-
-  if (images.length <= 0) return null;
-
   return (
-    <div className="status-images grid grid-cols-3 items-center justify-items-center gap-1">
-      {images.slice(0, MAX_DISPLAY_IMAGES).map((img, idx) => {
-        const { sm } = getImageVariants(img);
-        const hasMore = idx === MAX_DISPLAY_IMAGES - 1 && remainImagesNum > 0;
-        const dataProps = hasMore
-          ? { 'data-remains': `+${remainImagesNum}` }
-          : {};
-        const className = clsx(
-          'border-regular-5 aspect-square h-full w-full cursor-zoom-in rounded shadow-sm',
-          {
-            'has-more': hasMore,
-          }
-        );
-
-        return (
-          <div
-            key={idx}
-            {...dataProps}
-            className={className}
-            onClick={() => previewImages(idx)}
-          >
-            <Image
-              src={FAKE_IMG || sm}
-              alt="IMG"
-              className="aspect-square h-full w-full rounded object-cover"
-            />
-          </div>
-        );
-      })}
-      {renderLightbox({ slides, index: slideIdx })}
-    </div>
+    <ImageGrid
+      cols={3}
+      images={images}
+      className="status-images"
+      showHasMoreIndicator
+    />
   );
 }

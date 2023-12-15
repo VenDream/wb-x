@@ -7,6 +7,10 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+/* -------------------------------------------------------------------------- */
+/*                                    Card                                    */
+/* -------------------------------------------------------------------------- */
+
 export interface CardProps {
   /** status */
   status: Backend.Status;
@@ -34,4 +38,27 @@ export interface CardMenuOpts {
   viewComments?: boolean;
   /** view original */
   viewOriginal?: boolean;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Comments                                  */
+/* -------------------------------------------------------------------------- */
+
+export interface CommentListProps {
+  /** status id */
+  id: string;
+}
+
+export interface CommentItemProps {
+  /** status comment */
+  comment: Backend.StatusComment;
+  /** if is a comment reply */
+  isReply?: boolean;
+  /** if is reply to someone */
+  isReplyToSomeone?: boolean;
+}
+
+export interface CommentRepliesProps {
+  /** status comment */
+  comment: Backend.StatusComment;
 }

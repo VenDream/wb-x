@@ -7,24 +7,24 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import useDialog from '@/components/common/dialog';
+import ImageGrid from '@/components/common/image-grid';
 import { Avatar } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
+import { ARROW_DOWN_ICON } from '@/contants/svgs';
 import { getCreateTime } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
+import CommentReplies from './comment-replies';
 import { preprocessCommentText } from './text-preprocessor';
+import type { CommentItemProps } from './types';
 import { comment, commentBody } from './variants';
 
 import './comment-item.sass';
 
-interface CommentItemProps {
-  comment: Backend.StatusComment;
-  isReply?: boolean;
-  isReplyToSomeone?: boolean;
-}
-
 export default function CommentItem(props: CommentItemProps) {
   const t = useTranslations('pages.status.comments');
+  const { show: showDialog } = useDialog();
   const { isReply, isReplyToSomeone } = props;
   const {
     id,
@@ -32,16 +32,19 @@ export default function CommentItem(props: CommentItemProps) {
     createdAt,
     source,
     text,
+    images,
     comments,
     replyUser,
     isReplySelf,
+    totalReplies,
+    hasMoreReplies,
   } = props.comment;
 
   const getUserName = useCallback(
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
       const username = `<a href="/n/${user.name}" target="_blank">@${user.name}</a>`;
-      const opTag = `<span class="text-xs text-secondary border border-secondary px-0.5 ml-0.5">${t(
+      const opTag = `<span class="text-xs text-primary border border-primary px-0.5 ml-0.5">${t(
         'op'
       )}</span>`;
       return user.isOP ? username + opTag : username;
@@ -59,6 +62,15 @@ export default function CommentItem(props: CommentItemProps) {
       replyUser
     )}:&nbsp;&nbsp;`;
   }, [getUserName, isReply, isReplySelf, isReplyToSomeone, replyUser, t, user]);
+
+  const showCommentReplies = (comment: Backend.StatusComment) => {
+    showDialog({
+      hideOkBtn: true,
+      hideCancelBtn: true,
+      hideHeader: true,
+      body: <CommentReplies comment={comment} />,
+    });
+  };
 
   return (
     <div
@@ -78,7 +90,7 @@ export default function CommentItem(props: CommentItemProps) {
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
-              <span className="ml-0.5 border border-secondary px-0.5 text-secondary">
+              <span className="ml-0.5 border border-primary px-0.5 text-primary">
                 {t('op')}
               </span>
             )}
@@ -97,6 +109,7 @@ export default function CommentItem(props: CommentItemProps) {
               __html: userName + preprocessCommentText(text),
             }}
           />
+          <ImageGrid images={images} className="comment-images" cols={4} />
           {comments.length > 0 && (
             <div className="comment-replies mt-2 flex flex-col gap-1 bg-base-300/50 p-2">
               {comments.map((cm, idx) => {
@@ -114,6 +127,16 @@ export default function CommentItem(props: CommentItemProps) {
                 );
               })}
             </div>
+          )}
+          {hasMoreReplies && (
+            <span
+              className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
+              onClick={() => showCommentReplies(props.comment)}
+            >
+              <div className="absolute left-0 top-[-8px] h-[1px] w-full bg-base-content/20" />
+              {t('totalReplies', { num: totalReplies })}
+              {ARROW_DOWN_ICON}
+            </span>
           )}
         </div>
       </div>
