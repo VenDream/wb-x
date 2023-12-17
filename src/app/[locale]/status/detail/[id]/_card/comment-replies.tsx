@@ -55,7 +55,7 @@ export default function CommentReplies(props: CommentRepliesProps) {
 
   return (
     <div className="comment-replies">
-      <CommentItem comment={comment} />
+      <CommentItem comment={comment} isDetailReplies />
       <LoadingIndicator
         isLoading={isLoading}
         isLoadAll={isLoadAll}

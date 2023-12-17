@@ -12,7 +12,7 @@ import ImageGrid from '@/components/common/image-grid';
 import { Avatar } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
 import { ARROW_DOWN_ICON } from '@/contants/svgs';
-import { getCreateTime } from '@/utils/weibo';
+import { getCreateTime, getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
@@ -25,7 +25,7 @@ import './comment-item.sass';
 export default function CommentItem(props: CommentItemProps) {
   const t = useTranslations('pages.status.comments');
   const { show: showDialog } = useDialog();
-  const { isReply, isReplyToSomeone } = props;
+  const { isReply, isDetailReplies, isReplyToSomeone } = props;
   const {
     id,
     user,
@@ -65,9 +65,9 @@ export default function CommentItem(props: CommentItemProps) {
 
   const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
-      hideOkBtn: true,
-      hideCancelBtn: true,
       hideHeader: true,
+      hideFooter: true,
+      className: 'max-w-[40rem] rounded h-2/3',
       body: <CommentReplies comment={comment} />,
     });
   };
@@ -80,7 +80,7 @@ export default function CommentItem(props: CommentItemProps) {
       {!isReply && (
         <div className="item-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
           <Avatar
-            src={FAKE_IMG || user.avatar}
+            src={FAKE_IMG || getImageVariants(user.avatar).sm}
             border
             size="xs"
             shape="circle"
@@ -111,7 +111,7 @@ export default function CommentItem(props: CommentItemProps) {
           />
           <ImageGrid images={images} className="comment-images" cols={4} />
           {comments.length > 0 && (
-            <div className="comment-replies mt-2 flex flex-col gap-1 bg-base-300/50 p-2">
+            <div className="comment-replies mt-2 flex flex-col gap-1 rounded bg-base-300/50 p-2">
               {comments.map((cm, idx) => {
                 const prevComments = comments.slice(0, idx);
                 const isReplyToSomeone = prevComments.some(
@@ -128,7 +128,7 @@ export default function CommentItem(props: CommentItemProps) {
               })}
             </div>
           )}
-          {hasMoreReplies && (
+          {!isDetailReplies && hasMoreReplies && (
             <span
               className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
               onClick={() => showCommentReplies(props.comment)}

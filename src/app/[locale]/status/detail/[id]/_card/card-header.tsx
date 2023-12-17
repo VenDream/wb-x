@@ -9,7 +9,7 @@
 
 import { Avatar } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
-import { getCreateTime } from '@/utils/weibo';
+import { getCreateTime, getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 import CardCtx from './context';
@@ -24,7 +24,7 @@ export default function CardHeader() {
   return (
     <div className="card-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
       <Avatar
-        src={FAKE_IMG || user.avatar}
+        src={FAKE_IMG || getImageVariants(user.avatar).sm}
         border
         size="xs"
         shape="circle"

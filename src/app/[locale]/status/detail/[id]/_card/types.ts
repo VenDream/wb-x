@@ -56,6 +56,8 @@ export interface CommentItemProps {
   isReply?: boolean;
   /** if is reply to someone */
   isReplyToSomeone?: boolean;
+  /** if is detail replies  */
+  isDetailReplies?: boolean;
 }
 
 export interface CommentRepliesProps {

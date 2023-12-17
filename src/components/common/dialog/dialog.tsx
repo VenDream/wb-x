@@ -19,12 +19,14 @@ import {
   ModalProps,
 } from '@/components/daisyui';
 import { LANGS } from '@/contants';
-import { default as enUS, default as zhCN } from '@/messages/en-US.json';
+import enUS from '@/messages/en-US.json';
+import zhCN from '@/messages/zh-CN.json';
 import {
   ExclamationCircleIcon,
   InformationCircleIcon,
   QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
+import { clsx } from 'clsx';
 import { NextIntlClientProvider, useLocale, useTranslations } from 'next-intl';
 import React, { useCallback, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -40,8 +42,12 @@ type DialogProps = Omit<ModalProps, 'title'> & {
   onCancel?: () => void;
   onOk?: () => void;
   hideHeader?: boolean;
+  hideFooter?: boolean;
   hideCancelBtn?: boolean;
   hideOkBtn?: boolean;
+  headerClassName?: string;
+  bodyClassName?: string;
+  footerClassName?: string;
 };
 
 const Icons: Record<Status, React.ReactNode> = {
@@ -78,8 +84,12 @@ export default function useDialog() {
         onCancel,
         onOk,
         hideHeader,
+        hideFooter,
         hideCancelBtn,
         hideOkBtn,
+        headerClassName,
+        bodyClassName,
+        footerClassName,
         ...dialogProps
       } = { ...defaultProps, ...props };
 
@@ -94,26 +104,35 @@ export default function useDialog() {
       };
 
       return (
-        <IDialog className="rounded-md" {...dialogProps}>
+        <IDialog className="rounded-md" {...dialogProps} backdrop>
           {!hideHeader && (
-            <ModalHeader className="flex items-center text-base">
+            <ModalHeader
+              className={clsx(
+                headerClassName,
+                'modal-header flex items-center text-base'
+              )}
+            >
               {icon}
               {title}
             </ModalHeader>
           )}
-          <ModalBody className="text-sm">{body}</ModalBody>
-          <ModalActions>
-            {!hideCancelBtn && (
-              <Button size="sm" onClick={cancel}>
-                {cancelBtnLabel}
-              </Button>
-            )}
-            {!hideOkBtn && (
-              <Button size="sm" color="primary" onClick={ok}>
-                {okBtnLabel}
-              </Button>
-            )}
-          </ModalActions>
+          <ModalBody className={clsx(bodyClassName, 'modal-body text-sm')}>
+            {body}
+          </ModalBody>
+          {!hideFooter && (
+            <ModalActions className={clsx(footerClassName, 'modal-footer')}>
+              {!hideCancelBtn && (
+                <Button size="sm" onClick={cancel}>
+                  {cancelBtnLabel}
+                </Button>
+              )}
+              {!hideOkBtn && (
+                <Button size="sm" color="primary" onClick={ok}>
+                  {okBtnLabel}
+                </Button>
+              )}
+            </ModalActions>
+          )}
         </IDialog>
       );
     },

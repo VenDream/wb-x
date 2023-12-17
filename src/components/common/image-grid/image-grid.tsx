@@ -18,7 +18,7 @@ import './image-grid.sass';
 
 interface ImageGridProps {
   images: string[];
-  cols?: number;
+  cols?: 2 | 3 | 4 | 5;
   className?: string;
   showHasMoreIndicator?: boolean;
 }
@@ -49,6 +49,14 @@ export default function ImageGrid(props: ImageGridProps) {
   const DISPLAY_IMAGES_NUM = !!showHasMoreIndicator
     ? MAX_DISPLAY_IMAGES
     : images.length;
+  const GRID_COLS_CLASS =
+    cols === 2
+      ? 'grid-cols-2'
+      : cols === 3
+        ? 'grid-cols-3'
+        : cols === 4
+          ? 'grid-cols-4'
+          : 'grid-cols-5';
 
   const previewImages = (idx: number) => {
     setSlideIdx(idx);
@@ -59,13 +67,10 @@ export default function ImageGrid(props: ImageGridProps) {
 
   return (
     <div
-      className={clsx(
-        className,
-        `image-grid mt-2 grid grid-cols-${cols} gap-1`
-      )}
+      className={clsx(className, GRID_COLS_CLASS, `image-grid mt-2 grid gap-1`)}
     >
       {images.slice(0, DISPLAY_IMAGES_NUM).map((img, idx) => {
-        const { sm } = getImageVariants(img);
+        const { bmiddle } = getImageVariants(img);
         const hasMore =
           !!showHasMoreIndicator &&
           idx === MAX_DISPLAY_IMAGES - 1 &&
@@ -89,7 +94,7 @@ export default function ImageGrid(props: ImageGridProps) {
           >
             <Image
               alt="IMG"
-              src={FAKE_IMG || sm}
+              src={FAKE_IMG || bmiddle}
               className="aspect-square !h-full !w-full rounded object-cover"
             />
           </div>
