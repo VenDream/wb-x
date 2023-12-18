@@ -23,6 +23,7 @@ export default function CommentList(props: CommentListProps) {
   const t = useTranslations('pages.status.comments');
 
   const maxIdRef = useRef('');
+  const listRef = useRef<HTMLDivElement>(null);
   const [total, setTotal] = useState(0);
   const [orderBy, setOrderBy] = useState<Backend.StatusCommentOrderBy>('hot');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,9 +44,19 @@ export default function CommentList(props: CommentListProps) {
       } else {
         setCommentList(list => [...list, ...resp.comments]);
       }
+
       setTotal(resp.total);
-      maxIdRef.current = resp.maxId;
       if (resp.maxId === '0') setIsLoadAll(true);
+      if (maxIdRef.current === '' && location.hash === '#comments') {
+        setTimeout(() => {
+          listRef.current?.scrollIntoView({
+            block: 'start',
+            behavior: 'smooth',
+          });
+        });
+      }
+
+      maxIdRef.current = resp.maxId;
     } catch (err) {
       const error = err as Error;
       console.error(error);
@@ -66,7 +77,10 @@ export default function CommentList(props: CommentListProps) {
   }, [fetchCommentList]);
 
   return (
-    <div className="status-comment-list border-regular-10 mt-4 w-[40rem] rounded bg-base-200/50 p-4 shadow-md">
+    <div
+      ref={listRef}
+      className="status-comment-list border-regular-10 mt-4 w-[40rem] rounded bg-base-200/50 p-4 shadow-md"
+    >
       <div className="flex items-center justify-between border-b border-b-base-content/10 pb-2">
         <p className="text-lg">
           {t('label')} ({total})

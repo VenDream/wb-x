@@ -115,7 +115,7 @@ export default function CardMenu() {
             <Link
               target="_blank"
               className="rounded p-2"
-              href={`${SECONDARY_ROUTES.STATUS_DETAIL}/${id}`}
+              href={`${SECONDARY_ROUTES.STATUS_DETAIL}/${id}#comments`}
             >
               <ChatBubbleLeftIcon />
               {t('comments')}

@@ -21,6 +21,7 @@ import {
 import { LANGS } from '@/contants';
 import enUS from '@/messages/en-US.json';
 import zhCN from '@/messages/zh-CN.json';
+import { generateId } from '@/utils/id';
 import {
   ExclamationCircleIcon,
   InformationCircleIcon,
@@ -141,16 +142,20 @@ export default function useDialog() {
 
   const show = useCallback(
     (props: DialogProps) => {
+      const id = generateId(6);
       const el = document.createElement('div');
+      el.setAttribute('data-id', id);
       el.setAttribute('data-role', 'dialog');
       document.body.appendChild(el);
+
       const root = createRoot(el);
       const propsCancel = props.onCancel;
-      props.onCancel = () => {
+      const closeDialog = () => {
         root.unmount();
         el.remove();
         propsCancel?.();
       };
+      props.onCancel = closeDialog;
       root.render(
         <NextIntlClientProvider messages={messages} locale={locale}>
           <ToastProvider>
@@ -158,8 +163,22 @@ export default function useDialog() {
           </ToastProvider>
         </NextIntlClientProvider>
       );
+
       setTimeout(() => {
         handleShow();
+        const dialog = el.querySelector('dialog');
+        const backdrop = el.querySelector('.modal-backdrop');
+        dialog &&
+          dialog.addEventListener(
+            'cancel',
+            evt => {
+              evt.preventDefault();
+              closeDialog();
+            },
+            { once: true }
+          );
+        backdrop &&
+          backdrop.addEventListener('click', closeDialog, { once: true });
       }, 0);
     },
     [Dialog, handleShow, locale, messages]
