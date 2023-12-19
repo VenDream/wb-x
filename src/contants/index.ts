@@ -30,6 +30,8 @@ export const SECONDARY_ROUTES = {
   ROTN_ITEM_DETAIL: '/rotn/item',
 };
 
+export const AUTH_ROUTE = '/api/auth';
+
 export const WEIBO_HOST = 'https://weibo.com';
 export const WEIBO_IMAGES_DOWNLOAD_API =
   '/api/weibo/status/images?responseType=zip';
