@@ -7,14 +7,15 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import './globals.scss';
-
 import { ToastProvider } from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS } from '@/contants';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+
+import './globals.scss';
 
 const locales = Object.values(LANGS);
 
@@ -55,6 +56,7 @@ export default async function RootLayout({
           <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
             <div className="loading loading-dots text-gray-500" />
           </div>
+          <SpeedInsights />
         </body>
       </NextIntlClientProvider>
     </html>

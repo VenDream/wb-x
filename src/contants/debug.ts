@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-const IS_DEBUG = true;
+const IS_DEBUG = process.env.NEXT_PUBLIC_DEBUG_MODE === 'true';
 
 export const FAKE_IMG = IS_DEBUG
   ? 'https://mk.sit.rabbitpre.com.cn/common/content/assets/images/default-app-cover.png'
