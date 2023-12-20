@@ -9,6 +9,8 @@
 
 import dayjs from 'dayjs';
 
+const SINAIMG_PROXY = process.env.NEXT_PUBLIC_SINAIMG_PROXY;
+
 interface ImageVariants {
   sm: string; // w360
   md: string; // w690
@@ -27,17 +29,18 @@ interface ImageVariants {
  * get weibo image variants
  *
  * @export
- * @param {string} src
+ * @param {string} src src
  */
 export function getImageVariants(src: string): ImageVariants {
+  const url = getProxiedImageUrl(src);
   const defaultVariants: ImageVariants = {
-    sm: src,
-    md: src,
-    lg: src,
-    bmiddle: src,
-    thumbnail: src,
-    woriginal: src,
-    origin: src,
+    sm: url,
+    md: url,
+    lg: url,
+    bmiddle: url,
+    thumbnail: url,
+    woriginal: url,
+    origin: url,
   };
 
   const fixHttps = (url: string) =>
@@ -52,15 +55,31 @@ export function getImageVariants(src: string): ImageVariants {
   const [, host, , img] = src.match(matchRegex) || [];
   if (!host || !img) return defaultVariants;
 
-  const sm = fixHttps(`${host}/orj360/${img}`);
-  const md = fixHttps(`${host}/mw690/${img}`);
-  const lg = fixHttps(`${host}/mw2000/${img}`);
-  const bmiddle = fixHttps(`${host}/bmiddle/${img}`);
-  const thumbnail = fixHttps(`${host}/thumbnail/${img}`);
-  const woriginal = fixHttps(`${host}/woriginal/${img}`);
-  const origin = fixHttps(`${host}/large/${img}`);
+  const replacer = '{{variant}}';
+  const tpl = fixHttps(`${host}/${replacer}/${img}`);
+
+  const sm = getProxiedImageUrl(tpl.replace(replacer, 'orj360'));
+  const md = getProxiedImageUrl(tpl.replace(replacer, 'mw690'));
+  const lg = getProxiedImageUrl(tpl.replace(replacer, 'mw2000'));
+  const bmiddle = getProxiedImageUrl(tpl.replace(replacer, 'bmiddle'));
+  const thumbnail = getProxiedImageUrl(tpl.replace(replacer, 'thumbnail'));
+  const woriginal = getProxiedImageUrl(tpl.replace(replacer, 'woriginal'));
+  const origin = getProxiedImageUrl(tpl.replace(replacer, 'large'));
 
   return { sm, md, lg, bmiddle, thumbnail, woriginal, origin, filename: img };
+}
+
+/**
+ * get proxied weibo image url
+ *
+ * @export
+ * @param {string} src src
+ */
+export function getProxiedImageUrl(src: string) {
+  if (SINAIMG_PROXY) {
+    return `${SINAIMG_PROXY}?url=${encodeURIComponent(src)}`;
+  }
+  return src;
 }
 
 /**
