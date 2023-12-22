@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { AUTH_ROUTE, LANGS, MAIN_ROUTES } from '@/contants';
+import { AUTH_ROUTE, LANGS, SECONDARY_ROUTES } from '@/contants';
 import createMiddleware from 'next-intl/middleware';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
@@ -19,7 +19,7 @@ const i18nMiddleware = createMiddleware({
 
 const isSettingsPage = (pathname: string) => {
   return Object.values(LANGS).some(
-    lang => pathname === `/${lang}${MAIN_ROUTES.SETTINGS}`
+    lang => pathname === `/${lang}${SECONDARY_ROUTES.SERVER_SETTINGS}`
   );
 };
 

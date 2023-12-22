@@ -107,7 +107,15 @@
       "desc": "简介"
     },
     "settings": {
-      "sysConfig": {
+      "tabs": {
+        "local": "本地设置",
+        "server": "服务端设置"
+      },
+      "localSettings": {
+        "useProxy": "启用代理",
+        "successTips": "设置已保存"
+      },
+      "serverSettings": {
         "title": "保存配置",
         "confirm": "此操作会触发服务重启，继续 ?",
         "nothingChanged": "配置无变化",

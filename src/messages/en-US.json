@@ -107,12 +107,20 @@
       "desc": "desc"
     },
     "settings": {
-      "sysConfig": {
-        "title": "Save Config",
+      "tabs": {
+        "local": "LOCAL SETTINGS",
+        "server": "SERVER SETTINGS"
+      },
+      "localSettings": {
+        "useProxy": "Use Proxy",
+        "successTips": "Settings successfully saved"
+      },
+      "serverSettings": {
+        "title": "Save Settings",
         "confirm": "This operation will trigger the service to restart, continue ?",
         "nothingChanged": "Nothing changed",
-        "fetchFailed": "Failed to fetch config，please retry",
-        "saveFailed": "Failed to save config，please retry"
+        "fetchFailed": "Failed to fetch settings, please retry",
+        "saveFailed": "Failed to save settings, please retry"
       }
     }
   }

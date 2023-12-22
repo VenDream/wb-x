@@ -85,12 +85,12 @@ export default async function Page({ params: { locale } }: LocaleProps) {
   ];
 
   return (
-    <div className="page-home">
+    <div className="page-home rounded bg-base-200 p-4">
       <h1 className="mb-1 flex items-center text-2xl">
         <CircleStackIcon className="relative top-[-2px] mr-1 h-8 w-8" />
         {ht('title')}
       </h1>
-      <Stats className="border-regular-20 stats-vertical my-4 2xl:stats-horizontal">
+      <Stats className="border-regular-20 stats-vertical my-4 bg-base-200 2xl:stats-horizontal">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}

@@ -28,6 +28,22 @@ export function getLocaleMessage(key: string, lang: Lang) {
 }
 
 /**
+ * get local storage value
+ *
+ * @export
+ * @template T value type
+ * @param {string} key key
+ */
+export function getLocalStorageValue<T = Record<string, any>>(key: string) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? (JSON.parse(value) as T) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * sleep for a period of time
  *
  * @export

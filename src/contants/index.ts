@@ -29,6 +29,7 @@ export const MAIN_ROUTES = {
 export const SECONDARY_ROUTES = {
   STATUS_DETAIL: '/status/detail',
   ROTN_ITEM_DETAIL: '/rotn/item',
+  SERVER_SETTINGS: '/settings/server',
 };
 
 export const AUTH_ROUTE = '/api/auth';
@@ -40,6 +41,7 @@ export const WEIBO_IMAGES_DOWNLOAD_API =
 /** localStorage keys */
 export const LS_KEYS = {
   THEME: 'WB_X_THEME',
+  SETTINGS: 'WB_X_SETTINGS',
 };
 
 export const PAGINATION_LIMIT = 10;
