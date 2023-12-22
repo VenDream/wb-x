@@ -10,21 +10,28 @@
 import useDialog from '@/components/common/dialog';
 import ImageGrid from '@/components/common/image-grid';
 import { Avatar } from '@/components/daisyui';
+import type { Lang } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
 import { ARROW_DOWN_ICON } from '@/contants/svgs';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
 import { HandThumbUpIcon } from '@heroicons/react/24/outline';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
 import { preprocessCommentText } from './text-preprocessor';
 import type { CommentItemProps } from './types';
-import { comment, commentBody, commnetLikes } from './variants';
+import {
+  CommentVariants,
+  comment,
+  commentBody,
+  commnetLikes,
+} from './variants';
 
 import './comment-item.sass';
 
 export default function CommentItem(props: CommentItemProps) {
+  const locale = useLocale();
   const t = useTranslations('pages.status.comments');
   const { show: showDialog } = useDialog();
   const { isReply, isDetailReplies, isReplyToSomeone } = props;
@@ -75,11 +82,10 @@ export default function CommentItem(props: CommentItemProps) {
     });
   };
 
+  const variantType: CommentVariants['type'] = isReply ? 'reply' : 'default';
+
   return (
-    <div
-      className={comment({ type: isReply ? 'reply' : 'default' })}
-      data-id={id}
-    >
+    <div className={comment({ type: variantType })} data-id={id}>
       {!isReply && (
         <div className="comment-item-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
           <Avatar
@@ -104,7 +110,7 @@ export default function CommentItem(props: CommentItemProps) {
           </span>
         </div>
       )}
-      <div className={commentBody({ type: isReply ? 'reply' : 'default' })}>
+      <div className={commentBody({ type: variantType })}>
         <div className="col-start-2 col-end-4">
           <div
             className="comment-text leading-5 tracking-tight"
@@ -143,9 +149,9 @@ export default function CommentItem(props: CommentItemProps) {
           )}
         </div>
       </div>
-      <div className={commnetLikes({ type: isReply ? 'reply' : 'default' })}>
+      <div className={commnetLikes({ type: variantType })}>
         <HandThumbUpIcon className="mr-1 h-4 w-4" />
-        {formatNumberWithUnit(likesCount || 0)}
+        {formatNumberWithUnit(likesCount || 0, locale as Lang)}
       </div>
     </div>
   );

@@ -7,11 +7,13 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { cva } from 'class-variance-authority';
+import { cva, VariantProps } from 'class-variance-authority';
 
 /* -------------------------------------------------------------------------- */
 /*                                Card Variants                               */
 /* -------------------------------------------------------------------------- */
+
+export type CardVariants = VariantProps<typeof card>;
 
 export const card = cva(
   ['status-card', 'border-regular-10', 'rounded-md', 'p-4', 'relative'],
@@ -47,6 +49,8 @@ export const cardFooter = cva(['card-footer', 'relative'], {
 /*                              Comment Variants                              */
 /* -------------------------------------------------------------------------- */
 
+export type CommentVariants = VariantProps<typeof comment>;
+
 export const comment = cva(['comment-item', 'w-full', 'relative', 'group'], {
   variants: {
     type: {
@@ -73,7 +77,14 @@ export const commentBody = cva(['comment-item-body', 'text-justify', 'peer'], {
 });
 
 export const commnetLikes = cva(
-  ['comment-item-likes', 'flex', 'items-center', 'text-xs', 'absolute'],
+  [
+    'comment-item-likes',
+    'flex',
+    'items-center',
+    'text-xs',
+    'absolute',
+    'tracking-tight',
+  ],
   {
     variants: {
       type: {

@@ -14,6 +14,7 @@ export const LANGS = {
   en: 'en-US',
   zh: 'zh-CN',
 };
+export type Lang = keyof typeof LANGS;
 
 /** main route paths */
 export const MAIN_ROUTES = {
