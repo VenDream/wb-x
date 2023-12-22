@@ -35,3 +35,21 @@ export function copyText(text: string) {
     document.body.removeChild(textarea);
   }
 }
+
+/**
+ * format big number with units
+ *
+ * @export
+ * @param {number} number number
+ */
+export function formatNumberWithUnit(number: number) {
+  const units = ['', '万', '亿', '万亿', '亿亿'];
+  const unitIndex = Math.floor((String(number).length - 1) / 4);
+
+  if (unitIndex === 0) {
+    return String(number);
+  }
+
+  const formattedNumber = (number / Math.pow(10000, unitIndex)).toFixed(1);
+  return formattedNumber + units[unitIndex];
+}

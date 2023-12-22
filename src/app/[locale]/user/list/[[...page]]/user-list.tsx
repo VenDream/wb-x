@@ -9,6 +9,7 @@
 
 import { Avatar } from '@/components/daisyui';
 import { STYLES } from '@/contants';
+import { FAKE_IMG } from '@/contants/debug';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
 
@@ -32,7 +33,7 @@ export default function UsersList(props: UsersListProps) {
             className="flex flex-col items-center justify-between rounded-lg p-4 transition-all hover:bg-base-200"
           >
             <Avatar
-              src={getImageVariants(avatar).sm}
+              src={FAKE_IMG || getImageVariants(avatar).sm}
               border
               size="sm"
               shape="circle"

@@ -47,7 +47,7 @@ export const cardFooter = cva(['card-footer', 'relative'], {
 /*                              Comment Variants                              */
 /* -------------------------------------------------------------------------- */
 
-export const comment = cva(['comment-item', 'w-full'], {
+export const comment = cva(['comment-item', 'w-full', 'relative', 'group'], {
   variants: {
     type: {
       default: [],
@@ -56,7 +56,7 @@ export const comment = cva(['comment-item', 'w-full'], {
   },
 });
 
-export const commentBody = cva(['item-body'], {
+export const commentBody = cva(['comment-item-body', 'text-justify', 'peer'], {
   variants: {
     type: {
       default: [
@@ -67,7 +67,19 @@ export const commentBody = cva(['item-body'], {
         'p-0',
         'text-sm',
       ],
-      reply: ['text-xs'],
+      reply: ['text-xs', 'pr-20'],
     },
   },
 });
+
+export const commnetLikes = cva(
+  ['comment-item-likes', 'flex', 'items-center', 'text-xs', 'absolute'],
+  {
+    variants: {
+      type: {
+        default: ['top-[18px]', 'right-2'],
+        reply: ['top-[2px]', 'right-0', , 'hidden', 'peer-hover:flex'],
+      },
+    },
+  }
+);

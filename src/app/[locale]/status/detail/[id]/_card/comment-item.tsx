@@ -12,13 +12,15 @@ import ImageGrid from '@/components/common/image-grid';
 import { Avatar } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
 import { ARROW_DOWN_ICON } from '@/contants/svgs';
+import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
+import { HandThumbUpIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
 import { preprocessCommentText } from './text-preprocessor';
 import type { CommentItemProps } from './types';
-import { comment, commentBody } from './variants';
+import { comment, commentBody, commnetLikes } from './variants';
 
 import './comment-item.sass';
 
@@ -34,6 +36,7 @@ export default function CommentItem(props: CommentItemProps) {
     text,
     images,
     comments,
+    likesCount,
     replyUser,
     isReplySelf,
     totalReplies,
@@ -78,7 +81,7 @@ export default function CommentItem(props: CommentItemProps) {
       data-id={id}
     >
       {!isReply && (
-        <div className="item-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
+        <div className="comment-item-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
           <Avatar
             src={FAKE_IMG || getImageVariants(user.avatar).sm}
             border
@@ -139,6 +142,10 @@ export default function CommentItem(props: CommentItemProps) {
             </span>
           )}
         </div>
+      </div>
+      <div className={commnetLikes({ type: isReply ? 'reply' : 'default' })}>
+        <HandThumbUpIcon className="mr-1 h-4 w-4" />
+        {formatNumberWithUnit(likesCount || 0)}
       </div>
     </div>
   );
