@@ -10,13 +10,12 @@
 import useDialog from '@/components/common/dialog';
 import ImageGrid from '@/components/common/image-grid';
 import { Avatar } from '@/components/daisyui';
-import type { Lang } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
 import { ARROW_DOWN_ICON } from '@/contants/svgs';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
 import { HandThumbUpIcon } from '@heroicons/react/24/outline';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
 import { preprocessCommentText } from './text-preprocessor';
@@ -31,7 +30,6 @@ import {
 import './comment-item.sass';
 
 export default function CommentItem(props: CommentItemProps) {
-  const locale = useLocale();
   const t = useTranslations('pages.status.comments');
   const { show: showDialog } = useDialog();
   const { isReply, isDetailReplies, isReplyToSomeone } = props;
@@ -75,6 +73,7 @@ export default function CommentItem(props: CommentItemProps) {
 
   const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
+      backdrop: true,
       hideHeader: true,
       hideFooter: true,
       className: 'max-w-[40rem] rounded h-2/3',
@@ -151,7 +150,7 @@ export default function CommentItem(props: CommentItemProps) {
       </div>
       <div className={commnetLikes({ type: variantType })}>
         <HandThumbUpIcon className="mr-1 h-4 w-4" />
-        {formatNumberWithUnit(likesCount || 0, locale as Lang)}
+        {formatNumberWithUnit(likesCount || 0)}
       </div>
     </div>
   );

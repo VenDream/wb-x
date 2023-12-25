@@ -105,7 +105,7 @@ export default function useDialog() {
       };
 
       return (
-        <IDialog className="rounded-md" {...dialogProps} backdrop>
+        <IDialog className="rounded-md" {...dialogProps}>
           {!hideHeader && (
             <ModalHeader
               className={clsx(

@@ -13,16 +13,27 @@ import zhCN from '@/messages/zh-CN.json';
 import { createTranslator } from 'next-intl';
 
 /**
+ * get locale
+ *
+ * @export
+ */
+export function getLocale() {
+  if (typeof window === 'undefined') return LANGS.en;
+  const html = document.documentElement;
+  return (html.getAttribute('lang') as Lang) || LANGS.en;
+}
+
+/**
  * get locale string
  *
  * @export
  * @param {string} key key
- * @param {Lang} lang lang
  */
-export function getLocaleMessage(key: string, lang: Lang) {
+export function getLocaleMessage(key: string) {
+  const locale = getLocale();
   const t = createTranslator({
-    locale: lang,
-    messages: lang === LANGS.en ? enUS : zhCN,
+    locale,
+    messages: locale === LANGS.en ? enUS : zhCN,
   });
   return t(key);
 }
@@ -77,15 +88,15 @@ export function copyText(text: string) {
  *
  * @export
  * @param {number} number number
- * @param {Lang} lang lang
  */
-export function formatNumberWithUnit(number: number, lang: Lang) {
+export function formatNumberWithUnit(number: number) {
+  const locale = getLocale();
   const units =
-    lang === LANGS.en
+    locale === LANGS.en
       ? ['', 'K', 'M', 'B', 'T']
       : ['', '万', '亿', '万亿', '亿亿'];
 
-  const sep = lang === LANGS.en ? 3 : 4;
+  const sep = locale === LANGS.en ? 3 : 4;
   const unitIdx = Math.floor((String(number).length - 1) / sep);
 
   if (unitIdx === 0) return String(number);
