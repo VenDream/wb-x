@@ -18,7 +18,7 @@ import { useContext, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import CardCtx from './context';
 
-const WIDTH = 1200 * 0.8;
+const WIDTH = 1280 * 0.8;
 
 export default function CardVideo() {
   const { status } = useContext(CardCtx);

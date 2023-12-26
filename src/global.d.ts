@@ -123,6 +123,10 @@ declare global {
       uid?: string;
       /** keyword */
       keyword?: string;
+      /** original flag */
+      original?: boolean;
+      /** has images flag */
+      hasImages?: boolean;
       /** start date */
       startDate?: string;
       /** end date */

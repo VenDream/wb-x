@@ -47,6 +47,10 @@ export interface VirtualListProps<T, R> {
   estimatedRowHeight?: number;
   /** how to concat new list */
   concatList?: (prevList: T[], newList: T[]) => T[];
+  /** list total parser */
+  getTotalParser?: () => (data: R) => number;
+  /** total count update callback */
+  onTotalUpdate?: (total: number) => void;
 }
 
 export interface VirtualListRowProps<T> {

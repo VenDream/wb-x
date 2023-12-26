@@ -60,8 +60,8 @@
       "records": "records",
       "totalDbSize": "Total File Size",
       "totalUsers": "Total Users",
-      "totalStatuses": "Total Statuses",
-      "totalRetweetStatuses": "Total Retweet Statuses",
+      "totalStatuses": "Total Posts",
+      "totalRetweetStatuses": "Total Retweet Posts",
       "totalRotns": "Total ROTNs"
     },
     "status": {
@@ -77,8 +77,11 @@
       "filter": {
         "uid": "UID",
         "keyword": "Keyword",
+        "original": "Original",
+        "hasImages": "Has Images",
         "startDate": "StartDate",
-        "endDate": "EndDate"
+        "endDate": "EndDate",
+        "totalStatuses": "「{num}」posts were found in the search."
       },
       "menu": {
         "comments": "View comments",

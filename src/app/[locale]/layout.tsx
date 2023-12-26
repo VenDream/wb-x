@@ -48,7 +48,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="rendering">
       <NextIntlClientProvider messages={messages}>
-        <body className="flex h-screen min-w-[1200px] flex-col overflow-hidden">
+        <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
           <ToastProvider>
             <LayoutHeader />
             <LayoutBody>{children}</LayoutBody>

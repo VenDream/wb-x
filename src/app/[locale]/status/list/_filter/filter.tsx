@@ -8,7 +8,7 @@
  */
 
 import DatePicker from '@/components/common/datepicker';
-import { Button, Input } from '@/components/daisyui';
+import { Button, Checkbox, Input } from '@/components/daisyui';
 import {
   ArrowPathIcon,
   MagnifyingGlassIcon,
@@ -27,6 +27,8 @@ interface FilterProps {
 const initialFilter: Backend.StatusListFilterParams = {
   uid: '',
   keyword: '',
+  original: false,
+  hasImages: false,
   startDate: '',
   endDate: '',
 };
@@ -35,11 +37,14 @@ export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
   const t2 = useTranslations('pages.status.filter');
   const { filterParams, updateFilterParams } = props;
-  const { uid, keyword, startDate, endDate } = filterParams;
+  const { uid, keyword, original, hasImages, startDate, endDate } =
+    filterParams;
 
   const [filter, setFilter] = useState<Backend.StatusListFilterParams>({
     uid,
     keyword,
+    original,
+    hasImages,
     startDate,
     endDate,
   });
@@ -54,10 +59,10 @@ export default function Filter(props: FilterProps) {
   };
 
   return (
-    <div className="status-list-filter border-regular-10 absolute left-0 top-0 flex w-64 flex-col gap-4 rounded p-4 shadow">
-      <div className="form-items flex flex-col gap-2">
-        <div className="flex items-center justify-between gap-1">
-          <p className="text-xs">{t2('uid')}</p>
+    <div className="status-list-filter border-regular-10 flex w-72 flex-col gap-4 rounded p-4 shadow">
+      <div className="form-items m-auto flex flex-col gap-2">
+        <div className="flex items-center gap-1">
+          <p className="w-20 text-xs">{t2('uid')}</p>
           <Input
             value={filter.uid}
             size="xs"
@@ -66,8 +71,8 @@ export default function Filter(props: FilterProps) {
             onChange={e => setFilter(f => ({ ...f, uid: e.target.value }))}
           />
         </div>
-        <div className="flex items-center justify-between gap-1">
-          <p className="text-xs">{t2('keyword')}</p>
+        <div className="flex items-center gap-1">
+          <p className="w-20 text-xs">{t2('keyword')}</p>
           <Input
             value={filter.keyword}
             size="xs"
@@ -76,8 +81,8 @@ export default function Filter(props: FilterProps) {
             onChange={e => setFilter(f => ({ ...f, keyword: e.target.value }))}
           />
         </div>
-        <div className="flex items-center justify-between gap-1">
-          <p className="text-xs">{t2('startDate')}</p>
+        <div className="flex items-center gap-1">
+          <p className="w-20 text-xs">{t2('startDate')}</p>
           <DatePicker
             classNames="w-[10rem] relative"
             value={filter.startDate ? new Date(filter.startDate) : undefined}
@@ -92,8 +97,8 @@ export default function Filter(props: FilterProps) {
             }}
           />
         </div>
-        <div className="flex items-center justify-between gap-1">
-          <p className="text-xs">{t2('endDate')}</p>
+        <div className="flex items-center gap-1">
+          <p className="w-20 text-xs">{t2('endDate')}</p>
           <DatePicker
             classNames="w-[10rem] relative"
             value={filter.endDate ? new Date(filter.endDate) : undefined}
@@ -106,6 +111,28 @@ export default function Filter(props: FilterProps) {
             options={{
               defaultDate: new Date(),
             }}
+          />
+        </div>
+        <div className="flex h-[2rem] items-center gap-1">
+          <p className="w-20 text-xs">{t2('original')}</p>
+          <Checkbox
+            checked={!!filter.original}
+            size="xs"
+            className="rounded-sm"
+            onChange={e =>
+              setFilter(f => ({ ...f, original: e.target.checked }))
+            }
+          />
+        </div>
+        <div className="flex h-[2rem] items-center gap-1">
+          <p className="w-20 text-xs">{t2('hasImages')}</p>
+          <Checkbox
+            checked={!!filter.hasImages}
+            size="xs"
+            className="rounded-sm"
+            onChange={e =>
+              setFilter(f => ({ ...f, hasImages: e.target.checked }))
+            }
           />
         </div>
       </div>

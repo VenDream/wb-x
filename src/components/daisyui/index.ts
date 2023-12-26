@@ -50,6 +50,7 @@ export {
   Avatar,
   Badge,
   Button,
+  Checkbox,
   Divider,
   Drawer,
   Input,

@@ -50,6 +50,8 @@ const VirtualList = forwardRef(function VL<T, R>(
     gutter = 10,
     loadingThreshold = 5,
     estimatedRowHeight = 50,
+    getTotalParser,
+    onTotalUpdate,
   } = props;
 
   const t = useTranslations('global.dataFetching');
@@ -79,6 +81,12 @@ const VirtualList = forwardRef(function VL<T, R>(
         setDataList(prevList => concatList(prevList, list));
       }
       if (list.length < limit) setIsLoadAll(true);
+
+      if (getTotalParser && onTotalUpdate) {
+        const parseListTotal = getTotalParser();
+        const total = parseListTotal(data);
+        onTotalUpdate(total);
+      }
     } catch (err) {
       const error = err as Error;
       console.error(error);
@@ -90,6 +98,8 @@ const VirtualList = forwardRef(function VL<T, R>(
     concatList,
     getDataFetcher,
     getDataParser,
+    getTotalParser,
+    onTotalUpdate,
     pageNo,
     pageSize,
     showErrorTips,

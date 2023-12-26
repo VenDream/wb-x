@@ -72,13 +72,16 @@
         "orderByHot": "热度",
         "replyTo": "回复",
         "op": "博主",
-        "totalReplies": "共{num}条回复"
+        "totalReplies": "共 {num} 条回复"
       },
       "filter": {
         "uid": "UID",
         "keyword": "关键字",
+        "original": "原创微博",
+        "hasImages": "包含图片",
         "startDate": "开始日期",
-        "endDate": "结束日期 "
+        "endDate": "结束日期 ",
+        "totalStatuses": "共搜索到「{num}」条微博。"
       },
       "menu": {
         "comments": "查看评论",
