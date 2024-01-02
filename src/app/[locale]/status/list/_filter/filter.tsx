@@ -8,8 +8,7 @@
  */
 
 import DatePicker from '@/components/common/datepicker';
-// import { Button, Checkbox, Input } from '@/components/daisyui';
-import { Button, Input } from '@/components/daisyui';
+import { Button, Checkbox, Input } from '@/components/daisyui';
 import {
   ArrowPathIcon,
   MagnifyingGlassIcon,
@@ -114,7 +113,7 @@ export default function Filter(props: FilterProps) {
             }}
           />
         </div>
-        {/* <div className="flex h-[2rem] items-center gap-1">
+        <div className="flex h-[2rem] items-center gap-1">
           <p className="w-20 text-xs">{t2('original')}</p>
           <Checkbox
             checked={!!filter.original}
@@ -135,7 +134,7 @@ export default function Filter(props: FilterProps) {
               setFilter(f => ({ ...f, hasImages: e.target.checked }))
             }
           />
-        </div> */}
+        </div>
       </div>
       <div className="flex items-center justify-between gap-2">
         <Button
