@@ -47,7 +47,7 @@ const nextConfig = withNextIntl({
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.WEIBO_API}/:path*`,
+        destination: `${process.env.WEIBO_API}/api/:path*`,
       },
     ];
   },
