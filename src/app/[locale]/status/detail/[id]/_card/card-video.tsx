@@ -11,7 +11,7 @@ import { getDbStatusVideo } from '@/api/client';
 import { Slide, useLightbox } from '@/components/common/lightbox';
 import useToast from '@/components/common/toast';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/contants/debug';
-import { getImageVariants } from '@/utils/weibo';
+import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
 import { PlayIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
@@ -45,6 +45,7 @@ export default function CardVideo() {
     try {
       setIsLoading(true);
       const src = await getDbStatusVideo(status.id);
+      const proxiedVideoUrl = getProxiedVideoUrl(src);
       const video: Slide = {
         type: 'video',
         width: WIDTH,
@@ -57,7 +58,7 @@ export default function CardVideo() {
         ),
         sources: [
           {
-            src: FAKE_VIDEO || src,
+            src: FAKE_VIDEO || proxiedVideoUrl,
             type: 'video/mp4',
           },
         ],

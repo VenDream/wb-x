@@ -19,11 +19,13 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export interface LocalSettings {
-  useProxy?: boolean;
+  useImageProxy?: boolean;
+  useVideoProxy?: boolean;
 }
 
 const settingsAtom = atomWithStorage<LocalSettings>(LS_KEYS.SETTINGS, {
-  useProxy: false,
+  useImageProxy: false,
+  useVideoProxy: true,
 });
 
 export default function Page() {
@@ -65,13 +67,25 @@ export default function Page() {
         </Tab>
       </Tabs>
       <div className="rounded bg-base-200 p-4">
-        <div className="flexflex-col mb-8 gap-2 border-b border-base-content/10 pb-4 text-sm">
+        <div className="mb-8 flex flex-col gap-2 border-b border-base-content/10 pb-4 text-sm">
           <div className="flex w-60 items-center justify-between">
-            <p>{t2('useProxy')}</p>
+            <p>{t2('useImageProxy')}</p>
             <Toggle
               color="primary"
-              checked={settings.useProxy}
-              onChange={evt => updateSettings({ useProxy: evt.target.checked })}
+              checked={settings.useImageProxy}
+              onChange={evt =>
+                updateSettings({ useImageProxy: evt.target.checked })
+              }
+            />
+          </div>
+          <div className="flex w-60 items-center justify-between">
+            <p>{t2('useVideoProxy')}</p>
+            <Toggle
+              color="primary"
+              checked={settings.useVideoProxy}
+              onChange={evt =>
+                updateSettings({ useVideoProxy: evt.target.checked })
+              }
             />
           </div>
         </div>

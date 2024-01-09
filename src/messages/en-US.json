@@ -115,7 +115,8 @@
         "server": "SERVER SETTINGS"
       },
       "localSettings": {
-        "useProxy": "Use Proxy",
+        "useImageProxy": "Enable Image Proxy",
+        "useVideoProxy": "Enable Video Proxy",
         "successTips": "Settings successfully saved"
       },
       "serverSettings": {

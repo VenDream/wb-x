@@ -115,7 +115,8 @@
         "server": "服务端设置"
       },
       "localSettings": {
-        "useProxy": "启用代理",
+        "useImageProxy": "启用图片代理",
+        "useVideoProxy": "启用视频代理",
         "successTips": "设置已保存"
       },
       "serverSettings": {

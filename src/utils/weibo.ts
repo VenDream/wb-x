@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 import { getLocalStorageValue } from './common';
 
 const SINAIMG_PROXY = process.env.NEXT_PUBLIC_SINAIMG_PROXY;
+const SINAVIDEO_PROXY = process.env.NEXT_PUBLIC_SINAVIDEO_PROXY;
 
 interface ImageVariants {
   sm: string; // w360
@@ -80,10 +81,26 @@ export function getImageVariants(src: string): ImageVariants {
  */
 export function getProxiedImageUrl(src: string) {
   const enabled = getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS)
-    ?.useProxy;
+    ?.useImageProxy;
 
   if (!!enabled && SINAIMG_PROXY) {
     return `${SINAIMG_PROXY}?url=${encodeURIComponent(src)}`;
+  }
+  return src;
+}
+
+/**
+ * get proxied weibo video url
+ *
+ * @export
+ * @param {string} src src
+ */
+export function getProxiedVideoUrl(src: string) {
+  const enabled = getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS)
+    ?.useVideoProxy;
+
+  if (!!enabled && SINAVIDEO_PROXY) {
+    return `${SINAVIDEO_PROXY}?url=${encodeURIComponent(src)}`;
   }
   return src;
 }

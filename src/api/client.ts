@@ -7,7 +7,6 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { sleep } from '@/utils/common';
 import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
@@ -25,8 +24,6 @@ export async function getDbStatusList(params: StatusListParams) {
   let url = '/api/db/status/list';
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
-  const firstLoad = params.offset || 0 === 0;
-  await sleep(firstLoad ? 500 : 0);
   let statuses = await get<Backend.StatusList>(url);
   // if no statuses, check retweet status instead
   if (!statuses.statuses?.length) {
@@ -44,8 +41,6 @@ export async function getDbRetweetStatusList(params: StatusListParams) {
   let url = '/api/db/retweet_status/list';
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
-  const fistLoad = params.offset || 0 === 0;
-  await sleep(fistLoad ? 500 : 0);
   const statuses = await get<Backend.RetweetStatusList>(url);
   return statuses;
 }
@@ -74,7 +69,6 @@ export async function getStatusCommentsReplies(params: StatusCommentsParams) {
 export async function getDbRotnList(params: ROTNListParams) {
   let url = '/api/db/rotn/list';
   url = appendURLParams(url, params);
-  await sleep(500);
   const items = await get<Backend.ROTNItemList>(url);
   return items;
 }
