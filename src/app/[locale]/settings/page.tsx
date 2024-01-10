@@ -23,10 +23,15 @@ export interface LocalSettings {
   useVideoProxy?: boolean;
 }
 
-const settingsAtom = atomWithStorage<LocalSettings>(LS_KEYS.SETTINGS, {
+export const DEFAULT_SETTINGS: LocalSettings = {
   useImageProxy: false,
   useVideoProxy: true,
-});
+};
+
+const settingsAtom = atomWithStorage<LocalSettings>(
+  LS_KEYS.SETTINGS,
+  DEFAULT_SETTINGS
+);
 
 export default function Page() {
   const router = useRouter();

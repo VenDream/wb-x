@@ -8,6 +8,7 @@
  */
 
 import type { LocalSettings } from '@/app/[locale]/settings/page';
+import { DEFAULT_SETTINGS } from '@/app/[locale]/settings/page';
 import { LS_KEYS } from '@/contants';
 import dayjs from 'dayjs';
 import { getLocalStorageValue } from './common';
@@ -80,10 +81,10 @@ export function getImageVariants(src: string): ImageVariants {
  * @param {string} src src
  */
 export function getProxiedImageUrl(src: string) {
-  const enabled = getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS)
-    ?.useImageProxy;
+  const settings =
+    getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS) || DEFAULT_SETTINGS;
 
-  if (!!enabled && SINAIMG_PROXY) {
+  if (!!settings.useImageProxy && SINAIMG_PROXY) {
     return `${SINAIMG_PROXY}?url=${encodeURIComponent(src)}`;
   }
   return src;
@@ -96,10 +97,10 @@ export function getProxiedImageUrl(src: string) {
  * @param {string} src src
  */
 export function getProxiedVideoUrl(src: string) {
-  const enabled = getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS)
-    ?.useVideoProxy;
+  const settings =
+    getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS) || DEFAULT_SETTINGS;
 
-  if (!!enabled && SINAVIDEO_PROXY) {
+  if (!!settings.useVideoProxy && SINAVIDEO_PROXY) {
     return `${SINAVIDEO_PROXY}?url=${encodeURIComponent(src)}`;
   }
   return src;
