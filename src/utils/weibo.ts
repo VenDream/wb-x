@@ -7,8 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import DEFAULT_SETTINGS from '@/app/[locale]/settings/defaults';
 import type { LocalSettings } from '@/app/[locale]/settings/page';
-import { DEFAULT_SETTINGS } from '@/app/[locale]/settings/page';
 import { LS_KEYS } from '@/contants';
 import dayjs from 'dayjs';
 import { getLocalStorageValue } from './common';

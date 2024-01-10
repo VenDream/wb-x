@@ -17,16 +17,12 @@ import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import DEFAULT_SETTINGS from './defaults';
 
 export interface LocalSettings {
   useImageProxy?: boolean;
   useVideoProxy?: boolean;
 }
-
-export const DEFAULT_SETTINGS: LocalSettings = {
-  useImageProxy: false,
-  useVideoProxy: true,
-};
 
 const settingsAtom = atomWithStorage<LocalSettings>(
   LS_KEYS.SETTINGS,
