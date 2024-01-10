@@ -13,18 +13,13 @@ import useToast from '@/components/common/toast/toast';
 import { Button, Tab, Tabs, Toggle } from '@/components/daisyui';
 import { LS_KEYS, SECONDARY_ROUTES } from '@/contants';
 import { useRouter } from '@/navigation';
+import { DEFAULT_SETTINGS } from '@/utils/settings';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import DEFAULT_SETTINGS from './defaults';
 
-export interface LocalSettings {
-  useImageProxy?: boolean;
-  useVideoProxy?: boolean;
-}
-
-const settingsAtom = atomWithStorage<LocalSettings>(
+const settingsAtom = atomWithStorage<App.Settings>(
   LS_KEYS.SETTINGS,
   DEFAULT_SETTINGS
 );
@@ -43,7 +38,7 @@ export default function Page() {
     router.push(SECONDARY_ROUTES.SERVER_SETTINGS);
   };
 
-  const updateSettings = (patch: Partial<LocalSettings>) => {
+  const updateSettings = (patch: Partial<App.Settings>) => {
     setSettings(settings => ({
       ...settings,
       ...patch,

@@ -7,11 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import DEFAULT_SETTINGS from '@/app/[locale]/settings/defaults';
-import type { LocalSettings } from '@/app/[locale]/settings/page';
-import { LS_KEYS } from '@/contants';
 import dayjs from 'dayjs';
-import { getLocalStorageValue } from './common';
+import { getAppSettings } from './settings';
 
 const SINAIMG_PROXY = process.env.NEXT_PUBLIC_SINAIMG_PROXY;
 const SINAVIDEO_PROXY = process.env.NEXT_PUBLIC_SINAVIDEO_PROXY;
@@ -81,10 +78,9 @@ export function getImageVariants(src: string): ImageVariants {
  * @param {string} src src
  */
 export function getProxiedImageUrl(src: string) {
-  const settings =
-    getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS) || DEFAULT_SETTINGS;
+  const { useImageProxy } = getAppSettings();
 
-  if (!!settings.useImageProxy && SINAIMG_PROXY) {
+  if (!!useImageProxy && SINAIMG_PROXY) {
     return `${SINAIMG_PROXY}?url=${encodeURIComponent(src)}`;
   }
   return src;
@@ -97,10 +93,9 @@ export function getProxiedImageUrl(src: string) {
  * @param {string} src src
  */
 export function getProxiedVideoUrl(src: string) {
-  const settings =
-    getLocalStorageValue<LocalSettings>(LS_KEYS.SETTINGS) || DEFAULT_SETTINGS;
+  const { useVideoProxy } = getAppSettings();
 
-  if (!!settings.useVideoProxy && SINAVIDEO_PROXY) {
+  if (!!useVideoProxy && SINAVIDEO_PROXY) {
     return `${SINAVIDEO_PROXY}?url=${encodeURIComponent(src)}`;
   }
   return src;

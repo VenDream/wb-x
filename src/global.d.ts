@@ -26,9 +26,21 @@ declare global {
     needTotal?: boolean;
   }
 
+  /* ------------------------------------------------------------------------ */
+  /*                                    App                                   */
+  /* ------------------------------------------------------------------------ */
+  namespace App {
+    interface Settings {
+      /** use image porxy */
+      useImageProxy?: boolean;
+      /** use video porxy */
+      useVideoProxy?: boolean;
+    }
+  }
+
   namespace Backend {
     /* ---------------------------------------------------------------------- */
-    /*                                  user                                  */
+    /*                                  User                                  */
     /* ---------------------------------------------------------------------- */
     interface User {
       /** id */
