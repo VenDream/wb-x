@@ -22,15 +22,18 @@ type RouterRefreshProps = ChildrenProps<{
   auto?: boolean;
   /** auto refresh interval */
   interval?: number;
+  /** server action */
+  action?: () => Promise<void>;
 }>;
 
 export default function RouterRefresh(props: RouterRefreshProps) {
   const t = useTranslations('global');
   const router = useRouter();
   const { showSuccessTips } = useToast();
-  const { className, auto, interval = 3000, children } = props;
+  const { className, auto, interval = 3000, action, children } = props;
 
-  const onBtnClick = () => {
+  const onBtnClick = async () => {
+    await action?.();
     router.refresh();
     showSuccessTips(t('misc.routerRefreshSuccess'));
   };
@@ -40,7 +43,8 @@ export default function RouterRefresh(props: RouterRefreshProps) {
 
     let timer: NodeJS.Timeout;
     const refresh = () => {
-      timer = setTimeout(() => {
+      timer = setTimeout(async () => {
+        await action?.();
         router.refresh();
         refresh();
       }, interval);
@@ -51,7 +55,7 @@ export default function RouterRefresh(props: RouterRefreshProps) {
     return () => {
       clearTimeout(timer);
     };
-  }, [auto, interval, router]);
+  }, [action, auto, interval, router]);
 
   return (
     <div

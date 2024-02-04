@@ -8,6 +8,7 @@
  */
 
 import { getDatabaseInfo } from '@/api/server';
+import { refreshDbInfo } from '@/app/actions';
 import Counter from '@/components/common/counter';
 import RouterRefresh from '@/components/common/router-refresh';
 import { Button, Stats as IStats, Stat, StatItem } from '@/components/daisyui';
@@ -96,7 +97,7 @@ export default async function Stats({ locale }: { locale: string }) {
         ))}
       </IStats>
       <br />
-      <RouterRefresh>
+      <RouterRefresh action={refreshDbInfo}>
         <Button color="primary" className="flex" size="sm">
           <ArrowPathIcon className="mr-1" />
           {gt('action.refresh')}
