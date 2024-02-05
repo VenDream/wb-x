@@ -9,6 +9,9 @@
 
 import Stats from './stats';
 
+// revalidate homepage requests at most every hour
+export const revalidate = 60 * 60;
+
 export default async function Page({ params: { locale } }: LocaleProps) {
   return (
     <div className="page-home">

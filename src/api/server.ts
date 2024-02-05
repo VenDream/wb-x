@@ -42,8 +42,7 @@ export async function getDbUsers(params: PaginationParams) {
 export async function getDatabaseInfo() {
   const url = getApiHost() + '/api/db/info';
   const info = await get<Backend.DbInfo>(url, {
-    // revalidate db info every hour
-    next: { revalidate: 60 * 60, tags: ['db-info'] },
+    next: { tags: ['db-info'] },
   });
   return info;
 }
