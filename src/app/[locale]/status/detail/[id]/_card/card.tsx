@@ -21,15 +21,16 @@ import { card } from './variants';
 import './card.sass';
 
 export default function Card(props: CardProps) {
-  const { status, isRetweet, menu } = props;
+  const { status, isRetweet, menu, renderCustomMenus } = props;
 
   const ctx = useMemo<CardContext>(
     () => ({
       status,
       isRetweet: !!isRetweet,
       menu: { ...DEFAULT_MENU, ...menu },
+      renderCustomMenus,
     }),
-    [isRetweet, menu, status]
+    [isRetweet, menu, renderCustomMenus, status]
   );
 
   return (

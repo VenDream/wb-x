@@ -18,6 +18,8 @@ export interface CardProps {
   isRetweet?: boolean;
   /** card menu */
   menu?: CardMenuOpts;
+  /** render custom menus */
+  renderCustomMenus?: (ctx: CardContext) => JSX.Element;
 }
 
 export interface CardContext {
@@ -27,6 +29,8 @@ export interface CardContext {
   isRetweet: boolean;
   /** card menu */
   menu: CardMenuOpts;
+  /** render custom menus */
+  renderCustomMenus?: (ctx: CardContext) => JSX.Element;
 }
 
 export interface CardMenuOpts {

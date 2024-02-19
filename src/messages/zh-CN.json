@@ -88,7 +88,8 @@
         "source": "查看原微博",
         "download": "下载原图",
         "copyUID": "复制UID",
-        "copySuccessTips": "已复制到剪贴板"
+        "copySuccessTips": "已复制到剪贴板",
+        "opPosts": "查看Ta的所有微博"
       },
       "sourceFrom": "来自",
       "postedOn": "发布于",

@@ -16,7 +16,7 @@ import { preprocessStatusText } from './text-preprocessor';
 import { cardBody } from './variants';
 
 export default function CardBody() {
-  const { status, isRetweet, menu } = useContext(CardCtx);
+  const { status, isRetweet, renderCustomMenus } = useContext(CardCtx);
   const { user, text, retweetedStatus } = status!;
 
   const userName = isRetweet
@@ -36,7 +36,11 @@ export default function CardBody() {
         <CardVideo />
         {retweetedStatus && (
           <div className="status-repost">
-            <Card isRetweet status={retweetedStatus} />
+            <Card
+              isRetweet
+              status={retweetedStatus}
+              renderCustomMenus={renderCustomMenus}
+            />
           </div>
         )}
       </div>

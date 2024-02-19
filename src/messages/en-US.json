@@ -88,7 +88,8 @@
         "source": "View original post",
         "download": "DL images zip",
         "copyUID": "Copy UID",
-        "copySuccessTips": "Copied successfully"
+        "copySuccessTips": "Successfully copied",
+        "opPosts": "View all OP's posts"
       },
       "sourceFrom": "from",
       "postedOn": "posted on",
@@ -117,11 +118,11 @@
       "localSettings": {
         "useImageProxy": "Enable Image Proxy",
         "useVideoProxy": "Enable Video Proxy",
-        "successTips": "Settings successfully saved"
+        "successTips": "Settings saved"
       },
       "serverSettings": {
         "title": "Save Settings",
-        "confirm": "This operation will trigger the service to restart, continue ?",
+        "confirm": "This operation will trigger a service restart, continue ?",
         "nothingChanged": "Nothing changed",
         "fetchFailed": "Failed to fetch settings, please retry",
         "saveFailed": "Failed to save settings, please retry"

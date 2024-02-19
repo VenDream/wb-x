@@ -37,7 +37,8 @@ import CardCtx from './context';
 const ALIGN_END_TRIGGER_W = 1450;
 
 export default function CardMenu() {
-  const { status, isRetweet, menu } = useContext(CardCtx);
+  const cardCtx = useContext(CardCtx);
+  const { status, isRetweet, menu, renderCustomMenus } = cardCtx;
   const { id, user, images } = status!;
   const t = useTranslations('pages.status.menu');
   const { showSuccessTips } = useToast();
@@ -71,7 +72,7 @@ export default function CardMenu() {
           <EllipsisHorizontalCircleIcon className="h-5 w-5" />
         </Button>
       </DropdownToggle>
-      <DropdownMenu className="border-regular-5 z-10 mt-2 w-[185px] rounded">
+      <DropdownMenu className="border-regular-5 z-10 mt-2 w-[190px] rounded">
         {!!menu.copyUid && (
           <DropdownItem anchor={false}>
             <span
@@ -122,6 +123,7 @@ export default function CardMenu() {
             </Link>
           </DropdownItem>
         )}
+        {renderCustomMenus && renderCustomMenus(cardCtx)}
       </DropdownMenu>
     </Dropdown>
   );

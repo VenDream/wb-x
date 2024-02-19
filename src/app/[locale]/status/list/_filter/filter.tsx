@@ -15,7 +15,7 @@ import {
 } from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface FilterProps {
   /** filter params */
@@ -58,6 +58,10 @@ export default function Filter(props: FilterProps) {
     updateFilterParams(initialFilter);
   };
 
+  useEffect(() => {
+    filterParams && setFilter(filterParams);
+  }, [filterParams]);
+
   return (
     <div className="status-list-filter border-regular-10 flex w-72 flex-col gap-4 rounded p-4 shadow">
       <div className="form-items m-auto flex flex-col gap-2">
@@ -68,6 +72,7 @@ export default function Filter(props: FilterProps) {
             size="xs"
             placeholder={t2('uid')}
             className="h-[2rem] w-40 rounded"
+            onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, uid: e.target.value }))}
           />
         </div>
@@ -78,6 +83,7 @@ export default function Filter(props: FilterProps) {
             size="xs"
             placeholder={t2('keyword')}
             className="h-[2rem] w-40 rounded"
+            onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, keyword: e.target.value }))}
           />
         </div>
