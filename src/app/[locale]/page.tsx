@@ -9,8 +9,8 @@
 
 import Stats from './stats';
 
-// revalidate homepage requests at most every hour
-export const revalidate = 60 * 60;
+// revalidate homepage requests at most every hour - 60 * 60
+export const revalidate = 3600;
 
 export default async function Page({ params: { locale } }: LocaleProps) {
   return (
