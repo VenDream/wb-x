@@ -42,6 +42,8 @@ export interface CardMenuOpts {
   viewComments?: boolean;
   /** view original */
   viewOriginal?: boolean;
+  /** view op posts */
+  viewOpPosts?: boolean;
 }
 
 /* -------------------------------------------------------------------------- */

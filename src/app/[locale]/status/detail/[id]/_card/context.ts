@@ -15,6 +15,7 @@ const DEFAULT_MENU: CardMenuOpts = {
   dlImages: true,
   viewComments: true,
   viewOriginal: true,
+  viewOpPosts: true,
 };
 
 const CardCtx = createContext<CardContext>({

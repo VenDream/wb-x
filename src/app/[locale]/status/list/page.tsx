@@ -14,12 +14,10 @@ import VirtualList, {
   VirtualListHandle,
   VirtualListProps,
 } from '@/components/common/virtual-list';
-import { Divider, DropdownItem } from '@/components/daisyui';
+import { Divider } from '@/components/daisyui';
 import { dedupeStatusList } from '@/utils/weibo';
-import { ListBulletIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import type { CardContext } from '../detail';
 import { StatusCard } from '../detail';
 import Filter from './_filter';
 
@@ -40,7 +38,18 @@ export default function Page() {
   const [total, setTotal] = useState(-1);
 
   const [filterParams, setFilterParams] =
-    useState<Backend.StatusListFilterParams>(defaultFilterParams);
+    useState<Backend.StatusListFilterParams>(() => {
+      if (typeof window === 'undefined') return defaultFilterParams;
+
+      const searchParams = new URLSearchParams(window.location.search);
+      const { uid } = Object.fromEntries(searchParams.entries());
+      const urlParams: Backend.StatusListFilterParams = { uid: uid || '' };
+
+      return {
+        ...defaultFilterParams,
+        ...urlParams,
+      };
+    });
 
   const updateFilterParams = useCallback(
     (patch: Partial<Backend.StatusListFilterParams>) => {
@@ -48,27 +57,6 @@ export default function Page() {
       listRef.current?.reset();
     },
     []
-  );
-
-  const renderCustomMenus = useCallback(
-    (ctx: CardContext) => {
-      const { user } = ctx.status!;
-
-      return (
-        <DropdownItem anchor={false}>
-          <span
-            className="rounded p-2"
-            onClick={() => {
-              updateFilterParams({ ...defaultFilterParams, uid: user.id });
-            }}
-          >
-            <ListBulletIcon />
-            {t2('opPosts')}
-          </span>
-        </DropdownItem>
-      );
-    },
-    [t2, updateFilterParams]
   );
 
   const listProps: VirtualListProps<Backend.Status, Backend.StatusList> =
@@ -79,16 +67,14 @@ export default function Page() {
         getDataParser: () => data => data.statuses,
         getTotalParser: () => data => data.total as number,
         getRowItemKey: (_, list) => list.id,
-        renderRowItemContent: data => (
-          <StatusCard status={data} renderCustomMenus={renderCustomMenus} />
-        ),
+        renderRowItemContent: data => <StatusCard status={data} />,
         concatList: (prevList, list) =>
           dedupeStatusList([...prevList, ...list]),
         onTotalUpdate: total => setTotal(total),
         className: 'status-list pl-72 2xl:pl-0',
         estimatedRowHeight: 500,
       }),
-      [filterParams, renderCustomMenus]
+      [filterParams]
     );
 
   return (

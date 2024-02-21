@@ -16,6 +16,7 @@ import {
   DropdownToggle,
 } from '@/components/daisyui';
 import {
+  MAIN_ROUTES,
   SECONDARY_ROUTES,
   WEIBO_HOST,
   WEIBO_IMAGES_DOWNLOAD_API,
@@ -28,6 +29,7 @@ import {
   ClipboardDocumentListIcon,
   EllipsisHorizontalCircleIcon,
   FolderArrowDownIcon,
+  ListBulletIcon,
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
@@ -120,6 +122,18 @@ export default function CardMenu() {
             >
               <ChatBubbleLeftIcon />
               {t('comments')}
+            </Link>
+          </DropdownItem>
+        )}
+        {!!menu.viewOpPosts && (
+          <DropdownItem anchor={false}>
+            <Link
+              target="_blank"
+              className="rounded p-2"
+              href={`${MAIN_ROUTES.WEIBO}?uid=${user.id}`}
+            >
+              <ListBulletIcon />
+              {t('opPosts')}
             </Link>
           </DropdownItem>
         )}
