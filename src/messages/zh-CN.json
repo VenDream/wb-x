@@ -78,7 +78,8 @@
         "uid": "UID",
         "keyword": "关键字",
         "original": "原创微博",
-        "hasImages": "包含图片",
+        "leastImagesCount": "图片数量",
+        "leastImagesCountTips": "至少包含的图片数量",
         "startDate": "开始日期",
         "endDate": "结束日期 ",
         "totalStatuses": "共搜索到「{num}」条微博。"

@@ -137,8 +137,8 @@ declare global {
       keyword?: string;
       /** original flag */
       original?: boolean;
-      /** has images flag */
-      hasImages?: boolean;
+      /** least images count */
+      leastImagesCount?: string;
       /** start date */
       startDate?: string;
       /** end date */

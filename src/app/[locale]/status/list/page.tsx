@@ -25,7 +25,7 @@ const defaultFilterParams: Backend.StatusListFilterParams = {
   uid: '',
   keyword: '',
   original: false,
-  hasImages: false,
+  leastImagesCount: '',
   startDate: '',
   endDate: '',
   needTotal: true,

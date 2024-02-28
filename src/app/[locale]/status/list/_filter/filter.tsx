@@ -9,6 +9,7 @@
 
 import DatePicker from '@/components/common/datepicker';
 import { Button, Checkbox, Input } from '@/components/daisyui';
+import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
 import {
   ArrowPathIcon,
   MagnifyingGlassIcon,
@@ -28,7 +29,7 @@ const initialFilter: Backend.StatusListFilterParams = {
   uid: '',
   keyword: '',
   original: false,
-  hasImages: false,
+  leastImagesCount: '',
   startDate: '',
   endDate: '',
 };
@@ -37,14 +38,14 @@ export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
   const t2 = useTranslations('pages.status.filter');
   const { filterParams, updateFilterParams } = props;
-  const { uid, keyword, original, hasImages, startDate, endDate } =
+  const { uid, keyword, original, leastImagesCount, startDate, endDate } =
     filterParams;
 
   const [filter, setFilter] = useState<Backend.StatusListFilterParams>({
     uid,
     keyword,
     original,
-    hasImages,
+    leastImagesCount,
     startDate,
     endDate,
   });
@@ -120,6 +121,28 @@ export default function Filter(props: FilterProps) {
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
+          <p className="w-20 text-xs">{t2('leastImagesCount')}</p>
+          <Input
+            value={filter.leastImagesCount}
+            size="xs"
+            type="number"
+            placeholder={t2('leastImagesCountTips')}
+            className="m-0 h-[2rem] w-40 appearance-none rounded"
+            onKeyDown={e => e.key === 'Enter' && applyFilter()}
+            onChange={e => {
+              const val = e.target.value;
+              if (val === '') {
+                setFilter(f => ({ ...f, leastImagesCount: val }));
+              } else {
+                let count = +val;
+                count = Math.max(count, MIN_IMAGES_COUNT);
+                count = Math.min(count, MAX_IMAGES_COUNT);
+                setFilter(f => ({ ...f, leastImagesCount: String(count) }));
+              }
+            }}
+          />
+        </div>
+        <div className="flex h-[2rem] items-center gap-1">
           <p className="w-20 text-xs">{t2('original')}</p>
           <Checkbox
             checked={!!filter.original}
@@ -127,17 +150,6 @@ export default function Filter(props: FilterProps) {
             className="rounded-sm"
             onChange={e =>
               setFilter(f => ({ ...f, original: e.target.checked }))
-            }
-          />
-        </div>
-        <div className="flex h-[2rem] items-center gap-1">
-          <p className="w-20 text-xs">{t2('hasImages')}</p>
-          <Checkbox
-            checked={!!filter.hasImages}
-            size="xs"
-            className="rounded-sm"
-            onChange={e =>
-              setFilter(f => ({ ...f, hasImages: e.target.checked }))
             }
           />
         </div>

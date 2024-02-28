@@ -78,7 +78,8 @@
         "uid": "UID",
         "keyword": "Keyword",
         "original": "Original",
-        "hasImages": "Has Images",
+        "leastImagesCount": "Images count",
+        "leastImagesCountTips": "Least images count",
         "startDate": "StartDate",
         "endDate": "EndDate",
         "totalStatuses": "「{num}」posts were found in the search."
