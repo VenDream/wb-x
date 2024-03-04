@@ -27,6 +27,7 @@ import {
   commnetLikes,
 } from './variants';
 
+import { WEIBO_HOST } from '@/contants';
 import './comment-item.sass';
 
 export default function CommentItem(props: CommentItemProps) {
@@ -51,7 +52,7 @@ export default function CommentItem(props: CommentItemProps) {
   const getUserName = useCallback(
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
-      const username = `<a href="/n/${user.name}" target="_blank">@${user.name}</a>`;
+      const username = `<a href="${WEIBO_HOST}/n/${user.name}" target="_blank">@${user.name}</a>`;
       const opTag = `<span class="text-xs text-primary border border-primary px-0.5 ml-0.5">${t(
         'op'
       )}</span>`;

@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { WEIBO_HOST } from '@/contants';
 import { useContext } from 'react';
 import Card from './card';
 import CardImages from './card-images';
@@ -20,7 +21,7 @@ export default function CardBody() {
   const { user, text, retweetedStatus } = status!;
 
   const userName = isRetweet
-    ? `<a href="/n/${user.name}" target="_blank">@${user.name}:</a>&nbsp;&nbsp;`
+    ? `<a href="${WEIBO_HOST}/n/${user.name}" target="_blank">@${user.name}:</a>&nbsp;&nbsp;`
     : '';
 
   return (

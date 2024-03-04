@@ -26,11 +26,6 @@ const nextConfig = withNextIntl({
         hostname: '*.esmplus.com',
         port: '',
       },
-      {
-        protocol: 'https',
-        hostname: 'mk.dev.rabbitpre.com.cn',
-        port: '',
-      },
     ],
   },
   webpack: function (config) {

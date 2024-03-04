@@ -7,11 +7,15 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { WEIBO_HOST } from '@/contants';
+
+type Replacer = string | ((substring: string, ...args: any[]) => string);
+
 interface ReplaceRule {
   /** match regex */
   regex: RegExp;
   /** replace value */
-  value: string;
+  value: Replacer;
 }
 
 /**
@@ -21,12 +25,21 @@ interface ReplaceRule {
  * @param {string} text text
  */
 export function preprocessStatusText(text: string) {
-  const rules: ReplaceRule[] = [];
+  const rules: ReplaceRule[] = [
+    // weibo profile: https://weibo.com/n/xxx
+    {
+      regex: /\<a\shref='(\/n\/[^<]+)'\>/g,
+      value: `<a href='${WEIBO_HOST}$1'>`,
+    },
+  ];
 
-  return rules.reduce(
-    (prevText, replacer) => prevText.replace(replacer.regex, replacer.value),
-    text
-  );
+  return rules.reduce((prevText, rule) => {
+    const { regex, value } = rule;
+    // string
+    if (typeof value === 'string') return prevText.replace(regex, value);
+    // function
+    return prevText.replace(regex, value);
+  }, text);
 }
 
 /**
@@ -36,12 +49,21 @@ export function preprocessStatusText(text: string) {
  * @param {string} text text
  */
 export function preprocessCommentText(text: string) {
-  const rules: ReplaceRule[] = [];
+  const rules: ReplaceRule[] = [
+    // reply text: 回复xxx
+    { regex: /回复(.+)\<\/a\>\:/g, value: '' },
+    // weibo profile: https://weibo.com/n/xxx
+    {
+      regex: /\<a\shref='(\/n\/[^<]+)'\>/g,
+      value: `<a href='${WEIBO_HOST}$1'>`,
+    },
+  ];
 
-  rules.push({ regex: /回复(.+)\<\/a\>\:/g, value: '' });
-
-  return rules.reduce(
-    (prevText, replacer) => prevText.replace(replacer.regex, replacer.value),
-    text
-  );
+  return rules.reduce((prevText, rule) => {
+    const { regex, value } = rule;
+    // string
+    if (typeof value === 'string') return prevText.replace(regex, value);
+    // function
+    return prevText.replace(regex, value);
+  }, text);
 }
