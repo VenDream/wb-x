@@ -28,8 +28,8 @@ export function preprocessStatusText(text: string) {
   const rules: ReplaceRule[] = [
     // weibo profile: https://weibo.com/n/xxx
     {
-      regex: /\<a\shref='(\/n\/[^<]+)'\>/g,
-      value: `<a href='${WEIBO_HOST}$1'>`,
+      regex: /\<a\shref=('|")?(\/n\/[^<\s]+)\1[^>]*\>/g,
+      value: `<a href='${WEIBO_HOST}$2'>`,
     },
   ];
 
@@ -54,8 +54,8 @@ export function preprocessCommentText(text: string) {
     { regex: /回复(.+)\<\/a\>\:/g, value: '' },
     // weibo profile: https://weibo.com/n/xxx
     {
-      regex: /\<a\shref='(\/n\/[^<]+)'\>/g,
-      value: `<a href='${WEIBO_HOST}$1'>`,
+      regex: /\<a\shref=('|")?(\/n\/[^<\s]+)\1[^>]*\>/g,
+      value: `<a href='${WEIBO_HOST}$2'>`,
     },
   ];
 
