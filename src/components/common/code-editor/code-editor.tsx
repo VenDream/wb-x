@@ -17,10 +17,10 @@ import {
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
-import type { HighlighterCore } from 'shikiji';
-import { getHighlighterCore } from 'shikiji/core';
-import theme from 'shikiji/themes/min-light.mjs';
-import { getWasmInlined } from 'shikiji/wasm';
+import type { HighlighterCore } from 'shiki';
+import { getHighlighterCore } from 'shiki/core';
+import theme from 'shiki/themes/min-light.mjs';
+import getWasmInlined from 'shiki/wasm';
 
 import './code-editor.sass';
 
@@ -45,7 +45,7 @@ export default function CodeEditor(props: CodeEditorProps) {
     (async function setup() {
       const highlighter = await getHighlighterCore({
         themes: [theme],
-        langs: [import('shikiji/langs/yaml.mjs')],
+        langs: [import('shiki/langs/yaml.mjs')],
         loadWasm: getWasmInlined,
       });
       setTimeout(() => {
