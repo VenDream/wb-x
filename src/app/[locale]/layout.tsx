@@ -10,6 +10,8 @@
 import { ToastProvider } from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS } from '@/contants';
+import { enUS, zhCN } from '@clerk/localizations';
+import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
@@ -46,19 +48,21 @@ export default async function RootLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <html lang={locale} className="rendering">
-      <NextIntlClientProvider messages={messages}>
-        <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
-          <ToastProvider>
-            <LayoutHeader />
-            <LayoutBody>{children}</LayoutBody>
-          </ToastProvider>
-          <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
-            <div className="loading loading-dots text-gray-500" />
-          </div>
-          <SpeedInsights />
-        </body>
-      </NextIntlClientProvider>
-    </html>
+    <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>
+      <html lang={locale} className="rendering">
+        <NextIntlClientProvider messages={messages}>
+          <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
+            <ToastProvider>
+              <LayoutHeader />
+              <LayoutBody>{children}</LayoutBody>
+            </ToastProvider>
+            <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
+              <div className="loading loading-dots text-gray-500" />
+            </div>
+            <SpeedInsights />
+          </body>
+        </NextIntlClientProvider>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -17,6 +17,7 @@ import {
 } from '@/components/daisyui';
 import { MAIN_ROUTES } from '@/contants';
 import { Link } from '@/navigation';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 import LocaleChange from './locale-change';
 import ThemeChange from './theme-change';
 
@@ -42,6 +43,10 @@ export default function Header() {
         <LocaleChange />
         <div className="divider mx-2" />
         <ThemeChange />
+        <div className="divider mx-2" />
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </NavbarEnd>
     </Navbar>
   );
