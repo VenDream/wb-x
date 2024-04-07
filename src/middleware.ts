@@ -20,9 +20,9 @@ export default authMiddleware({
   beforeAuth(req) {
     return i18nMiddleware(req);
   },
-  publicRoutes: ['/', '/(en-US|zh-CN)/sign-in'],
+  publicRoutes: ['/', '/(en-US|zh-CN)'],
 });
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ['/', '/(en-US|zh-CN)/:path*'],
 };

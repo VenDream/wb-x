@@ -17,7 +17,8 @@
       "info": "Info",
       "success": "Success",
       "error": "Error",
-      "caution": "Caution"
+      "caution": "Caution",
+      "noPermission": "No access permission"
     },
     "action": {
       "cancel": "Cancel",

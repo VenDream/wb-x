@@ -94,7 +94,7 @@ export function ToastProvider(props: ChildrenProps) {
     if (toasts.length <= 0) return null;
 
     return (
-      <Toast className="z-20" vertical="top" horizontal="center">
+      <Toast className="z-20" vertical="bottom" horizontal="end">
         {toasts.map(t => {
           const { id, icon, status, message, children } = t;
           return (

@@ -1,5 +1,3 @@
-'use client';
-
 /*
  * Server Settings
  *
@@ -13,35 +11,26 @@ import { getSystemConfig, saveSystemConfig } from '@/api/client';
 import CodeEditor from '@/components/common/code-editor';
 import useDialog from '@/components/common/dialog';
 import useToast from '@/components/common/toast';
-import { Tab, Tabs } from '@/components/daisyui';
-import { MAIN_ROUTES } from '@/contants';
-import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 
-export default function Page() {
-  const router = useRouter();
-  const t1 = useTranslations('pages.settings.tabs');
-  const t2 = useTranslations('pages.settings.serverSettings');
+export default function ServerSettings() {
+  const t = useTranslations('pages.settings.serverSettings');
 
   const { showInfoTips, showSuccessTips, showErrorTips } = useToast();
   const { show: showDialog } = useDialog();
   const [config, setConfig] = useState('');
 
-  const toLocalSettings = () => {
-    router.push(MAIN_ROUTES.SETTINGS);
-  };
-
   const confirm = (configStr: string) => {
     if (configStr === config) {
-      showInfoTips(t2('nothingChanged'));
+      showInfoTips(t('nothingChanged'));
       return;
     }
 
     showDialog({
       status: 'confirm',
-      title: t2('title'),
-      body: t2('confirm'),
+      title: t('title'),
+      body: t('confirm'),
       onOk: () => saveConfig(configStr),
     });
   };
@@ -52,9 +41,9 @@ export default function Page() {
       setConfig(config);
     } catch (err) {
       console.error(err);
-      showErrorTips(t2('fetchFailed'));
+      showErrorTips(t('fetchFailed'));
     }
-  }, [showErrorTips, t2]);
+  }, [showErrorTips, t]);
 
   const saveConfig = async (configStr: string) => {
     try {
@@ -63,7 +52,7 @@ export default function Page() {
       schedule && showSuccessTips(schedule);
     } catch (err) {
       console.error(err);
-      showErrorTips((err as Error).message || t2('saveFailed'));
+      showErrorTips((err as Error).message || t('saveFailed'));
     }
   };
 
@@ -71,24 +60,14 @@ export default function Page() {
     getConfig();
   }, [getConfig]);
 
-  return (
-    <div className="server-settings ">
-      <Tabs value="server" boxed className="mb-4">
-        <Tab value="local" onMouseDown={toLocalSettings}>
-          {t1('local')}
-        </Tab>
-        <Tab value="server">{t1('server')}</Tab>
-      </Tabs>
-      {config ? (
-        <div className="w-[50vw] min-w-[600px]">
-          <CodeEditor
-            title="config.yaml"
-            code={config}
-            lang="yaml"
-            onSave={confirm}
-          />
-        </div>
-      ) : null}
+  return config ? (
+    <div className="w-[50vw] min-w-[600px]">
+      <CodeEditor
+        title="config.yaml"
+        code={config}
+        lang="yaml"
+        onSave={confirm}
+      />
     </div>
-  );
+  ) : null;
 }
