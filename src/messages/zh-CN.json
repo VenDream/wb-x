@@ -17,7 +17,8 @@
       "info": "提示",
       "success": "成功",
       "error": "失败",
-      "caution": "警告"
+      "caution": "警告",
+      "noPermission": "无访问权限"
     },
     "action": {
       "cancel": "取消",

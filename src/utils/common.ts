@@ -55,6 +55,20 @@ export function getLocalStorageValue<T = Record<string, any>>(key: string) {
 }
 
 /**
+ * set local storage value
+ *
+ * @export
+ * @param {string} key key
+ * @param {*} value value
+ */
+export function setLocalStorageValue(key: string, value: any) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    window.dispatchEvent(new StorageEvent('storage', { key, newValue: value }));
+  } catch {}
+}
+
+/**
  * sleep for a period of time
  *
  * @export

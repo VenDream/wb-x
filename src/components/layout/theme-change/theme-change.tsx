@@ -18,15 +18,16 @@ import {
   Theme as ThemeProvoder,
   useTheme,
 } from '@/components/daisyui';
-import { DARK_THEMES, LS_KEYS, THEMES } from '@/contants';
+import { THEMES } from '@/contants';
 import {
   CheckCircleIcon,
   ChevronDownIcon,
   SwatchIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
-
 import { useCallback, useEffect } from 'react';
+
+import { getLsTheme, isDarkTheme, setLsTheme } from '@/utils/theme';
 import './theme-change.sass';
 
 function ThemeConsumer() {
@@ -37,7 +38,8 @@ function ThemeConsumer() {
     (t: string) => {
       const html = document.getElementsByTagName('html')[0];
       html.setAttribute('data-theme', t);
-      if (DARK_THEMES.includes(t)) {
+
+      if (isDarkTheme(t)) {
         html.classList.add('dark');
       } else {
         html.classList.remove('dark');
@@ -49,11 +51,11 @@ function ThemeConsumer() {
 
   const switchTheme = (t: string) => {
     applyTheme(t);
-    window.localStorage.setItem(LS_KEYS.THEME, t);
+    setLsTheme(t);
   };
 
   useEffect(() => {
-    const t = window.localStorage.getItem(LS_KEYS.THEME);
+    const t = getLsTheme();
     t && applyTheme(t);
     setTimeout(() => {
       const root = document.getElementsByTagName('html')[0];

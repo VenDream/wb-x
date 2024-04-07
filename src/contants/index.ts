@@ -29,10 +29,9 @@ export const MAIN_ROUTES = {
 export const SECONDARY_ROUTES = {
   STATUS_DETAIL: '/status/detail',
   ROTN_ITEM_DETAIL: '/rotn/item',
-  SERVER_SETTINGS: '/settings/server',
 };
 
-export const AUTH_ROUTE = '/api/auth';
+export const NEED_AUTH_ROUTE = '/api/need-auth';
 
 export const WEIBO_HOST = 'https://weibo.com';
 export const WEIBO_IMAGES_DOWNLOAD_API =

@@ -18,6 +18,7 @@ import {
 import { MAIN_ROUTES } from '@/contants';
 import { Link } from '@/navigation';
 import LocaleChange from './locale-change';
+import Profile from './profile';
 import ThemeChange from './theme-change';
 
 export default function Header() {
@@ -42,6 +43,8 @@ export default function Header() {
         <LocaleChange />
         <div className="divider mx-2" />
         <ThemeChange />
+        <div className="divider mx-2" />
+        <Profile />
       </NavbarEnd>
     </Navbar>
   );

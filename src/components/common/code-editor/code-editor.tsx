@@ -59,7 +59,7 @@ export default function CodeEditor(props: CodeEditorProps) {
       {highlighter ? (
         <>
           {title && (
-            <p className="border-regular-20 relative top-[1px] flex items-center !border-b-0 bg-base-200 px-2 py-1">
+            <p className="border-regular-20 rou relative top-[1px] flex items-center !border-b-0 bg-base-200 p-2 text-sm">
               <DocumentTextIcon className="mr-1" />
               {title}
             </p>
