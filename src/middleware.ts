@@ -20,7 +20,7 @@ export default authMiddleware({
   beforeAuth(req) {
     return i18nMiddleware(req);
   },
-  publicRoutes: ['/', '/(en-US|zh-CN)'],
+  publicRoutes: ['/'],
 });
 
 export const config = {
