@@ -8,7 +8,7 @@
  */
 
 import { LANGS } from '@/contants';
-import { authMiddleware } from '@clerk/nextjs';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import createMiddleware from 'next-intl/middleware';
 
 const i18nMiddleware = createMiddleware({
@@ -16,12 +16,18 @@ const i18nMiddleware = createMiddleware({
   defaultLocale: LANGS.en,
 });
 
-export default authMiddleware({
-  beforeAuth(req) {
+const isPublicRoute = createRouteMatcher([]);
+
+export default clerkMiddleware(
+  (auth, req) => {
+    if (!isPublicRoute(req)) {
+      auth().protect();
+    }
+
     return i18nMiddleware(req);
   },
-  publicRoutes: ['/'],
-});
+  { debug: process.env.NODE_ENV === 'development' }
+);
 
 export const config = {
   matcher: ['/', '/(en-US|zh-CN)/:path*'],

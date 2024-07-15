@@ -10,16 +10,21 @@
 import { ToastProvider } from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS } from '@/contants';
+import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 
 import './globals.scss';
 
 const locales = Object.values(LANGS);
+const font = localFont({
+  src: '../../fonts/ATCOverlook-Light.woff2',
+});
 
 export const metadata = {
   title: 'WB-X',
@@ -49,7 +54,7 @@ export default async function RootLayout({
 
   return (
     <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>
-      <html lang={locale} className="rendering">
+      <html lang={locale} className={cn(font.className, 'rendering')}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
             <ToastProvider>

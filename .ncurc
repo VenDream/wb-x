@@ -1,6 +1,7 @@
 {
   "reject": [
     "daisyui",
+    "eslint",
     "react-daisyui"
   ]
 }

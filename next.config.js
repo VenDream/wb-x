@@ -12,7 +12,7 @@ const withNextIntl = require('next-intl/plugin')();
 /** @type {import('next').NextConfig} */
 const nextConfig = withNextIntl({
   reactStrictMode: true,
-  transpilePackages: ['react-daisyui'],
+  transpilePackages: ['react-daisyui', 'shiki'],
   images: {
     unoptimized: true,
     remotePatterns: [
