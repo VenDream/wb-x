@@ -10,7 +10,6 @@
  */
 
 import NoData from '@/components/common/no-data';
-import useToast from '@/components/common/toast';
 import { Loading } from '@/components/daisyui';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
@@ -27,6 +26,7 @@ import {
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
+import { toast } from 'sonner';
 import { VirtualListContext } from './context';
 import ListRow from './list-row';
 import type {
@@ -56,7 +56,6 @@ const VirtualList = forwardRef(function VL<T, R>(
 
   const t = useTranslations('global.dataFetching');
   const listRef = useRef<VariableSizeList>();
-  const { showInfoTips, showErrorTips } = useToast();
 
   const [pageNo, setPageNo] = useState(0);
   const [isLoadAll, setIsLoadAll] = useState(false);
@@ -90,7 +89,7 @@ const VirtualList = forwardRef(function VL<T, R>(
     } catch (err) {
       const error = err as Error;
       console.error(error);
-      showErrorTips(error.message);
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +101,6 @@ const VirtualList = forwardRef(function VL<T, R>(
     onTotalUpdate,
     pageNo,
     pageSize,
-    showErrorTips,
   ]);
 
   const getRowHeight = useCallback((idx: number) => {
@@ -138,8 +136,8 @@ const VirtualList = forwardRef(function VL<T, R>(
   }, [fetchDataList]);
 
   useEffect(() => {
-    pageNo > 0 && isLoadAll && showInfoTips(t('noMore'));
-  }, [isLoadAll, pageNo, showInfoTips, t]);
+    pageNo > 0 && isLoadAll && toast.info(t('noMore'));
+  }, [isLoadAll, pageNo, t]);
 
   useImperativeHandle(ref, () => ({
     reset: () => {

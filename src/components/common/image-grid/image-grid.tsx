@@ -79,7 +79,7 @@ export default function ImageGrid(props: ImageGridProps) {
           ? { 'data-remains': `+${REMAIN_IMAGES_NUM}` }
           : {};
         const className = clsx(
-          'border-regular-5 aspect-square h-full w-full cursor-zoom-in rounded shadow-sm',
+          'border border-base-content/10 aspect-square h-full w-full cursor-zoom-in rounded shadow-sm',
           {
             'has-more': hasMore,
           }

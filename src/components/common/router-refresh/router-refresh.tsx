@@ -9,10 +9,10 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import useToast from '@/components/common/toast';
 import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
 
 type RouterRefreshProps = ChildrenProps<{
@@ -29,13 +29,12 @@ type RouterRefreshProps = ChildrenProps<{
 export default function RouterRefresh(props: RouterRefreshProps) {
   const t = useTranslations('global');
   const router = useRouter();
-  const { showSuccessTips } = useToast();
   const { className, auto, interval = 3000, action, children } = props;
 
   const onBtnClick = async () => {
     await action?.();
     router.refresh();
-    showSuccessTips(t('misc.routerRefreshSuccess'));
+    toast.success(t('misc.routerRefreshSuccess'));
   };
 
   useEffect(() => {

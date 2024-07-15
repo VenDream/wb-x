@@ -59,7 +59,7 @@ export default function CodeEditor(props: CodeEditorProps) {
       {highlighter ? (
         <>
           {title && (
-            <p className="border-regular-20 rou relative top-[1px] flex items-center !border-b-0 bg-base-200 p-2 text-sm">
+            <p className="rou relative top-[1px] flex items-center border !border-b-0 border-base-content/10 bg-base-200 p-2 text-sm">
               <DocumentTextIcon className="mr-1" />
               {title}
             </p>
@@ -75,8 +75,7 @@ export default function CodeEditor(props: CodeEditorProps) {
             textareaClassName="code-editor__textarea"
             padding={10}
             style={{
-              fontFamily: 'monospace',
-              fontSize: 12,
+              fontSize: 13,
             }}
           />
           <div className="mt-4">

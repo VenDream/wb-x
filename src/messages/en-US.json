@@ -125,7 +125,7 @@
       "serverSettings": {
         "title": "Save Settings",
         "confirm": "This operation will trigger a service restart, continue ?",
-        "nothingChanged": "Nothing changed",
+        "nothingChanged": "Skipped due to no changes",
         "fetchFailed": "Failed to fetch settings, please retry",
         "saveFailed": "Failed to save settings, please retry"
       }

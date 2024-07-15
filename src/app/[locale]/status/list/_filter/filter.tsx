@@ -64,7 +64,7 @@ export default function Filter(props: FilterProps) {
   }, [filterParams]);
 
   return (
-    <div className="status-list-filter border-regular-10 flex w-72 flex-col gap-4 rounded p-4 shadow">
+    <div className="status-list-filter flex w-72 flex-col gap-4 rounded border border-base-content/10 p-4 shadow">
       <div className="form-items m-auto flex flex-col gap-2">
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('uid')}</p>

@@ -10,20 +10,19 @@
 import { getSystemConfig, saveSystemConfig } from '@/api/client';
 import CodeEditor from '@/components/common/code-editor';
 import useDialog from '@/components/common/dialog';
-import useToast from '@/components/common/toast';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function ServerSettings() {
   const t = useTranslations('pages.settings.serverSettings');
 
-  const { showInfoTips, showSuccessTips, showErrorTips } = useToast();
   const { show: showDialog } = useDialog();
   const [config, setConfig] = useState('');
 
   const confirm = (configStr: string) => {
     if (configStr === config) {
-      showInfoTips(t('nothingChanged'));
+      toast.info(t('nothingChanged'));
       return;
     }
 
@@ -41,18 +40,18 @@ export default function ServerSettings() {
       setConfig(config);
     } catch (err) {
       console.error(err);
-      showErrorTips(t('fetchFailed'));
+      toast.error(t('fetchFailed'));
     }
-  }, [showErrorTips, t]);
+  }, [t]);
 
   const saveConfig = async (configStr: string) => {
     try {
       const { schedule } = await saveSystemConfig(configStr);
       setConfig(configStr);
-      schedule && showSuccessTips(schedule);
+      schedule && toast.success(schedule);
     } catch (err) {
       console.error(err);
-      showErrorTips((err as Error).message || t('saveFailed'));
+      toast.error((err as Error).message || t('saveFailed'));
     }
   };
 

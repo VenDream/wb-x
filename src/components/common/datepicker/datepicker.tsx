@@ -46,7 +46,7 @@ export default function DatePicker(props: DatePickerProps) {
       weekDays: t('weekDays').split(','),
       theme: {
         ...props.options?.theme,
-        background: '!bg-base-100 border-regular-10 shadow',
+        background: '!bg-base-100 border border-base-content/10 shadow',
         todayBtn: '!btn-primary',
         clearBtn: '',
         icons: '',

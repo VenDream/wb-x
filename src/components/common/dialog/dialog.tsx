@@ -9,7 +9,6 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { ToastProvider } from '@/components/common/toast';
 import {
   Button,
   Modal,
@@ -151,16 +150,21 @@ export default function useDialog() {
       const root = createRoot(el);
       const propsCancel = props.onCancel;
       const closeDialog = () => {
-        root.unmount();
-        el.remove();
-        propsCancel?.();
+        const box = el.querySelector('.modal-box');
+        box?.addEventListener(
+          'transitionend',
+          () => {
+            root.unmount();
+            el.remove();
+            propsCancel?.();
+          },
+          { once: true }
+        );
       };
       props.onCancel = closeDialog;
       root.render(
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <ToastProvider>
-            <Dialog {...props} />
-          </ToastProvider>
+          <Dialog {...props} />
         </NextIntlClientProvider>
       );
 
@@ -168,17 +172,16 @@ export default function useDialog() {
         handleShow();
         const dialog = el.querySelector('dialog');
         const backdrop = el.querySelector('.modal-backdrop');
-        dialog &&
-          dialog.addEventListener(
-            'cancel',
-            evt => {
-              evt.preventDefault();
-              closeDialog();
-            },
-            { once: true }
-          );
-        backdrop &&
-          backdrop.addEventListener('click', closeDialog, { once: true });
+
+        dialog?.addEventListener(
+          'cancel',
+          evt => {
+            evt.preventDefault();
+            closeDialog();
+          },
+          { once: true }
+        );
+        backdrop?.addEventListener('click', closeDialog, { once: true });
       }, 0);
     },
     [Dialog, handleShow, locale, messages]

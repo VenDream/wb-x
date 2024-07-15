@@ -7,25 +7,22 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { ToastProvider } from '@/components/common/toast';
+import Toaster from '@/components/common/toast';
+import { Theme as ThemeProvider } from '@/components/daisyui';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS } from '@/contants';
+import { font } from '@/fonts';
 import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 
 import './globals.scss';
 
 const locales = Object.values(LANGS);
-const font = localFont({
-  src: '../../fonts/ATCOverlook-Light.woff2',
-});
-
 export const metadata = {
   title: 'WB-X',
   description: 'The X makes it sound cool~',
@@ -57,14 +54,15 @@ export default async function RootLayout({
       <html lang={locale} className={cn(font.className, 'rendering')}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
-            <ToastProvider>
+            <ThemeProvider>
               <LayoutHeader />
               <LayoutBody>{children}</LayoutBody>
-            </ToastProvider>
-            <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
-              <div className="loading loading-dots text-gray-500" />
-            </div>
-            <SpeedInsights />
+              <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
+                <div className="loading loading-dots text-gray-500" />
+              </div>
+              <SpeedInsights />
+              <Toaster font={font.className} />
+            </ThemeProvider>
           </body>
         </NextIntlClientProvider>
       </html>

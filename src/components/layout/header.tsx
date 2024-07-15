@@ -23,7 +23,7 @@ import ThemeChange from './theme-change';
 
 export default function Header() {
   return (
-    <Navbar className="layout-header z-10 border-b border-base-content border-opacity-10 bg-base-200/50 px-4">
+    <Navbar className="layout-header z-10 border-b border-base-content/10 bg-base-200/50 px-4">
       <NavbarStart className="px-2 lg:flex-none">
         <Indicator>
           <Badge

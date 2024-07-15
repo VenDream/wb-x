@@ -12,7 +12,7 @@ import Stats from './stats';
 // revalidate homepage requests at most every hour - 60 * 60
 export const revalidate = 3600;
 
-export default async function Page({ params: { locale } }: LocaleProps) {
+export default function Page({ params: { locale } }: LocaleProps) {
   return (
     <div className="page-home">
       <Stats locale={locale} />

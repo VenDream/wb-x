@@ -7,7 +7,6 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import useToast from '@/components/common/toast';
 import {
   Button,
   Dropdown,
@@ -34,6 +33,7 @@ import {
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import CardCtx from './context';
 
 const ALIGN_END_TRIGGER_W = 1450;
@@ -43,7 +43,6 @@ export default function CardMenu() {
   const { status, isRetweet, menu, renderCustomMenus } = cardCtx;
   const { id, user, images } = status!;
   const t = useTranslations('pages.status.menu');
-  const { showSuccessTips } = useToast();
   const [alignEnd, setAlignEnd] = useState(false);
 
   const hasImages = images.length > 0;
@@ -74,14 +73,14 @@ export default function CardMenu() {
           <EllipsisHorizontalCircleIcon className="h-5 w-5" />
         </Button>
       </DropdownToggle>
-      <DropdownMenu className="border-regular-5 z-10 mt-2 w-[190px] rounded">
+      <DropdownMenu className="z-10 mt-2 w-[190px] rounded border border-base-content/10">
         {!!menu.copyUid && (
           <DropdownItem anchor={false}>
             <span
               className="rounded p-2"
               onClick={() => {
                 copyText(user.id);
-                showSuccessTips(t('copySuccessTips'));
+                toast.success(t('copySuccessTips'));
               }}
             >
               <ClipboardDocumentListIcon />

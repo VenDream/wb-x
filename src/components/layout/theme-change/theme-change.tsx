@@ -15,10 +15,10 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Theme as ThemeProvoder,
   useTheme,
 } from '@/components/daisyui';
 import { THEMES } from '@/contants';
+import { getLsTheme, isDarkTheme, setLsTheme } from '@/utils/theme';
 import {
   CheckCircleIcon,
   ChevronDownIcon,
@@ -27,10 +27,9 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect } from 'react';
 
-import { getLsTheme, isDarkTheme, setLsTheme } from '@/utils/theme';
 import './theme-change.sass';
 
-function ThemeConsumer() {
+export default function ThemeChange() {
   const { theme, setTheme } = useTheme();
   const t = useTranslations('global.theming');
 
@@ -105,13 +104,5 @@ function ThemeConsumer() {
         </DropdownMenu>
       </Dropdown>
     </div>
-  );
-}
-
-export default function ThemeChange() {
-  return (
-    <ThemeProvoder className="bg-transparent">
-      <ThemeConsumer />
-    </ThemeProvoder>
   );
 }

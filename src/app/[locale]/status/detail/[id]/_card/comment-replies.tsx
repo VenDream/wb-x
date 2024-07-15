@@ -9,14 +9,13 @@
 
 import { getStatusCommentsReplies } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
-import useToast from '@/components/common/toast';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 import CommentItem from './comment-item';
 import type { CommentRepliesProps } from './types';
 
 export default function CommentReplies(props: CommentRepliesProps) {
   const [comment, setComment] = useState(props.comment);
-  const { showErrorTips } = useToast();
 
   const maxIdRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,11 +42,11 @@ export default function CommentReplies(props: CommentRepliesProps) {
     } catch (err) {
       const error = err as Error;
       console.error(error);
-      showErrorTips(error.message);
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
-  }, [comment.id, showErrorTips]);
+  }, [comment.id]);
 
   useEffect(() => {
     fetchCommentReplies();

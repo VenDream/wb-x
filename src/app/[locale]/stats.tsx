@@ -91,7 +91,7 @@ export default async function Stats({ locale }: { locale: string }) {
         <CircleStackIcon className="relative top-[-2px] mr-1 h-8 w-8" />
         {ht('title')}
       </h1>
-      <IStats className="border-regular-20 stats-vertical my-4 bg-base-200 2xl:stats-horizontal">
+      <IStats className="stats-vertical my-4 border border-base-content/10 bg-base-200 2xl:stats-horizontal">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}

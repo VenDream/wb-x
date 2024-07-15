@@ -11,15 +11,14 @@
 
 import { getStatusComments } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
-import useToast from '@/components/common/toast';
 import { Tab, Tabs } from '@/components/daisyui';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 import CommentItem from './comment-item';
 import type { CommentListProps } from './types';
 
 export default function CommentList(props: CommentListProps) {
-  const { showErrorTips } = useToast();
   const t = useTranslations('pages.status.comments');
 
   const maxIdRef = useRef('');
@@ -60,11 +59,11 @@ export default function CommentList(props: CommentListProps) {
     } catch (err) {
       const error = err as Error;
       console.error(error);
-      showErrorTips(error.message);
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
-  }, [orderBy, props.id, showErrorTips]);
+  }, [orderBy, props.id]);
 
   const switchOrderBy = useCallback((orderBy: Backend.StatusCommentOrderBy) => {
     maxIdRef.current = '';
@@ -79,7 +78,7 @@ export default function CommentList(props: CommentListProps) {
   return (
     <div
       ref={listRef}
-      className="status-comment-list border-regular-10 mt-4 w-[40rem] rounded bg-base-200/50 p-4 shadow-md"
+      className="status-comment-list mt-4 w-[40rem] rounded border border-base-content/10 bg-base-200/50 p-4 shadow-md"
     >
       <div className="flex items-center justify-between border-b border-b-base-content/10 pb-2">
         <p className="text-lg">

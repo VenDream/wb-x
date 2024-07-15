@@ -125,7 +125,7 @@
       "serverSettings": {
         "title": "保存配置",
         "confirm": "此操作会触发服务重启，继续 ?",
-        "nothingChanged": "配置无变化",
+        "nothingChanged": "配置无变化，操作取消",
         "fetchFailed": "获取配置失败，请重试",
         "saveFailed": "保存配置失败，请重试"
       }

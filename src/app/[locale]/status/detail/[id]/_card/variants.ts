@@ -16,7 +16,14 @@ import { cva, VariantProps } from 'class-variance-authority';
 export type CardVariants = VariantProps<typeof card>;
 
 export const card = cva(
-  ['status-card', 'border-regular-10', 'rounded-md', 'p-4', 'relative'],
+  [
+    'p-4',
+    'border',
+    'relative',
+    'rounded-md',
+    'status-card',
+    'border-base-content/10',
+  ],
   {
     variants: {
       type: {

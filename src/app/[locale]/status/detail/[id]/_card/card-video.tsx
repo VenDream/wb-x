@@ -9,12 +9,12 @@
 
 import { getDbStatusVideo } from '@/api/client';
 import { Slide, useLightbox } from '@/components/common/lightbox';
-import useToast from '@/components/common/toast';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/contants/debug';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
 import { PlayIcon } from '@heroicons/react/24/outline';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
+import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
 import CardCtx from './context';
 
@@ -23,7 +23,6 @@ const WIDTH = 1280 * 0.8;
 export default function CardVideo() {
   const { status } = useContext(CardCtx);
   const t = useTranslations('pages.status.video');
-  const { showErrorTips } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
   const [slides, setSlides] = useState<Slide[]>([]);
@@ -68,7 +67,7 @@ export default function CardVideo() {
     } catch (err) {
       console.error(err);
       setIsLoading(false);
-      showErrorTips(t('fetchFailed'));
+      toast.error(t('fetchFailed'));
     } finally {
       setTimeout(() => {
         setIsLoading(false);

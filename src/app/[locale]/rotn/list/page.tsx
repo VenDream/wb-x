@@ -12,7 +12,6 @@
 import { getDbRotnList } from '@/api/client';
 import Image from '@/components/common/image';
 import NoData from '@/components/common/no-data';
-import useToast from '@/components/common/toast';
 import { Button, Loading, Tab, Tabs } from '@/components/daisyui';
 import { PAGINATION_LIMIT, SECONDARY_ROUTES, STYLES } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
@@ -20,11 +19,11 @@ import { Link } from '@/navigation';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Page() {
   const t1 = useTranslations('pages.rotn');
   const t2 = useTranslations('global.dataFetching');
-  const { showErrorTips } = useToast();
 
   const [pageNo, setPageNo] = useState(0);
   const [isLoadAll, setIsLoadAll] = useState(false);
@@ -48,11 +47,11 @@ export default function Page() {
     } catch (err) {
       const error = err as Error;
       console.error(error);
-      showErrorTips(error.message);
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
-  }, [itemType, pageNo, showErrorTips]);
+  }, [itemType, pageNo]);
 
   const switchItemType = (type: Backend.ROTN_TYPE) => {
     if (type === itemType) return;
@@ -75,7 +74,7 @@ export default function Page() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'tween', duration: 0.2 }}
       >
-        <div className="item border-regular-20 flex flex-col rounded p-4 shadow-sm transition-all hover:bg-base-200">
+        <div className="item flex flex-col rounded border border-base-content/10 p-4 shadow-sm transition-all hover:bg-base-200">
           <p style={STYLES.TWO_LINE_ELLIPSIS_TEXT}>
             {item.type} - {item.id} - {item.name}
           </p>
@@ -86,7 +85,7 @@ export default function Page() {
                   alt="IMG"
                   sizes="4rem"
                   src={FAKE_IMG || img}
-                  className="border-regular-20 h-full w-full rounded object-cover"
+                  className="h-full w-full rounded border border-base-content/10 object-cover"
                 />
               </div>
             ))}

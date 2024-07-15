@@ -4,11 +4,6 @@
 
 @layer base {
   html {
-    font-family:
-      Proxima Nova,
-      system-ui,
-      sans-serif;
-
     .loading-mask {
       display: none;
     }
@@ -68,26 +63,15 @@ svg {
   font-weight: 500;
 }
 
-.border-regular-5 {
-  @apply border border-base-content border-opacity-5;
+dialog {
+  @apply border-none outline-none;
 }
 
-.border-regular-10 {
-  @apply border border-base-content border-opacity-10;
-}
+::backdrop,
+.modal-backdrop {
+  @apply backdrop-blur;
 
-.border-regular-20 {
-  @apply border border-base-content border-opacity-20;
-}
-
-.border-regular-30 {
-  @apply border border-base-content border-opacity-30;
-}
-
-.border-regular-40 {
-  @apply border border-base-content border-opacity-40;
-}
-
-.border-regular-50 {
-  @apply border border-base-content border-opacity-50;
+  button {
+    @apply border-none outline-none;
+  }
 }

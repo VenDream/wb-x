@@ -7,7 +7,6 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import useToast from '@/components/common/toast/toast';
 import { Button, Toggle } from '@/components/daisyui';
 import { LS_KEYS } from '@/contants';
 import { DEFAULT_SETTINGS } from '@/utils/settings';
@@ -15,6 +14,7 @@ import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 const settingsAtom = atomWithStorage<App.Settings>(
   LS_KEYS.SETTINGS,
@@ -25,7 +25,6 @@ export default function LocalSettings() {
   const t1 = useTranslations('pages.settings.localSettings');
   const t2 = useTranslations('global.action');
 
-  const { showSuccessTips } = useToast();
   const [lsSettings, setLsSettings] = useAtom(settingsAtom);
   const [settings, setSettings] = useState(lsSettings);
 
@@ -38,7 +37,7 @@ export default function LocalSettings() {
 
   const applySettings = () => {
     setLsSettings(settings);
-    showSuccessTips(t1('successTips'));
+    toast.success(t1('successTips'));
   };
 
   useEffect(() => {
