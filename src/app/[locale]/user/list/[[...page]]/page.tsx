@@ -9,9 +9,14 @@
 
 import { getDbUsers } from '@/api/server';
 import { PAGINATION_LIMIT } from '@/contants';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Paginator from './paginator';
 import UsersList from './user-list';
+
+export const metadata: Metadata = {
+  title: 'Users',
+};
 
 export default async function Page({ params }: ParamsBody) {
   const { page = 1 } = params;

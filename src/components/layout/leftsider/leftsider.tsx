@@ -11,9 +11,9 @@
 
 import { Menu, MenuItem } from '@/components/daisyui';
 import { MAIN_ROUTES } from '@/contants';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/navigation';
+import { cn } from '@/utils/classnames';
+import { useTranslations } from 'next-intl';
 import { useCallback } from 'react';
 import ICONS from './icons';
 
@@ -31,10 +31,10 @@ export default function Leftsider() {
   );
 
   return (
-    <Menu className="text-base-conten h-full w-60 gap-2 bg-base-200 p-4">
+    <Menu className="h-full w-60 gap-2 border-r border-base-content/10 bg-base-100 p-4">
       {Object.entries(MAIN_ROUTES).map(([k, p]) => (
         <MenuItem key={k}>
-          <Link href={p} className={clsx({ active: isActive(p) })}>
+          <Link href={p} className={cn('text-base', { active: isActive(p) })}>
             {ICONS[k as keyof typeof MAIN_ROUTES]} {t(k.toLowerCase())}
           </Link>
         </MenuItem>

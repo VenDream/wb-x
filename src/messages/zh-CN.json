@@ -25,7 +25,7 @@
       "ok": "确认",
       "save": "保存",
       "refresh": "刷新",
-      "loading": "加载中",
+      "loading": "加载中...",
       "retry": "重试",
       "search": "搜索",
       "reset": "重置"
@@ -51,7 +51,7 @@
     },
     "misc": {
       "notFound": "此页面不存在",
-      "systemDown": "服务暂不可用",
+      "systemDown": "异常错误，服务暂不可用",
       "routerRefreshSuccess": "刷新成功"
     }
   },
@@ -124,7 +124,7 @@
       },
       "serverSettings": {
         "title": "保存配置",
-        "confirm": "此操作会触发服务重启，继续 ?",
+        "confirm": "此操作会触发服务重启，确认继续吗 ?",
         "nothingChanged": "配置无变化，操作取消",
         "fetchFailed": "获取配置失败，请重试",
         "saveFailed": "保存配置失败，请重试"

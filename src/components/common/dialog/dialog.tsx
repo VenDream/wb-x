@@ -20,13 +20,9 @@ import {
 import { LANGS } from '@/contants';
 import enUS from '@/messages/en-US.json';
 import zhCN from '@/messages/zh-CN.json';
+import { cn } from '@/utils/classnames';
 import { generateId } from '@/utils/id';
-import {
-  ExclamationCircleIcon,
-  InformationCircleIcon,
-  QuestionMarkCircleIcon,
-} from '@heroicons/react/24/outline';
-import { clsx } from 'clsx';
+import { CircleAlertIcon, CircleHelpIcon, InfoIcon } from 'lucide-react';
 import { NextIntlClientProvider, useLocale, useTranslations } from 'next-intl';
 import React, { useCallback, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -51,9 +47,9 @@ type DialogProps = Omit<ModalProps, 'title'> & {
 };
 
 const Icons: Record<Status, React.ReactNode> = {
-  info: <InformationCircleIcon className="mr-1" strokeWidth={2} />,
-  confirm: <QuestionMarkCircleIcon className="mr-1" strokeWidth={2} />,
-  caution: <ExclamationCircleIcon className="mr-1" strokeWidth={2} />,
+  info: <InfoIcon size={20} className="mr-2" />,
+  confirm: <CircleHelpIcon size={20} className="mr-2" />,
+  caution: <CircleAlertIcon size={20} className="mr-2" />,
 };
 
 export default function useDialog() {
@@ -63,6 +59,7 @@ export default function useDialog() {
   const defaultProps: DialogProps = useMemo(
     () => ({
       status: 'info',
+      backdrop: true,
       title: t('dialog.title'),
       body: t('dialog.body'),
       cancelBtnLabel: t('action.cancel'),
@@ -107,7 +104,7 @@ export default function useDialog() {
         <IDialog className="rounded-md" {...dialogProps}>
           {!hideHeader && (
             <ModalHeader
-              className={clsx(
+              className={cn(
                 headerClassName,
                 'modal-header flex items-center text-base'
               )}
@@ -116,11 +113,11 @@ export default function useDialog() {
               {title}
             </ModalHeader>
           )}
-          <ModalBody className={clsx(bodyClassName, 'modal-body text-sm')}>
+          <ModalBody className={cn(bodyClassName, 'modal-body text-sm')}>
             {body}
           </ModalBody>
           {!hideFooter && (
-            <ModalActions className={clsx(footerClassName, 'modal-footer')}>
+            <ModalActions className={cn(footerClassName, 'modal-footer')}>
               {!hideCancelBtn && (
                 <Button size="sm" onClick={cancel}>
                   {cancelBtnLabel}

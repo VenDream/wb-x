@@ -9,8 +9,13 @@
 
 import { getDbRetweetStatusDetail, getDbStatusDetail } from '@/api/server';
 import NoData from '@/components/common/no-data';
+import { Metadata } from 'next';
 import StatusCard from './_card';
 import CommentList from './_card/comment-list';
+
+export const metadata: Metadata = {
+  title: 'Status Detail',
+};
 
 export default async function Page({ params }: ParamsBody) {
   const { id } = params;
@@ -24,7 +29,7 @@ export default async function Page({ params }: ParamsBody) {
   }
 
   return (
-    <div className="status-detail flex flex-col items-center overflow-auto">
+    <div className="flex flex-col items-center overflow-auto">
       {status ? (
         <>
           <StatusCard status={status} menu={{ viewComments: false }} />

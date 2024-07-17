@@ -25,7 +25,7 @@
       "ok": "OK",
       "save": "Save",
       "refresh": "Refresh",
-      "loading": "Loading",
+      "loading": "Loading...",
       "retry": "Retry",
       "search": "Search",
       "reset": "Reset"
@@ -51,7 +51,7 @@
     },
     "misc": {
       "notFound": "Page not found",
-      "systemDown": "System down",
+      "systemDown": "Oops, the service is unavailable now",
       "routerRefreshSuccess": "Successfully refreshed"
     }
   },

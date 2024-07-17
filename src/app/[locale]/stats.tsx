@@ -8,17 +8,15 @@
  */
 
 import { getDatabaseInfo } from '@/api/server';
-import { refreshDbInfo } from '@/app/actions';
 import Counter from '@/components/common/counter';
-import RouterRefresh from '@/components/common/router-refresh';
-import { Button, Stats as IStats, Stat, StatItem } from '@/components/daisyui';
+import { Stats as IStats, Stat, StatItem } from '@/components/daisyui';
 import {
-  ArrowPathIcon,
-  CircleStackIcon,
-  CubeIcon,
-  InboxStackIcon,
+  BoxIcon,
+  MessageSquareTextIcon,
+  Repeat2Icon,
+  ShirtIcon,
   UsersIcon,
-} from '@heroicons/react/24/outline';
+} from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import React from 'react';
 
@@ -31,78 +29,68 @@ interface StatUnitProps {
 
 function StatUnit({ title, value, desc, icon }: StatUnitProps) {
   return (
-    <Stat>
-      <StatItem variant="figure">{icon}</StatItem>
+    <Stat className="min-w-[270px]">
+      <StatItem variant="figure" className="">
+        {icon}
+      </StatItem>
       <StatItem variant="title">{title}</StatItem>
-      <StatItem variant="value" className="text-primary">
-        <Counter to={value} />
+      <StatItem variant="value" className="text-accent">
+        <Counter from={0} to={value} />
       </StatItem>
       <StatItem variant="desc">{desc}</StatItem>
     </Stat>
   );
 }
 
-export default async function Stats({ locale }: { locale: string }) {
+export default async function Stats() {
   const dbInfo = await getDatabaseInfo();
-  const gt = await getTranslations({ locale, namespace: 'global' });
-  const ht = await getTranslations({ locale, namespace: 'pages.home' });
+  const t = await getTranslations('pages.home');
 
   const { fileSize = '0MB', records } = dbInfo || {};
   const { user = 0, status = 0, retweetStatus = 0, rotn = 0 } = records || {};
   const fileSizeNum = +fileSize.split('MB')[0] || 0;
-  const iconClass = 'relative top-1 h-6 w-6 text-secondary';
+  const iconClass = 'relative top-1 text-accent';
 
   const statUnits: StatUnitProps[] = [
     {
-      title: ht('totalDbSize'),
+      title: t('totalDbSize'),
       value: fileSizeNum,
       desc: 'MB',
-      icon: <CubeIcon className={iconClass} />,
+      icon: <BoxIcon size={24} className={iconClass} />,
     },
     {
-      title: ht('totalUsers'),
+      title: t('totalUsers'),
       value: user,
-      desc: ht('records'),
-      icon: <UsersIcon className={iconClass} />,
+      desc: t('records'),
+      icon: <UsersIcon size={24} className={iconClass} />,
     },
     {
-      title: ht('totalStatuses'),
+      title: t('totalStatuses'),
       value: status,
-      desc: ht('records'),
-      icon: <InboxStackIcon className={iconClass} />,
+      desc: t('records'),
+      icon: <MessageSquareTextIcon className={iconClass} />,
     },
     {
-      title: ht('totalRetweetStatuses'),
+      title: t('totalRetweetStatuses'),
       value: retweetStatus,
-      desc: ht('records'),
-      icon: <InboxStackIcon className={iconClass} />,
+      desc: t('records'),
+      icon: <Repeat2Icon className={iconClass} />,
     },
     {
-      title: ht('totalRotns'),
+      title: t('totalRotns'),
       value: rotn,
-      desc: ht('records'),
-      icon: <InboxStackIcon className={iconClass} />,
+      desc: t('records'),
+      icon: <ShirtIcon className={iconClass} />,
     },
   ];
 
   return (
-    <div className="rounded bg-base-200 p-4">
-      <h1 className="mb-1 flex items-center text-2xl">
-        <CircleStackIcon className="relative top-[-2px] mr-1 h-8 w-8" />
-        {ht('title')}
-      </h1>
-      <IStats className="stats-vertical my-4 border border-base-content/10 bg-base-200 2xl:stats-horizontal">
+    <div>
+      <IStats className="stats-vertical border border-base-content/10 shadow 2xl:stats-horizontal">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}
       </IStats>
-      <br />
-      <RouterRefresh action={refreshDbInfo}>
-        <Button color="primary" className="flex" size="sm">
-          <ArrowPathIcon className="mr-1" />
-          {gt('action.refresh')}
-        </Button>
-      </RouterRefresh>
     </div>
   );
 }

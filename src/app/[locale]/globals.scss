@@ -18,30 +18,6 @@
         display: flex;
       }
     }
-
-    &::-webkit-scrollbar,
-    & *::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb,
-    & *::-webkit-scrollbar-thumb {
-      @apply rounded bg-gray-200;
-    }
-
-    &::-webkit-scrollbar-track,
-    & *::-webkit-scrollbar-track {
-      @apply rounded bg-gray-100;
-    }
-
-    &.dark {
-      &::-webkit-scrollbar-thumb,
-      & *::-webkit-scrollbar-thumb,
-      &::-webkit-scrollbar-track,
-      & *::-webkit-scrollbar-track {
-        @apply bg-opacity-10;
-      }
-    }
   }
 
   input[type='number'].appearance-none::-webkit-inner-spin-button,
@@ -55,12 +31,12 @@
   }
 }
 
-svg {
-  @apply h-5 w-5;
+.btn {
+  @apply font-normal;
 }
 
-.btn {
-  font-weight: 500;
+.lucide {
+  @apply stroke-[1.5];
 }
 
 dialog {
@@ -72,6 +48,6 @@ dialog {
   @apply backdrop-blur;
 
   button {
-    @apply border-none outline-none;
+    @apply cursor-default border-none outline-none;
   }
 }

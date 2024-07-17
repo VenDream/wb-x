@@ -7,23 +7,34 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Loading } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
+import { LoaderCircleIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
-type LoadingProps = NonNullable<Parameters<typeof Loading>[0]> & {
-  wrapperClassName?: string;
+interface IProps extends React.PropsWithChildren {
+  size?: number;
+  align?: 'center' | 'start' | 'end';
+}
+
+const defaultProps: IProps = {
+  size: 18,
+  align: 'start',
 };
 
-const defaultProps: LoadingProps = {
-  color: 'primary',
-  wrapperClassName: 'flex h-48 items-center justify-center',
-};
+export default function LoadingUI(props: IProps) {
+  const t = useTranslations('global.action');
+  const { size, align, children } = { ...defaultProps, ...props };
 
-export default function LoadingUI(props: LoadingProps) {
-  const { wrapperClassName, ...loadingProps } = { ...defaultProps, ...props };
+  const className = cn('flex items-center gap-2', {
+    'justify-end': align === 'end',
+    'justify-start': align === 'start',
+    'justify-center': align === 'center',
+  });
 
   return (
-    <div className={wrapperClassName}>
-      <Loading {...loadingProps} />
+    <div className={className}>
+      <LoaderCircleIcon size={size} className="animate-spin text-primary" />
+      {children || <p className="text-sm text-primary">{t('loading')}</p>}
     </div>
   );
 }

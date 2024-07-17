@@ -10,12 +10,13 @@
 import Toaster from '@/components/common/toast';
 import { Theme as ThemeProvider } from '@/components/daisyui';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
-import { LANGS } from '@/contants';
+import { LANGS, META_DATA } from '@/contants';
 import { font } from '@/fonts';
 import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { LoaderCircleIcon } from 'lucide-react';
 import { NextIntlClientProvider } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -23,10 +24,7 @@ import { notFound } from 'next/navigation';
 import './globals.scss';
 
 const locales = Object.values(LANGS);
-export const metadata = {
-  title: 'WB-X',
-  description: 'The X makes it sound cool~',
-};
+export const metadata = META_DATA;
 
 export function generateStaticParams() {
   return locales.map(locale => ({
@@ -57,12 +55,15 @@ export default async function RootLayout({
             <ThemeProvider>
               <LayoutHeader />
               <LayoutBody>{children}</LayoutBody>
-              <div className="loading-mask fixed flex h-full w-full items-center justify-center bg-white">
-                <div className="loading loading-dots text-gray-500" />
-              </div>
               <SpeedInsights />
               <Toaster font={font.className} />
             </ThemeProvider>
+            <div className="loading-mask fixed z-50 flex h-screen w-screen items-center justify-center bg-base-100">
+              <LoaderCircleIcon
+                size={30}
+                className="animate-spin text-primary"
+              />
+            </div>
           </body>
         </NextIntlClientProvider>
       </html>

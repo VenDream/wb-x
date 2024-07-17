@@ -11,7 +11,7 @@ import { getDbStatusVideo } from '@/api/client';
 import { Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/contants/debug';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
-import { PlayIcon } from '@heroicons/react/24/outline';
+import { PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 import { toast } from 'sonner';
@@ -97,7 +97,7 @@ export default function CardVideo() {
         {isLoading ? (
           <div className="loading w-[2rem] text-white/90" />
         ) : (
-          <PlayIcon className="z-[1] h-12 w-12 text-white/90" />
+          <PlayIcon size={48} className="z-10 text-white/90" />
         )}
       </div>
       {renderLightbox({ slides })}

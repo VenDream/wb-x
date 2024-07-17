@@ -10,11 +10,8 @@
 import DatePicker from '@/components/common/datepicker';
 import { Button, Checkbox, Input } from '@/components/daisyui';
 import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
-import {
-  ArrowPathIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/24/outline';
 import dayjs from 'dayjs';
+import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
@@ -158,7 +155,7 @@ export default function Filter(props: FilterProps) {
         <Button
           size="xs"
           className="h-[2rem] rounded"
-          startIcon={<ArrowPathIcon className="h-4 w-4" />}
+          startIcon={<RotateCcwIcon size={16} />}
           onClick={resetFilter}
         >
           {t1('reset')}
@@ -167,7 +164,7 @@ export default function Filter(props: FilterProps) {
           size="xs"
           color="primary"
           className="h-[2rem] rounded"
-          startIcon={<MagnifyingGlassIcon className="h-4 w-4" />}
+          startIcon={<SearchIcon size={16} />}
           onClick={applyFilter}
         >
           {t1('search')}

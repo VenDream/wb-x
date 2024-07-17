@@ -11,7 +11,7 @@
 
 import NoData from '@/components/common/no-data';
 import { Loading } from '@/components/daisyui';
-import clsx from 'clsx';
+import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
 import {
   ForwardedRef,
@@ -150,9 +150,9 @@ const VirtualList = forwardRef(function VL<T, R>(
 
   return (
     <div
-      className={clsx(
+      className={cn(
         className,
-        'virtual-list relative m-auto h-full',
+        'relative m-auto h-full',
         (isNoData || isFirstLoading) && 'flex items-center justify-center'
       )}
     >

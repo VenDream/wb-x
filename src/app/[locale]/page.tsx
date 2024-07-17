@@ -7,15 +7,38 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { refreshDbInfo } from '@/app/actions';
+import RouterRefresh from '@/components/common/router-refresh';
+import { Button } from '@/components/daisyui';
+import { DatabaseIcon, RefreshCcwIcon } from 'lucide-react';
+import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import Stats from './stats';
 
 // revalidate homepage requests at most every hour - 60 * 60
 export const revalidate = 3600;
 
-export default function Page({ params: { locale } }: LocaleProps) {
+export const metadata: Metadata = {
+  title: 'Home',
+};
+
+export default async function Page() {
+  const t1 = await getTranslations('global');
+  const t2 = await getTranslations('pages.home');
+
   return (
-    <div className="page-home">
-      <Stats locale={locale} />
+    <div className="space-y-4 pr-4">
+      <h1 className="flex items-center text-2xl">
+        <DatabaseIcon size={24} className="mr-2" />
+        {t2('title')}
+      </h1>
+      <Stats />
+      <RouterRefresh action={refreshDbInfo}>
+        <Button color="primary" size="sm">
+          <RefreshCcwIcon size={16} className="mr-2" />
+          {t1('action.refresh')}
+        </Button>
+      </RouterRefresh>
     </div>
   );
 }

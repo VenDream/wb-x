@@ -16,11 +16,12 @@ const i18nMiddleware = createMiddleware({
   defaultLocale: LANGS.en,
 });
 
+const isClerkEnabled = process.env.CLERK_ENABLED === 'true';
 const isPublicRoute = createRouteMatcher([]);
 
 export default clerkMiddleware(
   (auth, req) => {
-    if (!isPublicRoute(req)) {
+    if (isClerkEnabled && !isPublicRoute(req)) {
       auth().protect();
     }
 

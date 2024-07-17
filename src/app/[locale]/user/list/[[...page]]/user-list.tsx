@@ -8,8 +8,8 @@
  */
 
 import { Avatar } from '@/components/daisyui';
-import { STYLES } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
+import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
 
@@ -21,8 +21,10 @@ export default function UsersList(props: UsersListProps) {
   const { users = [] } = props;
   const t = useTranslations('pages.user');
 
+  const blockClasses = 'w-[80%] text-center';
+
   return (
-    <div className="mb-10 grid grid-cols-2 gap-2 rounded bg-base-200 p-4 lg:grid-cols-3 xl:grid-cols-5">
+    <div className="mb-10 grid grid-cols-5 gap-2 rounded bg-base-200 p-4">
       {users.map(user => {
         const { id, name, avatar, desc, followCount, followersCount } = user;
         if (!id || +id <= 0) return;
@@ -30,7 +32,7 @@ export default function UsersList(props: UsersListProps) {
         return (
           <div
             key={id}
-            className="flex flex-col items-center justify-between rounded p-4 hover:bg-base-300"
+            className="flex flex-col items-center justify-between gap-4 rounded p-4 hover:bg-base-300"
           >
             <Avatar
               src={FAKE_IMG || getImageVariants(avatar).sm}
@@ -39,21 +41,23 @@ export default function UsersList(props: UsersListProps) {
               shape="circle"
               borderColor="primary"
             />
-            <p className="mt-3 w-[80%] text-center text-sm" title={name}>
+            <p
+              title={name}
+              className={cn(blockClasses, 'line-clamp-1 text-sm')}
+            >
               {name || '-'}
             </p>
-            <p className="mt-2 w-[80%] text-center text-xs text-gray-400">
-              <span className="mr-3">
-                {t('follows')}: {followCount || 0}
-              </span>
-              <span className="mr-3">
-                {t('followers')}: {followersCount || 0}
-              </span>
+            <p className={cn(blockClasses, 'text-xs text-base-content/80')}>
+              {t('follows')}：{followCount || 0}
+              <br />
+              {t('followers')}：{followersCount || 0}
             </p>
             <p
-              className="mt-2 w-[80%] text-center text-xs text-gray-400"
-              style={STYLES.TWO_LINE_ELLIPSIS_TEXT}
               title={desc}
+              className={cn(
+                blockClasses,
+                'line-clamp-2 h-[3em] text-xs leading-normal text-base-content/80'
+              )}
             >
               {t('desc')}: {desc || '-'}
             </p>

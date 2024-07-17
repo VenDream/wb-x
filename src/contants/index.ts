@@ -7,7 +7,16 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import React from 'react';
+import { Metadata } from 'next';
+
+export const APP_NAME = 'WB-X';
+export const META_DATA: Metadata = {
+  title: {
+    default: APP_NAME,
+    template: `%s | ${APP_NAME}`,
+  },
+  description: 'The X makes it sound cool~',
+};
 
 /** locales */
 export const LANGS = {
@@ -30,8 +39,6 @@ export const SECONDARY_ROUTES = {
   STATUS_DETAIL: '/status/detail',
   ROTN_ITEM_DETAIL: '/rotn/item',
 };
-
-export const NEED_AUTH_ROUTE = '/api/need-auth';
 
 export const WEIBO_HOST = 'https://weibo.com';
 export const WEIBO_IMAGES_DOWNLOAD_API =
@@ -105,16 +112,3 @@ export const IMG_ERROR_PLACEHOLDER =
 
 export const NO_DATA =
   'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMTQgMTQiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzg4ODg4OCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB3aWR0aD0iMTMiIGhlaWdodD0iMTMiIHg9Ii41IiB5PSIuNSIgcng9IjEiLz48cGF0aCBkPSJNLjUgOEg0YTEgMSAwIDAgMSAxIDFhMiAyIDAgMCAwIDQgMGExIDEgMCAwIDEgMS0xaDMuNSIvPjwvZz48L3N2Zz4=';
-
-export type PRESET_STYLE = 'TWO_LINE_ELLIPSIS_TEXT';
-export const STYLES: Record<PRESET_STYLE, React.CSSProperties> = {
-  TWO_LINE_ELLIPSIS_TEXT: {
-    overflow: 'hidden',
-    lineHeight: 1.5,
-    height: '3em',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
-  },
-};

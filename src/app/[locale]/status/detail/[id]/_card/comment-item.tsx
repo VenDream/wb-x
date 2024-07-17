@@ -10,11 +10,13 @@
 import useDialog from '@/components/common/dialog';
 import ImageGrid from '@/components/common/image-grid';
 import { Avatar } from '@/components/daisyui';
+import { WEIBO_HOST } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
-import { ARROW_DOWN_ICON } from '@/contants/svgs';
+import { fadeInFromBottom } from '@/contants/motions';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
-import { HandThumbUpIcon } from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
+import { ChevronDownIcon, ThumbsUpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
@@ -27,7 +29,6 @@ import {
   commnetLikes,
 } from './variants';
 
-import { WEIBO_HOST } from '@/contants';
 import './comment-item.sass';
 
 export default function CommentItem(props: CommentItemProps) {
@@ -85,9 +86,13 @@ export default function CommentItem(props: CommentItemProps) {
   const variantType: CommentVariants['type'] = isReply ? 'reply' : 'default';
 
   return (
-    <div className={comment({ type: variantType })} data-id={id}>
+    <motion.div
+      data-id={id}
+      className={comment({ type: variantType })}
+      {...fadeInFromBottom}
+    >
       {!isReply && (
-        <div className="comment-item-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
+        <div className="grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
           <Avatar
             src={FAKE_IMG || getImageVariants(user.avatar).sm}
             border
@@ -144,15 +149,15 @@ export default function CommentItem(props: CommentItemProps) {
             >
               <div className="absolute left-0 top-[-8px] h-[1px] w-full bg-base-content/20" />
               {t('totalReplies', { num: totalReplies })}
-              {ARROW_DOWN_ICON}
+              <ChevronDownIcon size={14} className="ml-1 !stroke-2" />
             </span>
           )}
         </div>
       </div>
       <div className={commnetLikes({ type: variantType })}>
-        <HandThumbUpIcon className="mr-1 h-4 w-4" />
+        <ThumbsUpIcon size={16} className="relative top-[-1px] mr-1" />
         {formatNumberWithUnit(likesCount || 0)}
       </div>
-    </div>
+    </motion.div>
   );
 }

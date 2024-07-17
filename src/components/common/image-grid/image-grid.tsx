@@ -10,8 +10,8 @@
 import Image from '@/components/common/image';
 import { Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_IMG } from '@/contants/debug';
+import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
-import clsx from 'clsx';
 import { useMemo, useState } from 'react';
 
 import './image-grid.sass';
@@ -67,7 +67,7 @@ export default function ImageGrid(props: ImageGridProps) {
 
   return (
     <div
-      className={clsx(className, GRID_COLS_CLASS, `image-grid mt-2 grid gap-1`)}
+      className={cn(className, GRID_COLS_CLASS, `image-grid mt-2 grid gap-1`)}
     >
       {images.slice(0, DISPLAY_IMAGES_NUM).map((img, idx) => {
         const { bmiddle } = getImageVariants(img);
@@ -78,7 +78,7 @@ export default function ImageGrid(props: ImageGridProps) {
         const dataProps = hasMore
           ? { 'data-remains': `+${REMAIN_IMAGES_NUM}` }
           : {};
-        const className = clsx(
+        const className = cn(
           'border border-base-content/10 aspect-square h-full w-full cursor-zoom-in rounded shadow-sm',
           {
             'has-more': hasMore,

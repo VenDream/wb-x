@@ -12,6 +12,7 @@
 import { getStatusComments } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import { Tab, Tabs } from '@/components/daisyui';
+import { MessageSquareQuoteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -67,6 +68,7 @@ export default function CommentList(props: CommentListProps) {
 
   const switchOrderBy = useCallback((orderBy: Backend.StatusCommentOrderBy) => {
     maxIdRef.current = '';
+    setCommentList([]);
     setIsLoadAll(false);
     setOrderBy(orderBy);
   }, []);
@@ -81,7 +83,8 @@ export default function CommentList(props: CommentListProps) {
       className="status-comment-list mt-4 w-[40rem] rounded border border-base-content/10 bg-base-200/50 p-4 shadow-md"
     >
       <div className="flex items-center justify-between border-b border-b-base-content/10 pb-2">
-        <p className="text-lg">
+        <p className="flex items-center text-lg">
+          <MessageSquareQuoteIcon size={20} className="mr-2" />
           {t('label')} ({total})
         </p>
         <Tabs value={orderBy} onChange={switchOrderBy}>
@@ -104,7 +107,7 @@ export default function CommentList(props: CommentListProps) {
       <LoadingIndicator
         isLoading={isLoading}
         isLoadAll={isLoadAll}
-        isNoData={commentList.length === 0}
+        isNoData={!isLoading && commentList.length === 0}
         loadMore={fetchCommentList}
       />
     </div>

@@ -9,11 +9,7 @@
 
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/weibo';
-import {
-  ArrowUpOnSquareIcon,
-  ChatBubbleLeftIcon,
-  HandThumbUpIcon,
-} from '@heroicons/react/24/outline';
+import { MessageCircleMoreIcon, Repeat2Icon, ThumbsUpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
@@ -39,15 +35,15 @@ export default function CardFooter() {
       <div className="status-actions col-start-2 col-end-4 flex justify-between text-xs tracking-tighter text-gray-500">
         <div className="status-data flex gap-4">
           <span className="flex items-center">
-            <ArrowUpOnSquareIcon className="mr-1 h-4 w-4" />
+            <Repeat2Icon size={16} className="mr-1" />
             {rc}
           </span>
           <span className="flex items-center">
-            <ChatBubbleLeftIcon className="mr-1 h-4 w-4" />
+            <MessageCircleMoreIcon size={16} className="mr-1" />
             {cc}
           </span>
           <span className="flex items-center">
-            <HandThumbUpIcon className="mr-1 h-4 w-4" />
+            <ThumbsUpIcon size={16} className="relative top-[-1px] mr-1" />
             {ac}
           </span>
         </div>

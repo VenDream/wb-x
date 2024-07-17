@@ -15,7 +15,10 @@ import CommentItem from './comment-item';
 import type { CommentRepliesProps } from './types';
 
 export default function CommentReplies(props: CommentRepliesProps) {
-  const [comment, setComment] = useState(props.comment);
+  const [comment, setComment] = useState<Backend.StatusComment>(() => ({
+    ...props.comment,
+    comments: [],
+  }));
 
   const maxIdRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);

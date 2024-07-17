@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { XCircleIcon } from '@heroicons/react/24/outline';
+import { CircleXIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
@@ -16,7 +16,7 @@ export default function NotFound() {
   return (
     <div className="flex max-h-full min-h-[10rem] flex-col items-center justify-center">
       <div className="flex items-center text-lg">
-        <XCircleIcon className="mr-1 h-6 w-6" />
+        <CircleXIcon size={24} className="mr-1" />
         {t('misc.notFound')} :(
       </div>
     </div>

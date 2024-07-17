@@ -9,7 +9,7 @@
 
 import NoData from '@/components/common/no-data';
 import { Button, Loading } from '@/components/daisyui';
-import clsx from 'clsx';
+import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
 
 interface LoadingIndicatorProps {
@@ -26,13 +26,13 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         className,
         'loading-indicator flex h-[6rem] items-center justify-center'
       )}
     >
       {isLoading ? (
-        <Loading color="primary" />
+        <Loading size="sm" color="primary" />
       ) : isLoadAll ? (
         <p className="text-sm">{t('noMore')}</p>
       ) : isNoData ? (
