@@ -8,6 +8,7 @@
  */
 
 import { refreshDbInfo } from '@/app/actions';
+import MotionContainer from '@/components/common/motion-container';
 import RouterRefresh from '@/components/common/router-refresh';
 import { Button } from '@/components/daisyui';
 import { DatabaseIcon, RefreshCcwIcon } from 'lucide-react';
@@ -27,7 +28,7 @@ export default async function Page() {
   const t2 = await getTranslations('pages.home');
 
   return (
-    <div className="space-y-4 pr-4">
+    <MotionContainer className="space-y-4 pr-4">
       <h1 className="flex items-center text-2xl">
         <DatabaseIcon size={24} className="mr-2" />
         {t2('title')}
@@ -39,6 +40,6 @@ export default async function Page() {
           {t1('action.refresh')}
         </Button>
       </RouterRefresh>
-    </div>
+    </MotionContainer>
   );
 }

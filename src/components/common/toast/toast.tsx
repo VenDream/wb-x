@@ -29,8 +29,9 @@ export default function Toaster(props: IProps) {
       theme={t}
       richColors
       position="top-center"
+      offset={50}
       toastOptions={{
-        className: 'shadow text-sm py-3 px-4 rounded items-start',
+        className: 'shadow text-sm py-3 px-4 items-start',
         classNames: {
           icon: 'positive top-[3px]',
           content: font,

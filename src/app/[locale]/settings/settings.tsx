@@ -9,6 +9,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import MotionContainer from '@/components/common/motion-container';
 import { Tab, Tabs } from '@/components/daisyui';
 import { useUser } from '@clerk/nextjs';
 import { BanIcon } from 'lucide-react';
@@ -36,18 +37,22 @@ export default function Settings() {
         <Tab value="local">{t1('local')}</Tab>
         <Tab value="server">{t1('server')}</Tab>
       </Tabs>
-      <div className="settings-content">
-        {settingsType === 'local' && <LocalSettings />}
+      <div className="rounded-[--rounded-box] bg-base-200">
+        {settingsType === 'local' && (
+          <MotionContainer className="p-4">
+            <LocalSettings />
+          </MotionContainer>
+        )}
         {settingsType === 'server' &&
           (isOrgAdmin ? (
             <ServerSettings />
           ) : (
-            <div className="rounded-lg bg-base-200 p-4">
-              <p className="flex items-center text-sm">
+            <MotionContainer className="p-4">
+              <p className="flex items-center text-sm text-red-500">
                 <BanIcon size={16} className="mr-2" />
                 {t2('noPermission')}
               </p>
-            </div>
+            </MotionContainer>
           ))}
       </div>
     </div>

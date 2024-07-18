@@ -123,7 +123,12 @@ export default function CommentItem(props: CommentItemProps) {
               __html: userName + preprocessCommentText(text),
             }}
           />
-          <ImageGrid images={images} className="comment-images" cols={4} />
+          <ImageGrid
+            cols={4}
+            isSinaImg
+            images={images}
+            className="comment-images"
+          />
           {comments.length > 0 && (
             <div className="comment-replies mt-2 flex flex-col gap-1 rounded bg-base-300/50 p-2">
               {comments.map((cm, idx) => {

@@ -10,16 +10,13 @@
  */
 
 import { getDbRotnList } from '@/api/client';
-import Image from '@/components/common/image';
-import NoData from '@/components/common/no-data';
-import { Button, Loading, Tab, Tabs } from '@/components/daisyui';
-import { PAGINATION_LIMIT, SECONDARY_ROUTES } from '@/contants';
-import { FAKE_IMG } from '@/contants/debug';
-import { Link } from '@/navigation';
-import { motion } from 'framer-motion';
+import LoadingIndicator from '@/components/common/loading-indicator';
+import { Tab, Tabs } from '@/components/daisyui';
+import { PAGINATION_LIMIT } from '@/contants';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import RotnCard from './rotn-card';
 
 export default function Page() {
   const t1 = useTranslations('pages.rotn');
@@ -53,6 +50,10 @@ export default function Page() {
     }
   }, [itemType, pageNo]);
 
+  const loadMore = () => {
+    setPageNo(pageNo => pageNo + 1);
+  };
+
   const switchItemType = (type: Backend.ROTN_TYPE) => {
     if (type === itemType) return;
 
@@ -65,39 +66,9 @@ export default function Page() {
     fetchItems();
   }, [fetchItems]);
 
-  const renderAniItem = useCallback((item: Backend.ROTNItem) => {
-    const images = item.images.slice(-4);
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, translateY: 10 }}
-        animate={{ opacity: 1, translateY: 0 }}
-        transition={{ type: 'tween', duration: 0.3, ease: 'easeOut' }}
-      >
-        <div className="item flex flex-col rounded border border-base-content/10 p-4 shadow-sm transition-all hover:bg-base-200">
-          <p className="line-clamp-2">
-            {item.type} - {item.id} - {item.name}
-          </p>
-          <div className="item-imgs mt-2 flex flex-wrap justify-start">
-            {images.map((img, imgIdx) => (
-              <div key={imgIdx} className="relative h-64 basis-1/2 p-2 xl:h-96">
-                <Image
-                  alt="IMG"
-                  sizes="4rem"
-                  src={FAKE_IMG || img}
-                  className="h-full w-full rounded border border-base-content/10 object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-    );
-  }, []);
-
   return (
-    <div className="rotn-page flex h-full flex-col">
-      <Tabs boxed className="mb-4" value={itemType} onChange={switchItemType}>
+    <div className="flex h-full flex-col gap-4 pr-8">
+      <Tabs boxed value={itemType} onChange={switchItemType}>
         <Tab className="w-32" value="ALL">
           {t1('type.all')}
         </Tab>
@@ -108,37 +79,19 @@ export default function Page() {
           {t1('type.tn')}
         </Tab>
       </Tabs>
-      <div
-        style={{ scrollbarGutter: 'stable' }}
-        className="item-list-wrapper flex-1 overflow-auto pr-4"
-      >
-        <div className="item-list grid grid-cols-2 gap-6 xl:grid-cols-3">
-          {items
-            .filter(item => item.images.length > 0)
-            .map(item => (
-              <Link
-                key={item.id}
-                scroll={false}
-                href={`${SECONDARY_ROUTES.ROTN_ITEM_DETAIL}/${item.id}`}
-              >
-                {renderAniItem(item)}
-              </Link>
-            ))}
+      {items.length > 0 && (
+        <div className="grid grid-cols-3 gap-6 2xl:grid-cols-4">
+          {items.map(item => (
+            <RotnCard key={item.id} item={item} />
+          ))}
         </div>
-        <div className="flex h-[6rem] items-center justify-center">
-          {isLoading ? (
-            <Loading color="primary" />
-          ) : isLoadAll ? (
-            <p className="text-sm">{t2('noMore')}</p>
-          ) : items.length > 0 ? (
-            <Button size="sm" onClick={() => setPageNo(pageNo + 1)}>
-              {t2('loadMore')}
-            </Button>
-          ) : (
-            <NoData />
-          )}
-        </div>
-      </div>
+      )}
+      <LoadingIndicator
+        isLoading={isLoading}
+        isLoadAll={isLoadAll}
+        isNoData={items.length === 0}
+        loadMore={loadMore}
+      />
     </div>
   );
 }

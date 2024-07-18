@@ -23,7 +23,7 @@ export default function LayoutBody({ children }: ChildrenProps) {
         side={<Leftsider />}
         contentClassName="layout-content p-4 bg-base-200"
       >
-        <div className="relative h-full rounded-lg bg-base-100 px-6 py-4">
+        <div className="h-full rounded-[--rounded-box] bg-base-100 px-6 py-4 text-sm">
           <ScrollArea.Root className="h-full">
             <ScrollArea.Viewport className="h-full w-full">
               {children}
@@ -35,7 +35,7 @@ export default function LayoutBody({ children }: ChildrenProps) {
                 'transition-colors duration-[160ms] ease-out'
               )}
             >
-              <ScrollArea.Thumb className="relative flex-1 rounded-full bg-base-content/15" />
+              <ScrollArea.Thumb className="flex-1 rounded-full bg-base-content/15" />
             </ScrollArea.Scrollbar>
           </ScrollArea.Root>
         </div>

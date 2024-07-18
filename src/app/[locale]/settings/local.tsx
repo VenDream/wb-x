@@ -9,9 +9,7 @@
 
 import { Button, Toggle } from '@/components/daisyui';
 import { LS_KEYS } from '@/contants';
-import { fadeInFromBottom } from '@/contants/motions';
 import { DEFAULT_SETTINGS } from '@/utils/settings';
-import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { useTranslations } from 'next-intl';
@@ -47,7 +45,7 @@ export default function LocalSettings() {
   }, [lsSettings]);
 
   return (
-    <motion.div className="rounded-lg bg-base-200 p-4" {...fadeInFromBottom}>
+    <div>
       <div className="mb-8 flex flex-col gap-2 text-sm">
         <div className="flex w-60 items-center justify-between">
           <p>{t1('useImageProxy')}</p>
@@ -73,6 +71,6 @@ export default function LocalSettings() {
       <Button size="sm" color="primary" onClick={applySettings}>
         {t2('save')}
       </Button>
-    </motion.div>
+    </div>
   );
 }

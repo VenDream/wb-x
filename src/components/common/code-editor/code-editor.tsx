@@ -10,10 +10,9 @@
  */
 
 import Loading from '@/components/common/loading';
+import MotionContainer from '@/components/common/motion-container';
 import { Button } from '@/components/daisyui';
-import { fadeInFromBottom } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
-import { motion } from 'framer-motion';
 import { FileCodeIcon, SaveIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -56,14 +55,11 @@ export default function CodeEditor(props: CodeEditorProps) {
   }, []);
 
   return highlighter ? (
-    <motion.div
-      className="flex min-h-[50vh] w-full flex-col justify-start"
-      {...fadeInFromBottom}
-    >
+    <MotionContainer className="flex min-h-[50vh] w-full flex-col justify-start bg-base-100">
       {title && (
         <p
           className={cn(
-            'flex items-center rounded-lg',
+            'flex items-center rounded-[--rounded-box]',
             'rounded-b-none bg-base-200 p-2 text-sm',
             'border-b border-base-content/10'
           )}
@@ -78,7 +74,10 @@ export default function CodeEditor(props: CodeEditorProps) {
         highlight={code =>
           highlighter.codeToHtml(code, { lang, theme: 'min-light' })
         }
-        className="code-editor__container flex-1 rounded-lg rounded-t-none"
+        className={cn(
+          'code-editor__container flex-1 rounded-[--rounded-box]',
+          'rounded-t-none'
+        )}
         preClassName="code-editor__pre"
         textareaClassName="code-editor__textarea"
         padding={10}
@@ -92,8 +91,10 @@ export default function CodeEditor(props: CodeEditorProps) {
           {t('action.save')}
         </Button>
       </div>
-    </motion.div>
+    </MotionContainer>
   ) : (
-    <Loading />
+    <div className="bg-base-100">
+      <Loading />
+    </div>
   );
 }

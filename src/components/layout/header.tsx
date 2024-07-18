@@ -39,11 +39,9 @@ export default function Header() {
           </Link>
         </Indicator>
       </NavbarStart>
-      <NavbarEnd>
+      <NavbarEnd className="flex items-center gap-2">
         <LocaleChange />
-        <div className="divider mx-2" />
         <ThemeChange />
-        <div className="divider mx-2" />
         <Profile />
       </NavbarEnd>
     </Navbar>

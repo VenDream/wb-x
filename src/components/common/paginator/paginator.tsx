@@ -103,7 +103,7 @@ export default function Paginator(props: PaginatorProps) {
   if (shouldHide) return null;
 
   return (
-    <div className="paginator flex items-center justify-start">
+    <div className="flex items-center justify-start">
       <Pagination horizontal>
         {pages.map((page, idx) =>
           typeof page === 'number' ? (
@@ -125,7 +125,7 @@ export default function Paginator(props: PaginatorProps) {
           )
         )}
       </Pagination>
-      <div className="page-jumper ml-4 flex items-center text-sm">
+      <div className="ml-4 flex items-center text-sm">
         {t('jumpTo')}
         <Input
           ref={inputRef}

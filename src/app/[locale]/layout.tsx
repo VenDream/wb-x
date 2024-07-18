@@ -49,7 +49,7 @@ export default async function RootLayout({
 
   return (
     <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>
-      <html lang={locale} className={cn(font.className, 'rendering')}>
+      <html lang={locale} className={cn(font.className, 'preparing')}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
             <ThemeProvider>
@@ -58,10 +58,15 @@ export default async function RootLayout({
               <SpeedInsights />
               <Toaster font={font.className} />
             </ThemeProvider>
-            <div className="loading-mask fixed z-50 flex h-screen w-screen items-center justify-center bg-base-100">
+            <div
+              className={cn(
+                'loading-mask fixed z-50 flex h-screen w-screen items-center',
+                'justify-center gap-2 bg-base-100/50 backdrop-blur-lg'
+              )}
+            >
               <LoaderCircleIcon
                 size={30}
-                className="animate-spin text-primary"
+                className="animate-spin text-base-content"
               />
             </div>
           </body>

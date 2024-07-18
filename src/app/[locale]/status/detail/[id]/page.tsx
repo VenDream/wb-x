@@ -36,7 +36,9 @@ export default async function Page({ params }: ParamsBody) {
           <CommentList id={id} />
         </>
       ) : (
-        <NoData />
+        <div className="p-4">
+          <NoData />
+        </div>
       )}
     </div>
   );

@@ -14,35 +14,53 @@ import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useMemo, useState } from 'react';
 
+import { getFileName } from '@/utils/common';
 import './image-grid.sass';
 
 interface ImageGridProps {
   images: string[];
   cols?: 2 | 3 | 4 | 5;
   className?: string;
+  isSinaImg?: boolean;
   showHasMoreIndicator?: boolean;
 }
 
 export default function ImageGrid(props: ImageGridProps) {
-  const { images, className, cols = 3, showHasMoreIndicator } = props;
+  const {
+    images,
+    className,
+    cols = 3,
+    isSinaImg,
+    showHasMoreIndicator,
+  } = props;
   const { openLightbox, renderLightbox } = useLightbox();
 
   const [slideIdx, setSlideIdx] = useState(0);
   const slides = useMemo<Slide[]>(() => {
     return images.map((img, idx) => {
-      const { lg, origin, filename } = getImageVariants(img);
+      let src = img;
+      let download = img;
+      let filename = getFileName(img);
+
+      if (isSinaImg) {
+        const { lg, origin, filename: fn } = getImageVariants(img);
+        src = lg;
+        download = origin;
+        filename = fn || filename;
+      }
+
       return {
         type: 'image',
-        src: FAKE_IMG || lg,
+        src: FAKE_IMG || src,
         title: (
           <p className="h-[2rem] text-sm font-normal leading-[2rem]">
             {idx + 1} / {images.length} - {filename}
           </p>
         ),
-        download: FAKE_IMG || origin,
+        download: FAKE_IMG || download,
       };
     });
-  }, [images]);
+  }, [images, isSinaImg]);
 
   const MAX_DISPLAY_IMAGES = Math.pow(cols, 2);
   const REMAIN_IMAGES_NUM = images.length - MAX_DISPLAY_IMAGES;
@@ -67,34 +85,39 @@ export default function ImageGrid(props: ImageGridProps) {
 
   return (
     <div
-      className={cn(className, GRID_COLS_CLASS, `image-grid mt-2 grid gap-1`)}
+      className={cn('image-grid mt-2 grid gap-1', className, GRID_COLS_CLASS)}
     >
       {images.slice(0, DISPLAY_IMAGES_NUM).map((img, idx) => {
-        const { bmiddle } = getImageVariants(img);
+        let thumbnail = img;
+        if (isSinaImg) {
+          thumbnail = getImageVariants(img).bmiddle;
+        }
+
         const hasMore =
           !!showHasMoreIndicator &&
           idx === MAX_DISPLAY_IMAGES - 1 &&
           REMAIN_IMAGES_NUM > 0;
+
         const dataProps = hasMore
           ? { 'data-remains': `+${REMAIN_IMAGES_NUM}` }
           : {};
-        const className = cn(
-          'border border-base-content/10 aspect-square h-full w-full cursor-zoom-in rounded shadow-sm',
-          {
-            'has-more': hasMore,
-          }
-        );
 
         return (
           <div
             key={idx}
             {...dataProps}
-            className={className}
+            className={cn(
+              'aspect-square h-full w-full border border-base-content/10',
+              'cursor-zoom-in rounded shadow-sm',
+              {
+                'has-more': hasMore,
+              }
+            )}
             onClick={() => previewImages(idx)}
           >
             <Image
               alt="IMG"
-              src={FAKE_IMG || bmiddle}
+              src={FAKE_IMG || thumbnail}
               className="aspect-square !h-full !w-full rounded object-cover"
             />
           </div>

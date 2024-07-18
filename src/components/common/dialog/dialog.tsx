@@ -22,7 +22,7 @@ import enUS from '@/messages/en-US.json';
 import zhCN from '@/messages/zh-CN.json';
 import { cn } from '@/utils/classnames';
 import { generateId } from '@/utils/id';
-import { CircleAlertIcon, CircleHelpIcon, InfoIcon } from 'lucide-react';
+import { CircleHelpIcon, InfoIcon, TriangleAlertIcon } from 'lucide-react';
 import { NextIntlClientProvider, useLocale, useTranslations } from 'next-intl';
 import React, { useCallback, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -49,7 +49,7 @@ type DialogProps = Omit<ModalProps, 'title'> & {
 const Icons: Record<Status, React.ReactNode> = {
   info: <InfoIcon size={20} className="mr-2" />,
   confirm: <CircleHelpIcon size={20} className="mr-2" />,
-  caution: <CircleAlertIcon size={20} className="mr-2" />,
+  caution: <TriangleAlertIcon size={20} className="mr-2" />,
 };
 
 export default function useDialog() {
@@ -101,23 +101,21 @@ export default function useDialog() {
       };
 
       return (
-        <IDialog className="rounded-md" {...dialogProps}>
+        <IDialog {...dialogProps}>
           {!hideHeader && (
             <ModalHeader
               className={cn(
                 headerClassName,
-                'modal-header flex items-center text-base'
+                'mb-[1.5rem] flex items-center text-base'
               )}
             >
               {icon}
               {title}
             </ModalHeader>
           )}
-          <ModalBody className={cn(bodyClassName, 'modal-body text-sm')}>
-            {body}
-          </ModalBody>
+          <ModalBody className={cn(bodyClassName, 'text-sm')}>{body}</ModalBody>
           {!hideFooter && (
-            <ModalActions className={cn(footerClassName, 'modal-footer')}>
+            <ModalActions className={cn(footerClassName)}>
               {!hideCancelBtn && (
                 <Button size="sm" onClick={cancel}>
                   {cancelBtnLabel}

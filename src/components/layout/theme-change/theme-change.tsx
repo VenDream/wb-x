@@ -55,7 +55,7 @@ export default function ThemeChange() {
     t && applyTheme(t);
     setTimeout(() => {
       const root = document.getElementsByTagName('html')[0];
-      root.classList.remove('rendering');
+      root.classList.remove('preparing');
     });
   }, [applyTheme]);
 
@@ -71,7 +71,7 @@ export default function ThemeChange() {
         </DropdownToggle>
         <DropdownMenu
           className={cn(
-            'z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-lg',
+            'z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
             'border border-base-content/10 bg-base-100 shadow'
           )}
         >

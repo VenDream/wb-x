@@ -49,7 +49,7 @@ export default function LocaleChange() {
         </DropdownToggle>
         <DropdownMenu
           className={cn(
-            'z-10 mt-4 w-40 flex-nowrap gap-1 overflow-auto rounded-lg',
+            'z-10 mt-4 w-40 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
             'border border-base-content/10 bg-base-100 shadow'
           )}
         >
