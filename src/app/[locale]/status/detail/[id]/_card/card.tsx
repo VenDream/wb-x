@@ -43,9 +43,6 @@ export default function Card(props: CardProps) {
         <CardBody />
         <CardFooter />
         <CardMenu />
-        {/* <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-base-200">
-          {status.id}
-        </div> */}
       </CardCtx.Provider>
     </div>
   );

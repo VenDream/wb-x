@@ -30,7 +30,7 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
       {isLoading ? (
         <Loading align="center" />
       ) : isLoadAll ? (
-        <p className="text-sm">{t('noMore')}</p>
+        <p className="text-sm text-base-content/50">{t('noMore')}</p>
       ) : isNoData ? (
         <NoData />
       ) : (

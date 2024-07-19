@@ -229,11 +229,8 @@ declare global {
   }
 }
 
-/**
- * @refer https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref
- */
 declare module 'react' {
-  function forwardRef<T, P = {}>(
-    render: (props: P, ref: ForwardedRef<T>) => ReactElement | null
+  declare function IForwardRef<T, P = {}>(
+    render: (props: P, ref: Ref<T>) => ReactElement | null
   ): (props: P & RefAttributes<T>) => ReactElement | null;
 }

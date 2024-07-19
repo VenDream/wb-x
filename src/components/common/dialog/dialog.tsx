@@ -9,6 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import ScrollArea from '@/components/common/scroll-area';
 import {
   Button,
   Modal,
@@ -84,6 +85,7 @@ export default function useDialog() {
         hideFooter,
         hideCancelBtn,
         hideOkBtn,
+        className,
         headerClassName,
         bodyClassName,
         footerClassName,
@@ -101,21 +103,34 @@ export default function useDialog() {
       };
 
       return (
-        <IDialog {...dialogProps}>
+        <IDialog
+          {...dialogProps}
+          className={cn(
+            'flex w-auto min-w-[30rem] max-w-[50rem] flex-col gap-[1.5rem]',
+            className
+          )}
+        >
           {!hideHeader && (
             <ModalHeader
               className={cn(
-                headerClassName,
-                'mb-[1.5rem] flex items-center text-base'
+                'mb-0 flex items-center text-base',
+                headerClassName
               )}
             >
               {icon}
               {title}
             </ModalHeader>
           )}
-          <ModalBody className={cn(bodyClassName, 'text-sm')}>{body}</ModalBody>
+          <ModalBody
+            className={cn(
+              'min-h-0 flex-1 rounded-[--rounded-box] text-sm',
+              bodyClassName
+            )}
+          >
+            <ScrollArea>{body}</ScrollArea>
+          </ModalBody>
           {!hideFooter && (
-            <ModalActions className={cn(footerClassName)}>
+            <ModalActions className={cn(footerClassName, 'mt-0')}>
               {!hideCancelBtn && (
                 <Button size="sm" onClick={cancel}>
                   {cancelBtnLabel}

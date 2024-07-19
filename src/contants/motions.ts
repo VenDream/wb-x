@@ -10,7 +10,7 @@
 import { AnimationProps } from 'framer-motion';
 
 export const fadeInFromBottom: AnimationProps = {
-  initial: { opacity: 0, translateY: 10 },
-  animate: { opacity: 1, translateY: 0 },
-  transition: { type: 'tween', duration: 0.3, ease: 'easeOut' },
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.3, ease: 'easeOut' },
 };

@@ -38,7 +38,7 @@ export default function UserCard(props: IProps) {
       className={cn(
         'flex cursor-pointer flex-col items-center justify-between gap-4 px-2 py-6',
         'rounded-[--rounded-box] border border-base-content/10 bg-base-200/50',
-        'hover:shadow'
+        'hover:border-primary hover:shadow'
       )}
     >
       <Avatar

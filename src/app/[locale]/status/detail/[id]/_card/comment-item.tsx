@@ -9,13 +9,13 @@
 
 import useDialog from '@/components/common/dialog';
 import ImageGrid from '@/components/common/image-grid';
+import MotionContainer from '@/components/common/motion-container';
 import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
-import { fadeInFromBottom } from '@/contants/motions';
+import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
-import { motion } from 'framer-motion';
 import { ChevronDownIcon, ThumbsUpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
@@ -78,7 +78,7 @@ export default function CommentItem(props: CommentItemProps) {
       backdrop: true,
       hideHeader: true,
       hideFooter: true,
-      className: 'max-w-[40rem] rounded h-2/3',
+      className: 'w-[40rem] h-2/3',
       body: <CommentReplies comment={comment} />,
     });
   };
@@ -86,11 +86,7 @@ export default function CommentItem(props: CommentItemProps) {
   const variantType: CommentVariants['type'] = isReply ? 'reply' : 'default';
 
   return (
-    <motion.div
-      data-id={id}
-      className={comment({ type: variantType })}
-      {...fadeInFromBottom}
-    >
+    <MotionContainer data-id={id} className={comment({ type: variantType })}>
       {!isReply && (
         <div className="grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
           <Avatar
@@ -123,14 +119,14 @@ export default function CommentItem(props: CommentItemProps) {
               __html: userName + preprocessCommentText(text),
             }}
           />
-          <ImageGrid
-            cols={4}
-            isSinaImg
-            images={images}
-            className="comment-images"
-          />
+          <ImageGrid cols={4} isSinaImg images={images} />
           {comments.length > 0 && (
-            <div className="comment-replies mt-2 flex flex-col gap-1 rounded bg-base-300/50 p-2">
+            <div
+              className={cn(
+                'comment-replies mt-2 flex flex-col gap-1 bg-base-300/50 p-2',
+                'rounded'
+              )}
+            >
               {comments.map((cm, idx) => {
                 const prevComments = comments.slice(0, idx);
                 const isReplyToSomeone = prevComments.some(
@@ -152,7 +148,7 @@ export default function CommentItem(props: CommentItemProps) {
               className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
               onClick={() => showCommentReplies(props.comment)}
             >
-              <div className="absolute left-0 top-[-8px] h-[1px] w-full bg-base-content/20" />
+              <div className="absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20" />
               {t('totalReplies', { num: totalReplies })}
               <ChevronDownIcon size={14} className="ml-1 !stroke-2" />
             </span>
@@ -163,6 +159,6 @@ export default function CommentItem(props: CommentItemProps) {
         <ThumbsUpIcon size={16} className="relative top-[-1px] mr-1" />
         {formatNumberWithUnit(likesCount || 0)}
       </div>
-    </motion.div>
+    </MotionContainer>
   );
 }

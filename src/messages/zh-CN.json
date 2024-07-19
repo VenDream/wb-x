@@ -33,6 +33,7 @@
     "dataFetching": {
       "noMore": "没有更多数据了",
       "noData": "暂无数据",
+      "noMatchedData": "暂无符合条件的数据",
       "loadMore": "加载更多"
     },
     "dialog": {

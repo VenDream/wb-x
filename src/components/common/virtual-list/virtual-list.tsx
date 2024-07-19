@@ -9,13 +9,13 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import Loading from '@/components/common/loading';
 import NoData from '@/components/common/no-data';
-import { Loading } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
+import { usePrevious } from 'ahooks';
 import { useTranslations } from 'next-intl';
-import {
+import React, {
   ForwardedRef,
-  forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -35,7 +35,7 @@ import type {
   VirtualListProps,
 } from './types';
 
-const VirtualList = forwardRef(function VL<T, R>(
+function VirtualListRenderFunc<T, R>(
   props: VirtualListProps<T, R>,
   ref: ForwardedRef<VirtualListHandle>
 ) {
@@ -43,15 +43,19 @@ const VirtualList = forwardRef(function VL<T, R>(
     getDataFetcher,
     getDataParser,
     getRowItemKey,
-    renderRowItemContent,
+    getTotalParser,
+
     className = '',
-    pageSize = 10,
-    concatList = Array.prototype.concat,
     gutter = 10,
+    pageSize = 10,
     loadingThreshold = 5,
     estimatedRowHeight = 50,
-    getTotalParser,
+    concatList = Array.prototype.concat,
+    renderRowItemContent,
+
     onTotalUpdate,
+    onDataFetchingStart,
+    onDataFetchingEnd,
   } = props;
 
   const t = useTranslations('global.dataFetching');
@@ -65,8 +69,11 @@ const VirtualList = forwardRef(function VL<T, R>(
   const rowHeightsRef = useRef<Record<string, number>>({});
 
   const fetchDataList = useCallback(async () => {
+    const isNewDataFetch = pageNo === 0;
+
     try {
       setIsLoading(true);
+      isNewDataFetch && onDataFetchingStart?.();
       const limit = pageSize;
       const offset = pageNo * limit;
       const parseListData = getDataParser();
@@ -92,12 +99,15 @@ const VirtualList = forwardRef(function VL<T, R>(
       toast.error(error.message);
     } finally {
       setIsLoading(false);
+      isNewDataFetch && onDataFetchingEnd?.();
     }
   }, [
     concatList,
     getDataFetcher,
     getDataParser,
     getTotalParser,
+    onDataFetchingEnd,
+    onDataFetchingStart,
     onTotalUpdate,
     pageNo,
     pageSize,
@@ -129,7 +139,14 @@ const VirtualList = forwardRef(function VL<T, R>(
   );
 
   const isNoData = pageNo === 0 && isLoadAll && dataList.length === 0;
+  const prevIsNoData = usePrevious(isNoData);
   const isFirstLoading = pageNo === 0 && isLoading;
+
+  useEffect(() => {
+    if (prevIsNoData !== undefined && !prevIsNoData && isNoData) {
+      toast.info(t('noMatchedData'));
+    }
+  }, [isNoData, prevIsNoData, t]);
 
   useEffect(() => {
     fetchDataList();
@@ -149,20 +166,14 @@ const VirtualList = forwardRef(function VL<T, R>(
   }));
 
   return (
-    <div
-      className={cn(
-        className,
-        'relative m-auto h-full',
-        (isNoData || isFirstLoading) && 'flex items-center justify-center'
-      )}
-    >
+    <div className={cn(className, 'relative m-auto h-full')}>
       {isFirstLoading ? (
-        <Loading color="primary" />
+        <Loading className="h-10" align="center" />
       ) : isNoData ? (
-        <NoData />
+        <NoData tips={t('noMatchedData')} className="h-10" />
       ) : (
         <VirtualListContext.Provider value={listCtx}>
-          <AutoSizer>
+          <AutoSizer defaultHeight={100}>
             {({ height, width }) => (
               <InfiniteLoader
                 threshold={loadingThreshold}
@@ -200,6 +211,9 @@ const VirtualList = forwardRef(function VL<T, R>(
       )}
     </div>
   );
-});
+}
+
+const forwardRef = React.forwardRef as typeof React.IForwardRef;
+const VirtualList = forwardRef(VirtualListRenderFunc);
 
 export default VirtualList;

@@ -14,6 +14,9 @@ import { useTranslations } from 'next-intl';
 interface IProps extends React.PropsWithChildren {
   size?: number;
   align?: 'center' | 'start' | 'end';
+  className?: string;
+  textClass?: string;
+  loaderClass?: string;
 }
 
 const defaultProps: IProps = {
@@ -23,18 +26,26 @@ const defaultProps: IProps = {
 
 export default function LoadingUI(props: IProps) {
   const t = useTranslations('global.action');
-  const { size, align, children } = { ...defaultProps, ...props };
-
-  const className = cn('flex items-center gap-2', {
-    'justify-end': align === 'end',
-    'justify-start': align === 'start',
-    'justify-center': align === 'center',
-  });
+  const { size, align, className, textClass, loaderClass, children } = {
+    ...defaultProps,
+    ...props,
+  };
 
   return (
-    <div className={className}>
-      <LoaderCircleIcon size={size} className="animate-spin text-primary" />
-      {children || <p className="text-sm text-primary">{t('loading')}</p>}
+    <div
+      className={cn('flex items-center gap-2', className, {
+        'justify-end': align === 'end',
+        'justify-start': align === 'start',
+        'justify-center': align === 'center',
+      })}
+    >
+      <LoaderCircleIcon
+        size={size}
+        className={cn('animate-spin text-primary', loaderClass)}
+      />
+      {children || (
+        <p className={cn('text-sm text-primary', textClass)}>{t('loading')}</p>
+      )}
     </div>
   );
 }

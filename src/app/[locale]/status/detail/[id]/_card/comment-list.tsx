@@ -12,6 +12,7 @@
 import { getStatusComments } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import { Tab, Tabs } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
 import { MessageSquareQuoteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -53,7 +54,7 @@ export default function CommentList(props: CommentListProps) {
             block: 'start',
             behavior: 'smooth',
           });
-        });
+        }, 50);
       }
 
       maxIdRef.current = resp.maxId;
@@ -80,7 +81,10 @@ export default function CommentList(props: CommentListProps) {
   return (
     <div
       ref={listRef}
-      className="status-comment-list mt-4 w-[40rem] rounded border border-base-content/10 bg-base-200/50 p-4 shadow-md"
+      className={cn(
+        'mt-4 w-[40rem] border border-base-content/10 bg-base-200/50',
+        'rounded-[--rounded-box] p-4 shadow-md'
+      )}
     >
       <div className="flex items-center justify-between border-b border-b-base-content/10 pb-2">
         <p className="flex items-center text-lg">
@@ -99,7 +103,7 @@ export default function CommentList(props: CommentListProps) {
           </Tab>
         </Tabs>
       </div>
-      <div className="list-body mt-4">
+      <div className="mt-4">
         {commentList.map(comment => (
           <CommentItem key={comment.id} comment={comment} />
         ))}

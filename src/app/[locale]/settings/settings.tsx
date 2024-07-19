@@ -20,6 +20,8 @@ import ServerSettings from './server';
 
 type SettingsType = 'local' | 'server';
 
+const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
+
 export default function Settings() {
   const t1 = useTranslations('pages.settings.tabs');
   const t2 = useTranslations('global.status');
@@ -44,7 +46,7 @@ export default function Settings() {
           </MotionContainer>
         )}
         {settingsType === 'server' &&
-          (isOrgAdmin ? (
+          (!isClerkEnabled || isOrgAdmin ? (
             <ServerSettings />
           ) : (
             <MotionContainer className="p-4">

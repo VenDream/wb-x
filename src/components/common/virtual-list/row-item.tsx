@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import MotionContainer from '@/components/common/motion-container';
 import { cn } from '@/utils/classnames';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { VirtualListContext } from './context';
@@ -50,10 +51,14 @@ export default function RowItem<T>(props: VirtualListRowItemProps<T>) {
         invisible: !visible,
       })}
     >
-      <div ref={domRef}>
-        {/* @TODO add scrolling indicator */}
-        {renderRowItemContent(list[index])}
-      </div>
+      {visible ? (
+        <MotionContainer>{renderRowItemContent(list[index])}</MotionContainer>
+      ) : (
+        <div ref={domRef}>
+          {/* @TODO add scrolling indicator */}
+          {renderRowItemContent(list[index])}
+        </div>
+      )}
     </div>
   );
 }

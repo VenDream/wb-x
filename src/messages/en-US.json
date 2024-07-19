@@ -33,6 +33,7 @@
     "dataFetching": {
       "noMore": "No more data",
       "noData": "No data",
+      "noMatchedData": "No matched data",
       "loadMore": "Load more"
     },
     "dialog": {
@@ -83,7 +84,7 @@
         "leastImagesCountTips": "Least images count",
         "startDate": "StartDate",
         "endDate": "EndDate",
-        "totalStatuses": "「{num}」posts were found in the search."
+        "totalStatuses": "「{num}」weibo posts were found."
       },
       "menu": {
         "comments": "View comments",

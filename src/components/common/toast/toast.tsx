@@ -31,6 +31,7 @@ export default function Toaster(props: IProps) {
       position="top-center"
       offset={50}
       toastOptions={{
+        // duration: 2000,
         className: 'shadow text-sm py-3 px-4 items-start',
         classNames: {
           icon: 'positive top-[3px]',

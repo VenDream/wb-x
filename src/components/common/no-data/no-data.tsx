@@ -7,16 +7,28 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { cn } from '@/utils/classnames';
 import { BracketsIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-export default function NoData() {
+interface IProps {
+  tips?: string;
+  className?: string;
+}
+
+export default function NoData(props: IProps) {
+  const { tips, className } = props;
   const t = useTranslations('global.dataFetching');
 
   return (
-    <p className="flex items-center text-sm text-base-content/50">
+    <p
+      className={cn(
+        'flex items-center justify-center text-sm text-base-content/50',
+        className
+      )}
+    >
       <BracketsIcon size={16} className="mr-2" />
-      {t('noData')}
+      {tips || t('noData')}
     </p>
   );
 }

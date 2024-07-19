@@ -10,12 +10,14 @@
  */
 
 import { getDbStatusList } from '@/api/client';
+import Loading from '@/components/common/loading';
 import VirtualList, {
   VirtualListHandle,
   VirtualListProps,
 } from '@/components/common/virtual-list';
 import { Divider } from '@/components/daisyui';
 import { dedupeStatusList } from '@/utils/weibo';
+import { ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { StatusCard } from '../detail';
@@ -35,6 +37,7 @@ export default function Page() {
   const t = useTranslations('pages.status.filter');
   const listRef = useRef<VirtualListHandle>(null);
   const [total, setTotal] = useState(-1);
+  const [isFetching, setIsFetching] = useState(false);
 
   const [filterParams, setFilterParams] =
     useState<Backend.StatusListFilterParams>(() => {
@@ -70,6 +73,8 @@ export default function Page() {
         concatList: (prevList, list) =>
           dedupeStatusList([...prevList, ...list]),
         onTotalUpdate: total => setTotal(total),
+        onDataFetchingStart: () => setIsFetching(true),
+        onDataFetchingEnd: () => setIsFetching(false),
         className: 'pl-72 2xl:pl-0',
         estimatedRowHeight: 500,
       }),
@@ -77,21 +82,28 @@ export default function Page() {
     );
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-[calc(100vh-8rem)]">
       <VirtualList {...listProps} ref={listRef} />
       <div className="absolute left-0 top-0">
         <Filter
           filterParams={filterParams}
           updateFilterParams={updateFilterParams}
         />
-        {total >= 0 && (
-          <div className="w-72">
-            <Divider className="before:h-[1px] after:h-[1px]" />
-            <p className="text-xs italic text-base-content/80">
+        <div className="w-72">
+          <Divider className="before:h-[1px] after:h-[1px]" />
+          {isFetching ? (
+            <Loading
+              size={16}
+              textClass="text-base-content/80 text-xs"
+              loaderClass="text-base-content/80"
+            />
+          ) : total >= 0 ? (
+            <p className="flex items-center text-xs text-base-content/80">
+              <ScanSearchIcon size={18} className="mr-1" />
               {t('totalStatuses', { num: total })}
             </p>
-          </div>
-        )}
+          ) : null}
+        </div>
       </div>
     </div>
   );
