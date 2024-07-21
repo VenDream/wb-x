@@ -38,6 +38,7 @@ type DialogProps = Omit<ModalProps, 'title'> & {
   okBtnLabel?: string;
   onCancel?: () => void;
   onOk?: () => void;
+  hideIcon?: boolean;
   hideHeader?: boolean;
   hideFooter?: boolean;
   hideCancelBtn?: boolean;
@@ -81,6 +82,7 @@ export default function useDialog() {
         okBtnLabel,
         onCancel,
         onOk,
+        hideIcon,
         hideHeader,
         hideFooter,
         hideCancelBtn,
@@ -117,7 +119,7 @@ export default function useDialog() {
                 headerClassName
               )}
             >
-              {icon}
+              {!hideIcon && icon}
               {title}
             </ModalHeader>
           )}

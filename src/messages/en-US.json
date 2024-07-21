@@ -74,6 +74,7 @@
         "orderByHot": "Hot",
         "replyTo": "replied to",
         "op": "OP",
+        "replies": "Comment replies",
         "totalReplies": "{num} replies in total"
       },
       "filter": {
@@ -91,7 +92,7 @@
         "source": "View original post",
         "download": "DL images zip",
         "copyUID": "Copy UID",
-        "copySuccessTips": "Successfully copied",
+        "copySuccessTips": "Copied to clipboard",
         "opPosts": "View all OP's posts"
       },
       "sourceFrom": "from",

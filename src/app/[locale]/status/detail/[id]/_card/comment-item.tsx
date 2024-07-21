@@ -16,7 +16,11 @@ import { FAKE_IMG } from '@/contants/debug';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
-import { ChevronDownIcon, ThumbsUpIcon } from 'lucide-react';
+import {
+  ChevronDownIcon,
+  MessageCircleMoreIcon,
+  ThumbsUpIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
@@ -54,7 +58,7 @@ export default function CommentItem(props: CommentItemProps) {
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
       const username = `<a href="${WEIBO_HOST}/n/${user.name}" target="_blank">@${user.name}</a>`;
-      const opTag = `<span class="text-xs text-primary border border-primary px-0.5 ml-0.5">${t(
+      const opTag = `<span class="text-xs text-primary border border-primary px-0.5 ml-1">${t(
         'op'
       )}</span>`;
       return user.isOP ? username + opTag : username;
@@ -73,11 +77,20 @@ export default function CommentItem(props: CommentItemProps) {
     )}:&nbsp;&nbsp;`;
   }, [getUserName, isReply, isReplySelf, isReplyToSomeone, replyUser, t, user]);
 
-  const showCommentReplies = (comment: Backend.StatusComment) => {
+  const showCommentReplies = (
+    comment: Backend.StatusComment,
+    totalReplies: number
+  ) => {
     showDialog({
       backdrop: true,
-      hideHeader: true,
+      hideIcon: true,
       hideFooter: true,
+      title: (
+        <>
+          <MessageCircleMoreIcon size={20} className="mr-2" />
+          {totalReplies} {t('replies')}
+        </>
+      ),
       className: 'w-[40rem] h-2/3',
       body: <CommentReplies comment={comment} />,
     });
@@ -146,7 +159,7 @@ export default function CommentItem(props: CommentItemProps) {
           {!isDetailReplies && hasMoreReplies && (
             <span
               className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
-              onClick={() => showCommentReplies(props.comment)}
+              onClick={() => showCommentReplies(props.comment, totalReplies)}
             >
               <div className="absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20" />
               {t('totalReplies', { num: totalReplies })}

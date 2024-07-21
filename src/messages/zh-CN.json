@@ -74,6 +74,7 @@
         "orderByHot": "热度",
         "replyTo": "回复",
         "op": "博主",
+        "replies": "评论回复",
         "totalReplies": "共 {num} 条回复"
       },
       "filter": {

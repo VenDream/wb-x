@@ -77,7 +77,7 @@ export default function CardMenu() {
           <EllipsisVerticalIcon size={20} />
         </Button>
       </DropdownToggle>
-      <DropdownMenu className="z-10 mt-2 w-[190px] rounded border border-base-content/10">
+      <DropdownMenu className="z-50 mt-2 w-[190px] rounded border border-base-content/10">
         {!!menu.copyUid && (
           <DropdownItem anchor={false}>
             <span
