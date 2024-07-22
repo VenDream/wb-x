@@ -85,7 +85,7 @@
         "leastImagesCountTips": "至少包含的图片数量",
         "startDate": "开始日期",
         "endDate": "结束日期 ",
-        "totalStatuses": "共搜索到「{num}」条微博。"
+        "totalStatuses": "共搜索到 {num} 条微博。"
       },
       "menu": {
         "comments": "查看评论",
@@ -99,7 +99,8 @@
       "postedOn": "发布于",
       "video": {
         "fetchFailed": "获取视频播放源失败，请重试"
-      }
+      },
+      "updateFrequency": "数据每小时更新一次。"
     },
     "rotn": {
       "type": {

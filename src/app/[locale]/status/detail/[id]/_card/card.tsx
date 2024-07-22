@@ -43,6 +43,14 @@ export default function Card(props: CardProps) {
         <CardBody />
         <CardFooter />
         <CardMenu />
+        {/* <div
+          className={cn(
+            'absolute left-0 top-0 flex h-full w-full items-center',
+            'justify-center rounded-[inherit] bg-base-200/50 backdrop-blur'
+          )}
+        >
+          CARD - {status.id}
+        </div> */}
       </CardCtx.Provider>
     </div>
   );

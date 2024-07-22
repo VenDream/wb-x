@@ -113,7 +113,7 @@ export default function CommentItem(props: CommentItemProps) {
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
-              <span className="ml-0.5 border border-primary px-0.5 text-primary">
+              <span className="ml-1 border border-primary px-0.5 text-xs text-primary">
                 {t('op')}
               </span>
             )}

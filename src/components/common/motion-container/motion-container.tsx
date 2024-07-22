@@ -10,10 +10,10 @@
 'use client';
 
 import { fadeInFromBottom } from '@/contants/motions';
-import { AnimationProps, motion } from 'framer-motion';
+import { AnimationProps, motion, MotionProps } from 'framer-motion';
 import React from 'react';
 
-interface IProps extends React.PropsWithChildren {
+interface IProps extends MotionProps {
   motion?: AnimationProps;
   className?: string;
 }
@@ -21,9 +21,10 @@ interface IProps extends React.PropsWithChildren {
 const MotionContainer = React.forwardRef<HTMLDivElement, IProps>(
   (props: IProps, ref) => {
     const {
-      motion: motionProps = fadeInFromBottom,
+      motion: animation = fadeInFromBottom,
       className,
       children,
+      ...motionProps
     } = props;
 
     return (
@@ -35,6 +36,7 @@ const MotionContainer = React.forwardRef<HTMLDivElement, IProps>(
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
+        {...animation}
         {...motionProps}
       >
         {children}

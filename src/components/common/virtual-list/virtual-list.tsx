@@ -46,6 +46,8 @@ function VirtualListRenderFunc<T, R>(
     getTotalParser,
 
     className = '',
+    width = 0,
+    height = 0,
     gutter = 10,
     pageSize = 10,
     loadingThreshold = 5,
@@ -173,8 +175,8 @@ function VirtualListRenderFunc<T, R>(
         <NoData tips={t('noMatchedData')} className="h-10" />
       ) : (
         <VirtualListContext.Provider value={listCtx}>
-          <AutoSizer defaultHeight={100}>
-            {({ height, width }) => (
+          <AutoSizer>
+            {({ height: h, width: w }) => (
               <InfiniteLoader
                 threshold={loadingThreshold}
                 isItemLoaded={idx => isLoadAll || idx < dataList.length}
@@ -188,8 +190,8 @@ function VirtualListRenderFunc<T, R>(
                       listRef.current = list;
                     }}
                     className="!overflow-x-hidden"
-                    width={width}
-                    height={height}
+                    width={width || w}
+                    height={height || h}
                     useIsScrolling
                     itemSize={getRowHeight}
                     itemCount={dataList.length}

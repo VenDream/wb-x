@@ -39,6 +39,10 @@ export interface VirtualListProps<T, R> {
 
   /** custom class */
   className?: string;
+  /** list width */
+  width?: number;
+  /** list height */
+  height?: number;
   /** page size */
   pageSize?: number;
   /** item gutter */

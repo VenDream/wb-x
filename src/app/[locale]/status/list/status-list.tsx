@@ -15,9 +15,9 @@ import VirtualList, {
   VirtualListHandle,
   VirtualListProps,
 } from '@/components/common/virtual-list';
-import { Divider } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
-import { ScanSearchIcon } from 'lucide-react';
+import { ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { StatusCard } from '../detail';
@@ -34,7 +34,7 @@ const defaultFilterParams: Backend.StatusListFilterParams = {
 };
 
 export default function Page() {
-  const t = useTranslations('pages.status.filter');
+  const t = useTranslations('pages.status');
   const listRef = useRef<VirtualListHandle>(null);
   const [total, setTotal] = useState(-1);
   const [isFetching, setIsFetching] = useState(false);
@@ -89,18 +89,26 @@ export default function Page() {
           filterParams={filterParams}
           updateFilterParams={updateFilterParams}
         />
-        <div className="w-72">
-          <Divider className="before:h-[1px] after:h-[1px]" />
+        <div
+          className={cn(
+            'mt-6 flex w-72 flex-col gap-2 pt-4 text-xs text-base-content/80',
+            'border-t border-base-content/10 drop-shadow-md'
+          )}
+        >
+          <p className="flex items-center">
+            <ListRestartIcon size={18} className="mr-2" />
+            {t('updateFrequency')}
+          </p>
           {isFetching ? (
             <Loading
               size={16}
-              textClass="text-base-content/80 text-xs"
+              textClass="text-base-content/80"
               loaderClass="text-base-content/80"
             />
           ) : total >= 0 ? (
-            <p className="flex items-center text-xs text-base-content/80">
-              <ScanSearchIcon size={18} className="mr-1" />
-              {t('totalStatuses', { num: total })}
+            <p className="flex items-center">
+              <ScanSearchIcon size={18} className="mr-2" />
+              {t('filter.totalStatuses', { num: total })}
             </p>
           ) : null}
         </div>

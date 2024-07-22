@@ -9,10 +9,11 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import MotionContainer from '@/components/common/motion-container';
 import { FAKE_IMG } from '@/contants/debug';
+import { slideInFromBottom } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
-import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Avatar } from 'react-daisyui';
 
@@ -29,16 +30,12 @@ export default function UserCard(props: IProps) {
   if (!id || +id <= 0) return null;
 
   return (
-    <motion.div
-      whileHover={{
-        y: -5,
-        scale: 1.05,
-        transition: { duration: 0.1, ease: 'easeOut' },
-      }}
+    <MotionContainer
+      whileHover={slideInFromBottom}
       className={cn(
         'flex cursor-pointer flex-col items-center justify-between gap-4 px-2 py-6',
         'rounded-[--rounded-box] border border-base-content/10 bg-base-200/50',
-        'hover:border-primary hover:shadow'
+        'hover:shadow hover:outline hover:outline-2 hover:outline-primary'
       )}
     >
       <Avatar
@@ -65,6 +62,6 @@ export default function UserCard(props: IProps) {
       >
         {t('desc')}: {desc || '-'}
       </p>
-    </motion.div>
+    </MotionContainer>
   );
 }

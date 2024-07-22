@@ -8,6 +8,7 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
+import { fadeIn } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { VirtualListContext } from './context';
@@ -52,7 +53,9 @@ export default function RowItem<T>(props: VirtualListRowItemProps<T>) {
       })}
     >
       {visible ? (
-        <MotionContainer>{renderRowItemContent(list[index])}</MotionContainer>
+        <MotionContainer motion={fadeIn}>
+          {renderRowItemContent(list[index])}
+        </MotionContainer>
       ) : (
         <div ref={domRef}>
           {/* @TODO add scrolling indicator */}

@@ -85,7 +85,7 @@
         "leastImagesCountTips": "Least images count",
         "startDate": "StartDate",
         "endDate": "EndDate",
-        "totalStatuses": "「{num}」weibo posts were found."
+        "totalStatuses": "{num} weibo posts were found."
       },
       "menu": {
         "comments": "View comments",
@@ -99,7 +99,8 @@
       "postedOn": "posted on",
       "video": {
         "fetchFailed": "Failed to fetch video source，please retry"
-      }
+      },
+      "updateFrequency": "The data is updated once per hour."
     },
     "rotn": {
       "type": {
