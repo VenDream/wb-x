@@ -23,7 +23,12 @@ import enUS from '@/messages/en-US.json';
 import zhCN from '@/messages/zh-CN.json';
 import { cn } from '@/utils/classnames';
 import { generateId } from '@/utils/id';
-import { CircleHelpIcon, InfoIcon, TriangleAlertIcon } from 'lucide-react';
+import {
+  CircleHelpIcon,
+  InfoIcon,
+  TriangleAlertIcon,
+  XIcon,
+} from 'lucide-react';
 import { NextIntlClientProvider, useLocale, useTranslations } from 'next-intl';
 import React, { useCallback, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -115,12 +120,23 @@ export default function useDialog() {
           {!hideHeader && (
             <ModalHeader
               className={cn(
-                'mb-0 flex items-center text-base',
+                'mb-0 flex items-center justify-between text-base',
                 headerClassName
               )}
             >
-              {!hideIcon && icon}
-              {title}
+              <div className="flex items-center">
+                {!hideIcon && icon}
+                {title}
+              </div>
+              <Button
+                size="sm"
+                variant="link"
+                onClick={cancel}
+                title={t('dialog.close')}
+                className="p-0 text-[inherit] outline-none"
+              >
+                <XIcon size={24} />
+              </Button>
             </ModalHeader>
           )}
           <ModalBody
@@ -148,7 +164,7 @@ export default function useDialog() {
         </IDialog>
       );
     },
-    [IDialog, defaultProps, handleHide]
+    [IDialog, defaultProps, handleHide, t]
   );
 
   const show = useCallback(

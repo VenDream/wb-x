@@ -13,9 +13,16 @@ import { getStatusComments } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import { Tab, Tabs } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
+import { usePrevious } from 'ahooks';
 import { MessageSquareQuoteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { toast } from 'sonner';
 import CommentItem from './comment-item';
 import type { CommentListProps } from './types';
@@ -30,6 +37,7 @@ export default function CommentList(props: CommentListProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
   const [commentList, setCommentList] = useState<Backend.StatusComment[]>([]);
+  const prevCommentList = usePrevious(commentList);
 
   const fetchCommentList = useCallback(async () => {
     try {
@@ -48,15 +56,6 @@ export default function CommentList(props: CommentListProps) {
 
       setTotal(resp.total);
       if (resp.maxId === '0') setIsLoadAll(true);
-      if (maxIdRef.current === '' && location.hash === '#comments') {
-        setTimeout(() => {
-          listRef.current?.scrollIntoView({
-            block: 'start',
-            behavior: 'smooth',
-          });
-        }, 50);
-      }
-
       maxIdRef.current = resp.maxId;
     } catch (err) {
       const error = err as Error;
@@ -77,6 +76,20 @@ export default function CommentList(props: CommentListProps) {
   useEffect(() => {
     fetchCommentList();
   }, [fetchCommentList]);
+
+  useLayoutEffect(() => {
+    if (
+      prevCommentList !== undefined &&
+      prevCommentList.length === 0 &&
+      commentList.length > 0 &&
+      location.hash === '#comments'
+    ) {
+      listRef.current?.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+      });
+    }
+  }, [commentList.length, prevCommentList]);
 
   return (
     <div

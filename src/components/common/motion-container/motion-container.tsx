@@ -15,6 +15,7 @@ import React from 'react';
 
 interface IProps extends MotionProps {
   motion?: AnimationProps;
+  disable?: boolean;
   className?: string;
 }
 
@@ -22,10 +23,13 @@ const MotionContainer = React.forwardRef<HTMLDivElement, IProps>(
   (props: IProps, ref) => {
     const {
       motion: animation = fadeInFromBottom,
+      disable = false,
       className,
       children,
       ...motionProps
     } = props;
+
+    const animationProps = disable ? {} : animation;
 
     return (
       <motion.div
@@ -36,7 +40,7 @@ const MotionContainer = React.forwardRef<HTMLDivElement, IProps>(
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
-        {...animation}
+        {...animationProps}
         {...motionProps}
       >
         {children}

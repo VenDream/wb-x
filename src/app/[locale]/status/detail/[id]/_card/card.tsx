@@ -9,6 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+// import { cn } from '@/utils/classnames';
 import { useMemo } from 'react';
 import CardBody from './card-body';
 import CardFooter from './card-footer';
@@ -45,8 +46,8 @@ export default function Card(props: CardProps) {
         <CardMenu />
         {/* <div
           className={cn(
-            'absolute left-0 top-0 flex h-full w-full items-center',
-            'justify-center rounded-[inherit] bg-base-200/50 backdrop-blur'
+            'absolute left-0 top-0 z-50 flex h-full w-full items-center',
+            'justify-center rounded-[inherit] bg-base-200/50 backdrop-blur-lg'
           )}
         >
           CARD - {status.id}

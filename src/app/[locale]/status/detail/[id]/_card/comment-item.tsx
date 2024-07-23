@@ -91,7 +91,7 @@ export default function CommentItem(props: CommentItemProps) {
           {totalReplies} {t('replies')}
         </>
       ),
-      className: 'w-[40rem] h-2/3',
+      className: 'w-[40rem] h-3/5',
       body: <CommentReplies comment={comment} />,
     });
   };
@@ -99,7 +99,11 @@ export default function CommentItem(props: CommentItemProps) {
   const variantType: CommentVariants['type'] = isReply ? 'reply' : 'default';
 
   return (
-    <MotionContainer data-id={id} className={comment({ type: variantType })}>
+    <MotionContainer
+      data-id={id}
+      disable={!!isDetailReplies}
+      className={comment({ type: variantType })}
+    >
       {!isReply && (
         <div className="grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
           <Avatar
@@ -132,7 +136,7 @@ export default function CommentItem(props: CommentItemProps) {
               __html: userName + preprocessCommentText(text),
             }}
           />
-          <ImageGrid cols={4} isSinaImg images={images} />
+          {!isReply && <ImageGrid cols={5} isSinaImg images={images} />}
           {comments.length > 0 && (
             <div
               className={cn(

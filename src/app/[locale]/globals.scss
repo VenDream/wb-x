@@ -18,6 +18,21 @@
         display: flex;
       }
     }
+
+    &::-webkit-scrollbar,
+    & *::-webkit-scrollbar {
+      @apply w-1.5;
+    }
+
+    &::-webkit-scrollbar-thumb,
+    & *::-webkit-scrollbar-thumb {
+      @apply rounded-full bg-base-content/15;
+    }
+
+    &::-webkit-scrollbar-track,
+    & *::-webkit-scrollbar-track {
+      @apply hidden;
+    }
   }
 
   input[type='number'].appearance-none::-webkit-inner-spin-button,

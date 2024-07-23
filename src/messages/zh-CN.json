@@ -38,7 +38,8 @@
     },
     "dialog": {
       "title": "弹窗标题",
-      "body": "弹窗内容"
+      "body": "弹窗内容",
+      "close": "关闭"
     },
     "paginator": {
       "jumpTo": "跳至",
@@ -69,11 +70,11 @@
     "status": {
       "comments": {
         "label": "评论",
-        "orderByAsc": "正序",
-        "orderByDesc": "倒序",
-        "orderByHot": "热度",
+        "orderByAsc": "从旧到新",
+        "orderByDesc": "从新到旧",
+        "orderByHot": "热门",
         "replyTo": "回复",
-        "op": "博主",
+        "op": "po主",
         "replies": "评论回复",
         "totalReplies": "共 {num} 条回复"
       },

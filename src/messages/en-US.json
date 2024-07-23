@@ -38,7 +38,8 @@
     },
     "dialog": {
       "title": "Dialog Title",
-      "body": "Dialog Body"
+      "body": "Dialog Body",
+      "close": "Close"
     },
     "paginator": {
       "jumpTo": "Go to",
@@ -69,8 +70,8 @@
     "status": {
       "comments": {
         "label": "Comments",
-        "orderByAsc": "Asc",
-        "orderByDesc": "Desc",
+        "orderByAsc": "Oldest",
+        "orderByDesc": "Newest",
         "orderByHot": "Hot",
         "replyTo": "replied to",
         "op": "OP",
