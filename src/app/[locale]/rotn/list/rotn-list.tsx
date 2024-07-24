@@ -80,7 +80,7 @@ export default function Page() {
         </Tab>
       </Tabs>
       {items.length > 0 && (
-        <div className="grid grid-cols-3 gap-6 2xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 2xl:grid-cols-3">
           {items.map(item => (
             <RotnCard key={item.id} item={item} />
           ))}

@@ -11,7 +11,7 @@
 
 import MotionContainer from '@/components/common/motion-container';
 import { FAKE_IMG } from '@/contants/debug';
-import { slideInFromBottom } from '@/contants/motions';
+import { moveUp } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
@@ -31,7 +31,7 @@ export default function UserCard(props: IProps) {
 
   return (
     <MotionContainer
-      whileHover={slideInFromBottom}
+      whileHover={moveUp}
       className={cn(
         'flex cursor-pointer flex-col items-center justify-between gap-4 px-2 py-6',
         'rounded-[--rounded-box] border border-base-content/10 bg-base-200/50',

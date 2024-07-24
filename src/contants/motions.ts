@@ -24,7 +24,7 @@ export const fadeInFromBottom: AnimationProps = {
   transition: { duration: DEFAULT_DURATION, ease: DEFAULT_EASE },
 };
 
-export const slideInFromBottom: TargetAndTransition = {
+export const moveUp: TargetAndTransition = {
   y: -5,
   transition: { duration: 0.1, ease: DEFAULT_EASE },
 };
