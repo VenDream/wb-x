@@ -8,23 +8,24 @@
  */
 
 import Image from '@/components/common/image';
+import { Slide, useLightbox } from '@/components/common/lightbox';
 import { Button } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
 import { cn } from '@/utils/classnames';
 import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type EmblaOptionsType = NonNullable<Parameters<typeof useEmblaCarousel>[0]>;
 type EmblaCarouselType = NonNullable<UseEmblaCarouselType[1]>;
 
-interface Slide {
+interface Item {
   name?: string;
   image: string;
 }
 
 interface IProps {
-  slides: Slide[];
+  items: Item[];
 
   gap?: number;
   cols?: number;
@@ -42,7 +43,7 @@ const photo = 'https://picsum.photos/200/356';
 
 export default function Carousel(props: IProps) {
   const {
-    slides,
+    items,
 
     gap = 10,
     cols = 1,
@@ -56,12 +57,14 @@ export default function Carousel(props: IProps) {
     emblaOptions,
   } = props;
 
-  const [current, setCurrent] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [currSlide, setCurrSlide] = useState(0);
+  const [currSnap, setCurrSnap] = useState(0);
+  const [totalSnaps, setTotalSnaps] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
-  const numLength = String(slides.length).length;
+  const numLength = String(items.length).length;
 
+  const { openLightbox, renderLightbox } = useLightbox();
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'center',
     loop: false,
@@ -70,10 +73,10 @@ export default function Carousel(props: IProps) {
     ...emblaOptions,
   });
 
-  const sliceStyle: React.CSSProperties = {
+  const itemStyle: React.CSSProperties = {
     aspectRatio,
     paddingLeft: gap,
-    flexBasis: `calc(${(1 / cols) * 100}% + 0px)`,
+    flexBasis: `${(1 / cols) * 100}%`,
   };
 
   const btnClass = cn(
@@ -81,16 +84,42 @@ export default function Carousel(props: IProps) {
     'disabled:border-base-300 disabled:bg-base-300'
   );
 
-  const getDefaultName = (idx: number) =>
-    String(idx + 1).padStart(numLength, '0');
+  const getDefaultName = useCallback(
+    (idx: number) => String(idx + 1).padStart(numLength, '0'),
+    [numLength]
+  );
+
+  const slides = useMemo<Slide[]>(() => {
+    return items.map((item, idx) => {
+      let src = item.image;
+      let download = item.image;
+      let filename = item.name || getDefaultName(idx);
+
+      return {
+        type: 'image',
+        src: photo + `?random=${idx + 1}` || FAKE_IMG || src,
+        title: (
+          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+            {idx + 1} / {items.length} - {filename}
+          </p>
+        ),
+        download: FAKE_IMG || download,
+      };
+    });
+  }, [getDefaultName, items]);
+
+  const previewSlides = (idx: number) => {
+    setCurrSlide(idx);
+    openLightbox();
+  };
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
     if (!emblaApi) return;
 
     setCanPrev(emblaApi.canScrollPrev());
     setCanNext(emblaApi.canScrollNext());
-    setTotal(emblaApi.scrollSnapList().length);
-    setCurrent(emblaApi.selectedScrollSnap() + 1);
+    setTotalSnaps(emblaApi.scrollSnapList().length);
+    setCurrSnap(emblaApi.selectedScrollSnap() + 1);
   }, []);
 
   useEffect(() => {
@@ -112,13 +141,14 @@ export default function Carousel(props: IProps) {
           style={{ marginLeft: -gap }}
           className="flex h-full w-full will-change-transform"
         >
-          {slides.map((slide, idx) => {
-            const name = slide.name || getDefaultName(idx);
+          {items.map((item, idx) => {
+            const name = getDefaultName(idx) + ' - ' + (item.name || '');
             return (
               <div
-                key={slide.image}
-                style={sliceStyle}
+                key={item.image}
+                style={itemStyle}
                 className="min-w-0 shrink-0 grow-0"
+                onClick={() => previewSlides(idx)}
               >
                 <div
                   className={cn(
@@ -129,17 +159,16 @@ export default function Carousel(props: IProps) {
                   <Image
                     alt="IMG"
                     fill
-                    src={
-                      photo + `?random=${idx + 1}` || FAKE_IMG || slide.image
-                    }
+                    src={photo + `?random=${idx + 1}` || FAKE_IMG || item.image}
                     className="rounded-[inherit] object-cover"
                   />
                   <p
                     title={name}
+                    onClick={e => e.stopPropagation()}
                     className={cn(
-                      'absolute bottom-0 left-0 w-full bg-black/60 px-2 py-1',
+                      'absolute bottom-0 left-0 w-full bg-black/60 px-2 py-0.5',
                       'rounded-[inherit] rounded-t-none text-xs text-white/80',
-                      'line-clamp-1'
+                      'line-clamp-1 break-all leading-5'
                     )}
                   >
                     {name}
@@ -174,11 +203,12 @@ export default function Carousel(props: IProps) {
           </div>
         )}
         {counter && (
-          <span className="text-base-content">
-            {current} / {total}
+          <span className="select-none text-base-content">
+            {currSnap} / {totalSnaps}
           </span>
         )}
       </div>
+      {lightbox && renderLightbox({ slides, index: currSlide })}
     </div>
   );
 }

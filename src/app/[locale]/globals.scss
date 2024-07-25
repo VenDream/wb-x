@@ -54,6 +54,23 @@
   @apply stroke-[1.5];
 }
 
+.yarl__container,
+.yarl__thumbnails_container {
+  @apply bg-black/80 backdrop-blur-lg #{!important};
+}
+
+.yarl__thumbnails_vignette,
+.yarl__slide_captions_container {
+  @apply bg-transparent bg-none #{!important};
+}
+
+.yarl__thumbnails_thumbnail {
+  @apply rounded-none border-white/50 bg-transparent #{!important};
+}
+.yarl__thumbnails_thumbnail_active {
+  @apply border-[3px] border-accent #{!important};
+}
+
 dialog {
   @apply border-none outline-none;
 }

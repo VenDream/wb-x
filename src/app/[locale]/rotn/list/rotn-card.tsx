@@ -10,6 +10,7 @@
 import Carousel from '@/components/common/carousel';
 import MotionContainer from '@/components/common/motion-container';
 import { cn } from '@/utils/classnames';
+import { getFileName } from '@/utils/common';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
@@ -24,7 +25,11 @@ export default function RotnCard(props: IProps) {
   const { id, type, images } = props.item;
   const t = useTranslations('pages.rotn');
 
-  const slides = images.map(img => ({ image: img }));
+  const numLength = String(images.length).length;
+  const items = images.map((img, idx) => ({
+    image: img,
+    name: getFileName(img),
+  }));
 
   return (
     <MotionContainer
@@ -38,7 +43,8 @@ export default function RotnCard(props: IProps) {
       </p>
       {images.length > 0 ? (
         <Carousel
-          slides={slides}
+          lightbox
+          items={items}
           gap={CAROUSEL_GAP}
           cols={CAROUSEL_COLS}
           aspectRatio={CAROUSEL_ASPECT_RATIO}
