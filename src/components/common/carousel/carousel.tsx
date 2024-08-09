@@ -97,13 +97,13 @@ export default function Carousel(props: IProps) {
 
       return {
         type: 'image',
-        src: photo + `?random=${idx + 1}` || FAKE_IMG || src,
+        src: FAKE_IMG(idx) || src,
         title: (
           <p className="h-[2rem] text-sm font-normal leading-[2rem]">
             {idx + 1} / {items.length} - {filename}
           </p>
         ),
-        download: FAKE_IMG || download,
+        download,
       };
     });
   }, [getDefaultName, items]);
@@ -158,9 +158,8 @@ export default function Carousel(props: IProps) {
                 >
                   <Image
                     alt="IMG"
-                    fill
-                    src={photo + `?random=${idx + 1}` || FAKE_IMG || item.image}
-                    className="rounded-[inherit] object-cover"
+                    src={FAKE_IMG(idx) || item.image}
+                    className="rounded-[inherit]"
                   />
                   <p
                     title={name}

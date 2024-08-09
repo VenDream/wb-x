@@ -51,13 +51,13 @@ export default function ImageGrid(props: ImageGridProps) {
 
       return {
         type: 'image',
-        src: FAKE_IMG || src,
+        src: FAKE_IMG(idx) || src,
         title: (
           <p className="h-[2rem] text-sm font-normal leading-[2rem]">
             {idx + 1} / {images.length} - {filename}
           </p>
         ),
-        download: FAKE_IMG || download,
+        download,
       };
     });
   }, [images, isSinaImg]);
@@ -108,7 +108,7 @@ export default function ImageGrid(props: ImageGridProps) {
             {...dataProps}
             className={cn(
               'aspect-square h-full w-full border border-base-content/10',
-              'cursor-zoom-in rounded shadow-sm',
+              'relative cursor-zoom-in rounded shadow-sm',
               {
                 'has-more': hasMore,
               }
@@ -117,7 +117,7 @@ export default function ImageGrid(props: ImageGridProps) {
           >
             <Image
               alt="IMG"
-              src={FAKE_IMG || thumbnail}
+              src={FAKE_IMG(idx) || thumbnail}
               className="aspect-square !h-full !w-full rounded object-cover"
             />
           </div>

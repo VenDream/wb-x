@@ -18,6 +18,12 @@ export const fadeIn: AnimationProps = {
   transition: { duration: DEFAULT_DURATION, ease: DEFAULT_EASE },
 };
 
+export const fadeOut: AnimationProps = {
+  initial: { opacity: 1 },
+  exit: { opacity: 0 },
+  transition: { duration: DEFAULT_DURATION, ease: DEFAULT_EASE },
+};
+
 export const fadeInFromBottom: AnimationProps = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0 },

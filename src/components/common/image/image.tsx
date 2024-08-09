@@ -10,88 +10,43 @@
  */
 
 import { IMG_ERROR_PLACEHOLDER, IMG_PLACEHOLDER } from '@/contants';
-import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
+import { fadeOut } from '@/contants/motions';
+import { AnimatePresence, motion } from 'framer-motion';
 import NextImage from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-type NextImageProps = NonNullable<Parameters<typeof NextImage>[0]> & {
-  /**
-   * auto detect image size
-   * - only works when `fill` is false
-   */
-  autoSize?: boolean;
-};
-
-interface ImageSize {
-  width: number;
-  height: number;
-}
+type NextImageProps = NonNullable<Parameters<typeof NextImage>[0]> & {};
 
 export default function CommonImage(props: NextImageProps) {
-  const {
-    src,
-    autoSize,
-    placeholder = IMG_PLACEHOLDER,
-    width,
-    height,
-    loading = 'eager',
-    ...restProps
-  } = props;
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isFailed, setIsFailed] = useState(false);
 
-  const [imgSrc, setImgSrc] = useState<string | StaticImport>(placeholder);
-  const [imgSize, setImgSize] = useState<ImageSize>({
-    width: (width as number) || 0,
-    height: (height as number) || 0,
-  });
-
-  useEffect(() => {
-    if (
-      restProps.fill ||
-      !autoSize ||
-      typeof imgSize.width !== 'number' ||
-      typeof imgSize.height !== 'number'
-    ) {
-      setImgSrc(src);
-      return;
-    }
-
-    const detect = async () => {
-      try {
-        const { width, height } = await getMeta(src as string);
-        const ratio = width / height;
-        setImgSize(({ width: w, height: h }) => ({
-          width: w || (h ? h * ratio : width),
-          height: h || (w ? w / ratio : height),
-        }));
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setImgSrc(src as string);
-      }
-    };
-
-    detect();
-  }, [autoSize, imgSize, restProps.fill, src]);
-
-  const isPlaceholder = imgSrc === IMG_PLACEHOLDER;
+  const imageProps: NextImageProps = {
+    ...props,
+    fill: props.fill || true,
+    width: props.width || 0,
+    height: props.height || 0,
+    loading: props.loading || 'lazy',
+    objectFit: props.objectFit || 'cover',
+  };
 
   return (
-    <NextImage
-      {...restProps}
-      {...imgSize}
-      src={imgSrc}
-      loading={loading}
-      placeholder={isPlaceholder ? 'empty' : placeholder}
-      onError={() => setImgSrc(IMG_ERROR_PLACEHOLDER)}
-    />
+    <>
+      <NextImage
+        {...imageProps}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setIsFailed(true)}
+      />
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.img
+            {...fadeOut}
+            alt="MASK"
+            src={isFailed ? IMG_ERROR_PLACEHOLDER : IMG_PLACEHOLDER}
+            className="absolute inset-0 h-full w-full rounded-[inherit] object-fill"
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }
-
-const getMeta = (url: string) =>
-  new Promise<ImageSize>((resolve, reject) => {
-    const img = new Image();
-    img.onload = () =>
-      resolve({ width: img.naturalWidth, height: img.naturalHeight });
-    img.onerror = err => reject(err);
-    img.src = url;
-  });

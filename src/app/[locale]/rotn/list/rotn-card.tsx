@@ -25,7 +25,6 @@ export default function RotnCard(props: IProps) {
   const { id, type, images } = props.item;
   const t = useTranslations('pages.rotn');
 
-  const numLength = String(images.length).length;
   const items = images.map((img, idx) => ({
     image: img,
     name: getFileName(img),
@@ -50,7 +49,9 @@ export default function RotnCard(props: IProps) {
           aspectRatio={CAROUSEL_ASPECT_RATIO}
         />
       ) : (
-        <p className="text-base-content/50">{t('noImages')}</p>
+        <div className="flex flex-1 items-center justify-center text-base-content/50">
+          {t('noImages')}
+        </div>
       )}
     </MotionContainer>
   );

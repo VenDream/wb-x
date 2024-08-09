@@ -24,7 +24,7 @@ export default function CardHeader() {
   return (
     <div className="card-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
       <Avatar
-        src={FAKE_IMG || getImageVariants(user.avatar).sm}
+        src={FAKE_IMG() || getImageVariants(user.avatar).sm}
         border
         size="xs"
         shape="circle"

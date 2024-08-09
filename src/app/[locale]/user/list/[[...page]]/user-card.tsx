@@ -39,7 +39,7 @@ export default function UserCard(props: IProps) {
       )}
     >
       <Avatar
-        src={FAKE_IMG || getImageVariants(avatar).sm}
+        src={FAKE_IMG() || getImageVariants(avatar).sm}
         border
         size="sm"
         shape="circle"

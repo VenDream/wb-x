@@ -15,18 +15,6 @@ const nextConfig = withNextIntl({
   transpilePackages: ['react-daisyui', 'shiki'],
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: '*.esmplus.com',
-        port: '',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.esmplus.com',
-        port: '',
-      },
-    ],
   },
   webpack: function (config) {
     config.module.rules.push({
