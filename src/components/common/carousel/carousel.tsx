@@ -39,8 +39,6 @@ interface IProps {
   emblaOptions?: EmblaOptionsType;
 }
 
-const photo = 'https://picsum.photos/200/356';
-
 export default function Carousel(props: IProps) {
   const {
     items,

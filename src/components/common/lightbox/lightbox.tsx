@@ -65,8 +65,8 @@ export default function Lightbox(props: LightboxExternalProps) {
         position: 'bottom',
         border: 1,
         gap: 10,
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         imageFit: 'contain',
         showToggle: true,
       };

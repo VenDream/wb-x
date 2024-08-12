@@ -10,16 +10,25 @@
  */
 
 import { IMG_ERROR_PLACEHOLDER, IMG_PLACEHOLDER } from '@/contants';
-import { fadeOut } from '@/contants/motions';
+import {
+  DEFAULT_DURATION,
+  DEFAULT_EASE_CSS,
+  fadeIn,
+  fadeOut,
+} from '@/contants/motions';
 import { AnimatePresence, motion } from 'framer-motion';
 import NextImage from 'next/image';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 type NextImageProps = NonNullable<Parameters<typeof NextImage>[0]> & {};
 
 export default function CommonImage(props: NextImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isFailed, setIsFailed] = useState(false);
+  const isFailedRef = useRef(false);
+
+  const [showSucc, setShowSucc] = useState(false);
+  const [showFailed, setShowFailed] = useState(false);
 
   const imageProps: NextImageProps = {
     ...props,
@@ -27,7 +36,6 @@ export default function CommonImage(props: NextImageProps) {
     width: props.width || 0,
     height: props.height || 0,
     loading: props.loading || 'lazy',
-    objectFit: props.objectFit || 'cover',
   };
 
   return (
@@ -35,14 +43,37 @@ export default function CommonImage(props: NextImageProps) {
       <NextImage
         {...imageProps}
         onLoad={() => setIsLoaded(true)}
-        onError={() => setIsFailed(true)}
+        onError={() => {
+          setIsFailed(true);
+          isFailedRef.current = true;
+        }}
+        style={{
+          ...imageProps.style,
+          opacity: showSucc ? 1 : 0,
+          transition: `opacity ${DEFAULT_DURATION}s ${DEFAULT_EASE_CSS}`,
+        }}
       />
+      {isFailed && showFailed && (
+        <motion.img
+          {...fadeIn}
+          alt="LOAD_ERROR"
+          src={IMG_ERROR_PLACEHOLDER}
+          className="absolute inset-0 h-full w-full rounded-[inherit] object-fill"
+        />
+      )}
       <AnimatePresence>
-        {!isLoaded && (
+        {!isLoaded && !isFailed && (
           <motion.img
             {...fadeOut}
-            alt="MASK"
-            src={isFailed ? IMG_ERROR_PLACEHOLDER : IMG_PLACEHOLDER}
+            alt="PRELOAD"
+            src={IMG_PLACEHOLDER}
+            onAnimationComplete={() => {
+              if (isFailedRef.current) {
+                setShowFailed(true);
+              } else {
+                setShowSucc(true);
+              }
+            }}
             className="absolute inset-0 h-full w-full rounded-[inherit] object-fill"
           />
         )}

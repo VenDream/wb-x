@@ -9,8 +9,9 @@
 
 import { AnimationProps, TargetAndTransition } from 'framer-motion';
 
-const DEFAULT_DURATION = 0.3;
-const DEFAULT_EASE = 'easeOut';
+export const DEFAULT_DURATION = 0.3;
+export const DEFAULT_EASE = 'easeOut';
+export const DEFAULT_EASE_CSS = 'ease-out';
 
 export const fadeIn: AnimationProps = {
   initial: { opacity: 0 },
