@@ -53,6 +53,10 @@ export interface CardMenuOpts {
 export interface CommentListProps {
   /** status id */
   id: string;
+  /** className */
+  className?: string;
+  /** hide title */
+  hideTitle?: boolean;
 }
 
 export interface CommentItemProps {

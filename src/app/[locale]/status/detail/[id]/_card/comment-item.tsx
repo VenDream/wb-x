@@ -77,10 +77,7 @@ export default function CommentItem(props: CommentItemProps) {
     )}:&nbsp;&nbsp;`;
   }, [getUserName, isReply, isReplySelf, isReplyToSomeone, replyUser, t, user]);
 
-  const showCommentReplies = (
-    comment: Backend.StatusComment,
-    totalReplies: number
-  ) => {
+  const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
       backdrop: true,
       hideIcon: true,
@@ -88,7 +85,7 @@ export default function CommentItem(props: CommentItemProps) {
       title: (
         <>
           <MessageCircleMoreIcon size={20} className="mr-2" />
-          {totalReplies} {t('replies')}
+          {t('replies')}
         </>
       ),
       className: 'w-[40rem] h-3/5',
@@ -163,7 +160,7 @@ export default function CommentItem(props: CommentItemProps) {
           {!isDetailReplies && hasMoreReplies && (
             <span
               className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
-              onClick={() => showCommentReplies(props.comment, totalReplies)}
+              onClick={() => showCommentReplies(props.comment)}
             >
               <div className="absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20" />
               {t('totalReplies', { num: totalReplies })}

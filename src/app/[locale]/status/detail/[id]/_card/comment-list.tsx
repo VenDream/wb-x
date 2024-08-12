@@ -95,15 +95,27 @@ export default function CommentList(props: CommentListProps) {
     <div
       ref={listRef}
       className={cn(
-        'mt-4 w-[40rem] border border-base-content/10 bg-base-200/50',
-        'rounded-[--rounded-box] p-4 shadow-md'
+        'relative mt-4 w-[40rem] rounded-[--rounded-box] shadow-md',
+        props.className
       )}
     >
-      <div className="flex items-center justify-between border-b border-b-base-content/10 pb-2">
-        <p className="flex items-center text-lg">
-          <MessageSquareQuoteIcon size={20} className="mr-2" />
-          {t('label')} ({total})
-        </p>
+      <div
+        className={cn(
+          'flex items-center justify-between border border-base-content/10',
+          'sticky left-0 top-0 rounded-[--rounded-box] rounded-b-none p-4',
+          'z-10 w-full bg-base-200/50 backdrop-blur',
+          'before:absolute before:left-[-1px] before:top-0 before:h-[12px]',
+          'before:w-[1px] before:bg-base-100',
+          'after:absolute after:right-[-1px] after:top-0 after:h-[12px]',
+          'after:w-[1px] after:bg-base-100'
+        )}
+      >
+        {!props.hideTitle && (
+          <p className="flex items-center text-base">
+            <MessageSquareQuoteIcon size={20} className="mr-2" />
+            {t('label')} ({total})
+          </p>
+        )}
         <Tabs value={orderBy} onChange={switchOrderBy}>
           <Tab className="p-1" value="hot">
             {t('orderByHot')}
@@ -116,17 +128,22 @@ export default function CommentList(props: CommentListProps) {
           </Tab>
         </Tabs>
       </div>
-      <div className="mt-4">
+      <div
+        className={cn(
+          'rounded-[--rounded-box] rounded-t-none border border-t-0',
+          'border-base-content/10 bg-base-200/50 p-4'
+        )}
+      >
         {commentList.map(comment => (
           <CommentItem key={comment.id} comment={comment} />
         ))}
+        <LoadingIndicator
+          isLoading={isLoading}
+          isLoadAll={isLoadAll}
+          isNoData={!isLoading && commentList.length === 0}
+          loadMore={fetchCommentList}
+        />
       </div>
-      <LoadingIndicator
-        isLoading={isLoading}
-        isLoadAll={isLoadAll}
-        isNoData={!isLoading && commentList.length === 0}
-        loadMore={fetchCommentList}
-      />
     </div>
   );
 }
