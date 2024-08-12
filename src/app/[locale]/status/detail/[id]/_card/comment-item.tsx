@@ -88,7 +88,7 @@ export default function CommentItem(props: CommentItemProps) {
           {t('replies')}
         </>
       ),
-      className: 'w-[40rem] h-3/5',
+      className: 'w-[40rem] h-4/5',
       body: <CommentReplies comment={comment} />,
     });
   };

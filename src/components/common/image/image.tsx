@@ -50,6 +50,7 @@ export default function CommonImage(props: NextImageProps) {
         style={{
           ...imageProps.style,
           opacity: showSucc ? 1 : 0,
+          objectFit: imageProps.style?.objectFit || 'cover',
           transition: `opacity ${DEFAULT_DURATION}s ${DEFAULT_EASE_CSS}`,
         }}
       />

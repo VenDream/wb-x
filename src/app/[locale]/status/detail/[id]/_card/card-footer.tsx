@@ -39,7 +39,7 @@ export default function CardFooter() {
     showDialog({
       hideIcon: true,
       hideFooter: true,
-      className: 'w-[40rem] h-3/5',
+      className: 'w-[40rem] h-4/5',
       title: (
         <>
           <MessageSquareQuoteIcon size={20} className="mr-2" />
