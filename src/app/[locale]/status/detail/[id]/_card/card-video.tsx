@@ -83,10 +83,7 @@ export default function CardVideo() {
   };
 
   return (
-    <div
-      className="status-video mt-4 cursor-pointer pr-16"
-      onClick={previewVideo}
-    >
+    <div className="mt-4 cursor-pointer" onClick={previewVideo}>
       <div
         className={posterClass}
         style={{

@@ -128,7 +128,7 @@ export default function CommentItem(props: CommentItemProps) {
       <div className={commentBody({ type: variantType })}>
         <div className="col-start-2 col-end-4">
           <div
-            className="comment-text leading-5 tracking-tight"
+            className="comment-text leading-5 tracking-tight will-change-transform"
             dangerouslySetInnerHTML={{
               __html: userName + preprocessCommentText(text),
             }}

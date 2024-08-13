@@ -46,10 +46,6 @@ export default function CardMenu() {
   const [alignEnd, setAlignEnd] = useState(false);
 
   const hasImages = images.length > 0;
-  const className = cn('status-menu absolute right-[14px]', {
-    'top-[20px]': isRetweet,
-    'top-[35px]': !isRetweet,
-  });
 
   const refreshAlignment = useCallback(() => {
     const w = window.innerWidth;
@@ -67,7 +63,13 @@ export default function CardMenu() {
   if (user.id === '-1') return null;
 
   return (
-    <Dropdown end={alignEnd} className={className}>
+    <Dropdown
+      end={alignEnd}
+      className={cn('absolute right-[14px]', {
+        'top-[20px]': isRetweet,
+        'top-[35px]': !isRetweet,
+      })}
+    >
       <DropdownToggle button={false}>
         <Button
           size="sm"
@@ -77,7 +79,11 @@ export default function CardMenu() {
           <EllipsisVerticalIcon size={20} />
         </Button>
       </DropdownToggle>
-      <DropdownMenu className="z-50 mt-2 w-[190px] rounded border border-base-content/10">
+      <DropdownMenu
+        className={cn(
+          'z-10 mt-2 w-[190px] rounded border border-base-content/10 will-change-transform'
+        )}
+      >
         {!!menu.copyUid && (
           <DropdownItem anchor={false}>
             <span

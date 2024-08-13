@@ -17,7 +17,7 @@ interface IProps extends React.PropsWithChildren {
 export default function ScrollArea(props: IProps) {
   return (
     <IScrollArea.Root className={cn('h-full', props.className)}>
-      <IScrollArea.Viewport className="h-full w-full">
+      <IScrollArea.Viewport className="h-full w-full will-change-scroll">
         {props.children}
       </IScrollArea.Viewport>
       <IScrollArea.Scrollbar

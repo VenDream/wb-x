@@ -11,7 +11,7 @@
 
 import { fadeInFromBottom } from '@/contants/motions';
 import { AnimationProps, motion, MotionProps } from 'framer-motion';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface IProps extends MotionProps {
   motion?: AnimationProps;
@@ -29,6 +29,8 @@ const MotionContainer = React.forwardRef<HTMLDivElement, IProps>(
       ...motionProps
     } = props;
 
+    const [willChange, setWillChange] = useState(true);
+
     const animationProps = disable ? {} : animation;
 
     return (
@@ -37,11 +39,19 @@ const MotionContainer = React.forwardRef<HTMLDivElement, IProps>(
         className={className}
         style={{
           translateZ: 0,
-          willChange: 'transform',
+          willChange: willChange ? 'transform' : 'auto',
           backfaceVisibility: 'hidden',
         }}
         {...animationProps}
         {...motionProps}
+        onAnimationStart={(...args) => {
+          setWillChange(true);
+          props.onAnimationStart?.(...args);
+        }}
+        onAnimationComplete={(...args) => {
+          setWillChange(false);
+          props.onAnimationComplete?.(...args);
+        }}
       >
         {children}
       </motion.div>

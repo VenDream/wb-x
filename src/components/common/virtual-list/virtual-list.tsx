@@ -189,7 +189,7 @@ function VirtualListRenderFunc<T, R>(
                       ref(list);
                       listRef.current = list;
                     }}
-                    className="!overflow-x-hidden"
+                    className="!overflow-x-hidden !will-change-[transform,scroll-position]"
                     width={width || w}
                     height={height || h}
                     useIsScrolling
