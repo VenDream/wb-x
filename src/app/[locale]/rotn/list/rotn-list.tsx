@@ -19,8 +19,7 @@ import { toast } from 'sonner';
 import RotnCard from './rotn-card';
 
 export default function Page() {
-  const t1 = useTranslations('pages.rotn');
-  const t2 = useTranslations('global.dataFetching');
+  const t = useTranslations('pages.rotn.type');
 
   const [pageNo, setPageNo] = useState(0);
   const [isLoadAll, setIsLoadAll] = useState(false);
@@ -55,11 +54,10 @@ export default function Page() {
   };
 
   const switchItemType = (type: Backend.ROTN_TYPE) => {
-    if (type === itemType) return;
-
     setItemType(type);
     setPageNo(0);
     setItems([]);
+    setIsLoadAll(false);
   };
 
   useEffect(() => {
@@ -70,13 +68,13 @@ export default function Page() {
     <div className="flex h-full flex-col gap-4 pr-8">
       <Tabs boxed value={itemType} onChange={switchItemType}>
         <Tab className="w-32" value="ALL">
-          {t1('type.all')}
+          {t('all')}
         </Tab>
         <Tab className="w-32" value="RO">
-          {t1('type.ro')}
+          {t('ro')}
         </Tab>
         <Tab className="w-32" value="TN">
-          {t1('type.tn')}
+          {t('tn')}
         </Tab>
       </Tabs>
       {items.length > 0 && (

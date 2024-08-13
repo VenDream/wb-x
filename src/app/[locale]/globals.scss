@@ -54,6 +54,10 @@
   @apply stroke-[1.5];
 }
 
+.tabs .tab-active {
+  @apply pointer-events-none;
+}
+
 .yarl__container,
 .yarl__thumbnails_container {
   @apply bg-black/80 backdrop-blur-lg #{!important};

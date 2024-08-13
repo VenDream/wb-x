@@ -37,6 +37,8 @@ export default function CommentList(props: CommentListProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
   const [commentList, setCommentList] = useState<Backend.StatusComment[]>([]);
+
+  const prevOrderBy = usePrevious(orderBy);
   const prevCommentList = usePrevious(commentList);
 
   const fetchCommentList = useCallback(async () => {
@@ -66,16 +68,21 @@ export default function CommentList(props: CommentListProps) {
     }
   }, [orderBy, props.id]);
 
-  const switchOrderBy = useCallback((orderBy: Backend.StatusCommentOrderBy) => {
+  const switchOrderBy = (orderBy: Backend.StatusCommentOrderBy) => {
     maxIdRef.current = '';
-    setCommentList([]);
-    setIsLoadAll(false);
     setOrderBy(orderBy);
-  }, []);
+  };
 
   useEffect(() => {
     fetchCommentList();
   }, [fetchCommentList]);
+
+  useEffect(() => {
+    if (prevOrderBy !== undefined && prevOrderBy !== orderBy) {
+      setCommentList([]);
+      setIsLoadAll(false);
+    }
+  }, [orderBy, prevOrderBy]);
 
   useLayoutEffect(() => {
     if (
@@ -140,7 +147,7 @@ export default function CommentList(props: CommentListProps) {
         <LoadingIndicator
           isLoading={isLoading}
           isLoadAll={isLoadAll}
-          isNoData={!isLoading && commentList.length === 0}
+          isNoData={commentList.length === 0}
           loadMore={fetchCommentList}
         />
       </div>
