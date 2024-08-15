@@ -20,6 +20,7 @@ import MotionContainer from '@/components/common/motion-container';
 import NoData from '@/components/common/no-data';
 import { Button, Divider, Textarea } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
+import { cx } from 'class-variance-authority';
 import {
   CookieIcon,
   PlusIcon,
@@ -178,12 +179,7 @@ export default function CookiesSettings() {
     </div>
   ) : (
     <MotionContainer>
-      <div
-        className={cn('p-4', {
-          'space-y-4': cookies.length === 0,
-          'space-y-8': cookies.length > 0,
-        })}
-      >
+      <div className={cn('space-y-4 p-4')}>
         {cookies.length > 0 ? (
           cookies.map((cookie, idx) => (
             <div key={cookie.idx} className="flex gap-4">
@@ -220,7 +216,11 @@ export default function CookiesSettings() {
         ) : (
           <NoData className="justify-start" />
         )}
-        <Divider className="before:h-[1px] after:h-[1px]" />
+        <Divider
+          className={cx('before:h-[1px] after:h-[1px]', {
+            '!mt-8': cookies.length > 0,
+          })}
+        />
         <Button size="sm" color="primary" onClick={add}>
           <PlusIcon size={16} />
           {t('operation.add')}
