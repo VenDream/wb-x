@@ -10,12 +10,13 @@
 import { getSystemConfig, saveSystemConfig } from '@/api/client';
 import CodeEditor from '@/components/common/code-editor';
 import useDialog from '@/components/common/dialog';
+import { getLocale } from '@/utils/common';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function ServerSettings() {
-  const t1 = useTranslations('pages.settings.serverSettings');
+  const t1 = useTranslations('pages.settings.server');
   const t2 = useTranslations('global.status');
 
   const { show: showDialog } = useDialog();
@@ -47,7 +48,8 @@ export default function ServerSettings() {
 
   const saveConfig = async (configStr: string) => {
     try {
-      const { schedule } = await saveSystemConfig(configStr);
+      const locale = getLocale();
+      const { schedule } = await saveSystemConfig(configStr, locale);
       setConfig(configStr);
       schedule && toast.success(schedule);
     } catch (err) {

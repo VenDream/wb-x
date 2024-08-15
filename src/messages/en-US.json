@@ -24,6 +24,7 @@
       "cancel": "Cancel",
       "ok": "OK",
       "save": "Save",
+      "continue": "Yes, continue",
       "refresh": "Refresh",
       "loading": "Loading...",
       "retry": "Retry",
@@ -120,19 +121,46 @@
     "settings": {
       "tabs": {
         "local": "LOCAL SETTINGS",
-        "server": "SERVER SETTINGS"
+        "server": "SERVER SETTINGS",
+        "cookies": "COOKIES SETTINGS"
       },
-      "localSettings": {
+      "local": {
         "useImageProxy": "Enable Image Proxy",
         "useVideoProxy": "Enable Video Proxy",
         "successTips": "Settings saved"
       },
-      "serverSettings": {
+      "server": {
         "title": "Save Settings",
         "confirm": "This operation will trigger a service restart, continue ?",
         "nothingChanged": "Skipped due to no changes",
         "fetchFailed": "Failed to fetch settings, please retry",
         "saveFailed": "Failed to save settings, please retry"
+      },
+      "cookies": {
+        "operation": {
+          "add": "Add",
+          "save": "Save",
+          "check": "Check",
+          "delete": "Delete"
+        },
+        "addCookie": {
+          "title": "Add Cookie",
+          "placeholder": "Input the cookie string, which must contain the \"SUB\" field"
+        },
+        "deleteConfirm": {
+          "title": "Delete Cookies",
+          "confirm": "This operation cannot be undone, continue ?"
+        },
+        "status": {
+          "checking": "Checking...",
+          "valid": "Valid",
+          "invalid": "Invalid",
+          "operating": "Operating...",
+          "ok": "Success",
+          "failed": "Failed",
+          "fetchFailed": "Failed to fetch cookies, please retry",
+          "noInput": "Cookie string is required"
+        }
       }
     }
   }

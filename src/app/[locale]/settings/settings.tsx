@@ -12,32 +12,34 @@
 import MotionContainer from '@/components/common/motion-container';
 import { Tab, Tabs } from '@/components/daisyui';
 import { useUser } from '@clerk/nextjs';
-import { BanIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import CookiesSettings from './cookies';
 import LocalSettings from './local';
+import NoPermission from './no-permission';
 import ServerSettings from './server';
 
-type SettingsType = 'local' | 'server';
+type SettingsType = 'local' | 'server' | 'cookies';
 
 const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
 
 export default function Settings() {
-  const t1 = useTranslations('pages.settings.tabs');
-  const t2 = useTranslations('global.status');
+  const t = useTranslations('pages.settings.tabs');
 
   const { user } = useUser();
   const isOrgAdmin = user?.organizationMemberships?.some(
     org => org.role === 'org:admin'
   );
+  const isAdminOnly = !isClerkEnabled || isOrgAdmin;
 
   const [settingsType, setSettingsType] = useState<SettingsType>('local');
 
   return (
     <div className="w-[800px] space-y-4 pr-4">
       <Tabs boxed value={settingsType} onChange={setSettingsType}>
-        <Tab value="local">{t1('local')}</Tab>
-        <Tab value="server">{t1('server')}</Tab>
+        <Tab value="local">{t('local')}</Tab>
+        <Tab value="server">{t('server')}</Tab>
+        <Tab value="cookies">{t('cookies')}</Tab>
       </Tabs>
       <div className="rounded-[--rounded-box] bg-base-200">
         {settingsType === 'local' && (
@@ -46,16 +48,9 @@ export default function Settings() {
           </MotionContainer>
         )}
         {settingsType === 'server' &&
-          (!isClerkEnabled || isOrgAdmin ? (
-            <ServerSettings />
-          ) : (
-            <MotionContainer className="p-4">
-              <p className="flex items-center text-sm text-red-500">
-                <BanIcon size={16} className="mr-2" />
-                {t2('noPermission')}
-              </p>
-            </MotionContainer>
-          ))}
+          (isAdminOnly ? <ServerSettings /> : <NoPermission />)}
+        {settingsType === 'cookies' &&
+          (isAdminOnly ? <CookiesSettings /> : <NoPermission />)}
       </div>
     </div>
   );

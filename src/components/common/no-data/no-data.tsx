@@ -27,7 +27,7 @@ export default function NoData(props: IProps) {
         className
       )}
     >
-      <BracketsIcon size={16} className="mr-2" />
+      <BracketsIcon size={16} className="mr-2 !stroke-2" />
       {tips || t('noData')}
     </p>
   );

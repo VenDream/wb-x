@@ -80,14 +80,9 @@ export default function CommentItem(props: CommentItemProps) {
   const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
       backdrop: true,
-      hideIcon: true,
       hideFooter: true,
-      title: (
-        <>
-          <MessageCircleMoreIcon size={20} className="mr-2" />
-          {t('replies')}
-        </>
-      ),
+      title: t('replies'),
+      icon: <MessageCircleMoreIcon size={20} className="mr-2" />,
       className: 'w-[40rem] h-4/5',
       body: <CommentReplies comment={comment} />,
     });

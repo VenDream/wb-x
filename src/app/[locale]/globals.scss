@@ -46,6 +46,12 @@
   }
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .btn {
   @apply font-normal;
 }

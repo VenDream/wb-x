@@ -87,13 +87,13 @@ export default function CodeEditor(props: CodeEditorProps) {
       />
       <div className="mt-4">
         <Button size="sm" color="primary" onClick={() => onSave?.(code)}>
-          <SaveIcon size={16} className="mr-2" />
+          <SaveIcon size={16} />
           {t('action.save')}
         </Button>
       </div>
     </MotionContainer>
   ) : (
-    <div className="bg-base-100">
+    <div className="p-4">
       <Loading />
     </div>
   );

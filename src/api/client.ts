@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { sleep } from '@/utils/common';
 import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
@@ -78,7 +79,35 @@ export async function getSystemConfig() {
   return config;
 }
 
-export async function saveSystemConfig(configStr: string) {
-  const rlt = await post('/api/config', { config: configStr });
+export async function saveSystemConfig(configStr: string, locale: string) {
+  const rlt = await post('/api/config', { config: configStr, locale });
+  return rlt;
+}
+
+export async function listCookies() {
+  const config = await get<Backend.Cookie[]>('/api/weibo/cookie/list');
+  return config;
+}
+
+export async function updateCookie(idx: number, raw: string | any[]) {
+  await sleep(500);
+  const rlt = await post('/api/weibo/cookie/update', { idx, cookie: raw });
+  return rlt;
+}
+
+export async function checkCookie(cookie: string) {
+  const rlt = await post('/api/weibo/cookie/check', { cookie });
+  return rlt;
+}
+
+export async function removeCookie(idx: number) {
+  await sleep(500);
+  const rlt = await post('/api/weibo/cookie/remove', { idx });
+  return rlt;
+}
+
+export async function appendCookie(cookie: string) {
+  await sleep(500);
+  const rlt = await post('/api/weibo/cookie/append', { cookie: cookie });
   return rlt;
 }

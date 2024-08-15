@@ -37,13 +37,13 @@ type Status = 'info' | 'confirm' | 'caution';
 
 type DialogProps = Omit<ModalProps, 'title'> & {
   status?: Status;
+  icon?: React.ReactNode;
   title?: React.ReactNode;
   body?: React.ReactNode;
   cancelBtnLabel?: string;
   okBtnLabel?: string;
   onCancel?: () => void;
-  onOk?: () => void;
-  hideIcon?: boolean;
+  onOk?: () => void | Promise<void> | boolean | Promise<boolean>;
   hideHeader?: boolean;
   hideFooter?: boolean;
   hideCancelBtn?: boolean;
@@ -82,12 +82,12 @@ export default function useDialog() {
       const {
         status,
         title,
+        icon: propsIcon,
         body,
         cancelBtnLabel,
         okBtnLabel,
         onCancel,
         onOk,
-        hideIcon,
         hideHeader,
         hideFooter,
         hideCancelBtn,
@@ -99,14 +99,15 @@ export default function useDialog() {
         ...dialogProps
       } = { ...defaultProps, ...props };
 
-      const icon = Icons[status as Status];
+      const icon = propsIcon || Icons[status as Status];
       const cancel = () => {
-        handleHide();
         onCancel?.();
-      };
-      const ok = () => {
         handleHide();
-        onOk?.();
+      };
+      const ok = async () => {
+        const rlt = await onOk?.();
+        if (rlt === false) return;
+        handleHide();
       };
 
       return (
@@ -125,7 +126,7 @@ export default function useDialog() {
               )}
             >
               <div className="flex items-center">
-                {!hideIcon && icon}
+                {icon}
                 {title}
               </div>
               <Button
@@ -155,8 +156,14 @@ export default function useDialog() {
                 </Button>
               )}
               {!hideOkBtn && (
-                <Button size="sm" color="primary" onClick={ok}>
-                  {okBtnLabel}
+                <Button
+                  size="sm"
+                  onClick={ok}
+                  color={status === 'caution' ? 'error' : 'primary'}
+                >
+                  {!props.okBtnLabel && status === 'caution'
+                    ? t('action.continue')
+                    : okBtnLabel}
                 </Button>
               )}
             </ModalActions>
@@ -206,13 +213,14 @@ export default function useDialog() {
           evt => {
             evt.preventDefault();
             closeDialog();
+            handleHide();
           },
           { once: true }
         );
         backdrop?.addEventListener('click', closeDialog, { once: true });
       }, 0);
     },
-    [Dialog, handleShow, locale, messages]
+    [Dialog, handleHide, handleShow, locale, messages]
   );
 
   return { show };

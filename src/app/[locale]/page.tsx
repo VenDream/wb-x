@@ -36,7 +36,7 @@ export default async function Page() {
       <Stats />
       <RouterRefresh action={refreshDbInfo}>
         <Button color="primary" size="sm">
-          <RefreshCcwIcon size={16} className="mr-2" />
+          <RefreshCcwIcon size={16} />
           {t1('action.refresh')}
         </Button>
       </RouterRefresh>

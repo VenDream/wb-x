@@ -57,6 +57,7 @@ export {
   Join,
   Loading,
   Pagination,
+  Textarea,
   Theme,
   Toast,
   Toggle,

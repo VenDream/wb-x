@@ -37,15 +37,10 @@ export default function CardFooter() {
 
   const showComments = () => {
     showDialog({
-      hideIcon: true,
       hideFooter: true,
       className: 'w-[40rem] h-4/5',
-      title: (
-        <>
-          <MessageSquareQuoteIcon size={20} className="mr-2" />
-          {t('comments.label')}
-        </>
-      ),
+      title: t('comments.label'),
+      icon: <MessageSquareQuoteIcon size={20} className="mr-2" />,
       body: (
         <CommentList id={id} hideTitle className="mt-0 w-[calc(100%-1.5rem)]" />
       ),
