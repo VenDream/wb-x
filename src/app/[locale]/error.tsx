@@ -9,9 +9,10 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-// import useToast from '@/components/common/toast';
+import MotionContainer from '@/components/common/motion-container';
 import { Button } from '@/components/daisyui';
-import { XCircleIcon } from '@heroicons/react/24/outline';
+import { cn } from '@/utils/classnames';
+import { CircleXIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
@@ -22,27 +23,27 @@ interface ErrorProps {
 
 export default function Error({ error, reset }: ErrorProps) {
   const t = useTranslations('global');
-  // const { showErrorTips } = useToast();
 
   useEffect(() => {
     console.error(error);
-    // showErrorTips(error.message);
-  }, [error /** showErrorTips */]);
+  }, [error]);
 
   return (
-    <div className="flex max-h-full min-h-[10rem] flex-col items-center justify-center text-error">
-      <div className="flex items-center text-lg">
-        <XCircleIcon className="mr-1 h-6 w-6" />
+    <MotionContainer
+      className={cn('rounded-[--rounded-box] bg-base-200 p-4', 'max-w-7xl')}
+    >
+      <div className="flex items-center text-error">
+        <CircleXIcon size={20} className="mr-2" />
         {t('misc.systemDown')} :(
       </div>
       <Button
         size="sm"
         color="error"
         onClick={() => reset()}
-        className="btn-outline mt-4 min-w-[5rem]"
+        className="mt-4 min-w-[5rem] text-white"
       >
         {t('action.retry')}
       </Button>
-    </div>
+    </MotionContainer>
   );
 }

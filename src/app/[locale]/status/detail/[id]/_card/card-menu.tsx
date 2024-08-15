@@ -22,15 +22,15 @@ import {
 } from '@/contants';
 import { WEIBO_ICON } from '@/contants/svgs';
 import { Link } from '@/navigation';
+import { cn } from '@/utils/classnames';
 import { copyText } from '@/utils/common';
 import {
-  ChatBubbleLeftIcon,
-  ClipboardDocumentListIcon,
-  EllipsisHorizontalCircleIcon,
-  FolderArrowDownIcon,
-  ListBulletIcon,
-} from '@heroicons/react/24/outline';
-import clsx from 'clsx';
+  CopyIcon,
+  EllipsisVerticalIcon,
+  ImageDownIcon,
+  MessageCircleMoreIcon,
+  SquareArrowOutUpRightIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -46,10 +46,6 @@ export default function CardMenu() {
   const [alignEnd, setAlignEnd] = useState(false);
 
   const hasImages = images.length > 0;
-  const className = clsx('status-menu absolute right-[14px]', {
-    'top-[20px]': isRetweet,
-    'top-[35px]': !isRetweet,
-  });
 
   const refreshAlignment = useCallback(() => {
     const w = window.innerWidth;
@@ -67,13 +63,27 @@ export default function CardMenu() {
   if (user.id === '-1') return null;
 
   return (
-    <Dropdown end={alignEnd} className={className}>
+    <Dropdown
+      end={alignEnd}
+      className={cn('absolute right-[14px]', {
+        'top-[20px]': isRetweet,
+        'top-[35px]': !isRetweet,
+      })}
+    >
       <DropdownToggle button={false}>
-        <Button size="sm" color="ghost">
-          <EllipsisHorizontalCircleIcon className="h-5 w-5" />
+        <Button
+          size="sm"
+          color="ghost"
+          className="h-[2.1rem] w-[2.1rem] rounded-full p-0"
+        >
+          <EllipsisVerticalIcon size={20} />
         </Button>
       </DropdownToggle>
-      <DropdownMenu className="z-10 mt-2 w-[190px] rounded border border-base-content/10">
+      <DropdownMenu
+        className={cn(
+          'z-10 mt-2 w-[190px] rounded border border-base-content/10 will-change-transform'
+        )}
+      >
         {!!menu.copyUid && (
           <DropdownItem anchor={false}>
             <span
@@ -83,7 +93,7 @@ export default function CardMenu() {
                 toast.success(t('copySuccessTips'));
               }}
             >
-              <ClipboardDocumentListIcon />
+              <CopyIcon size={16} className="!stroke-2" />
               {t('copyUID')}
             </span>
           </DropdownItem>
@@ -107,7 +117,7 @@ export default function CardMenu() {
               className="rounded p-2"
               href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
             >
-              <FolderArrowDownIcon />
+              <ImageDownIcon size={16} className="!stroke-2" />
               {t('download')}
             </a>
           </DropdownItem>
@@ -119,7 +129,7 @@ export default function CardMenu() {
               className="rounded p-2"
               href={`${SECONDARY_ROUTES.STATUS_DETAIL}/${id}#comments`}
             >
-              <ChatBubbleLeftIcon />
+              <MessageCircleMoreIcon size={16} className="!stroke-2" />
               {t('comments')}
             </Link>
           </DropdownItem>
@@ -131,7 +141,7 @@ export default function CardMenu() {
               className="rounded p-2"
               href={`${MAIN_ROUTES.WEIBO}?uid=${user.id}`}
             >
-              <ListBulletIcon />
+              <SquareArrowOutUpRightIcon size={16} className="!stroke-2" />
               {t('opPosts')}
             </Link>
           </DropdownItem>

@@ -20,14 +20,14 @@ export const card = cva(
     'p-4',
     'border',
     'relative',
-    'rounded-md',
+    'rounded-[--rounded-box]',
     'status-card',
     'border-base-content/10',
   ],
   {
     variants: {
       type: {
-        default: ['w-[40rem]', 'bg-base-200/50', 'shadow-md'],
+        default: ['w-[40rem]', 'bg-base-200/50', 'shadow'],
         retweet: ['w-full', 'bg-base-300/50', 'shadow-none'],
       },
     },

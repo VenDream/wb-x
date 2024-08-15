@@ -7,7 +7,9 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import clsx from 'clsx';
+import MotionContainer from '@/components/common/motion-container';
+import { fadeIn } from '@/contants/motions';
+import { cn } from '@/utils/classnames';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { VirtualListContext } from './context';
 import type { VirtualListRowItemProps } from './types';
@@ -45,18 +47,21 @@ export default function RowItem<T>(props: VirtualListRowItemProps<T>) {
   return (
     <div
       style={itemStyle}
-      className={clsx(
-        'virtual-list-row-item flex items-center justify-center',
-        {
-          visible: visible,
-          invisible: !visible,
-        }
-      )}
+      className={cn('flex items-center justify-center', {
+        visible: visible,
+        invisible: !visible,
+      })}
     >
-      <div ref={domRef} className="virtual-list-row-item-sizer">
-        {/* @TODO add scrolling indicator */}
-        {renderRowItemContent(list[index])}
-      </div>
+      {visible ? (
+        <MotionContainer motion={fadeIn}>
+          {renderRowItemContent(list[index])}
+        </MotionContainer>
+      ) : (
+        <div ref={domRef}>
+          {/* @TODO add scrolling indicator */}
+          {renderRowItemContent(list[index])}
+        </div>
+      )}
     </div>
   );
 }

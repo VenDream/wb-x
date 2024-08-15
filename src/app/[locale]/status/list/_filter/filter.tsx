@@ -8,13 +8,12 @@
  */
 
 import DatePicker from '@/components/common/datepicker';
+import MotionContainer from '@/components/common/motion-container';
 import { Button, Checkbox, Input } from '@/components/daisyui';
 import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
-import {
-  ArrowPathIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/24/outline';
+import { cn } from '@/utils/classnames';
 import dayjs from 'dayjs';
+import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
@@ -64,8 +63,13 @@ export default function Filter(props: FilterProps) {
   }, [filterParams]);
 
   return (
-    <div className="status-list-filter flex w-72 flex-col gap-4 rounded border border-base-content/10 p-4 shadow">
-      <div className="form-items m-auto flex flex-col gap-2">
+    <MotionContainer
+      className={cn(
+        'flex w-72 flex-col gap-4 border border-base-content/10 p-4',
+        'rounded-[--rounded-box] bg-base-200/50 shadow'
+      )}
+    >
+      <div className="m-auto flex flex-col gap-2">
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('uid')}</p>
           <Input
@@ -147,18 +151,19 @@ export default function Filter(props: FilterProps) {
           <Checkbox
             checked={!!filter.original}
             size="xs"
-            className="rounded-sm"
+            className="rounded-none"
             onChange={e =>
               setFilter(f => ({ ...f, original: e.target.checked }))
             }
           />
         </div>
       </div>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between">
         <Button
           size="xs"
+          color="neutral"
           className="h-[2rem] rounded"
-          startIcon={<ArrowPathIcon className="h-4 w-4" />}
+          startIcon={<RotateCcwIcon size={16} />}
           onClick={resetFilter}
         >
           {t1('reset')}
@@ -167,12 +172,12 @@ export default function Filter(props: FilterProps) {
           size="xs"
           color="primary"
           className="h-[2rem] rounded"
-          startIcon={<MagnifyingGlassIcon className="h-4 w-4" />}
+          startIcon={<SearchIcon size={16} />}
           onClick={applyFilter}
         >
           {t1('search')}
         </Button>
       </div>
-    </div>
+    </MotionContainer>
   );
 }

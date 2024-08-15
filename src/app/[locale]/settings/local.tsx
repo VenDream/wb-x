@@ -12,6 +12,7 @@ import { LS_KEYS } from '@/contants';
 import { DEFAULT_SETTINGS } from '@/utils/settings';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
+import { SaveIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -22,7 +23,7 @@ const settingsAtom = atomWithStorage<App.Settings>(
 );
 
 export default function LocalSettings() {
-  const t1 = useTranslations('pages.settings.localSettings');
+  const t1 = useTranslations('pages.settings.local');
   const t2 = useTranslations('global.action');
 
   const [lsSettings, setLsSettings] = useAtom(settingsAtom);
@@ -45,8 +46,8 @@ export default function LocalSettings() {
   }, [lsSettings]);
 
   return (
-    <div className="rounded bg-base-200 p-4">
-      <div className="mb-8 flex flex-col gap-2 border-b border-base-content/10 pb-4 text-sm">
+    <div className="space-y-8">
+      <div className="flex flex-col gap-2 text-sm">
         <div className="flex w-60 items-center justify-between">
           <p>{t1('useImageProxy')}</p>
           <Toggle
@@ -68,12 +69,8 @@ export default function LocalSettings() {
           />
         </div>
       </div>
-      <Button
-        size="sm"
-        color="primary"
-        className="rounded"
-        onClick={applySettings}
-      >
+      <Button size="sm" color="primary" onClick={applySettings}>
+        <SaveIcon size={16} />
         {t2('save')}
       </Button>
     </div>

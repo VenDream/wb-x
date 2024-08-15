@@ -9,12 +9,18 @@
 
 import useDialog from '@/components/common/dialog';
 import ImageGrid from '@/components/common/image-grid';
+import MotionContainer from '@/components/common/motion-container';
 import { Avatar } from '@/components/daisyui';
+import { WEIBO_HOST } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
-import { ARROW_DOWN_ICON } from '@/contants/svgs';
+import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
-import { HandThumbUpIcon } from '@heroicons/react/24/outline';
+import {
+  ChevronDownIcon,
+  MessageCircleMoreIcon,
+  ThumbsUpIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
@@ -27,7 +33,6 @@ import {
   commnetLikes,
 } from './variants';
 
-import { WEIBO_HOST } from '@/contants';
 import './comment-item.sass';
 
 export default function CommentItem(props: CommentItemProps) {
@@ -53,7 +58,7 @@ export default function CommentItem(props: CommentItemProps) {
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
       const username = `<a href="${WEIBO_HOST}/n/${user.name}" target="_blank">@${user.name}</a>`;
-      const opTag = `<span class="text-xs text-primary border border-primary px-0.5 ml-0.5">${t(
+      const opTag = `<span class="text-xs text-primary border border-primary px-0.5 ml-1">${t(
         'op'
       )}</span>`;
       return user.isOP ? username + opTag : username;
@@ -75,9 +80,10 @@ export default function CommentItem(props: CommentItemProps) {
   const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
       backdrop: true,
-      hideHeader: true,
       hideFooter: true,
-      className: 'max-w-[40rem] rounded h-2/3',
+      title: t('replies'),
+      icon: <MessageCircleMoreIcon size={20} className="mr-2" />,
+      className: 'w-[40rem] h-4/5',
       body: <CommentReplies comment={comment} />,
     });
   };
@@ -85,11 +91,15 @@ export default function CommentItem(props: CommentItemProps) {
   const variantType: CommentVariants['type'] = isReply ? 'reply' : 'default';
 
   return (
-    <div className={comment({ type: variantType })} data-id={id}>
+    <MotionContainer
+      data-id={id}
+      disable={!!isDetailReplies}
+      className={comment({ type: variantType })}
+    >
       {!isReply && (
-        <div className="comment-item-header grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
+        <div className="grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
           <Avatar
-            src={FAKE_IMG || getImageVariants(user.avatar).sm}
+            src={FAKE_IMG() || getImageVariants(user.avatar).sm}
             border
             size="xs"
             shape="circle"
@@ -99,7 +109,7 @@ export default function CommentItem(props: CommentItemProps) {
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
-              <span className="ml-0.5 border border-primary px-0.5 text-primary">
+              <span className="ml-1 border border-primary px-0.5 text-xs text-primary">
                 {t('op')}
               </span>
             )}
@@ -113,14 +123,19 @@ export default function CommentItem(props: CommentItemProps) {
       <div className={commentBody({ type: variantType })}>
         <div className="col-start-2 col-end-4">
           <div
-            className="comment-text leading-5 tracking-tight"
+            className="comment-text leading-5 tracking-tight will-change-transform"
             dangerouslySetInnerHTML={{
               __html: userName + preprocessCommentText(text),
             }}
           />
-          <ImageGrid images={images} className="comment-images" cols={4} />
+          {!isReply && <ImageGrid cols={5} isSinaImg images={images} />}
           {comments.length > 0 && (
-            <div className="comment-replies mt-2 flex flex-col gap-1 rounded bg-base-300/50 p-2">
+            <div
+              className={cn(
+                'comment-replies mt-2 flex flex-col gap-1 bg-base-300/50 p-2',
+                'rounded'
+              )}
+            >
               {comments.map((cm, idx) => {
                 const prevComments = comments.slice(0, idx);
                 const isReplyToSomeone = prevComments.some(
@@ -142,17 +157,17 @@ export default function CommentItem(props: CommentItemProps) {
               className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
               onClick={() => showCommentReplies(props.comment)}
             >
-              <div className="absolute left-0 top-[-8px] h-[1px] w-full bg-base-content/20" />
+              <div className="absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20" />
               {t('totalReplies', { num: totalReplies })}
-              {ARROW_DOWN_ICON}
+              <ChevronDownIcon size={14} className="ml-1 !stroke-2" />
             </span>
           )}
         </div>
       </div>
       <div className={commnetLikes({ type: variantType })}>
-        <HandThumbUpIcon className="mr-1 h-4 w-4" />
+        <ThumbsUpIcon size={16} className="relative top-[-1px] mr-1" />
         {formatNumberWithUnit(likesCount || 0)}
       </div>
-    </div>
+    </MotionContainer>
   );
 }

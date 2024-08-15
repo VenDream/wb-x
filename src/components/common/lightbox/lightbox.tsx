@@ -44,22 +44,28 @@ export default function Lightbox(props: LightboxExternalProps) {
 
   const animation: Partial<AnimationSettings> = {
     swipe: 300,
+    navigation: 300,
+    easing: {
+      fade: 'ease-out',
+      swipe: 'ease-out',
+      navigation: 'ease-out',
+    },
   };
 
   const carousel: Partial<CarouselSettings> = hasVideo
     ? { finite: true }
     : {
         finite: slides.length <= 1,
-        preload: 3,
+        preload: 2,
       };
 
   const thumbnails: LightboxProps['thumbnails'] = hasVideo
     ? {}
     : {
         position: 'bottom',
-        border: 2,
-        gap: 4,
-        width: 120,
+        border: 1,
+        gap: 10,
+        width: 80,
         height: 80,
         imageFit: 'contain',
         showToggle: true,

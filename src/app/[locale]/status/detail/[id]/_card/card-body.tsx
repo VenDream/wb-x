@@ -36,13 +36,11 @@ export default function CardBody() {
         <CardImages />
         <CardVideo />
         {retweetedStatus && (
-          <div className="status-repost">
-            <Card
-              isRetweet
-              status={retweetedStatus}
-              renderCustomMenus={renderCustomMenus}
-            />
-          </div>
+          <Card
+            isRetweet
+            status={retweetedStatus}
+            renderCustomMenus={renderCustomMenus}
+          />
         )}
       </div>
     </div>

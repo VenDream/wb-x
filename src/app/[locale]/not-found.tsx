@@ -7,18 +7,22 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { XCircleIcon } from '@heroicons/react/24/outline';
+import MotionContainer from '@/components/common/motion-container';
+import { cn } from '@/utils/classnames';
+import { CircleXIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function NotFound() {
   const t = useTranslations('global');
 
   return (
-    <div className="flex max-h-full min-h-[10rem] flex-col items-center justify-center">
-      <div className="flex items-center text-lg">
-        <XCircleIcon className="mr-1 h-6 w-6" />
+    <MotionContainer
+      className={cn('rounded-[--rounded-box] bg-base-200 p-4', 'max-w-7xl')}
+    >
+      <p className="flex items-center text-error">
+        <CircleXIcon size={20} className="mr-1" />
         {t('misc.notFound')} :(
-      </div>
-    </div>
+      </p>
+    </MotionContainer>
   );
 }

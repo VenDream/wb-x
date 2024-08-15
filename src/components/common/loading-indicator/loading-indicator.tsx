@@ -7,9 +7,10 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import Loading from '@/components/common/loading';
 import NoData from '@/components/common/no-data';
-import { Button, Loading } from '@/components/daisyui';
-import clsx from 'clsx';
+import { Button } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
 
 interface LoadingIndicatorProps {
@@ -25,16 +26,11 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
   const { isLoading, isLoadAll, isNoData, loadMore, className } = props;
 
   return (
-    <div
-      className={clsx(
-        className,
-        'loading-indicator flex h-[6rem] items-center justify-center'
-      )}
-    >
+    <div className={cn(className, 'flex h-[4rem] items-center justify-center')}>
       {isLoading ? (
-        <Loading color="primary" />
+        <Loading align="center" />
       ) : isLoadAll ? (
-        <p className="text-sm">{t('noMore')}</p>
+        <p className="text-sm text-base-content/50">{t('noMore')}</p>
       ) : isNoData ? (
         <NoData />
       ) : (

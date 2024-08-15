@@ -12,8 +12,17 @@
 import { getStatusComments } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import { Tab, Tabs } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
+import { usePrevious } from 'ahooks';
+import { MessageSquareQuoteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { toast } from 'sonner';
 import CommentItem from './comment-item';
 import type { CommentListProps } from './types';
@@ -28,6 +37,9 @@ export default function CommentList(props: CommentListProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
   const [commentList, setCommentList] = useState<Backend.StatusComment[]>([]);
+
+  const prevOrderBy = usePrevious(orderBy);
+  const prevCommentList = usePrevious(commentList);
 
   const fetchCommentList = useCallback(async () => {
     try {
@@ -46,15 +58,6 @@ export default function CommentList(props: CommentListProps) {
 
       setTotal(resp.total);
       if (resp.maxId === '0') setIsLoadAll(true);
-      if (maxIdRef.current === '' && location.hash === '#comments') {
-        setTimeout(() => {
-          listRef.current?.scrollIntoView({
-            block: 'start',
-            behavior: 'smooth',
-          });
-        });
-      }
-
       maxIdRef.current = resp.maxId;
     } catch (err) {
       const error = err as Error;
@@ -65,25 +68,61 @@ export default function CommentList(props: CommentListProps) {
     }
   }, [orderBy, props.id]);
 
-  const switchOrderBy = useCallback((orderBy: Backend.StatusCommentOrderBy) => {
+  const switchOrderBy = (orderBy: Backend.StatusCommentOrderBy) => {
     maxIdRef.current = '';
-    setIsLoadAll(false);
     setOrderBy(orderBy);
-  }, []);
+  };
 
   useEffect(() => {
     fetchCommentList();
   }, [fetchCommentList]);
 
+  useEffect(() => {
+    if (prevOrderBy !== undefined && prevOrderBy !== orderBy) {
+      setCommentList([]);
+      setIsLoadAll(false);
+    }
+  }, [orderBy, prevOrderBy]);
+
+  useLayoutEffect(() => {
+    if (
+      prevCommentList !== undefined &&
+      prevCommentList.length === 0 &&
+      commentList.length > 0 &&
+      location.hash === '#comments'
+    ) {
+      listRef.current?.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+      });
+    }
+  }, [commentList.length, prevCommentList]);
+
   return (
     <div
       ref={listRef}
-      className="status-comment-list mt-4 w-[40rem] rounded border border-base-content/10 bg-base-200/50 p-4 shadow-md"
+      className={cn(
+        'relative mt-4 w-[40rem] rounded-[--rounded-box] shadow-md',
+        props.className
+      )}
     >
-      <div className="flex items-center justify-between border-b border-b-base-content/10 pb-2">
-        <p className="text-lg">
-          {t('label')} ({total})
-        </p>
+      <div
+        className={cn(
+          'flex items-center justify-between border border-base-content/10',
+          'sticky left-0 top-0 rounded-[--rounded-box] rounded-b-none p-4',
+          'z-10 w-full bg-base-200/50 backdrop-blur',
+          'before:absolute before:left-[-1px] before:top-0 before:h-[12px]',
+          'before:w-[1px] before:bg-base-100',
+          'after:absolute after:right-[-1px] after:top-0 after:h-[12px]',
+          'after:w-[1px] after:bg-base-100'
+        )}
+      >
+        {!props.hideTitle && (
+          <p className="flex items-center text-base">
+            <MessageSquareQuoteIcon size={20} className="mr-2" />
+            {t('label')} ({total})
+          </p>
+        )}
         <Tabs value={orderBy} onChange={switchOrderBy}>
           <Tab className="p-1" value="hot">
             {t('orderByHot')}
@@ -96,17 +135,22 @@ export default function CommentList(props: CommentListProps) {
           </Tab>
         </Tabs>
       </div>
-      <div className="list-body mt-4">
+      <div
+        className={cn(
+          'rounded-[--rounded-box] rounded-t-none border border-t-0',
+          'border-base-content/10 bg-base-200/50 p-4'
+        )}
+      >
         {commentList.map(comment => (
           <CommentItem key={comment.id} comment={comment} />
         ))}
+        <LoadingIndicator
+          isLoading={isLoading}
+          isLoadAll={isLoadAll}
+          isNoData={commentList.length === 0}
+          loadMore={fetchCommentList}
+        />
       </div>
-      <LoadingIndicator
-        isLoading={isLoading}
-        isLoadAll={isLoadAll}
-        isNoData={commentList.length === 0}
-        loadMore={fetchCommentList}
-      />
     </div>
   );
 }

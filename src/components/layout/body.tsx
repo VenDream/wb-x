@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import ScrollArea from '@/components/common/scroll-area';
 import { Drawer } from '@/components/daisyui';
 import Leftsider from './leftsider';
 
@@ -14,14 +15,16 @@ import './body.sass';
 
 export default function LayoutBody({ children }: ChildrenProps) {
   return (
-    <div className="layout-body flex flex-1">
+    <div className="layout-body">
       <Drawer
         className="drawer-open"
         sideClassName="h-auto"
         side={<Leftsider />}
-        contentClassName="layout-content ml-4 p-4 overflow-auto"
+        contentClassName="layout-content p-4 bg-base-200"
       >
-        {children}
+        <div className="h-full rounded-[--rounded-box] bg-base-100 px-6 py-4 text-sm">
+          <ScrollArea>{children}</ScrollArea>
+        </div>
       </Drawer>
     </div>
   );

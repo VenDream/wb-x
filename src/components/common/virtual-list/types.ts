@@ -32,11 +32,17 @@ export interface VirtualListProps<T, R> {
   getDataParser: () => (data: R) => T[];
   /** row item key generator */
   getRowItemKey: (idx: number, item: T) => string;
+  /** list total parser */
+  getTotalParser?: () => (data: R) => number;
   /** render row item content */
   renderRowItemContent: VirtualListCtx<T>['renderRowItemContent'];
 
   /** custom class */
   className?: string;
+  /** list width */
+  width?: number;
+  /** list height */
+  height?: number;
   /** page size */
   pageSize?: number;
   /** item gutter */
@@ -47,10 +53,13 @@ export interface VirtualListProps<T, R> {
   estimatedRowHeight?: number;
   /** how to concat new list */
   concatList?: (prevList: T[], newList: T[]) => T[];
-  /** list total parser */
-  getTotalParser?: () => (data: R) => number;
+
   /** total count update callback */
   onTotalUpdate?: (total: number) => void;
+  /** data fetching start */
+  onDataFetchingStart?: () => void;
+  /** data fetching end */
+  onDataFetchingEnd?: () => void;
 }
 
 export interface VirtualListRowProps<T> {

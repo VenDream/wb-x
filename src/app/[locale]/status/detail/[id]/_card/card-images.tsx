@@ -18,9 +18,10 @@ export default function CardIamges() {
   return (
     <ImageGrid
       cols={3}
+      isSinaImg
       images={images}
-      className="status-images"
       showHasMoreIndicator
+      className="status-images"
     />
   );
 }

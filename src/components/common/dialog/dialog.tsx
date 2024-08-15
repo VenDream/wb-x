@@ -9,6 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import ScrollArea from '@/components/common/scroll-area';
 import {
   Button,
   Modal,
@@ -20,13 +21,14 @@ import {
 import { LANGS } from '@/contants';
 import enUS from '@/messages/en-US.json';
 import zhCN from '@/messages/zh-CN.json';
+import { cn } from '@/utils/classnames';
 import { generateId } from '@/utils/id';
 import {
-  ExclamationCircleIcon,
-  InformationCircleIcon,
-  QuestionMarkCircleIcon,
-} from '@heroicons/react/24/outline';
-import { clsx } from 'clsx';
+  CircleHelpIcon,
+  InfoIcon,
+  TriangleAlertIcon,
+  XIcon,
+} from 'lucide-react';
 import { NextIntlClientProvider, useLocale, useTranslations } from 'next-intl';
 import React, { useCallback, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -35,12 +37,13 @@ type Status = 'info' | 'confirm' | 'caution';
 
 type DialogProps = Omit<ModalProps, 'title'> & {
   status?: Status;
+  icon?: React.ReactNode;
   title?: React.ReactNode;
   body?: React.ReactNode;
   cancelBtnLabel?: string;
   okBtnLabel?: string;
   onCancel?: () => void;
-  onOk?: () => void;
+  onOk?: () => void | Promise<void> | boolean | Promise<boolean>;
   hideHeader?: boolean;
   hideFooter?: boolean;
   hideCancelBtn?: boolean;
@@ -51,9 +54,9 @@ type DialogProps = Omit<ModalProps, 'title'> & {
 };
 
 const Icons: Record<Status, React.ReactNode> = {
-  info: <InformationCircleIcon className="mr-1" strokeWidth={2} />,
-  confirm: <QuestionMarkCircleIcon className="mr-1" strokeWidth={2} />,
-  caution: <ExclamationCircleIcon className="mr-1" strokeWidth={2} />,
+  info: <InfoIcon size={20} className="mr-2" />,
+  confirm: <CircleHelpIcon size={20} className="mr-2" />,
+  caution: <TriangleAlertIcon size={20} className="mr-2" />,
 };
 
 export default function useDialog() {
@@ -63,6 +66,7 @@ export default function useDialog() {
   const defaultProps: DialogProps = useMemo(
     () => ({
       status: 'info',
+      backdrop: true,
       title: t('dialog.title'),
       body: t('dialog.body'),
       cancelBtnLabel: t('action.cancel'),
@@ -78,6 +82,7 @@ export default function useDialog() {
       const {
         status,
         title,
+        icon: propsIcon,
         body,
         cancelBtnLabel,
         okBtnLabel,
@@ -87,48 +92,78 @@ export default function useDialog() {
         hideFooter,
         hideCancelBtn,
         hideOkBtn,
+        className,
         headerClassName,
         bodyClassName,
         footerClassName,
         ...dialogProps
       } = { ...defaultProps, ...props };
 
-      const icon = Icons[status as Status];
+      const icon = propsIcon || Icons[status as Status];
       const cancel = () => {
-        handleHide();
         onCancel?.();
-      };
-      const ok = () => {
         handleHide();
-        onOk?.();
+      };
+      const ok = async () => {
+        const rlt = await onOk?.();
+        if (rlt === false) return;
+        handleHide();
       };
 
       return (
-        <IDialog className="rounded-md" {...dialogProps}>
+        <IDialog
+          {...dialogProps}
+          className={cn(
+            'flex w-auto min-w-[30rem] max-w-[50rem] flex-col gap-[1.5rem]',
+            className
+          )}
+        >
           {!hideHeader && (
             <ModalHeader
-              className={clsx(
-                headerClassName,
-                'modal-header flex items-center text-base'
+              className={cn(
+                'mb-0 flex items-center justify-between text-base',
+                headerClassName
               )}
             >
-              {icon}
-              {title}
+              <div className="flex items-center">
+                {icon}
+                {title}
+              </div>
+              <Button
+                size="sm"
+                variant="link"
+                onClick={cancel}
+                title={t('dialog.close')}
+                className="p-0 text-[inherit] outline-none"
+              >
+                <XIcon size={24} />
+              </Button>
             </ModalHeader>
           )}
-          <ModalBody className={clsx(bodyClassName, 'modal-body text-sm')}>
-            {body}
+          <ModalBody
+            className={cn(
+              'min-h-0 flex-1 rounded-[--rounded-box] text-sm',
+              bodyClassName
+            )}
+          >
+            <ScrollArea>{body}</ScrollArea>
           </ModalBody>
           {!hideFooter && (
-            <ModalActions className={clsx(footerClassName, 'modal-footer')}>
+            <ModalActions className={cn(footerClassName, 'mt-0')}>
               {!hideCancelBtn && (
                 <Button size="sm" onClick={cancel}>
                   {cancelBtnLabel}
                 </Button>
               )}
               {!hideOkBtn && (
-                <Button size="sm" color="primary" onClick={ok}>
-                  {okBtnLabel}
+                <Button
+                  size="sm"
+                  onClick={ok}
+                  color={status === 'caution' ? 'error' : 'primary'}
+                >
+                  {!props.okBtnLabel && status === 'caution'
+                    ? t('action.continue')
+                    : okBtnLabel}
                 </Button>
               )}
             </ModalActions>
@@ -136,7 +171,7 @@ export default function useDialog() {
         </IDialog>
       );
     },
-    [IDialog, defaultProps, handleHide]
+    [IDialog, defaultProps, handleHide, t]
   );
 
   const show = useCallback(
@@ -178,13 +213,14 @@ export default function useDialog() {
           evt => {
             evt.preventDefault();
             closeDialog();
+            handleHide();
           },
           { once: true }
         );
         backdrop?.addEventListener('click', closeDialog, { once: true });
       }, 0);
     },
-    [Dialog, handleShow, locale, messages]
+    [Dialog, handleHide, handleShow, locale, messages]
   );
 
   return { show };

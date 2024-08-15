@@ -8,7 +8,7 @@
       display: none;
     }
 
-    &.rendering {
+    &.preparing {
       .layout-header,
       .layout-body {
         display: none;
@@ -21,26 +21,17 @@
 
     &::-webkit-scrollbar,
     & *::-webkit-scrollbar {
-      width: 5px;
+      @apply w-1.5;
     }
 
     &::-webkit-scrollbar-thumb,
     & *::-webkit-scrollbar-thumb {
-      @apply rounded bg-gray-200;
+      @apply rounded-full bg-base-content/15;
     }
 
     &::-webkit-scrollbar-track,
     & *::-webkit-scrollbar-track {
-      @apply rounded bg-gray-100;
-    }
-
-    &.dark {
-      &::-webkit-scrollbar-thumb,
-      & *::-webkit-scrollbar-thumb,
-      &::-webkit-scrollbar-track,
-      & *::-webkit-scrollbar-track {
-        @apply bg-opacity-10;
-      }
+      @apply hidden;
     }
   }
 
@@ -55,12 +46,39 @@
   }
 }
 
-svg {
-  @apply h-5 w-5;
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .btn {
-  font-weight: 500;
+  @apply font-normal;
+}
+
+.lucide {
+  @apply stroke-[1.5];
+}
+
+.tabs .tab-active {
+  @apply pointer-events-none;
+}
+
+.yarl__container,
+.yarl__thumbnails_container {
+  @apply bg-black/80 backdrop-blur-lg #{!important};
+}
+
+.yarl__thumbnails_vignette,
+.yarl__slide_captions_container {
+  @apply bg-transparent bg-none #{!important};
+}
+
+.yarl__thumbnails_thumbnail {
+  @apply rounded-none border-white/50 bg-transparent #{!important};
+}
+.yarl__thumbnails_thumbnail_active {
+  @apply border-[3px] border-accent #{!important};
 }
 
 dialog {
@@ -72,6 +90,6 @@ dialog {
   @apply backdrop-blur;
 
   button {
-    @apply border-none outline-none;
+    @apply cursor-default border-none outline-none;
   }
 }

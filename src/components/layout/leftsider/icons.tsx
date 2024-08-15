@@ -9,14 +9,14 @@
 
 import { MAIN_ROUTES } from '@/contants';
 import { ROTN_ICON, WEIBO_ICON } from '@/contants/svgs';
-import { Cog6ToothIcon, HomeIcon, UserIcon } from '@heroicons/react/24/outline';
+import { HouseIcon, SettingsIcon, UserIcon } from 'lucide-react';
 
 const ICONS: Record<keyof typeof MAIN_ROUTES, React.ReactNode> = {
-  HOME: <HomeIcon />,
+  HOME: <HouseIcon size={18} />,
   WEIBO: WEIBO_ICON,
   ROTN: ROTN_ICON,
-  USER: <UserIcon />,
-  SETTINGS: <Cog6ToothIcon />,
+  USER: <UserIcon size={18} />,
+  SETTINGS: <SettingsIcon size={18} />,
 };
 
 export default ICONS;

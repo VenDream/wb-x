@@ -10,10 +10,10 @@
  */
 
 import { useRouter } from '@/navigation';
+import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-import { twMerge } from 'tailwind-merge';
 
 type RouterRefreshProps = ChildrenProps<{
   /** custome classname */
@@ -58,7 +58,7 @@ export default function RouterRefresh(props: RouterRefreshProps) {
 
   return (
     <div
-      className={twMerge('router-refresh inline-block', className)}
+      className={cn('router-refresh inline-block', className)}
       onClick={onBtnClick}
     >
       {children}

@@ -18,12 +18,9 @@ import {
   useTheme,
 } from '@/components/daisyui';
 import { THEMES } from '@/contants';
+import { cn } from '@/utils/classnames';
 import { getLsTheme, isDarkTheme, setLsTheme } from '@/utils/theme';
-import {
-  CheckCircleIcon,
-  ChevronDownIcon,
-  SwatchIcon,
-} from '@heroicons/react/24/outline';
+import { ChevronDownIcon, CircleCheckBigIcon, PaletteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect } from 'react';
 
@@ -58,7 +55,7 @@ export default function ThemeChange() {
     t && applyTheme(t);
     setTimeout(() => {
       const root = document.getElementsByTagName('html')[0];
-      root.classList.remove('rendering');
+      root.classList.remove('preparing');
     });
   }, [applyTheme]);
 
@@ -67,12 +64,17 @@ export default function ThemeChange() {
       <Dropdown end>
         <DropdownToggle button={false}>
           <Button color="ghost">
-            <SwatchIcon />
+            <PaletteIcon size={18} />
             <span className="text-sm">{t('switcherLabel')}</span>
-            <ChevronDownIcon />
+            <ChevronDownIcon size={18} />
           </Button>
         </DropdownToggle>
-        <DropdownMenu className="z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-lg bg-base-300 shadow">
+        <DropdownMenu
+          className={cn(
+            'z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
+            'border border-base-content/10 bg-base-100 shadow'
+          )}
+        >
           {THEMES.map((t, i) => {
             const isSelected = t === theme;
             return (
@@ -80,17 +82,17 @@ export default function ThemeChange() {
                 <div className="theme-item flex" onClick={() => switchTheme(t)}>
                   <div
                     data-theme={t}
-                    className="flex w-full items-center justify-between rounded-sm p-2 shadow"
+                    className="flex w-full items-center justify-between rounded border border-base-content/10 p-2 shadow"
                   >
-                    <div className="left-block flex w-2/3 items-center">
+                    <div className="flex items-center">
                       {isSelected ? (
-                        <CheckCircleIcon className="mr-1" />
+                        <CircleCheckBigIcon size={16} className="mr-2" />
                       ) : (
-                        <div className="mr-1 h-5 w-5" />
+                        <div className="mr-2 h-4 w-4" />
                       )}
                       {t}
                     </div>
-                    <div className="right-block flex h-4 gap-1">
+                    <div className="flex h-4 gap-1">
                       <div className="w-2 rounded bg-primary" />
                       <div className="w-2 rounded bg-secondary" />
                       <div className="w-2 rounded bg-accent" />

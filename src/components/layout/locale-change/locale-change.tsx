@@ -18,11 +18,12 @@ import {
 } from '@/components/daisyui';
 import { LANGS } from '@/contants';
 import { Link, usePathname } from '@/navigation';
+import { cn } from '@/utils/classnames';
 import {
-  CheckCircleIcon,
   ChevronDownIcon,
-  LanguageIcon,
-} from '@heroicons/react/24/outline';
+  CircleCheckBigIcon,
+  LanguagesIcon,
+} from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 
@@ -41,22 +42,31 @@ export default function LocaleChange() {
       <Dropdown end>
         <DropdownToggle button={false}>
           <Button color="ghost">
-            <LanguageIcon />
+            <LanguagesIcon size={18} />
             <span className="text-sm">{t('switcherLabel')}</span>
-            <ChevronDownIcon />
+            <ChevronDownIcon size={18} />
           </Button>
         </DropdownToggle>
-        <DropdownMenu className="z-10 mt-4 w-40 flex-nowrap gap-1 overflow-auto rounded-lg bg-base-300 shadow">
+        <DropdownMenu
+          className={cn(
+            'z-10 mt-4 w-44 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
+            'border border-base-content/10 bg-base-100 shadow'
+          )}
+        >
           {Object.entries(LANGS).map(([k, l]) => {
             const isSelected = l === locale;
             return (
               <DropdownItem key={k} anchor={false}>
-                <Link locale={l} href={pathname} className="flex items-center">
-                  <div className="flex w-2/3 items-center">
+                <Link
+                  locale={l}
+                  href={pathname}
+                  className="flex items-center gap-4"
+                >
+                  <div className="flex items-center">
                     {isSelected ? (
-                      <CheckCircleIcon className="mr-1" />
+                      <CircleCheckBigIcon size={16} className="mr-2" />
                     ) : (
-                      <div className="mr-1 h-5 w-5" />
+                      <div className="mr-2 h-4 w-4" />
                     )}
                     {l}
                   </div>

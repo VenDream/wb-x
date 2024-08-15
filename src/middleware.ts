@@ -16,18 +16,23 @@ const i18nMiddleware = createMiddleware({
   defaultLocale: LANGS.en,
 });
 
+const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
 const isPublicRoute = createRouteMatcher([]);
 
-export default clerkMiddleware(
-  (auth, req) => {
-    if (!isPublicRoute(req)) {
-      auth().protect();
-    }
+const middleware = isClerkEnabled
+  ? clerkMiddleware(
+      (auth, req) => {
+        if (!isPublicRoute(req)) {
+          auth().protect();
+        }
 
-    return i18nMiddleware(req);
-  },
-  { debug: process.env.NODE_ENV === 'development' }
-);
+        return i18nMiddleware(req);
+      },
+      { debug: process.env.NODE_ENV === 'development' }
+    )
+  : i18nMiddleware;
+
+export default middleware;
 
 export const config = {
   matcher: ['/', '/(en-US|zh-CN)/:path*'],

@@ -6,6 +6,8 @@ import { SignedIn, UserButton } from '@clerk/nextjs';
 import { shadesOfPurple } from '@clerk/themes';
 import { useCallback, useEffect, useState } from 'react';
 
+const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
+
 /*
  * User Profile
  *
@@ -38,6 +40,8 @@ export default function Profile() {
       window.removeEventListener('storage', onThemeChange);
     };
   }, [checkDarkTheme, onThemeChange]);
+
+  if (!isClerkEnabled) return null;
 
   return (
     <SignedIn>

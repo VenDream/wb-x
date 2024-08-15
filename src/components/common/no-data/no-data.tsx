@@ -7,17 +7,28 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { NO_DATA } from '@/contants';
+import { cn } from '@/utils/classnames';
+import { BracketsIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import Image from '../image';
 
-export default function NoData() {
+interface IProps {
+  tips?: string;
+  className?: string;
+}
+
+export default function NoData(props: IProps) {
+  const { tips, className } = props;
   const t = useTranslations('global.dataFetching');
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <Image src={NO_DATA} alt="NO_DATA" width={30} placeholder={NO_DATA} />
-      <p className="text-gray mt-2 text-sm">{t('noData')}</p>
-    </div>
+    <p
+      className={cn(
+        'flex items-center justify-center text-sm text-base-content/50',
+        className
+      )}
+    >
+      <BracketsIcon size={16} className="mr-2 !stroke-2" />
+      {tips || t('noData')}
+    </p>
   );
 }

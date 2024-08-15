@@ -7,8 +7,6 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-const defaultTheme = require('tailwindcss/defaultTheme');
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -20,9 +18,6 @@ module.exports = {
   ],
   theme: {
     extend: {},
-    fontFamily: {
-      sans: ['Lato', 'Helvetica', ...defaultTheme.fontFamily.sans],
-    },
   },
   darkMode: 'class',
   plugins: [require('daisyui')],

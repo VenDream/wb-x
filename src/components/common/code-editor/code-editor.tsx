@@ -9,11 +9,11 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Loading } from '@/components/daisyui';
-import {
-  DocumentTextIcon,
-  InboxArrowDownIcon,
-} from '@heroicons/react/24/outline';
+import Loading from '@/components/common/loading';
+import MotionContainer from '@/components/common/motion-container';
+import { Button } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
+import { FileCodeIcon, SaveIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
@@ -54,43 +54,47 @@ export default function CodeEditor(props: CodeEditorProps) {
     })();
   }, []);
 
-  return (
-    <div className="code-editor flex min-h-[50vh] w-full flex-col">
-      {highlighter ? (
-        <>
-          {title && (
-            <p className="rou relative top-[1px] flex items-center border !border-b-0 border-base-content/10 bg-base-200 p-2 text-sm">
-              <DocumentTextIcon className="mr-1" />
-              {title}
-            </p>
+  return highlighter ? (
+    <MotionContainer className="flex min-h-[50vh] w-full flex-col justify-start bg-base-100">
+      {title && (
+        <p
+          className={cn(
+            'flex items-center rounded-[--rounded-box]',
+            'rounded-b-none bg-base-200 p-2 text-sm',
+            'border-b border-base-content/10'
           )}
-          <Editor
-            value={code}
-            onValueChange={code => setCode(code)}
-            highlight={code =>
-              highlighter.codeToHtml(code, { lang, theme: 'min-light' })
-            }
-            className="code-editor__container flex-1"
-            preClassName="code-editor__pre"
-            textareaClassName="code-editor__textarea"
-            padding={10}
-            style={{
-              fontSize: 13,
-            }}
-          />
-          <div className="mt-4">
-            <Button size="sm" color="primary" onClick={() => onSave?.(code)}>
-              <InboxArrowDownIcon className="mr-1" />
-              {t('action.save')}
-            </Button>
-          </div>
-        </>
-      ) : (
-        <div className="flex items-center">
-          <Loading color="primary" className="mr-2" />
-          {t('action.loading')}...
-        </div>
+        >
+          <FileCodeIcon size={16} className="mr-2" />
+          {title}
+        </p>
       )}
+      <Editor
+        value={code}
+        onValueChange={code => setCode(code)}
+        highlight={code =>
+          highlighter.codeToHtml(code, { lang, theme: 'min-light' })
+        }
+        className={cn(
+          'code-editor__container flex-1 rounded-[--rounded-box]',
+          'rounded-t-none'
+        )}
+        preClassName="code-editor__pre"
+        textareaClassName="code-editor__textarea"
+        padding={10}
+        style={{
+          fontSize: 13,
+        }}
+      />
+      <div className="mt-4">
+        <Button size="sm" color="primary" onClick={() => onSave?.(code)}>
+          <SaveIcon size={16} />
+          {t('action.save')}
+        </Button>
+      </div>
+    </MotionContainer>
+  ) : (
+    <div className="p-4">
+      <Loading />
     </div>
   );
 }

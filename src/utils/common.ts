@@ -121,3 +121,8 @@ export function formatNumberWithUnit(number: number) {
 
   return formattedNumber + units[unitIdx];
 }
+
+export function getFileName(url: string) {
+  const match = url.match(/.*\/(.+)/);
+  return match ? match[1].split('?')[0] : '';
+}

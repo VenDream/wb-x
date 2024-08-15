@@ -24,20 +24,23 @@
       "cancel": "Cancel",
       "ok": "OK",
       "save": "Save",
+      "continue": "Yes, continue",
       "refresh": "Refresh",
-      "loading": "Loading",
+      "loading": "Loading...",
       "retry": "Retry",
       "search": "Search",
       "reset": "Reset"
     },
     "dataFetching": {
       "noMore": "No more data",
-      "noData": "Empty data",
+      "noData": "No data",
+      "noMatchedData": "No matched data",
       "loadMore": "Load more"
     },
     "dialog": {
       "title": "Dialog Title",
-      "body": "Dialog Body"
+      "body": "Dialog Body",
+      "close": "Close"
     },
     "paginator": {
       "jumpTo": "Go to",
@@ -50,8 +53,8 @@
       "weekDays": "Mo,Tu,We,Th,Fr,Sa,Su"
     },
     "misc": {
-      "notFound": "Page not found",
-      "systemDown": "System down",
+      "notFound": "Sorry, the page you visited does not exist",
+      "systemDown": "Oops, the service is unavailable now",
       "routerRefreshSuccess": "Successfully refreshed"
     }
   },
@@ -68,11 +71,12 @@
     "status": {
       "comments": {
         "label": "Comments",
-        "orderByAsc": "Asc",
-        "orderByDesc": "Desc",
+        "orderByAsc": "Oldest",
+        "orderByDesc": "Newest",
         "orderByHot": "Hot",
         "replyTo": "replied to",
         "op": "OP",
+        "replies": "Comment replies",
         "totalReplies": "{num} replies in total"
       },
       "filter": {
@@ -83,21 +87,22 @@
         "leastImagesCountTips": "Least images count",
         "startDate": "StartDate",
         "endDate": "EndDate",
-        "totalStatuses": "「{num}」posts were found in the search."
+        "totalStatuses": "{num} weibo posts were found."
       },
       "menu": {
         "comments": "View comments",
         "source": "View original post",
         "download": "DL images zip",
         "copyUID": "Copy UID",
-        "copySuccessTips": "Successfully copied",
+        "copySuccessTips": "Copied to clipboard",
         "opPosts": "View all OP's posts"
       },
       "sourceFrom": "from",
       "postedOn": "posted on",
       "video": {
         "fetchFailed": "Failed to fetch video source，please retry"
-      }
+      },
+      "updateFrequency": "The data is updated once per hour."
     },
     "rotn": {
       "type": {
@@ -105,6 +110,7 @@
         "ro": "RO",
         "tn": "TN"
       },
+      "noImages": "No images",
       "sourceURL": "Source URL"
     },
     "user": {
@@ -115,19 +121,46 @@
     "settings": {
       "tabs": {
         "local": "LOCAL SETTINGS",
-        "server": "SERVER SETTINGS"
+        "server": "SERVER SETTINGS",
+        "cookies": "COOKIES SETTINGS"
       },
-      "localSettings": {
+      "local": {
         "useImageProxy": "Enable Image Proxy",
         "useVideoProxy": "Enable Video Proxy",
         "successTips": "Settings saved"
       },
-      "serverSettings": {
+      "server": {
         "title": "Save Settings",
         "confirm": "This operation will trigger a service restart, continue ?",
         "nothingChanged": "Skipped due to no changes",
         "fetchFailed": "Failed to fetch settings, please retry",
         "saveFailed": "Failed to save settings, please retry"
+      },
+      "cookies": {
+        "operation": {
+          "add": "Add",
+          "save": "Save",
+          "check": "Check",
+          "delete": "Delete"
+        },
+        "addCookie": {
+          "title": "Add Cookie",
+          "placeholder": "Input the cookie string, which must contain the \"SUB\" field"
+        },
+        "deleteConfirm": {
+          "title": "Delete Cookies",
+          "confirm": "This operation cannot be undone, continue ?"
+        },
+        "status": {
+          "checking": "Checking...",
+          "valid": "Valid",
+          "invalid": "Invalid",
+          "operating": "Operating...",
+          "ok": "Success",
+          "failed": "Failed",
+          "fetchFailed": "Failed to fetch cookies, please retry",
+          "noInput": "Cookie string is required"
+        }
       }
     }
   }

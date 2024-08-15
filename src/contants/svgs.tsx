@@ -10,8 +10,8 @@
 export const WEIBO_ICON = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
+    width="1.25em"
+    height="1.25em"
     viewBox="0 0 24 24"
   >
     <path
@@ -24,27 +24,13 @@ export const WEIBO_ICON = (
 export const ROTN_ICON = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
+    width="1.25em"
+    height="1.25em"
     viewBox="0 0 256 256"
   >
     <path
       fill="currentColor"
       d="M214.7 209.7a1.89 1.89 0 0 0-.11-.25l-45.48-96.86l20.5-32.18a1.74 1.74 0 0 0 .11-.18a16 16 0 0 0 0-16.46c-.09-.16-.2-.32-.3-.47L168 32.7V8a8 8 0 0 0-16 0v24.42L146.74 39a24 24 0 0 1-37.48 0L104 32.42V8a8 8 0 0 0-16 0v24.7L66.58 63.3c-.1.15-.21.31-.3.47a16 16 0 0 0 0 16.46a1.74 1.74 0 0 0 .11.18l20.5 32.18l-45.48 96.86a1.89 1.89 0 0 0-.11.25A16 16 0 0 0 56 232h144a16 16 0 0 0 14.71-22.3ZM80 72l16.43-23.43l.33.42a40 40 0 0 0 62.48 0l.33-.42L176 72l-20.38 32h-55.23ZM56 216l45.07-96h53.84L200 216Z"
-    />
-  </svg>
-);
-
-export const ARROW_DOWN_ICON = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-  >
-    <path
-      fill="currentColor"
-      d="M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7q-.15 0-.275-.05t-.25-.175Z"
     />
   </svg>
 );
