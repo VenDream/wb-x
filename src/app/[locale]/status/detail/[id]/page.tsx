@@ -11,7 +11,7 @@ import { getDbRetweetStatusDetail, getDbStatusDetail } from '@/api/server';
 import MotionContainer from '@/components/common/motion-container';
 import NoData from '@/components/common/no-data';
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import StatusCard from './_card';
 import CommentList from './_card/comment-list';
 
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({ params }: ParamsBody) {
+  unstable_setRequestLocale(params.locale);
+
   const { id } = params;
   let status: Backend.Status;
 

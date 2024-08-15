@@ -13,7 +13,7 @@ import RouterRefresh from '@/components/common/router-refresh';
 import { Button } from '@/components/daisyui';
 import { DatabaseIcon, RefreshCcwIcon } from 'lucide-react';
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Stats from './stats';
 
 // revalidate homepage requests at most every hour - 60 * 60
@@ -23,7 +23,9 @@ export const metadata: Metadata = {
   title: 'Home',
 };
 
-export default async function Page() {
+export default async function Page({ params }: ParamsBody) {
+  unstable_setRequestLocale(params.locale);
+
   const t1 = await getTranslations('global');
   const t2 = await getTranslations('pages.home');
 
