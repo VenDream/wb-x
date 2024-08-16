@@ -38,50 +38,48 @@ export default function LocaleChange() {
   const t = useTranslations('global.locale');
 
   return (
-    <div className="locale-change">
-      <Dropdown end>
-        <DropdownToggle button={false}>
-          <Button color="ghost">
-            <LanguagesIcon size={18} />
-            <span className="text-sm">{t('switcherLabel')}</span>
-            <ChevronDownIcon size={18} />
-          </Button>
-        </DropdownToggle>
-        <DropdownMenu
-          className={cn(
-            'z-10 mt-4 w-44 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
-            'border border-base-content/10 bg-base-100 shadow'
-          )}
-        >
-          {Object.entries(LANGS).map(([k, l]) => {
-            const isSelected = l === locale;
-            return (
-              <DropdownItem key={k} anchor={false}>
-                <Link
-                  locale={l}
-                  href={pathname}
-                  className="flex items-center gap-4"
-                >
-                  <div className="flex items-center">
-                    {isSelected ? (
-                      <CircleCheckBigIcon size={16} className="mr-2" />
-                    ) : (
-                      <div className="mr-2 h-4 w-4" />
-                    )}
-                    {l}
-                  </div>
-                  <Image
-                    alt="FLAG"
-                    width={30}
-                    height={22}
-                    src={Flags[k as keyof typeof LANGS]}
-                  />
-                </Link>
-              </DropdownItem>
-            );
-          })}
-        </DropdownMenu>
-      </Dropdown>
-    </div>
+    <Dropdown end>
+      <DropdownToggle button={false}>
+        <Button color="ghost">
+          <LanguagesIcon size={18} />
+          <span className="text-sm">{t('switcherLabel')}</span>
+          <ChevronDownIcon size={18} />
+        </Button>
+      </DropdownToggle>
+      <DropdownMenu
+        className={cn(
+          'z-10 mt-4 w-44 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
+          'border border-base-content/10 bg-base-100 shadow'
+        )}
+      >
+        {Object.entries(LANGS).map(([k, l]) => {
+          const isSelected = l === locale;
+          return (
+            <DropdownItem key={k} anchor={false}>
+              <Link
+                locale={l}
+                href={pathname}
+                className="flex items-center gap-4"
+              >
+                <div className="flex items-center">
+                  {isSelected ? (
+                    <CircleCheckBigIcon size={16} className="mr-2" />
+                  ) : (
+                    <div className="mr-2 h-4 w-4" />
+                  )}
+                  {l}
+                </div>
+                <Image
+                  alt="FLAG"
+                  width={30}
+                  height={22}
+                  src={Flags[k as keyof typeof LANGS]}
+                />
+              </Link>
+            </DropdownItem>
+          );
+        })}
+      </DropdownMenu>
+    </Dropdown>
   );
 }

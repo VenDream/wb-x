@@ -60,51 +60,49 @@ export default function ThemeChange() {
   }, [applyTheme]);
 
   return (
-    <div className="theme-change">
-      <Dropdown end>
-        <DropdownToggle button={false}>
-          <Button color="ghost">
-            <PaletteIcon size={18} />
-            <span className="text-sm">{t('switcherLabel')}</span>
-            <ChevronDownIcon size={18} />
-          </Button>
-        </DropdownToggle>
-        <DropdownMenu
-          className={cn(
-            'z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
-            'border border-base-content/10 bg-base-100 shadow'
-          )}
-        >
-          {THEMES.map((t, i) => {
-            const isSelected = t === theme;
-            return (
-              <DropdownItem key={i} anchor={false}>
-                <div className="theme-item flex" onClick={() => switchTheme(t)}>
-                  <div
-                    data-theme={t}
-                    className="flex w-full items-center justify-between rounded border border-base-content/10 p-2 shadow"
-                  >
-                    <div className="flex items-center">
-                      {isSelected ? (
-                        <CircleCheckBigIcon size={16} className="mr-2" />
-                      ) : (
-                        <div className="mr-2 h-4 w-4" />
-                      )}
-                      {t}
-                    </div>
-                    <div className="flex h-4 gap-1">
-                      <div className="w-2 rounded bg-primary" />
-                      <div className="w-2 rounded bg-secondary" />
-                      <div className="w-2 rounded bg-accent" />
-                      <div className="w-2 rounded bg-neutral" />
-                    </div>
+    <Dropdown end className="theme-change">
+      <DropdownToggle button={false}>
+        <Button color="ghost">
+          <PaletteIcon size={18} />
+          <span className="text-sm">{t('switcherLabel')}</span>
+          <ChevronDownIcon size={18} />
+        </Button>
+      </DropdownToggle>
+      <DropdownMenu
+        className={cn(
+          'mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
+          'border border-base-content/10 bg-base-100 shadow'
+        )}
+      >
+        {THEMES.map((t, i) => {
+          const isSelected = t === theme;
+          return (
+            <DropdownItem key={i} anchor={false}>
+              <div className="theme-item flex" onClick={() => switchTheme(t)}>
+                <div
+                  data-theme={t}
+                  className="flex w-full items-center justify-between rounded border border-base-content/10 p-2 shadow"
+                >
+                  <div className="flex items-center">
+                    {isSelected ? (
+                      <CircleCheckBigIcon size={16} className="mr-2" />
+                    ) : (
+                      <div className="mr-2 h-4 w-4" />
+                    )}
+                    {t}
+                  </div>
+                  <div className="flex h-4 gap-1">
+                    <div className="w-2 rounded bg-primary" />
+                    <div className="w-2 rounded bg-secondary" />
+                    <div className="w-2 rounded bg-accent" />
+                    <div className="w-2 rounded bg-neutral" />
                   </div>
                 </div>
-              </DropdownItem>
-            );
-          })}
-        </DropdownMenu>
-      </Dropdown>
-    </div>
+              </div>
+            </DropdownItem>
+          );
+        })}
+      </DropdownMenu>
+    </Dropdown>
   );
 }
