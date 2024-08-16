@@ -9,7 +9,7 @@
 
 import { AnimationProps, TargetAndTransition } from 'framer-motion';
 
-export const DEFAULT_DURATION = 0.3;
+export const DEFAULT_DURATION = 0.2;
 export const DEFAULT_EASE = 'easeOut';
 export const DEFAULT_EASE_CSS = 'ease-out';
 
