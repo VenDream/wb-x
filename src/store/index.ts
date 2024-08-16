@@ -8,7 +8,7 @@
  */
 
 import { LS_KEYS } from '@/contants';
-import { createStore } from 'jotai';
+import { getDefaultStore } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
 export const DEFAULT_SETTINGS: App.Settings = {
@@ -18,7 +18,9 @@ export const DEFAULT_SETTINGS: App.Settings = {
 
 export const settingsAtom = atomWithStorage<App.Settings>(
   LS_KEYS.SETTINGS,
-  DEFAULT_SETTINGS
+  DEFAULT_SETTINGS,
+  undefined,
+  { getOnInit: true }
 );
 
-export default createStore();
+export default getDefaultStore();

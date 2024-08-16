@@ -10,5 +10,6 @@
 import store, { settingsAtom } from '@/store';
 
 export function getAppSettings() {
-  return store.get(settingsAtom);
+  const settings = store.get(settingsAtom);
+  return settings;
 }
