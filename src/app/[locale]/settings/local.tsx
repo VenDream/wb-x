@@ -8,19 +8,12 @@
  */
 
 import { Button, Toggle } from '@/components/daisyui';
-import { LS_KEYS } from '@/contants';
-import { DEFAULT_SETTINGS } from '@/utils/settings';
+import { settingsAtom } from '@/store';
 import { useAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import { SaveIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-
-const settingsAtom = atomWithStorage<App.Settings>(
-  LS_KEYS.SETTINGS,
-  DEFAULT_SETTINGS
-);
 
 export default function LocalSettings() {
   const t1 = useTranslations('pages.settings.local');

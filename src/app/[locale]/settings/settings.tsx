@@ -10,6 +10,7 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
+import StoreWrapper from '@/components/common/store-wrapper';
 import { Tab, Tabs } from '@/components/daisyui';
 import { useUser } from '@clerk/nextjs';
 import { useTranslations } from 'next-intl';
@@ -35,23 +36,25 @@ export default function Settings() {
   const [settingsType, setSettingsType] = useState<SettingsType>('local');
 
   return (
-    <div className="w-[800px] space-y-4 pr-4">
-      <Tabs boxed value={settingsType} onChange={setSettingsType}>
-        <Tab value="local">{t('local')}</Tab>
-        <Tab value="server">{t('server')}</Tab>
-        <Tab value="cookies">{t('cookies')}</Tab>
-      </Tabs>
-      <div className="rounded-[--rounded-box] bg-base-200">
-        {settingsType === 'local' && (
-          <MotionContainer className="p-4">
-            <LocalSettings />
-          </MotionContainer>
-        )}
-        {settingsType === 'server' &&
-          (isAdminOnly ? <ServerSettings /> : <NoPermission />)}
-        {settingsType === 'cookies' &&
-          (isAdminOnly ? <CookiesSettings /> : <NoPermission />)}
+    <StoreWrapper>
+      <div className="w-[800px] space-y-4 pr-4">
+        <Tabs boxed value={settingsType} onChange={setSettingsType}>
+          <Tab value="local">{t('local')}</Tab>
+          <Tab value="server">{t('server')}</Tab>
+          <Tab value="cookies">{t('cookies')}</Tab>
+        </Tabs>
+        <div className="rounded-[--rounded-box] bg-base-200">
+          {settingsType === 'local' && (
+            <MotionContainer className="p-4">
+              <LocalSettings />
+            </MotionContainer>
+          )}
+          {settingsType === 'server' &&
+            (isAdminOnly ? <ServerSettings /> : <NoPermission />)}
+          {settingsType === 'cookies' &&
+            (isAdminOnly ? <CookiesSettings /> : <NoPermission />)}
+        </div>
       </div>
-    </div>
+    </StoreWrapper>
   );
 }
