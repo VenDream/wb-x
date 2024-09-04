@@ -97,7 +97,8 @@
         "comments": "查看评论",
         "source": "查看原微博",
         "download": "下载原图",
-        "copyUID": "复制UID",
+        "copyID": "复制微博ID",
+        "copyUID": "复制用户ID",
         "copySuccessTips": "已复制到剪贴板",
         "opPosts": "查看Ta的所有微博"
       },

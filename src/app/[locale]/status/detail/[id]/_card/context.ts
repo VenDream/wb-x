@@ -11,6 +11,7 @@ import { createContext } from 'react';
 import type { CardContext, CardMenuOpts } from './types';
 
 const DEFAULT_MENU: CardMenuOpts = {
+  copyId: true,
   copyUid: true,
   dlImages: true,
   viewComments: true,

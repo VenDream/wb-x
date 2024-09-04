@@ -97,7 +97,8 @@
         "comments": "View comments",
         "source": "View original post",
         "download": "DL images zip",
-        "copyUID": "Copy UID",
+        "copyID": "Copy post ID",
+        "copyUID": "Copy user ID",
         "copySuccessTips": "Copied to clipboard",
         "opPosts": "View all OP's posts"
       },
