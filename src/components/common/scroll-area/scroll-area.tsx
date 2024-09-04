@@ -12,12 +12,15 @@ import * as IScrollArea from '@radix-ui/react-scroll-area';
 
 interface IProps extends React.PropsWithChildren {
   className?: string;
+  viewportClassName?: string;
 }
 
 export default function ScrollArea(props: IProps) {
   return (
     <IScrollArea.Root className={cn('h-full', props.className)}>
-      <IScrollArea.Viewport className="h-full w-full will-change-scroll">
+      <IScrollArea.Viewport
+        className={cn('h-full w-full', props.viewportClassName)}
+      >
         {props.children}
       </IScrollArea.Viewport>
       <IScrollArea.Scrollbar

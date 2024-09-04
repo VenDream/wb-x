@@ -1,227 +1,287 @@
 'use client';
 
 /*
- * Dialog
+ * Dialog Component
  *
  * @Author: VenDream
- * @Date: 2023-08-28 14:22:56
+ * @Date: 2024-08-15 14:06:54
  *
- * Copyright © 2023 VenDream. All Rights Reserved.
+ * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
 import ScrollArea from '@/components/common/scroll-area';
-import {
-  Button,
-  Modal,
-  ModalActions,
-  ModalBody,
-  ModalHeader,
-  ModalProps,
-} from '@/components/daisyui';
-import { LANGS } from '@/contants';
-import enUS from '@/messages/en-US.json';
-import zhCN from '@/messages/zh-CN.json';
+import { Button } from '@/components/daisyui';
+import { dialogMaskMotion, dialogMotion } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
-import { generateId } from '@/utils/id';
-import {
-  CircleHelpIcon,
-  InfoIcon,
-  TriangleAlertIcon,
-  XIcon,
-} from 'lucide-react';
-import { NextIntlClientProvider, useLocale, useTranslations } from 'next-intl';
-import React, { useCallback, useMemo } from 'react';
-import { createRoot } from 'react-dom/client';
+import * as IDialog from '@radix-ui/react-dialog';
+import { useControllableValue } from 'ahooks';
+import { AnimatePresence, useAnimate } from 'framer-motion';
+import { XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import React, {
+  ComponentType,
+  isValidElement,
+  MouseEvent,
+  PropsWithChildren,
+  ReactElement,
+  useMemo,
+} from 'react';
+import MotionContainer from '../motion-container';
+import { getPreset } from './presets';
+import { DialogProps } from './types';
 
-type Status = 'info' | 'confirm' | 'caution';
+type DialogChildrenProps = PropsWithChildren<{
+  className?: string;
+}>;
 
-type DialogProps = Omit<ModalProps, 'title'> & {
-  status?: Status;
-  icon?: React.ReactNode;
-  title?: React.ReactNode;
-  body?: React.ReactNode;
-  cancelBtnLabel?: string;
-  okBtnLabel?: string;
-  onCancel?: () => void;
-  onOk?: () => void | Promise<void> | boolean | Promise<boolean>;
-  hideHeader?: boolean;
-  hideFooter?: boolean;
-  hideCancelBtn?: boolean;
-  hideOkBtn?: boolean;
-  headerClassName?: string;
-  bodyClassName?: string;
-  footerClassName?: string;
-};
+type DialogChildren = ReactElement<{ className?: string }> | null;
 
-const Icons: Record<Status, React.ReactNode> = {
-  info: <InfoIcon size={20} className="mr-2" />,
-  confirm: <CircleHelpIcon size={20} className="mr-2" />,
-  caution: <TriangleAlertIcon size={20} className="mr-2" />,
-};
+export default function Dialog(dialogProps: DialogProps) {
+  const t1 = useTranslations();
+  const t2 = useTranslations('global.dialog');
 
-export default function useDialog() {
-  const locale = useLocale();
-  const t = useTranslations('global');
-  const { Dialog: IDialog, handleShow, handleHide } = Modal.useDialog();
-  const defaultProps: DialogProps = useMemo(
-    () => ({
-      status: 'info',
-      backdrop: true,
-      title: t('dialog.title'),
-      body: t('dialog.body'),
-      cancelBtnLabel: t('action.cancel'),
-      okBtnLabel: t('action.ok'),
-    }),
-    [t]
+  const props = useMemo(
+    () => getDialogProps(t1, dialogProps),
+    [dialogProps, t1]
   );
 
-  const messages = locale === LANGS.en ? enUS : zhCN;
+  const [open, setOpen] = useControllableValue(props, {
+    trigger: 'onOpenChange',
+    valuePropName: 'open',
+    defaultValue: false,
+  });
 
-  const Dialog = useCallback(
-    (props: DialogProps) => {
-      const {
-        status,
-        title,
-        icon: propsIcon,
-        body,
-        cancelBtnLabel,
-        okBtnLabel,
-        onCancel,
-        onOk,
-        hideHeader,
-        hideFooter,
-        hideCancelBtn,
-        hideOkBtn,
-        className,
-        headerClassName,
-        bodyClassName,
-        footerClassName,
-        ...dialogProps
-      } = { ...defaultProps, ...props };
+  const parts = useMemo(() => {
+    const children = React.Children.toArray(props.children);
+    const getChild = (Component: ComponentType) =>
+      children.find(child => isValidElement(child) && child.type === Component);
+    const getChildClass = (child: DialogChildren) =>
+      isValidElement(child) ? child.props.className : '';
 
-      const icon = propsIcon || Icons[status as Status];
-      const cancel = () => {
-        onCancel?.();
-        handleHide();
-      };
-      const ok = async () => {
-        const rlt = await onOk?.();
-        if (rlt === false) return;
-        handleHide();
-      };
+    const trigger = getChild(Dialog.Trigger) as DialogChildren;
+    const title = getChild(Dialog.Title) as DialogChildren;
+    const desc = getChild(Dialog.Description) as DialogChildren;
+    const content = getChild(Dialog.Content) as DialogChildren;
+    const footer = getChild(Dialog.Footer) as DialogChildren;
 
-      return (
-        <IDialog
-          {...dialogProps}
+    const titleClass = cn(getChildClass(title), props.titleClassName);
+    const descClass = cn(getChildClass(desc), props.descClassName);
+    const contentClass = cn(getChildClass(content), props.contentClassName);
+    const footerClass = cn(getChildClass(footer), props.footerClassName);
+
+    return {
+      trigger,
+      title: title || props.title,
+      desc: desc || props.desc,
+      content: content || props.content,
+      footer: footer || props.footer,
+      titleClass,
+      descClass,
+      contentClass,
+      footerClass,
+    };
+  }, [
+    props.children,
+    props.content,
+    props.contentClassName,
+    props.desc,
+    props.descClassName,
+    props.footer,
+    props.footerClassName,
+    props.title,
+    props.titleClassName,
+  ]);
+
+  const [scope, animate] = useAnimate();
+
+  const onCancel = () => {
+    if (props.onCancel) {
+      props.onCancel();
+      setOpen(false);
+    } else {
+      setOpen(false);
+    }
+  };
+
+  const onOk = async () => {
+    if (props.onOk) {
+      const rlt = await props.onOk?.();
+      if (!rlt) return;
+      setOpen(false);
+    } else {
+      setOpen(false);
+    }
+  };
+
+  const onMaskClick = async (evt: MouseEvent<HTMLDivElement>) => {
+    if (props.loading) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      return;
+    }
+
+    if (!props.maskClosable) {
+      evt.preventDefault();
+      evt.stopPropagation();
+
+      scope.current &&
+        (await animate(
+          scope.current,
+          { scale: 1.05 },
+          { type: 'spring', stiffness: 300, mass: 0.1 }
+        ));
+      scope.current &&
+        (await animate(
+          scope.current,
+          { scale: 1 },
+          { type: 'spring', stiffness: 300, mass: 0.1 }
+        ));
+
+      return;
+    }
+
+    onCancel();
+  };
+
+  const onEscapeKeyDown = (evt: KeyboardEvent) => {
+    if (evt.key !== 'Escape') return;
+    if (props.loading || !props.keyboard) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      return;
+    }
+    onCancel();
+  };
+
+  const DialogContent = (
+    <IDialog.Portal forceMount>
+      {props.mask && (
+        <MotionContainer
+          key="DIALOG_MASK"
+          onClick={onMaskClick}
+          motion={dialogMaskMotion}
           className={cn(
-            'flex w-auto min-w-[30rem] max-w-[50rem] flex-col gap-[1.5rem]',
-            className
+            'fixed inset-0 z-50 bg-base-100/50 backdrop-blur',
+            props.maskClassName
+          )}
+        />
+      )}
+      <IDialog.Content
+        className={cn(
+          'fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]',
+          'flex w-[30rem]',
+          props.wrapperClassName
+        )}
+        onEscapeKeyDown={onEscapeKeyDown}
+        onOpenAutoFocus={evt => evt.preventDefault()}
+        onInteractOutside={evt => evt.preventDefault()}
+        onPointerDownOutside={evt => evt.preventDefault()}
+      >
+        <MotionContainer
+          ref={scope}
+          key="DIALOG_CONTENT"
+          motion={dialogMotion}
+          className={cn(
+            'rounded-[--rounded-box] border border-base-content/10 bg-base-200/80 p-6',
+            'relative flex flex-1 flex-col gap-6 shadow-sm',
+            props.className
           )}
         >
-          {!hideHeader && (
-            <ModalHeader
-              className={cn(
-                'mb-0 flex items-center justify-between text-base',
-                headerClassName
-              )}
-            >
-              <div className="flex items-center">
-                {icon}
-                {title}
-              </div>
-              <Button
-                size="sm"
-                variant="link"
-                onClick={cancel}
-                title={t('dialog.close')}
-                className="p-0 text-[inherit] outline-none"
+          <div className="flex flex-col gap-1">
+            {parts.title && (
+              <IDialog.Title
+                className={cn('flex items-center text-base', parts.titleClass)}
               >
-                <XIcon size={24} />
-              </Button>
-            </ModalHeader>
-          )}
-          <ModalBody
-            className={cn(
-              'min-h-0 flex-1 rounded-[--rounded-box] text-sm',
-              bodyClassName
+                {props.icon}
+                {parts.title || t2('title')}
+              </IDialog.Title>
             )}
-          >
-            <ScrollArea>{body}</ScrollArea>
-          </ModalBody>
-          {!hideFooter && (
-            <ModalActions className={cn(footerClassName, 'mt-0')}>
-              {!hideCancelBtn && (
-                <Button size="sm" onClick={cancel}>
-                  {cancelBtnLabel}
-                </Button>
-              )}
-              {!hideOkBtn && (
+            {parts.desc && (
+              <IDialog.Description
+                className={cn('text-xs text-base-content/50', parts.descClass)}
+              >
+                {parts.desc || t2('desc')}
+              </IDialog.Description>
+            )}
+          </div>
+          {parts.content && (
+            <div className={cn('min-h-0 flex-1 text-sm', parts.contentClass)}>
+              <ScrollArea viewportClassName={cn(props.scrollAreaClassName)}>
+                {parts.content || t2('content')}
+              </ScrollArea>
+            </div>
+          )}
+          {parts.footer ? (
+            <div className={parts.footerClass}>{parts.footer}</div>
+          ) : parts.footer !== null ? (
+            <div className={cn('flex justify-end gap-4', parts.footerClass)}>
+              {props.cancelBtn ? (
+                props.cancelBtn
+              ) : props.cancelBtn !== null ? (
                 <Button
                   size="sm"
-                  onClick={ok}
-                  color={status === 'caution' ? 'error' : 'primary'}
+                  color="ghost"
+                  onClick={onCancel}
+                  disabled={props.loading}
+                  className={cn(props.cancelBtnClassName)}
+                  {...props.cancelBtnProps}
                 >
-                  {!props.okBtnLabel && status === 'caution'
-                    ? t('action.continue')
-                    : okBtnLabel}
+                  {props.cancelBtnLabel || t2('cancel')}
                 </Button>
-              )}
-            </ModalActions>
+              ) : null}
+              {props.okBtn ? (
+                props.okBtn
+              ) : props.okBtn !== null ? (
+                <Button
+                  size="sm"
+                  color="primary"
+                  onClick={onOk}
+                  disabled={props.loading}
+                  className={cn(props.okBtnClassName)}
+                  {...props.okBtnProps}
+                >
+                  {props.okBtnLabel || t2('ok')}
+                </Button>
+              ) : null}
+            </div>
+          ) : null}
+          {props.closable !== false && (
+            <Button
+              size="sm"
+              color="ghost"
+              animation={false}
+              onClick={onCancel}
+              disabled={props.loading}
+              className="absolute right-4 top-5 h-[2.1rem] w-[2.1rem] rounded-full p-0"
+            >
+              <XIcon size={20} />
+            </Button>
           )}
-        </IDialog>
-      );
-    },
-    [IDialog, defaultProps, handleHide, t]
+        </MotionContainer>
+      </IDialog.Content>
+    </IDialog.Portal>
   );
 
-  const show = useCallback(
-    (props: DialogProps) => {
-      const id = generateId(6);
-      const el = document.createElement('div');
-      el.setAttribute('data-id', id);
-      el.setAttribute('data-role', 'dialog');
-      document.body.appendChild(el);
-
-      const root = createRoot(el);
-      const propsCancel = props.onCancel;
-      const closeDialog = () => {
-        const box = el.querySelector('.modal-box');
-        box?.addEventListener(
-          'transitionend',
-          () => {
-            root.unmount();
-            el.remove();
-            propsCancel?.();
-          },
-          { once: true }
-        );
-      };
-      props.onCancel = closeDialog;
-      root.render(
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <Dialog {...props} />
-        </NextIntlClientProvider>
-      );
-
-      setTimeout(() => {
-        handleShow();
-        const dialog = el.querySelector('dialog');
-        const backdrop = el.querySelector('.modal-backdrop');
-
-        dialog?.addEventListener(
-          'cancel',
-          evt => {
-            evt.preventDefault();
-            closeDialog();
-            handleHide();
-          },
-          { once: true }
-        );
-        backdrop?.addEventListener('click', closeDialog, { once: true });
-      }, 0);
-    },
-    [Dialog, handleHide, handleShow, locale, messages]
+  return (
+    <IDialog.Root open={open} onOpenChange={setOpen} modal={false}>
+      {parts.trigger}
+      {props.disposable ? (
+        DialogContent
+      ) : (
+        <AnimatePresence>{open && DialogContent}</AnimatePresence>
+      )}
+    </IDialog.Root>
   );
+}
 
-  return { show };
+Dialog.Trigger = IDialog.Trigger;
+Dialog.Title = (props: DialogChildrenProps) => props.children;
+Dialog.Description = (props: DialogChildrenProps) => props.children;
+Dialog.Content = (props: DialogChildrenProps) => props.children;
+Dialog.Footer = (props: DialogChildrenProps) => props.children;
+
+export function getDialogProps(t: TFunction, props: DialogProps) {
+  const { preset } = props;
+  const presetProps = getPreset(t, preset);
+  return { ...presetProps, ...props };
 }

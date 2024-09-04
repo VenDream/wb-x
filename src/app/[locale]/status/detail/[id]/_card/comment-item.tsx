@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import useDialog from '@/components/common/dialog';
+import { useDialog } from '@/components/common/dialog';
 import ImageGrid from '@/components/common/image-grid';
 import MotionContainer from '@/components/common/motion-container';
 import { Avatar } from '@/components/daisyui';
@@ -79,12 +79,12 @@ export default function CommentItem(props: CommentItemProps) {
 
   const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
-      backdrop: true,
-      hideFooter: true,
+      footer: null,
       title: t('replies'),
       icon: <MessageCircleMoreIcon size={20} className="mr-2" />,
-      className: 'w-[40rem] h-4/5',
-      body: <CommentReplies comment={comment} />,
+      wrapperClassName: 'w-[40rem] max-h-[780px]',
+      scrollAreaClassName: 'pr-6',
+      content: <CommentReplies comment={comment} />,
     });
   };
 
@@ -123,7 +123,7 @@ export default function CommentItem(props: CommentItemProps) {
       <div className={commentBody({ type: variantType })}>
         <div className="col-start-2 col-end-4">
           <div
-            className="comment-text leading-5 tracking-tight will-change-transform"
+            className="comment-text leading-5 tracking-tight"
             dangerouslySetInnerHTML={{
               __html: userName + preprocessCommentText(text),
             }}
@@ -132,8 +132,8 @@ export default function CommentItem(props: CommentItemProps) {
           {comments.length > 0 && (
             <div
               className={cn(
-                'comment-replies mt-2 flex flex-col gap-1 bg-base-300/50 p-2',
-                'rounded'
+                'comment-replies mt-2 flex flex-col gap-1 bg-base-300/80 p-2',
+                'rounded border border-base-content/10'
               )}
             >
               {comments.map((cm, idx) => {

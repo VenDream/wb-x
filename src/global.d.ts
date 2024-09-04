@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { useTranslations } from 'next-intl';
 import { PropsWithChildren } from 'react';
 
 declare global {
@@ -25,6 +26,8 @@ declare global {
     /** need total flag */
     needTotal?: boolean;
   }
+
+  type TFunction = ReturnType<typeof useTranslations>;
 
   /* ------------------------------------------------------------------------ */
   /*                                    App                                   */

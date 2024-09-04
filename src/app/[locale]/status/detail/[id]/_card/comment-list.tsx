@@ -12,6 +12,7 @@
 import { getStatusComments } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import { Tab, Tabs } from '@/components/daisyui';
+import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
 import { MessageSquareQuoteIcon } from 'lucide-react';
@@ -32,6 +33,7 @@ export default function CommentList(props: CommentListProps) {
 
   const maxIdRef = useRef('');
   const listRef = useRef<HTMLDivElement>(null);
+  const listHeaderRef = useRef<HTMLDivElement>(null);
   const [total, setTotal] = useState(0);
   const [orderBy, setOrderBy] = useState<Backend.StatusCommentOrderBy>('hot');
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +42,8 @@ export default function CommentList(props: CommentListProps) {
 
   const prevOrderBy = usePrevious(orderBy);
   const prevCommentList = usePrevious(commentList);
+
+  const isSticky = useDetectSticky(listHeaderRef);
 
   const fetchCommentList = useCallback(async () => {
     try {
@@ -102,19 +106,20 @@ export default function CommentList(props: CommentListProps) {
     <div
       ref={listRef}
       className={cn(
-        'relative mt-4 w-[40rem] rounded-[--rounded-box] shadow-md',
+        'relative mt-4 w-[40rem] rounded-[--rounded-box] shadow-sm',
         props.className
       )}
     >
       <div
+        ref={listHeaderRef}
         className={cn(
           'flex items-center justify-between border border-base-content/10',
           'sticky left-0 top-0 rounded-[--rounded-box] rounded-b-none p-4',
           'z-10 w-full bg-base-200/50 backdrop-blur',
-          'before:absolute before:left-[-1px] before:top-0 before:h-[12px]',
-          'before:w-[1px] before:bg-base-100',
-          'after:absolute after:right-[-1px] after:top-0 after:h-[12px]',
-          'after:w-[1px] after:bg-base-100'
+          {
+            'rounded-t-none': isSticky,
+            'p-2': props.hideTitle,
+          }
         )}
       >
         {!props.hideTitle && (

@@ -27,6 +27,7 @@ import { copyText } from '@/utils/common';
 import {
   CopyIcon,
   EllipsisVerticalIcon,
+  IdCardIcon,
   ImageDownIcon,
   MessageCircleMoreIcon,
   SquareArrowOutUpRightIcon,
@@ -84,6 +85,20 @@ export default function CardMenu() {
           'z-10 mt-2 w-[190px] rounded border border-base-content/10 will-change-transform'
         )}
       >
+        {!!menu.copyId && (
+          <DropdownItem anchor={false}>
+            <span
+              className="rounded p-2"
+              onClick={() => {
+                copyText(id);
+                toast.success(t('copySuccessTips'));
+              }}
+            >
+              <CopyIcon size={16} className="!stroke-2" />
+              {t('copyID')}
+            </span>
+          </DropdownItem>
+        )}
         {!!menu.copyUid && (
           <DropdownItem anchor={false}>
             <span
@@ -93,7 +108,7 @@ export default function CardMenu() {
                 toast.success(t('copySuccessTips'));
               }}
             >
-              <CopyIcon size={16} className="!stroke-2" />
+              <IdCardIcon size={16} className="!stroke-2" />
               {t('copyUID')}
             </span>
           </DropdownItem>

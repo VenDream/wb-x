@@ -34,6 +34,8 @@ export interface CardContext {
 }
 
 export interface CardMenuOpts {
+  /** copy ID */
+  copyId?: boolean;
   /** copy UID */
   copyUid?: boolean;
   /** download images */
