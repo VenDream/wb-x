@@ -14,10 +14,12 @@
       "switcherLabel": "主题"
     },
     "status": {
+      "caution": "注意",
+      "confirm": "确认",
       "info": "提示",
       "success": "成功",
+      "warning": "警告",
       "error": "失败",
-      "caution": "警告",
       "noPermission": "无访问权限"
     },
     "action": {
@@ -38,9 +40,11 @@
       "loadMore": "加载更多"
     },
     "dialog": {
-      "title": "弹窗标题",
-      "body": "弹窗内容",
-      "close": "关闭"
+      "title": "标题",
+      "desc": "描述",
+      "content": "内容",
+      "cancel": "取消",
+      "ok": "确认"
     },
     "paginator": {
       "jumpTo": "跳至",
@@ -144,12 +148,12 @@
           "delete": "删除"
         },
         "addCookie": {
-          "title": "添加Cookie",
-          "placeholder": "请输入Cookie字符串，必须包含\"SUB\"字段"
+          "title": "添加Cookies",
+          "placeholder": "请输入Cookies字符串，必须包含\"SUB\"字段"
         },
         "deleteConfirm": {
           "title": "删除Cookies",
-          "confirm": "此操作不可撤销，确认继续吗 ?"
+          "confirm": "确认删除此cookies吗 ?"
         },
         "status": {
           "checking": "检测中...",

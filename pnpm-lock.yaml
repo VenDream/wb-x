@@ -32,6 +32,7 @@ specifiers:
   eslint-plugin-prettier: ^5.2.1
   framer-motion: ^11.3.28
   husky: ^9.1.4
+  immer: ^10.1.1
   jotai: ^2.9.3
   lint-staged: ^15.2.9
   lucide-react: ^0.427.0
@@ -74,6 +75,7 @@ dependencies:
   dayjs: 1.11.12
   embla-carousel-react: 8.1.8_react@18.3.1
   framer-motion: 11.3.28_hhsrl2fq6wkycvmmihiwd2vhde
+  immer: 10.1.1
   jotai: 2.9.3_3vdbhqr2ncalcx7opnshezpx3q
   lucide-react: 0.427.0_react@18.3.1
   next: 14.2.5_kims5xigubg4jdik5udz4fmbxi
@@ -3168,6 +3170,10 @@ packages:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
     dev: true
+
+  /immer/10.1.1:
+    resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
+    dev: false
 
   /immutable/4.3.0:
     resolution: {integrity: sha512-0AOCmOip+xgJwEVTQj1EfiDDOkPmuyllDuTuEX+DDXUgapLAsBIfkg3sxCYyCEA8mQqZrrxPUGjcOQ2JS3WLkg==}

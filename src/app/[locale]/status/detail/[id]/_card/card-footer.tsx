@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import useDialog from '@/components/common/dialog';
+import { useDialog } from '@/components/common/dialog';
 import { Button } from '@/components/daisyui';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/weibo';
@@ -37,13 +37,12 @@ export default function CardFooter() {
 
   const showComments = () => {
     showDialog({
-      hideFooter: true,
-      className: 'w-[40rem] h-4/5',
+      footer: null,
+      wrapperClassName: 'w-[40rem] max-h-[780px]',
+      scrollAreaClassName: 'pb-2 pr-6',
       title: t('comments.label'),
       icon: <MessageSquareQuoteIcon size={20} className="mr-2" />,
-      body: (
-        <CommentList id={id} hideTitle className="mt-0 w-[calc(100%-1.5rem)]" />
-      ),
+      content: <CommentList id={id} hideTitle className="mt-0 w-full" />,
     });
   };
 

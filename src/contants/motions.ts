@@ -12,6 +12,16 @@ import { AnimationProps, TargetAndTransition } from 'framer-motion';
 export const DEFAULT_DURATION = 0.2;
 export const DEFAULT_EASE = 'easeOut';
 export const DEFAULT_EASE_CSS = 'ease-out';
+export const DEFAULT_SPRING = {
+  type: 'spring',
+  mass: 0.2,
+  damping: 8,
+  stiffness: 150,
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Common                                   */
+/* -------------------------------------------------------------------------- */
 
 export const fadeIn: AnimationProps = {
   initial: { opacity: 0 },
@@ -34,4 +44,30 @@ export const fadeInFromBottom: AnimationProps = {
 export const moveUp: TargetAndTransition = {
   y: -5,
   transition: { duration: 0.1, ease: DEFAULT_EASE },
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                   Dialog                                   */
+/* -------------------------------------------------------------------------- */
+
+export const dialogMotion: AnimationProps = {
+  variants: {
+    open: { opacity: 1, scale: 1 },
+    closed: { opacity: 0, scale: 0.8 },
+  },
+  initial: 'closed',
+  animate: 'open',
+  exit: 'closed',
+  transition: DEFAULT_SPRING,
+};
+
+export const dialogMaskMotion: AnimationProps = {
+  variants: {
+    open: { opacity: 1 },
+    closed: { opacity: 0 },
+  },
+  initial: 'closed',
+  animate: 'open',
+  exit: 'closed',
+  transition: DEFAULT_SPRING,
 };

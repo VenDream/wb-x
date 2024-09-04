@@ -126,3 +126,22 @@ export function getFileName(url: string) {
   const match = url.match(/.*\/(.+)/);
   return match ? match[1].split('?')[0] : '';
 }
+
+/**
+ * get scrollable ancestor
+ *
+ * @export
+ * @param {(HTMLElement)} element element
+ */
+export function getScrollableAncestor(element: HTMLElement) {
+  let ancestor = element;
+
+  while (ancestor.parentElement) {
+    ancestor = ancestor.parentElement;
+    if ('radixScrollAreaViewport' in ancestor.dataset) {
+      return ancestor;
+    }
+  }
+
+  return null;
+}

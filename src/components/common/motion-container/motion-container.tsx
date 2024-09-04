@@ -10,10 +10,10 @@
 'use client';
 
 import { fadeInFromBottom } from '@/contants/motions';
-import { AnimationProps, motion, MotionProps } from 'framer-motion';
+import { AnimationProps, HTMLMotionProps, motion } from 'framer-motion';
 import React, { useState } from 'react';
 
-interface IProps extends MotionProps {
+interface IProps extends HTMLMotionProps<'div'> {
   motion?: AnimationProps;
   disable?: boolean;
   className?: string;
@@ -29,7 +29,7 @@ const MotionContainer = React.forwardRef<HTMLDivElement, IProps>(
       ...motionProps
     } = props;
 
-    const [willChange, setWillChange] = useState(true);
+    const [willChange, setWillChange] = useState(false);
 
     const animationProps = disable ? {} : animation;
 

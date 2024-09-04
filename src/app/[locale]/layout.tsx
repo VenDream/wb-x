@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { DialogProvider } from '@/components/common/dialog';
 import Toaster from '@/components/common/toast';
 import { Theme as ThemeProvider } from '@/components/daisyui';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
@@ -53,10 +54,12 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
             <ThemeProvider>
-              <LayoutHeader />
-              <LayoutBody>{children}</LayoutBody>
-              <SpeedInsights />
-              <Toaster font={font.className} />
+              <DialogProvider>
+                <LayoutHeader />
+                <LayoutBody>{children}</LayoutBody>
+                <SpeedInsights />
+                <Toaster font={font.className} />
+              </DialogProvider>
             </ThemeProvider>
             <div
               className={cn(

@@ -14,10 +14,12 @@
       "switcherLabel": "THEMES"
     },
     "status": {
+      "caution": "Caution",
+      "confirm": "Confirm",
       "info": "Info",
       "success": "Success",
+      "warning": "Warning",
       "error": "Error",
-      "caution": "Caution",
       "noPermission": "No access permission"
     },
     "action": {
@@ -38,9 +40,11 @@
       "loadMore": "Load more"
     },
     "dialog": {
-      "title": "Dialog Title",
-      "body": "Dialog Body",
-      "close": "Close"
+      "title": "Title",
+      "desc": "Description",
+      "content": "Content",
+      "cancel": "Cancel",
+      "ok": "OK"
     },
     "paginator": {
       "jumpTo": "Go to",
@@ -144,12 +148,12 @@
           "delete": "Delete"
         },
         "addCookie": {
-          "title": "Add Cookie",
-          "placeholder": "Input the cookie string, which must contain the \"SUB\" field"
+          "title": "Add Cookies",
+          "placeholder": "Input the cookies string, which must contain the \"SUB\" field"
         },
         "deleteConfirm": {
           "title": "Delete Cookies",
-          "confirm": "This operation cannot be undone, continue ?"
+          "confirm": "Are you sure to delete this cookies ?"
         },
         "status": {
           "checking": "Checking...",
