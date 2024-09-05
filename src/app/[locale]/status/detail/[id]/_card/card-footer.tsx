@@ -38,8 +38,10 @@ export default function CardFooter() {
   const showComments = () => {
     showDialog({
       footer: null,
-      wrapperClassName: 'w-[40rem] max-h-[780px]',
-      scrollAreaClassName: 'pb-2 pr-6',
+      classNames: {
+        wrapper: 'w-[40rem] h-[50rem] max-h-[85vh]',
+        scrollArea: 'pb-2 pr-6',
+      },
       title: t('comments.label'),
       icon: <MessageSquareQuoteIcon size={20} className="mr-2" />,
       content: <CommentList id={id} hideTitle className="mt-0 w-full" />,

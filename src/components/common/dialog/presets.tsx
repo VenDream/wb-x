@@ -33,11 +33,11 @@ export const ALERT_PRESET: PresetGetter = t => ({
 
   icon: <TriangleAlertIcon size={ICON_SIZE} className={ICON_CLASS} />,
   title: t('global.status.caution'),
-  titleClassName: 'text-error',
   keyboard: false,
   closable: false,
   maskClosable: false,
   okBtnProps: { color: 'error' },
+  classNames: { title: 'text-error' },
 });
 
 export const CONFIRM_PRESET: PresetGetter = t => ({
@@ -45,8 +45,8 @@ export const CONFIRM_PRESET: PresetGetter = t => ({
 
   icon: <CircleHelpIcon size={ICON_SIZE} className={ICON_CLASS} />,
   title: t('global.status.confirm'),
-  titleClassName: 'text-info',
   okBtnProps: { color: 'info' },
+  classNames: { title: 'text-info' },
 });
 
 export const INFO_PRESET: PresetGetter = t => ({
@@ -54,9 +54,9 @@ export const INFO_PRESET: PresetGetter = t => ({
 
   icon: <InfoIcon size={ICON_SIZE} className={ICON_CLASS} />,
   title: t('global.status.info'),
-  titleClassName: 'text-info',
   cancelBtn: null,
   okBtnProps: { color: 'info' },
+  classNames: { title: 'text-info' },
 });
 
 export const SUCCESS_PRESET: PresetGetter = t => ({
@@ -64,9 +64,9 @@ export const SUCCESS_PRESET: PresetGetter = t => ({
 
   icon: <CircleCheckBigIcon size={ICON_SIZE} className={ICON_CLASS} />,
   title: t('global.status.success'),
-  titleClassName: 'text-success',
   cancelBtn: null,
   okBtnProps: { color: 'success' },
+  classNames: { title: 'text-success' },
 });
 
 export const WARNING_PRESET: PresetGetter = t => ({
@@ -74,9 +74,9 @@ export const WARNING_PRESET: PresetGetter = t => ({
 
   icon: <CircleAlertIcon size={ICON_SIZE} className={ICON_CLASS} />,
   title: t('global.status.warning'),
-  titleClassName: 'text-warning',
   cancelBtn: null,
   okBtnProps: { color: 'warning' },
+  classNames: { title: 'text-warning' },
 });
 
 export const ERROR_PRESET: PresetGetter = t => ({
@@ -84,9 +84,9 @@ export const ERROR_PRESET: PresetGetter = t => ({
 
   icon: <CircleXIcon size={ICON_SIZE} className={ICON_CLASS} />,
   title: t('global.status.error'),
-  titleClassName: 'text-error',
   cancelBtn: null,
   okBtnProps: { color: 'error' },
+  classNames: { title: 'text-error' },
 });
 
 export const PRESETS: Record<DialogProps['preset'] & string, PresetGetter> = {

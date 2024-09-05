@@ -31,7 +31,7 @@ export default function Toaster(props: IProps) {
 
   return (
     <Sonner
-      offset={40}
+      offset="5%"
       visibleToasts={3}
       position="top-center"
       theme={theme as ToasterProps['theme']}
@@ -45,8 +45,8 @@ export default function Toaster(props: IProps) {
       toastOptions={{
         unstyled: true,
         className: cn(
-          'flex items-center justify-center gap-2 shadow-sm text-sm py-3 px-4',
-          'min-w-[250px] max-w-[60vw] rounded-[--rounded-box] text-base-content',
+          'flex items-center justify-center gap-2 shadow-sm text-sm py-2 px-6',
+          'min-w-[300px] max-w-[60vw] rounded-[--rounded-box] text-base-content',
           'bg-base-100/80 backdrop-blur-sm border border-base-content/20'
         ),
         classNames: {

@@ -64,10 +64,10 @@ export default function Dialog(dialogProps: DialogProps) {
     const content = getChild(Dialog.Content) as DialogChildren;
     const footer = getChild(Dialog.Footer) as DialogChildren;
 
-    const titleClass = cn(getChildClass(title), props.titleClassName);
-    const descClass = cn(getChildClass(desc), props.descClassName);
-    const contentClass = cn(getChildClass(content), props.contentClassName);
-    const footerClass = cn(getChildClass(footer), props.footerClassName);
+    const titleClass = cn(getChildClass(title), props.classNames?.title);
+    const descClass = cn(getChildClass(desc), props.classNames?.desc);
+    const contentClass = cn(getChildClass(content), props.classNames?.content);
+    const footerClass = cn(getChildClass(footer), props.classNames?.footer);
 
     return {
       trigger,
@@ -82,14 +82,14 @@ export default function Dialog(dialogProps: DialogProps) {
     };
   }, [
     props.children,
+    props.classNames?.content,
+    props.classNames?.desc,
+    props.classNames?.footer,
+    props.classNames?.title,
     props.content,
-    props.contentClassName,
     props.desc,
-    props.descClassName,
     props.footer,
-    props.footerClassName,
     props.title,
-    props.titleClassName,
   ]);
 
   const [scope, animate] = useAnimate();
@@ -162,7 +162,7 @@ export default function Dialog(dialogProps: DialogProps) {
           motion={dialogMaskMotion}
           className={cn(
             'fixed inset-0 z-50 bg-base-100/50 backdrop-blur',
-            props.maskClassName
+            props.classNames?.mask
           )}
         />
       )}
@@ -170,7 +170,7 @@ export default function Dialog(dialogProps: DialogProps) {
         className={cn(
           'fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]',
           'flex w-[30rem]',
-          props.wrapperClassName
+          props.classNames?.wrapper
         )}
         onEscapeKeyDown={onEscapeKeyDown}
         onOpenAutoFocus={evt => evt.preventDefault()}
@@ -206,7 +206,7 @@ export default function Dialog(dialogProps: DialogProps) {
           </div>
           {parts.content && (
             <div className={cn('min-h-0 flex-1 text-sm', parts.contentClass)}>
-              <ScrollArea viewportClassName={cn(props.scrollAreaClassName)}>
+              <ScrollArea viewportClassName={cn(props.classNames?.scrollArea)}>
                 {parts.content || t2('content')}
               </ScrollArea>
             </div>
@@ -223,7 +223,7 @@ export default function Dialog(dialogProps: DialogProps) {
                   color="ghost"
                   onClick={onCancel}
                   disabled={props.loading}
-                  className={cn(props.cancelBtnClassName)}
+                  className={cn(props.classNames?.cancelBtn)}
                   {...props.cancelBtnProps}
                 >
                   {props.cancelBtnLabel || t2('cancel')}
@@ -237,7 +237,7 @@ export default function Dialog(dialogProps: DialogProps) {
                   color="primary"
                   onClick={onOk}
                   disabled={props.loading}
-                  className={cn(props.okBtnClassName)}
+                  className={cn(props.classNames?.okBtn)}
                   {...props.okBtnProps}
                 >
                   {props.okBtnLabel || t2('ok')}

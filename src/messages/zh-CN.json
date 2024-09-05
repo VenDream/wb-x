@@ -137,7 +137,7 @@
       "server": {
         "title": "保存配置",
         "confirm": "此操作会触发服务重启，确认继续吗 ?",
-        "nothingChanged": "配置无变化，操作取消",
+        "nothingChanged": "配置未改动，操作取消",
         "fetchFailed": "获取配置失败，请重试",
         "saveFailed": "保存配置失败，请重试"
       },

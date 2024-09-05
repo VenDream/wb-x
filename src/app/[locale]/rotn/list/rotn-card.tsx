@@ -9,8 +9,10 @@
 
 import Carousel from '@/components/common/carousel';
 import MotionContainer from '@/components/common/motion-container';
+import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { getFileName } from '@/utils/common';
+import { SquareArrowOutUpRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
@@ -22,10 +24,10 @@ const CAROUSEL_COLS = 3;
 const CAROUSEL_ASPECT_RATIO = 9 / 16;
 
 export default function RotnCard(props: IProps) {
-  const { id, type, images } = props.item;
+  const { id, type, images, url } = props.item;
   const t = useTranslations('pages.rotn');
 
-  const items = images.map((img, idx) => ({
+  const items = images.map(img => ({
     image: img,
     name: getFileName(img),
   }));
@@ -37,8 +39,19 @@ export default function RotnCard(props: IProps) {
         'h-full rounded-[--rounded-box] bg-base-200/50 text-sm shadow'
       )}
     >
-      <p className="text-sm">
-        {type} - {id}
+      <p className="flex items-center justify-between">
+        <span className="text-sm">
+          {type} - {id}
+        </span>
+        <a href={url} target="_blank" rel="noreferrer" title={t('sourceURL')}>
+          <Button
+            size="sm"
+            color="ghost"
+            className="h-[2rem] w-[2rem] rounded-full p-0"
+          >
+            <SquareArrowOutUpRightIcon size={18} />
+          </Button>
+        </a>
       </p>
       {images.length > 0 ? (
         <Carousel
