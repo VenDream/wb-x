@@ -19,8 +19,8 @@ import { DialogProps } from './types';
 
 type PresetGetter = (t: TFunction) => DialogProps;
 
-const ICON_SIZE = 20;
-const ICON_CLASS = 'relative top-[-1px] mr-2 !stroke-2';
+const ICON_SIZE = 18;
+const ICON_CLASS = 'mr-2 !stroke-2';
 
 export const DEFAULT_PRESET: DialogProps = {
   keyboard: true,
