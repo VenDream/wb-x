@@ -68,8 +68,10 @@ export default function AddCookiesDialog(props: IProps) {
     <Dialog
       open={openAddDialog}
       onOpenChange={setOpenAddDialog}
-      wrapperClassName="w-[36rem]"
-      scrollAreaClassName="p-1"
+      classNames={{
+        wrapper: 'w-[36rem]',
+        scrollArea: 'p-1',
+      }}
       loading={isAdding}
       onOk={add}
       onCancel={() => {
@@ -95,7 +97,7 @@ export default function AddCookiesDialog(props: IProps) {
         <Textarea
           ref={textareaRef}
           rows={4}
-          disabled={isAdding}
+          readOnly={isAdding}
           className={cn('no-scrollbar w-full resize-none break-all', {
             'textarea-error': !isNewCookiesValid,
           })}

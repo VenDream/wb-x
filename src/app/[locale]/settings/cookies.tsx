@@ -19,7 +19,6 @@ import MotionContainer from '@/components/common/motion-container';
 import NoData from '@/components/common/no-data';
 import { Button, Divider, Textarea } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
-import { cx } from 'class-variance-authority';
 import { RadarIcon, SaveIcon, Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
@@ -166,7 +165,7 @@ export default function CookiesSettings() {
           <NoData className="justify-start" />
         )}
         <Divider
-          className={cx('before:h-[1px] after:h-[1px]', {
+          className={cn('before:h-[1px] after:h-[1px]', {
             '!mt-8': cookies.length > 0,
           })}
         />

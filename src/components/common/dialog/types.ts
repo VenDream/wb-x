@@ -49,16 +49,18 @@ export interface DialogProps extends PropsWithChildren {
   cancelBtnLabel?: string;
   cancelBtnProps?: ButtonProps;
 
-  wrapperClassName?: string;
-  scrollAreaClassName?: string;
   className?: string;
-  maskClassName?: string;
-  titleClassName?: string;
-  descClassName?: string;
-  contentClassName?: string;
-  footerClassName?: string;
-  cancelBtnClassName?: string;
-  okBtnClassName?: string;
+  classNames?: {
+    wrapper?: string;
+    scrollArea?: string;
+    mask?: string;
+    title?: string;
+    desc?: string;
+    content?: string;
+    footer?: string;
+    cancelBtn?: string;
+    okBtn?: string;
+  };
 }
 
 export interface DialogInstance {

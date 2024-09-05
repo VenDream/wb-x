@@ -82,8 +82,10 @@ export default function CommentItem(props: CommentItemProps) {
       footer: null,
       title: t('replies'),
       icon: <MessageCircleMoreIcon size={20} className="mr-2" />,
-      wrapperClassName: 'w-[40rem] max-h-[780px]',
-      scrollAreaClassName: 'pr-6',
+      classNames: {
+        wrapper: 'w-[40rem] h-[40rem] max-h-[85vh]',
+        scrollArea: 'pr-6',
+      },
       content: <CommentReplies comment={comment} />,
     });
   };
