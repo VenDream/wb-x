@@ -150,7 +150,12 @@ export default function CookiesSettings() {
                   <RadarIcon size={16} />
                   {t('operation.check')}
                 </Button>
-                <Button size="sm" color="error" onClick={() => remove(idx)}>
+                <Button
+                  size="sm"
+                  color="error"
+                  onClick={() => remove(idx)}
+                  disabled={cookies.length <= 1}
+                >
                   <Trash2Icon size={16} />
                   {t('operation.delete')}
                 </Button>
