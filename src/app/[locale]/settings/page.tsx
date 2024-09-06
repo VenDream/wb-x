@@ -8,12 +8,15 @@
  */
 
 import { Metadata } from 'next';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import Settings from './settings';
 
 export const metadata: Metadata = {
   title: 'Settings',
 };
 
-export default function Page() {
+export default function Page({ params }: ParamsBody) {
+  unstable_setRequestLocale(params.locale);
+
   return <Settings />;
 }
