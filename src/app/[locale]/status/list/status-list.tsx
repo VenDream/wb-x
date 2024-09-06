@@ -33,7 +33,7 @@ const defaultFilterParams: Backend.StatusListFilterParams = {
   needTotal: true,
 };
 
-export default function Page() {
+export default function StatusList() {
   const t = useTranslations('pages.status');
   const listRef = useRef<VirtualListHandle>(null);
   const [total, setTotal] = useState(-1);

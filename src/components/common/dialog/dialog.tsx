@@ -161,7 +161,7 @@ export default function Dialog(dialogProps: DialogProps) {
           onClick={onMaskClick}
           motion={dialogMaskMotion}
           className={cn(
-            'fixed inset-0 z-50 bg-base-100/50 backdrop-blur',
+            'fixed inset-0 z-50 bg-base-100/80 backdrop-blur',
             props.classNames?.mask
           )}
         />
@@ -182,7 +182,7 @@ export default function Dialog(dialogProps: DialogProps) {
           key="DIALOG_CONTENT"
           motion={dialogMotion}
           className={cn(
-            'rounded-[--rounded-box] border border-base-content/10 bg-base-200/80 p-6',
+            'rounded-[--rounded-box] border border-base-content/10 bg-base-100/50 p-6',
             'relative flex flex-1 flex-col gap-6 shadow-sm',
             props.className
           )}

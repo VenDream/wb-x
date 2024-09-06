@@ -33,7 +33,10 @@ export default function ThemeChange() {
   const applyTheme = useCallback(
     (t: string) => {
       const html = document.getElementsByTagName('html')[0];
+      const provider = document.getElementsByClassName('wbx-theme-provoder')[0];
+
       html.setAttribute('data-theme', t);
+      provider.setAttribute('data-theme', t);
 
       if (isDarkTheme(t)) {
         html.classList.add('dark');
@@ -71,7 +74,7 @@ export default function ThemeChange() {
       <DropdownMenu
         className={cn(
           'mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
-          'border border-base-content/10 bg-base-100 shadow'
+          'border border-base-content/10 bg-base-100/50 shadow backdrop-blur'
         )}
       >
         {THEMES.map((t, i) => {

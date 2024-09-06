@@ -27,8 +27,8 @@ export const card = cva(
   {
     variants: {
       type: {
-        default: ['w-[40rem]', 'bg-base-200/50', 'shadow'],
-        retweet: ['w-full', 'bg-base-300/50', 'shadow-none'],
+        default: ['w-[40rem]', 'bg-base-200/30', 'shadow'],
+        retweet: ['w-full', 'bg-base-300/30', 'shadow-none'],
       },
     },
   }

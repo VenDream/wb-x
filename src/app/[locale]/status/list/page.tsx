@@ -8,9 +8,12 @@
  */
 
 import { Metadata } from 'next';
-
-export { default } from './status-list';
+import StatusList from './status-list';
 
 export const metadata: Metadata = {
   title: 'Status',
 };
+
+export default function Page() {
+  return <StatusList />;
+}

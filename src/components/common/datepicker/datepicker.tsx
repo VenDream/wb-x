@@ -1,90 +1,80 @@
-'use client';
-
 /*
  * DatePicker
  *
  * @Author: VenDream
- * @Date: 2023-12-06 14:42:30
+ * @Date: 2024-9-6
  *
- * Copyright © 2023 VenDream. All Rights Reserved.
+ * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Input } from '@/components/daisyui';
 import { LANGS } from '@/contants';
-import { useMemoizedFn } from 'ahooks';
+import { cn } from '@/utils/classnames';
 import dayjs from 'dayjs';
 import { useLocale, useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
-import IDatePicker from 'tailwind-datepicker-react';
-import type { IDatePickerProps } from 'tailwind-datepicker-react/types/Components/DatePicker';
+import ReactDatePicker, { DatepickerType } from 'react-tailwindcss-datepicker';
 
 import './datepicker.sass';
 
-type DatePickerProps = Omit<IDatePickerProps, 'show' | 'setShow'>;
+const FIRST_DAY = '01-01';
+const LAST_DAY = '12-31';
+const THIS_YEAR = dayjs().year();
+const LAST_YEAR = dayjs().subtract(1, 'year').year();
 
-const DATEPICKER = 'wbx-datepicker';
-
-export default function DatePicker(props: DatePickerProps) {
+export default function DatePicker(props: DatepickerType) {
   const t = useTranslations('global.datepicker');
   const locale = useLocale();
-  const isEn = locale === LANGS.en;
-
-  const [show, setShow] = useState(false);
-
-  const pickerProps: DatePickerProps = {
-    ...props,
-    options: {
-      autoHide: true,
-      todayBtn: true,
-      todayBtnText: t('today'),
-      clearBtn: true,
-      clearBtnText: t('clear'),
-      defaultDate: null,
-      language: isEn ? 'en' : 'zh',
-      inputPlaceholderProp: t('select'),
-      datepickerClassNames: DATEPICKER,
-      weekDays: t('weekDays').split(','),
-      theme: {
-        ...props.options?.theme,
-        background: '!bg-base-100 border border-base-content/10 shadow',
-        todayBtn: '!btn-primary',
-        clearBtn: '',
-        icons: '',
-        text: '',
-        disabledText: '',
-        input: '',
-        inputIcon: '',
-        selected: '!btn-primary',
-      },
-      ...props.options,
-    },
-  };
-
-  const checkClickOutside = useMemoizedFn((evt: MouseEvent) => {
-    if (!show) return;
-    const target = evt.target as HTMLElement;
-    if (!target.closest(`.${DATEPICKER}`)) {
-      setShow(false);
-    }
-  });
-
-  useEffect(() => {
-    document.addEventListener('mousedown', checkClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', checkClickOutside);
-    };
-  }, [checkClickOutside]);
 
   return (
-    <IDatePicker {...pickerProps} show={show} setShow={setShow}>
-      <Input
-        size="xs"
-        placeholder={t('select')}
-        className="h-[2rem] w-40 rounded"
-        value={props.value ? dayjs(props.value).format('YYYY-MM-DD') : ''}
-        onFocus={() => setShow(true)}
-        readOnly
-      />
-    </IDatePicker>
+    <ReactDatePicker
+      readOnly
+      showShortcuts
+      placeholder={t('select')}
+      i18n={locale === LANGS.en ? 'en' : 'zh'}
+      configs={{
+        shortcuts: {
+          yesterday: t('yesterday'),
+          today: t('today'),
+          firstDayOfLastYear: {
+            text: t('firstDayOfLastYear'),
+            period: {
+              start: new Date(`${LAST_YEAR}-${FIRST_DAY}`),
+              end: new Date(`${LAST_YEAR}-${FIRST_DAY}`),
+            },
+          },
+          lastDayOfLastYear: {
+            text: t('lastDayOfLastYear'),
+            period: {
+              start: new Date(`${LAST_YEAR}-${LAST_DAY}`),
+              end: new Date(`${LAST_YEAR}-${LAST_DAY}`),
+            },
+          },
+          firstDayOfYear: {
+            text: t('firstDayOfYear'),
+            period: {
+              start: new Date(`${THIS_YEAR}-${FIRST_DAY}`),
+              end: new Date(`${THIS_YEAR}-${FIRST_DAY}`),
+            },
+          },
+          lastDayOfYear: {
+            text: t('lastDayOfYear'),
+            period: {
+              start: new Date(`${THIS_YEAR}-${LAST_DAY}`),
+              end: new Date(`${THIS_YEAR}-${LAST_DAY}`),
+            },
+          },
+        },
+      }}
+      {...props}
+      containerClassName={cn(
+        'wbx-datepicker relative',
+        props.containerClassName
+      )}
+      inputClassName={cn(
+        'w-full h-full rounded input input-bordered focus:outline-offset-0',
+        props.inputClassName
+      )}
+    />
   );
 }
+
+export type * from 'react-tailwindcss-datepicker';

@@ -12,9 +12,9 @@ module.exports = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    'node_modules/daisyui/dist/**/*.js',
-    'node_modules/react-daisyui/dist/**/*.js',
-    'node_modules/tailwind-datepicker-react/dist/**/*.js',
+    './node_modules/daisyui/dist/**/*.js',
+    './node_modules/react-daisyui/dist/**/*.js',
+    './node_modules/react-tailwindcss-datepicker/dist/index.esm.{js,ts}',
   ],
   theme: {
     extend: {},

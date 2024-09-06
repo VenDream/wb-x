@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import DatePicker from '@/components/common/datepicker';
+import DatePicker, { DateValueType } from '@/components/common/datepicker';
 import MotionContainer from '@/components/common/motion-container';
 import { Button, Checkbox, Input } from '@/components/daisyui';
 import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
@@ -15,7 +15,7 @@ import { cn } from '@/utils/classnames';
 import dayjs from 'dayjs';
 import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 interface FilterProps {
   /** filter params */
@@ -37,17 +37,19 @@ export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
   const t2 = useTranslations('pages.status.filter');
   const { filterParams, updateFilterParams } = props;
-  const { uid, keyword, original, leastImagesCount, startDate, endDate } =
-    filterParams;
 
-  const [filter, setFilter] = useState<Backend.StatusListFilterParams>({
-    uid,
-    keyword,
-    original,
-    leastImagesCount,
-    startDate,
-    endDate,
-  });
+  const [filter, setFilter] =
+    useState<Backend.StatusListFilterParams>(filterParams);
+
+  const startDate: DateValueType = useMemo<DateValueType>(() => {
+    const date = filter.startDate ? new Date(filter.startDate) : null;
+    return { startDate: date, endDate: date && new Date(date) };
+  }, [filter.startDate]);
+
+  const endDate: DateValueType = useMemo<DateValueType>(() => {
+    const date = filter.endDate ? new Date(filter.endDate) : null;
+    return { startDate: date && new Date(date), endDate: date };
+  }, [filter.endDate]);
 
   const applyFilter = () => {
     updateFilterParams(filter);
@@ -66,7 +68,7 @@ export default function Filter(props: FilterProps) {
     <MotionContainer
       className={cn(
         'flex w-72 flex-col gap-4 border border-base-content/10 p-4',
-        'rounded-[--rounded-box] bg-base-200/50 shadow'
+        'rounded-[--rounded-box] bg-base-200/30 shadow-sm'
       )}
     >
       <div className="m-auto flex flex-col gap-2">
@@ -95,33 +97,37 @@ export default function Filter(props: FilterProps) {
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('startDate')}</p>
           <DatePicker
-            classNames="w-[10rem] relative"
-            value={filter.startDate ? new Date(filter.startDate) : undefined}
+            asSingle={true}
+            useRange={false}
+            containerClassName="w-40 h-[2rem]"
+            inputClassName="input-xs"
+            value={startDate}
             onChange={date =>
               setFilter(f => ({
                 ...f,
-                startDate: dayjs(date).format('YYYY-MM-DD'),
+                startDate: date?.startDate
+                  ? dayjs(date?.startDate).format('YYYY-MM-DD')
+                  : '',
               }))
             }
-            options={{
-              defaultDate: new Date(),
-            }}
           />
         </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('endDate')}</p>
           <DatePicker
-            classNames="w-[10rem] relative"
-            value={filter.endDate ? new Date(filter.endDate) : undefined}
+            asSingle={true}
+            useRange={false}
+            containerClassName="w-40 h-[2rem]"
+            inputClassName="input-xs"
+            value={endDate}
             onChange={date =>
               setFilter(f => ({
                 ...f,
-                endDate: dayjs(date).format('YYYY-MM-DD'),
+                endDate: date?.endDate
+                  ? dayjs(date?.endDate).format('YYYY-MM-DD')
+                  : '',
               }))
             }
-            options={{
-              defaultDate: new Date(),
-            }}
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -161,8 +167,8 @@ export default function Filter(props: FilterProps) {
       <div className="flex items-center justify-between">
         <Button
           size="xs"
-          color="neutral"
-          className="h-[2rem] rounded"
+          color="ghost"
+          className="h-[2rem] rounded border-base-content/10 bg-base-content/10"
           startIcon={<RotateCcwIcon size={16} />}
           onClick={resetFilter}
         >

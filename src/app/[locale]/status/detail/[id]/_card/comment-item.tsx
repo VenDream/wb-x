@@ -134,7 +134,7 @@ export default function CommentItem(props: CommentItemProps) {
           {comments.length > 0 && (
             <div
               className={cn(
-                'comment-replies mt-2 flex flex-col gap-1 bg-base-300/80 p-2',
+                'comment-replies mt-2 flex flex-col gap-1 bg-base-200/30 p-2',
                 'rounded border border-base-content/10'
               )}
             >

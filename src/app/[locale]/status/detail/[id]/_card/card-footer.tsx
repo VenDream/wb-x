@@ -9,6 +9,7 @@
 
 import { useDialog } from '@/components/common/dialog';
 import { Button } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/weibo';
 import {
@@ -56,7 +57,12 @@ export default function CardFooter() {
 
   return (
     <div className={cardFooter({ type: isRetweet ? 'retweet' : 'default' })}>
-      <div className="col-start-2 col-end-4 flex justify-between text-xs tracking-tighter text-base-content/60">
+      <div
+        className={cn(
+          'col-start-2 col-end-4 flex justify-between text-xs tracking-tighter',
+          'text-base-content/60'
+        )}
+      >
         <div className="flex gap-4">
           <span className="flex items-center">
             <Repeat2Icon size={16} className="mr-1" />
@@ -66,7 +72,10 @@ export default function CardFooter() {
             variant="link"
             animation={false}
             onClick={showComments}
-            className="m-0 h-auto min-h-0 gap-0 p-0 text-base-content/60 no-underline"
+            className={cn(
+              'm-0 h-auto min-h-0 gap-0 p-0 text-base-content/60 no-underline',
+              'text-xs hover:text-accent'
+            )}
           >
             <MessageCircleMoreIcon size={16} className="mr-1" />
             {cc}

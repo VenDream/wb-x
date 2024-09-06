@@ -8,9 +8,12 @@
  */
 
 import { Metadata } from 'next';
-
-export { default } from './settings';
+import Settings from './settings';
 
 export const metadata: Metadata = {
   title: 'Settings',
 };
+
+export default function Page() {
+  return <Settings />;
+}

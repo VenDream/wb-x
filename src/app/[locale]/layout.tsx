@@ -53,7 +53,7 @@ export default async function RootLayout({
       <html lang={locale} className={cn(font.className, 'preparing')}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
-            <ThemeProvider>
+            <ThemeProvider className="wbx-theme-provoder">
               <DialogProvider>
                 <LayoutHeader />
                 <LayoutBody>{children}</LayoutBody>

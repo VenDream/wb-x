@@ -30,14 +30,14 @@ specifiers:
   eslint-config-next: 14.2.8
   eslint-config-prettier: ^9.1.0
   eslint-plugin-prettier: ^5.2.1
-  framer-motion: ^11.5.2
+  framer-motion: ^11.5.4
   husky: ^9.1.5
   immer: ^10.1.1
   jotai: ^2.9.3
   lint-staged: ^15.2.10
-  lucide-react: ^0.438.0
+  lucide-react: ^0.439.0
   next: 14.2.8
-  next-intl: 3.19.0
+  next-intl: 3.19.1
   npm-run-all: ^4.1.5
   picocolors: ^1.1.0
   postcss: 8.4.45
@@ -47,13 +47,13 @@ specifiers:
   react-daisyui: ^4.1.2
   react-dom: 18.3.1
   react-simple-code-editor: ^0.14.1
+  react-tailwindcss-datepicker: ^1.7.2
   react-virtualized-auto-sizer: ^1.0.24
   react-window: ^1.8.10
   react-window-infinite-loader: ^1.0.9
   sass: ^1.78.0
   shiki: ^1.16.2
   sonner: ^1.5.0
-  tailwind-datepicker-react: ^1.4.3
   tailwind-merge: ^2.5.2
   tailwindcss: 3.4.10
   tsx: ^4.19.0
@@ -74,23 +74,23 @@ dependencies:
   daisyui: 3.9.4
   dayjs: 1.11.13
   embla-carousel-react: 8.2.1_react@18.3.1
-  framer-motion: 11.5.2_hhsrl2fq6wkycvmmihiwd2vhde
+  framer-motion: 11.5.4_hhsrl2fq6wkycvmmihiwd2vhde
   immer: 10.1.1
   jotai: 2.9.3_vhfblam3newwcpiwkw3tsgpmum
-  lucide-react: 0.438.0_react@18.3.1
+  lucide-react: 0.439.0_react@18.3.1
   next: 14.2.8_5gtew6qj33svxdqnxm6dvemqwy
-  next-intl: 3.19.0_next@14.2.8+react@18.3.1
+  next-intl: 3.19.1_next@14.2.8+react@18.3.1
   postcss: 8.4.45
   react: 18.3.1
   react-daisyui: 4.1.2_gwainawa4fj5deq77b2crxg4na
   react-dom: 18.3.1_react@18.3.1
   react-simple-code-editor: 0.14.1_nnrd3gsncyragczmpvfhocinkq
+  react-tailwindcss-datepicker: 1.7.2_dayjs@1.11.13+react@18.3.1
   react-virtualized-auto-sizer: 1.0.24_nnrd3gsncyragczmpvfhocinkq
   react-window: 1.8.10_nnrd3gsncyragczmpvfhocinkq
   react-window-infinite-loader: 1.0.9_nnrd3gsncyragczmpvfhocinkq
   shiki: 1.16.2
   sonner: 1.5.0_nnrd3gsncyragczmpvfhocinkq
-  tailwind-datepicker-react: 1.4.3_nn62jjl3xbnltmmy2dsr3sawuq
   tailwind-merge: 2.5.2
   tailwindcss: 3.4.10
   yet-another-react-lightbox: 3.21.4_nnrd3gsncyragczmpvfhocinkq
@@ -2970,8 +2970,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
-  /framer-motion/11.5.2_hhsrl2fq6wkycvmmihiwd2vhde:
-    resolution: {integrity: sha512-dZLb7F+orjs+y2ggdl3tL5wuIDsHV1p28gloOSrDWH+nwmt0RTC7myq9FdfWZcQZ47qzv4RrqHEtHoeaBK57dg==}
+  /framer-motion/11.5.4_hhsrl2fq6wkycvmmihiwd2vhde:
+    resolution: {integrity: sha512-E+tb3/G6SO69POkdJT+3EpdMuhmtCh9EWuK4I1DnIC23L7tFPrl8vxP+LSovwaw6uUr73rUbpb4FgK011wbRJQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -3842,8 +3842,8 @@ packages:
     engines: {node: 14 || >=16.14}
     dev: true
 
-  /lucide-react/0.438.0_react@18.3.1:
-    resolution: {integrity: sha512-uq6yCB+IzVfgIPMK8ibkecXSWTTSOMs9UjUgZigfrDCVqgdwkpIgYg1fSYnf0XXF2AoSyCJZhoZXQwzoai7VGw==}
+  /lucide-react/0.439.0_react@18.3.1:
+    resolution: {integrity: sha512-PafSWvDTpxdtNEndS2HIHxcNAbd54OaqSYJO90/b63rab2HWYqDbH194j0i82ZFdWOAcf0AHinRykXRRK2PJbw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
     dependencies:
@@ -3977,8 +3977,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /next-intl/3.19.0_next@14.2.8+react@18.3.1:
-    resolution: {integrity: sha512-ciiHYBwR3ztoMdJZgFmt0LII7GYTsLA/MFt3y681q4Lw4fI5EYNCZSYb9XA/BIt3ZX5S1TLUP1uOERy1dIQvMg==}
+  /next-intl/3.19.1_next@14.2.8+react@18.3.1:
+    resolution: {integrity: sha512-KlJSomzbB5dNkWBIiSIRaoy5zqwLgHNV5Zw0ULhkHjNnPN7aLFFv2G+VOQKle630sNH2JiKc9nsmi6PM1GdkhA==}
     peerDependencies:
       next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -3987,7 +3987,7 @@ packages:
       negotiator: 0.6.3
       next: 14.2.8_5gtew6qj33svxdqnxm6dvemqwy
       react: 18.3.1
-      use-intl: 3.19.0_react@18.3.1
+      use-intl: 3.19.1_react@18.3.1
     dev: false
 
   /next/14.2.8_5gtew6qj33svxdqnxm6dvemqwy:
@@ -4624,6 +4624,16 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /react-tailwindcss-datepicker/1.7.2_dayjs@1.11.13+react@18.3.1:
+    resolution: {integrity: sha512-/NIRLB1evT69pt3Syol3cZpsAnLZlGvFWav98/Rr77Gey382C1fjKW2Emgu+SC4NtiRt6CBFwx/0Wbkn4iI+nA==}
+    peerDependencies:
+      dayjs: ^1.11.12
+      react: ^17.0.2 || ^18.2.0
+    dependencies:
+      dayjs: 1.11.13
+      react: 18.3.1
+    dev: false
+
   /react-virtualized-auto-sizer/1.0.24_nnrd3gsncyragczmpvfhocinkq:
     resolution: {integrity: sha512-3kCn7N9NEb3FlvJrSHWGQ4iVl+ydQObq2fHMn12i5wbtm74zHOPhz/i64OL3c1S1vi9i2GXtZqNqUJTQ+BnNfg==}
     peerDependencies:
@@ -5248,23 +5258,6 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /tailwind-datepicker-react/1.4.3_nn62jjl3xbnltmmy2dsr3sawuq:
-    resolution: {integrity: sha512-K/mX7GjsO8fvaN1/jZcEbCMb14VdBe0HGxBy36WK4zxfYOPB2tGMSAUo06so+BmsaVPU4dwmfDElK/6Uxaashw==}
-    peerDependencies:
-      react: '>=17'
-      react-dom: '>=17'
-      tailwindcss: '>=3'
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1_react@18.3.1
-      tailwind-merge: 1.14.0
-      tailwindcss: 3.4.10
-    dev: false
-
-  /tailwind-merge/1.14.0:
-    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
-    dev: false
-
   /tailwind-merge/2.5.2:
     resolution: {integrity: sha512-kjEBm+pvD+6eAwzJL2Bi+02/9LFLal1Gs61+QB7HvTfQQ0aXwC5LGT8PEt1gS0CWKktKe6ysPTAy3cBC5MeiIg==}
     dev: false
@@ -5547,8 +5540,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /use-intl/3.19.0_react@18.3.1:
-    resolution: {integrity: sha512-JOA73+YdtArxkvFKrneLAhH55m+x+sA9Wj8w8rYkHkHvcW/76w5T3szSmBG063vH3UqLoIKlsDVBBUfpkB7GMg==}
+  /use-intl/3.19.1_react@18.3.1:
+    resolution: {integrity: sha512-FUblDZJ/iuXusroBxvzVwXmgjHIef2YHJ0ASRmkMV8whlcRr6QJozBZUR/xB4I0+MMbWDD4GPugUK+MxE2coJA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:

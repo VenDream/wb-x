@@ -115,7 +115,7 @@ export default function CommentList(props: CommentListProps) {
         className={cn(
           'flex items-center justify-between border border-base-content/10',
           'sticky left-0 top-0 rounded-[--rounded-box] rounded-b-none p-4',
-          'z-10 w-full bg-base-200/50 backdrop-blur',
+          'z-10 w-full bg-base-200/30 backdrop-blur',
           {
             'rounded-t-none': isSticky,
             'p-2': props.hideTitle,
@@ -143,7 +143,7 @@ export default function CommentList(props: CommentListProps) {
       <div
         className={cn(
           'rounded-[--rounded-box] rounded-t-none border border-t-0',
-          'border-base-content/10 bg-base-200/50 p-4'
+          'border-base-content/10 bg-base-200/30 p-4'
         )}
       >
         {commentList.map(comment => (

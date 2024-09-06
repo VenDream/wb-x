@@ -8,9 +8,12 @@
  */
 
 import { Metadata } from 'next';
-
-export { default } from './rotn-list';
+import RotnList from './rotn-list';
 
 export const metadata: Metadata = {
   title: 'ROTN',
 };
+
+export default function Page() {
+  return <RotnList />;
+}

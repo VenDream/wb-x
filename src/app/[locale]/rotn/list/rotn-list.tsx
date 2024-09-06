@@ -18,7 +18,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import RotnCard from './rotn-card';
 
-export default function Page() {
+export default function RotnList() {
   const t = useTranslations('pages.rotn.type');
 
   const [pageNo, setPageNo] = useState(0);

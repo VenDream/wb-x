@@ -52,9 +52,12 @@
     },
     "datepicker": {
       "select": "Select Date",
+      "yesterday": "Yesterday",
+      "firstDayOfLastYear": "First day of last year",
+      "lastDayOfLastYear": "Last day of last year",
       "today": "Today",
-      "clear": "Clear",
-      "weekDays": "Mo,Tu,We,Th,Fr,Sa,Su"
+      "firstDayOfYear": "First day of this year",
+      "lastDayOfYear": "Last day of this year"
     },
     "misc": {
       "notFound": "Sorry, the page you visited does not exist",

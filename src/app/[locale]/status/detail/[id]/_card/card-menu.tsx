@@ -82,7 +82,8 @@ export default function CardMenu() {
       </DropdownToggle>
       <DropdownMenu
         className={cn(
-          'z-10 mt-2 w-[190px] rounded border border-base-content/10 will-change-transform'
+          'z-10 mt-2 w-[190px] rounded border border-base-content/10',
+          'bg-base-100/50 backdrop-blur will-change-transform'
         )}
       >
         {!!menu.copyId && (

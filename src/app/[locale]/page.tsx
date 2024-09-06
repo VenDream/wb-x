@@ -11,6 +11,7 @@ import { refreshDbInfo } from '@/app/actions';
 import MotionContainer from '@/components/common/motion-container';
 import RouterRefresh from '@/components/common/router-refresh';
 import { Button } from '@/components/daisyui';
+import { APP_NAME } from '@/contants';
 import { DatabaseIcon, RefreshCcwIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
@@ -20,7 +21,7 @@ import Stats from './stats';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: `Home | ${APP_NAME}`,
 };
 
 export default async function Page({ params }: ParamsBody) {
