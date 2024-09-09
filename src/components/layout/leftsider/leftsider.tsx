@@ -11,15 +11,27 @@
 
 import { Menu, MenuItem } from '@/components/daisyui';
 import { MAIN_ROUTES } from '@/contants';
+import useUser from '@/hooks/use-user';
 import { Link, usePathname } from '@/navigation';
 import { cn } from '@/utils/classnames';
+import { produce } from 'immer';
 import { useTranslations } from 'next-intl';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import ICONS from './icons';
 
 export default function Leftsider() {
   const pathname = usePathname();
   const t = useTranslations('global.pages');
+  const { isAdmin } = useUser();
+
+  const menus = useMemo(() => {
+    return isAdmin
+      ? MAIN_ROUTES
+      : produce(MAIN_ROUTES, draft => {
+          draft.ROTN = '';
+          draft.USER = '';
+        });
+  }, [isAdmin]);
 
   const isActive = useCallback(
     (routePath: string) => {
@@ -32,13 +44,20 @@ export default function Leftsider() {
 
   return (
     <Menu className="h-full w-60 gap-2 border-r border-base-content/10 bg-base-100 p-4">
-      {Object.entries(MAIN_ROUTES).map(([k, p]) => (
-        <MenuItem key={k}>
-          <Link href={p} className={cn('text-base', { active: isActive(p) })}>
-            {ICONS[k as keyof typeof MAIN_ROUTES]} {t(k.toLowerCase())}
-          </Link>
-        </MenuItem>
-      ))}
+      {Object.entries(menus).map(
+        ([k, p]) =>
+          k &&
+          p && (
+            <MenuItem key={k}>
+              <Link
+                href={p}
+                className={cn('text-base', { active: isActive(p) })}
+              >
+                {ICONS[k as keyof typeof MAIN_ROUTES]} {t(k.toLowerCase())}
+              </Link>
+            </MenuItem>
+          )
+      )}
     </Menu>
   );
 }

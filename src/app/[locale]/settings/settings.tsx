@@ -11,7 +11,7 @@
 
 import MotionContainer from '@/components/common/motion-container';
 import { Tab, Tabs } from '@/components/daisyui';
-import { useUser } from '@clerk/nextjs';
+import useUser from '@/hooks/use-user';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import CookiesSettings from './cookies';
@@ -25,12 +25,7 @@ const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
 
 export default function Settings() {
   const t = useTranslations('pages.settings.tabs');
-
-  const { user } = useUser();
-  const isOrgAdmin = user?.organizationMemberships?.some(
-    org => org.role === 'org:admin'
-  );
-  const isAdminOnly = !isClerkEnabled || isOrgAdmin;
+  const { isAdmin } = useUser();
 
   const [settingsType, setSettingsType] = useState<SettingsType>('local');
 
@@ -48,9 +43,9 @@ export default function Settings() {
           </MotionContainer>
         )}
         {settingsType === 'server' &&
-          (isAdminOnly ? <ServerSettings /> : <NoPermission />)}
+          (isAdmin ? <ServerSettings /> : <NoPermission />)}
         {settingsType === 'cookies' &&
-          (isAdminOnly ? <CookiesSettings /> : <NoPermission />)}
+          (isAdmin ? <CookiesSettings /> : <NoPermission />)}
       </div>
     </div>
   );
