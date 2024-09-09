@@ -8,6 +8,7 @@
  */
 
 import { WEIBO_HOST } from '@/contants';
+import { getLocaleMessage } from '@/utils/common';
 
 type Replacer = string | ((substring: string, ...args: any[]) => string);
 
@@ -56,6 +57,29 @@ export function preprocessCommentText(text: string) {
     {
       regex: /\<a\shref=('|")?(\/n\/[^<\s]+)\1[^>]*\>/g,
       value: `<a href='${WEIBO_HOST}$2'>`,
+    },
+  ];
+
+  return rules.reduce((prevText, rule) => {
+    const { regex, value } = rule;
+    // string
+    if (typeof value === 'string') return prevText.replace(regex, value);
+    // function
+    return prevText.replace(regex, value);
+  }, text);
+}
+
+/**
+ * preprocess source text
+ *
+ * @export
+ * @param {string} text text
+ */
+export function preprocessSourceText(text: string) {
+  const rules: ReplaceRule[] = [
+    {
+      regex: /来自(.+)$/g,
+      value: `${getLocaleMessage('pages.status.sourceFrom')} $1`,
     },
   ];
 

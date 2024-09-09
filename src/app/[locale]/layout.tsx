@@ -7,9 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { DialogProvider } from '@/components/common/dialog';
 import Toaster from '@/components/common/toast';
-import { Theme as ThemeProvider } from '@/components/daisyui';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS, META_DATA } from '@/contants';
 import { font } from '@/fonts';
@@ -21,6 +19,7 @@ import { LoaderCircleIcon } from 'lucide-react';
 import { NextIntlClientProvider } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import Provider from './prodiver';
 
 import './globals.scss';
 
@@ -53,14 +52,12 @@ export default async function RootLayout({
       <html lang={locale} className={cn(font.className, 'preparing')}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
-            <ThemeProvider className="wbx-theme-provoder">
-              <DialogProvider>
-                <LayoutHeader />
-                <LayoutBody>{children}</LayoutBody>
-                <SpeedInsights />
-                <Toaster font={font.className} />
-              </DialogProvider>
-            </ThemeProvider>
+            <Provider>
+              <LayoutHeader />
+              <LayoutBody>{children}</LayoutBody>
+              <SpeedInsights />
+              <Toaster font={font.className} />
+            </Provider>
             <div
               className={cn(
                 'loading-mask fixed z-50 flex h-screen w-screen items-center',

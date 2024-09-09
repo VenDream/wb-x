@@ -9,7 +9,7 @@
 
 import { LANGS } from '@/contants';
 import { cn } from '@/utils/classnames';
-import dayjs from 'dayjs';
+import dayjs from '@/utils/dayjs';
 import { useLocale, useTranslations } from 'next-intl';
 import ReactDatePicker, { DatepickerType } from 'react-tailwindcss-datepicker';
 

@@ -7,17 +7,24 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import Tooltip from '@/components/common/tooltip';
 import { Avatar } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
 
 export default function CardHeader() {
   const t = useTranslations('pages.status');
   const { status, isRetweet } = useContext(CardCtx);
   const { user, createdAt, source } = status!;
+
+  const [ct, setCt] = useState('');
+
+  useEffect(() => {
+    setCt(getCreateTime(createdAt));
+  }, [createdAt]);
 
   if (isRetweet) return null;
 
@@ -32,14 +39,22 @@ export default function CardHeader() {
         className="row-start-1 row-end-3 flex items-center justify-center"
       />
       <span className="flex items-center text-sm">{user.name}</span>
-      <span className="flex items-center text-xs text-gray-500">
-        {getCreateTime(createdAt)}
-        {source && (
-          <span className="ml-2 flex items-center">
-            <span className="mr-2">{t('sourceFrom')}</span>
-            {source}
+      <span className="inline-flex items-center">
+        <Tooltip message={createdAt} className="text-xs">
+          <span className="flex cursor-text items-center text-xs text-gray-500">
+            {ct}
+            {source && (
+              <>
+                &nbsp;•&nbsp;
+                <span className="flex items-center">
+                  {t('sourceFrom')}
+                  &nbsp;
+                  {source}
+                </span>
+              </>
+            )}
           </span>
-        )}
+        </Tooltip>
       </span>
     </div>
   );

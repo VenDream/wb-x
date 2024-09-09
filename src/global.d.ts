@@ -9,6 +9,7 @@
 
 import { useTranslations } from 'next-intl';
 import { PropsWithChildren } from 'react';
+import { DEFAULT_THEMES } from 'react-daisyui/dist/defaultThemes';
 
 declare global {
   /* ------------------------------------------------------------------------ */
@@ -28,6 +29,22 @@ declare global {
   }
 
   type TFunction = ReturnType<typeof useTranslations>;
+
+  type Themes = typeof DEFAULT_THEMES;
+  type DarkTheme = readonly Extract<
+    (typeof DEFAULT_THEMES)[number],
+    | 'dark'
+    | 'synthwave'
+    | 'halloween'
+    | 'forest'
+    | 'aqua'
+    | 'black'
+    | 'luxury'
+    | 'dracula'
+    | 'business'
+    | 'night'
+    | 'coffee'
+  >;
 
   /* ------------------------------------------------------------------------ */
   /*                                    App                                   */

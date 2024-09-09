@@ -8,6 +8,7 @@
  */
 
 import { useDialog } from '@/components/common/dialog';
+import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
@@ -30,6 +31,7 @@ export default function CardFooter() {
   const { id, createdAt, repostsCount, commentsCount, attitudesCount } =
     status!;
 
+  const [ct, setCt] = useState('');
   const [rc, setRc] = useState('0');
   const [cc, setCc] = useState('0');
   const [ac, setAc] = useState('0');
@@ -50,10 +52,11 @@ export default function CardFooter() {
   };
 
   useEffect(() => {
+    setCt(getCreateTime(createdAt));
     setRc(formatNumberWithUnit(repostsCount || 0));
     setCc(formatNumberWithUnit(commentsCount || 0));
     setAc(formatNumberWithUnit(attitudesCount || 0));
-  }, [attitudesCount, commentsCount, repostsCount]);
+  }, [attitudesCount, commentsCount, createdAt, repostsCount]);
 
   return (
     <div className={cardFooter({ type: isRetweet ? 'retweet' : 'default' })}>
@@ -86,10 +89,12 @@ export default function CardFooter() {
           </span>
         </div>
         {isRetweet && (
-          <div className="flex items-center tracking-tight">
-            <span className="mr-2">{t('postedOn')}</span>
-            {getCreateTime(createdAt)}
-          </div>
+          <Tooltip message={createdAt} className="text-xs">
+            <div className="flex cursor-text items-center tracking-tight">
+              <span className="mr-2">{t('postedOn')}</span>
+              {ct}
+            </div>
+          </Tooltip>
         )}
       </div>
     </div>
