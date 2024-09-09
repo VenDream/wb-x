@@ -15,6 +15,9 @@ import { notFound } from 'next/navigation';
 import Paginator from './paginator';
 import UsersList from './user-list';
 
+// revalidate user list at most every hour - 60 * 60
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Users',
 };
