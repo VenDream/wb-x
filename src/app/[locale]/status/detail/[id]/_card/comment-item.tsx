@@ -62,14 +62,17 @@ export default function CommentItem(props: CommentItemProps) {
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
       const username = `
-        <a href="${WEIBO_HOST}/n/${user.name}" target="_blank" class="break-all">
+        <a href="${WEIBO_HOST}/n/${user.name}" target="_blank">
           @${user.name}
         </a>
       `;
       const opTag = `
-        <span class="text-xs text-primary border border-primary px-0.5 ml-1">${t(
-          'op'
-        )}</span>
+        <span 
+          style="zoom: 80%;"
+          class="text-xs text-accent border border-accent px-0.5 ml-1"
+        >
+          ${t('op')}
+        </span>
       `;
       return user.isOP ? username + opTag : username;
     },
@@ -84,6 +87,16 @@ export default function CommentItem(props: CommentItemProps) {
 
     return `${userName}&nbsp;${t('replyTo')}&nbsp;${getUserName(replyUser)}：`;
   }, [getUserName, isReply, isReplySelf, isReplyToSomeone, replyUser, t, user]);
+
+  const createtime = useMemo(
+    () => getCreateTime(createdAt, { relativeAlways: true }),
+    [createdAt]
+  );
+
+  const sourceFrom = useMemo(
+    () => (source ? preprocessSourceText(source) : ''),
+    [source]
+  );
 
   const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
@@ -119,17 +132,23 @@ export default function CommentItem(props: CommentItemProps) {
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
-              <span className="ml-1 border border-primary px-0.5 text-xs text-primary">
+              <span
+                style={{ zoom: 0.8 }}
+                className="ml-1 border border-accent px-0.5 text-xs text-accent"
+              >
                 {t('op')}
               </span>
             )}
           </span>
           <span className="inline-flex items-center">
             <Tooltip message={createdAt} className="text-xs">
-              <span className="flex cursor-text items-center text-xs text-gray-500">
-                {getCreateTime(createdAt)}
-                &nbsp;•&nbsp;
-                {source && preprocessSourceText(source)}
+              <span
+                className={cn(
+                  'flex cursor-text items-center text-xs text-base-content/50'
+                )}
+              >
+                {createtime}
+                {sourceFrom}
               </span>
             </Tooltip>
           </span>
@@ -145,10 +164,13 @@ export default function CommentItem(props: CommentItemProps) {
                 preprocessCommentText(text) +
                 (isReply
                   ? `
-                    <span class="reply-suffix" style="zoom: 90%;">
-                      ${getCreateTime(createdAt)}
-                      &nbsp;•&nbsp;
-                      ${preprocessSourceText(source)}
+                    <span
+                      style="zoom: 90%;"
+                      title="${createdAt}"
+                      class="text-xs text-base-content/50"
+                    >
+                      ${createtime}
+                      ${sourceFrom}
                     </span>
                     `
                   : ''),
@@ -180,10 +202,17 @@ export default function CommentItem(props: CommentItemProps) {
           )}
           {!isDetailReplies && hasMoreReplies && (
             <span
-              className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
+              className={cn(
+                'relative mt-6 inline-flex cursor-pointer items-center text-xs',
+                'text-[#eb7340]'
+              )}
               onClick={() => showCommentReplies(props.comment)}
             >
-              <div className="absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20" />
+              <div
+                className={cn(
+                  'absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20'
+                )}
+              />
               {t('totalReplies', { num: totalReplies })}
               <ChevronDownIcon size={14} className="ml-1 !stroke-2" />
             </span>

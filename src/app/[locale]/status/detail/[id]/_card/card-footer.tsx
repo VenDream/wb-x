@@ -28,7 +28,7 @@ import { cardFooter } from './variants';
 export default function CardFooter() {
   const t = useTranslations('pages.status');
   const { status, isRetweet } = useContext(CardCtx);
-  const { id, createdAt, repostsCount, commentsCount, attitudesCount } =
+  const { id, source, createdAt, repostsCount, commentsCount, attitudesCount } =
     status!;
 
   const [ct, setCt] = useState('');
@@ -90,9 +90,18 @@ export default function CardFooter() {
         </div>
         {isRetweet && (
           <Tooltip message={createdAt} className="text-xs">
-            <div className="flex cursor-text items-center tracking-tight">
-              <span className="mr-2">{t('postedOn')}</span>
+            <div
+              className={cn(
+                'flex cursor-text items-center tracking-tight text-base-content/50'
+              )}
+            >
               {ct}
+              {source && (
+                <>
+                  &nbsp;•&nbsp;
+                  {source}
+                </>
+              )}
             </div>
           </Tooltip>
         )}

@@ -8,7 +8,6 @@
  */
 
 import { WEIBO_HOST } from '@/contants';
-import { getLocaleMessage } from '@/utils/common';
 
 type Replacer = string | ((substring: string, ...args: any[]) => string);
 
@@ -79,7 +78,7 @@ export function preprocessSourceText(text: string) {
   const rules: ReplaceRule[] = [
     {
       regex: /来自(.+)$/g,
-      value: `${getLocaleMessage('pages.status.sourceFrom')} $1`,
+      value: ' • $1',
     },
   ];
 

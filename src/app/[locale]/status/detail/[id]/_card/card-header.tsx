@@ -41,16 +41,12 @@ export default function CardHeader() {
       <span className="flex items-center text-sm">{user.name}</span>
       <span className="inline-flex items-center">
         <Tooltip message={createdAt} className="text-xs">
-          <span className="flex cursor-text items-center text-xs text-gray-500">
+          <span className="flex cursor-text items-center text-xs text-base-content/50">
             {ct}
             {source && (
               <>
                 &nbsp;•&nbsp;
-                <span className="flex items-center">
-                  {t('sourceFrom')}
-                  &nbsp;
-                  {source}
-                </span>
+                {source}
               </>
             )}
           </span>

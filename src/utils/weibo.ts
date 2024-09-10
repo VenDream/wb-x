@@ -122,6 +122,7 @@ interface GetCreateTimeOptions {
   relative?: boolean;
   relativeUnit?: OpUnitType;
   relativeValue?: number;
+  relativeAlways?: boolean;
 }
 
 type ConcreteGetCreateTimeOptions = {
@@ -132,6 +133,7 @@ const DEFUALT_OPTIONS: GetCreateTimeOptions = {
   relative: true,
   relativeUnit: 'month',
   relativeValue: 6,
+  relativeAlways: false,
 };
 
 /**
@@ -142,7 +144,7 @@ const DEFUALT_OPTIONS: GetCreateTimeOptions = {
  * @param {GetCreateTimeOptions} [options] options
  */
 export function getCreateTime(ct: string, options?: GetCreateTimeOptions) {
-  const { relative, relativeUnit, relativeValue } = {
+  const { relative, relativeUnit, relativeValue, relativeAlways } = {
     ...DEFUALT_OPTIONS,
     ...options,
   } as ConcreteGetCreateTimeOptions;
@@ -151,7 +153,7 @@ export function getCreateTime(ct: string, options?: GetCreateTimeOptions) {
   const createtime = dayjs(ct);
   const diffs = now.diff(createtime, relativeUnit, true);
 
-  if (!!relative && diffs < relativeValue) {
+  if (!!relativeAlways || (!!relative && diffs < relativeValue)) {
     const locale = getLocale();
     return dayjs(ct)
       .locale(locale === LANGS.en ? EN : ZH)
