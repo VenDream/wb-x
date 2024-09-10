@@ -20,5 +20,5 @@ export function setLsTheme(theme: string) {
 
 export function isDarkTheme(theme?: string) {
   const t = theme || getLsTheme();
-  return DARK_THEMES.includes(t);
+  return DARK_THEMES.includes(t as DarkTheme);
 }
