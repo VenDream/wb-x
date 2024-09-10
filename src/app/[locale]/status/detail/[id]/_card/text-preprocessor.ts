@@ -67,3 +67,26 @@ export function preprocessCommentText(text: string) {
     return prevText.replace(regex, value);
   }, text);
 }
+
+/**
+ * preprocess source text
+ *
+ * @export
+ * @param {string} text text
+ */
+export function preprocessSourceText(text: string) {
+  const rules: ReplaceRule[] = [
+    {
+      regex: /来自(.+)$/g,
+      value: ' • $1',
+    },
+  ];
+
+  return rules.reduce((prevText, rule) => {
+    const { regex, value } = rule;
+    // string
+    if (typeof value === 'string') return prevText.replace(regex, value);
+    // function
+    return prevText.replace(regex, value);
+  }, text);
+}

@@ -18,7 +18,7 @@ import { createTranslator } from 'next-intl';
  * @export
  */
 export function getLocale() {
-  if (typeof window === 'undefined') return LANGS.en;
+  // if (typeof window === 'undefined') return LANGS.en;
   const html = document.documentElement;
   return (html.getAttribute('lang') as Lang) || LANGS.en;
 }

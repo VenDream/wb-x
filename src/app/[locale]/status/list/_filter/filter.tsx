@@ -12,7 +12,7 @@ import MotionContainer from '@/components/common/motion-container';
 import { Button, Checkbox, Input } from '@/components/daisyui';
 import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
 import { cn } from '@/utils/classnames';
-import dayjs from 'dayjs';
+import dayjs from '@/utils/dayjs';
 import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';

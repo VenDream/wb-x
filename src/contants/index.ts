@@ -22,8 +22,9 @@ export const META_DATA: Metadata = {
 export const LANGS = {
   en: 'en-US',
   zh: 'zh-CN',
-};
-export type Lang = keyof typeof LANGS;
+} as const;
+
+export type Lang = (typeof LANGS)[keyof typeof LANGS];
 
 /** main route paths */
 export const MAIN_ROUTES = {
@@ -53,11 +54,7 @@ export const PAGINATION_LIMIT = 10;
 export const MIN_IMAGES_COUNT = 0;
 export const MAX_IMAGES_COUNT = 18;
 
-/**
- * themes
- * @refer https://daisyui.com/docs/themes/
- */
-export const THEMES = [
+export const THEMES: Themes = [
   'light',
   'dark',
   'cupcake',
@@ -88,8 +85,7 @@ export const THEMES = [
   'coffee',
   'winter',
 ];
-
-export const DARK_THEMES = [
+export const DARK_THEMES: DarkTheme[] = [
   'dark',
   'synthwave',
   'halloween',

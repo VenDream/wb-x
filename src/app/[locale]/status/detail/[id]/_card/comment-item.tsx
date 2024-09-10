@@ -10,6 +10,7 @@
 import { useDialog } from '@/components/common/dialog';
 import ImageGrid from '@/components/common/image-grid';
 import MotionContainer from '@/components/common/motion-container';
+import Tooltip from '@/components/common/tooltip';
 import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
@@ -24,7 +25,10 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentReplies from './comment-replies';
-import { preprocessCommentText } from './text-preprocessor';
+import {
+  preprocessCommentText,
+  preprocessSourceText,
+} from './text-preprocessor';
 import type { CommentItemProps } from './types';
 import {
   CommentVariants,
@@ -57,10 +61,19 @@ export default function CommentItem(props: CommentItemProps) {
   const getUserName = useCallback(
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
-      const username = `<a href="${WEIBO_HOST}/n/${user.name}" target="_blank">@${user.name}</a>`;
-      const opTag = `<span class="text-xs text-primary border border-primary px-0.5 ml-1">${t(
-        'op'
-      )}</span>`;
+      const username = `
+        <a href="${WEIBO_HOST}/n/${user.name}" target="_blank">
+          @${user.name}
+        </a>
+      `;
+      const opTag = `
+        <span 
+          style="zoom: 80%;"
+          class="text-xs text-accent border border-accent px-0.5 ml-1"
+        >
+          ${t('op')}
+        </span>
+      `;
       return user.isOP ? username + opTag : username;
     },
     [t]
@@ -70,12 +83,20 @@ export default function CommentItem(props: CommentItemProps) {
     if (!isReply) return '';
 
     let userName = getUserName(user);
-    if (isReplySelf || !isReplyToSomeone) return `${userName}:&nbsp;&nbsp;`;
+    if (isReplySelf || !isReplyToSomeone) return `${userName}：`;
 
-    return `${userName}&nbsp;${t('replyTo')}&nbsp;${getUserName(
-      replyUser
-    )}:&nbsp;&nbsp;`;
+    return `${userName}&nbsp;${t('replyTo')}&nbsp;${getUserName(replyUser)}：`;
   }, [getUserName, isReply, isReplySelf, isReplyToSomeone, replyUser, t, user]);
+
+  const createtime = useMemo(
+    () => getCreateTime(createdAt, { relativeAlways: true }),
+    [createdAt]
+  );
+
+  const sourceFrom = useMemo(
+    () => (source ? preprocessSourceText(source) : ''),
+    [source]
+  );
 
   const showCommentReplies = (comment: Backend.StatusComment) => {
     showDialog({
@@ -111,23 +132,48 @@ export default function CommentItem(props: CommentItemProps) {
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
-              <span className="ml-1 border border-primary px-0.5 text-xs text-primary">
+              <span
+                style={{ zoom: 0.8 }}
+                className="ml-1 border border-accent px-0.5 text-xs text-accent"
+              >
                 {t('op')}
               </span>
             )}
           </span>
-          <span className="flex items-center text-xs text-gray-500">
-            {getCreateTime(createdAt)}
-            {source && <span className="ml-2">{source}</span>}
+          <span className="inline-flex items-center">
+            <Tooltip message={createdAt} className="text-xs">
+              <span
+                className={cn(
+                  'flex cursor-text items-center text-xs text-base-content/50'
+                )}
+              >
+                {createtime}
+                {sourceFrom}
+              </span>
+            </Tooltip>
           </span>
         </div>
       )}
       <div className={commentBody({ type: variantType })}>
         <div className="col-start-2 col-end-4">
           <div
-            className="comment-text leading-5 tracking-tight"
+            className="comment-text break-all text-left leading-5 tracking-tight"
             dangerouslySetInnerHTML={{
-              __html: userName + preprocessCommentText(text),
+              __html:
+                userName +
+                preprocessCommentText(text) +
+                (isReply
+                  ? `
+                    <span
+                      style="zoom: 90%;"
+                      title="${createdAt}"
+                      class="text-xs text-base-content/50"
+                    >
+                      ${createtime}
+                      ${sourceFrom}
+                    </span>
+                    `
+                  : ''),
             }}
           />
           {!isReply && <ImageGrid cols={5} isSinaImg images={images} />}
@@ -156,10 +202,17 @@ export default function CommentItem(props: CommentItemProps) {
           )}
           {!isDetailReplies && hasMoreReplies && (
             <span
-              className="relative mt-6 inline-flex cursor-pointer items-center text-xs text-[#eb7340]"
+              className={cn(
+                'relative mt-6 inline-flex cursor-pointer items-center text-xs',
+                'text-[#eb7340]'
+              )}
               onClick={() => showCommentReplies(props.comment)}
             >
-              <div className="absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20" />
+              <div
+                className={cn(
+                  'absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20'
+                )}
+              />
               {t('totalReplies', { num: totalReplies })}
               <ChevronDownIcon size={14} className="ml-1 !stroke-2" />
             </span>

@@ -105,8 +105,6 @@
         "copySuccessTips": "已复制到剪贴板",
         "opPosts": "查看Ta的所有微博"
       },
-      "sourceFrom": "来自",
-      "postedOn": "发布于",
       "video": {
         "fetchFailed": "获取视频播放源失败，请重试"
       },

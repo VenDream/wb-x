@@ -105,8 +105,6 @@
         "copySuccessTips": "Copied to clipboard",
         "opPosts": "View all OP's posts"
       },
-      "sourceFrom": "from",
-      "postedOn": "posted on",
       "video": {
         "fetchFailed": "Failed to fetch video source，please retry"
       },

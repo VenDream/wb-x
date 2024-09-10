@@ -7,7 +7,10 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import dayjs from 'dayjs';
+import { LANGS } from '@/contants';
+import dayjs, { EN, ZH } from '@/utils/dayjs';
+import { OpUnitType } from 'dayjs';
+import { getLocale } from './common';
 import { getAppSettings } from './settings';
 
 const SINAIMG_PROXY = process.env.NEXT_PUBLIC_SINAIMG_PROXY;
@@ -102,21 +105,6 @@ export function getProxiedVideoUrl(src: string) {
 }
 
 /**
- * get weibo create time
- *
- * @export
- * @param {string} ct createtime
- */
-export function getCreateTime(ct: string) {
-  const createtime = dayjs(ct);
-  if (createtime.year() === dayjs().year()) {
-    return createtime.format('MM-DD[\xa0\xa0]HH:mm');
-  } else {
-    return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
-  }
-}
-
-/**
  * dedupe status list
  *
  * @export
@@ -128,4 +116,49 @@ export function dedupeStatusList(list: Backend.Status[]) {
     map.set(status.id, status);
   });
   return Array.from(map.values());
+}
+
+interface GetCreateTimeOptions {
+  relative?: boolean;
+  relativeUnit?: OpUnitType;
+  relativeValue?: number;
+  relativeAlways?: boolean;
+}
+
+type ConcreteGetCreateTimeOptions = {
+  [key in keyof GetCreateTimeOptions]-?: GetCreateTimeOptions[key];
+};
+
+const DEFUALT_OPTIONS: GetCreateTimeOptions = {
+  relative: true,
+  relativeUnit: 'month',
+  relativeValue: 6,
+  relativeAlways: false,
+};
+
+/**
+ * get weibo create time
+ *
+ * @export
+ * @param {string} ct createtime
+ * @param {GetCreateTimeOptions} [options] options
+ */
+export function getCreateTime(ct: string, options?: GetCreateTimeOptions) {
+  const { relative, relativeUnit, relativeValue, relativeAlways } = {
+    ...DEFUALT_OPTIONS,
+    ...options,
+  } as ConcreteGetCreateTimeOptions;
+
+  const now = dayjs();
+  const createtime = dayjs(ct);
+  const diffs = now.diff(createtime, relativeUnit, true);
+
+  if (!!relativeAlways || (!!relative && diffs < relativeValue)) {
+    const locale = getLocale();
+    return dayjs(ct)
+      .locale(locale === LANGS.en ? EN : ZH)
+      .fromNow();
+  } else {
+    return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
+  }
 }
