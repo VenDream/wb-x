@@ -61,7 +61,7 @@ function VirtualListRenderFunc<T, R>(
   } = props;
 
   const t = useTranslations('global.dataFetching');
-  const listRef = useRef<VariableSizeList>();
+  const listRef = useRef<VariableSizeList<T>>();
 
   const [pageNo, setPageNo] = useState(0);
   const [isLoadAll, setIsLoadAll] = useState(false);
@@ -119,25 +119,29 @@ function VirtualListRenderFunc<T, R>(
     return rowHeightsRef.current[idx] || 50;
   }, []);
 
-  const setRowHeight = useCallback((idx: number, height: number) => {
-    const hasMeasured = !!rowHeightsRef.current[idx];
-    if (hasMeasured) return;
+  const setRowHeight = useCallback(
+    (idx: number, height: number, force?: boolean) => {
+      const hasMeasured = !!rowHeightsRef.current[idx];
+      if (!force && hasMeasured) return;
 
-    listRef.current?.resetAfterIndex(0);
-    rowHeightsRef.current = {
-      ...rowHeightsRef.current,
-      [idx]: height,
-    };
-  }, []);
+      listRef.current?.resetAfterIndex(0);
+      rowHeightsRef.current = {
+        ...rowHeightsRef.current,
+        [idx]: height,
+      };
+    },
+    []
+  );
 
   const listCtx = useMemo<VirtualListCtx<T>>(
     () => ({
       list: dataList,
       gutter,
       setRowHeight,
+      getRowItemKey,
       renderRowItemContent,
     }),
-    [dataList, gutter, renderRowItemContent, setRowHeight]
+    [dataList, getRowItemKey, gutter, renderRowItemContent, setRowHeight]
   );
 
   const isNoData = pageNo === 0 && isLoadAll && dataList.length === 0;

@@ -20,7 +20,9 @@ export interface VirtualListCtx<T = any> {
   /** item gutter */
   gutter?: number;
   /** row height updater */
-  setRowHeight: (idx: number, height: number) => void;
+  setRowHeight: (idx: number, height: number, force?: boolean) => void;
+  /** row item key generator */
+  getRowItemKey: (idx: number, item: T) => string;
   /** render row item content */
   renderRowItemContent: (data: T) => React.ReactNode;
 }
@@ -62,7 +64,7 @@ export interface VirtualListProps<T, R> {
   onDataFetchingEnd?: () => void;
 }
 
-export interface VirtualListRowProps<T> {
+export interface VirtualListRowProps {
   /** row index */
   index: number;
   /** scroling status */
@@ -71,4 +73,4 @@ export interface VirtualListRowProps<T> {
   style: React.CSSProperties;
 }
 
-export type VirtualListRowItemProps<T> = VirtualListRowProps<T>;
+export type VirtualListRowItemProps = VirtualListRowProps;

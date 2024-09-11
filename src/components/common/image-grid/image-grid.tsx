@@ -84,9 +84,7 @@ export default function ImageGrid(props: ImageGridProps) {
   if (images.length <= 0) return null;
 
   return (
-    <div
-      className={cn('image-grid mt-2 grid gap-1', className, GRID_COLS_CLASS)}
-    >
+    <div className={cn('image-grid grid gap-1', className, GRID_COLS_CLASS)}>
       {images.slice(0, DISPLAY_IMAGES_NUM).map((img, idx) => {
         let thumbnail = img;
         if (isSinaImg) {

@@ -31,6 +31,11 @@ export function preprocessStatusText(text: string) {
       regex: /\<a\shref=('|")?(\/n\/[^<\s]+)\1[^>]*\>/g,
       value: `<a href='${WEIBO_HOST}$2'>`,
     },
+    // full text: 全文
+    {
+      regex: /\<a\shref=('|")?[^<\s]+\1[^>]*\>(全文)<\/a>/g,
+      value: `<span class="show-full-text">$2</span>`,
+    },
   ];
 
   return rules.reduce((prevText, rule) => {

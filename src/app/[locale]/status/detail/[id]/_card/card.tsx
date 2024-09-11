@@ -22,21 +22,22 @@ import { card } from './variants';
 import './card.sass';
 
 export default function Card(props: CardProps) {
-  const { status, isRetweet, menu, renderCustomMenus } = props;
+  const { status, isRetweet, sourceStatusId, menu, renderCustomMenus } = props;
 
   const ctx = useMemo<CardContext>(
     () => ({
       status,
-      isRetweet: !!isRetweet,
       menu: { ...DEFAULT_MENU, ...menu },
+      isRetweet: !!isRetweet,
+      sourceStatusId: isRetweet ? sourceStatusId : status.id,
       renderCustomMenus,
     }),
-    [isRetweet, menu, renderCustomMenus, status]
+    [isRetweet, menu, renderCustomMenus, sourceStatusId, status]
   );
 
   return (
     <div
-      data-id={status.id}
+      data-status-id={status.id}
       className={card({ type: isRetweet ? 'retweet' : 'default' })}
     >
       <CardCtx.Provider value={ctx}>

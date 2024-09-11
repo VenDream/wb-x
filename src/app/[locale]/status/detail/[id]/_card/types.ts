@@ -11,24 +11,38 @@
 /*                                    Card                                    */
 /* -------------------------------------------------------------------------- */
 
-export interface CardProps {
+interface BaseCardProps {
   /** status */
   status: Backend.Status;
-  /** is retweet status */
-  isRetweet?: boolean;
   /** card menu */
   menu?: CardMenuOpts;
   /** render custom menus */
   renderCustomMenus?: (ctx: CardContext) => JSX.Element;
 }
 
+export type CardProps =
+  | (BaseCardProps & {
+      /** is retweet status */
+      isRetweet?: never;
+      /** source status id */
+      sourceStatusId?: never;
+    })
+  | (BaseCardProps & {
+      /** is retweet status */
+      isRetweet: true;
+      /** source status id */
+      sourceStatusId: string;
+    });
+
 export interface CardContext {
   /** status */
   status: Backend.Status | null;
-  /** is retweet status */
-  isRetweet: boolean;
   /** card menu */
   menu: CardMenuOpts;
+  /** is retweet status */
+  isRetweet: boolean;
+  /** source status id */
+  sourceStatusId: string;
   /** render custom menus */
   renderCustomMenus?: (ctx: CardContext) => JSX.Element;
 }

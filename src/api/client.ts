@@ -111,3 +111,10 @@ export async function appendCookie(cookie: string) {
   const rlt = await post('/api/weibo/cookie/append', { cookie: cookie });
   return rlt;
 }
+
+export async function getWeiboStatusDetail(id: string) {
+  let url = '/api/weibo/status/detail';
+  url = appendURLParams(url, { id });
+  const status = await get<Backend.Status>(url);
+  return status;
+}

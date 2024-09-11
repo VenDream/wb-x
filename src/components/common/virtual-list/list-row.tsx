@@ -12,7 +12,7 @@ import { areEqual } from 'react-window';
 import RowItem from './row-item';
 import type { VirtualListRowProps } from './types';
 
-const Row = memo(function R<T>(props: VirtualListRowProps<T>) {
+const Row = memo(function R(props: VirtualListRowProps) {
   const { index, style } = props;
   return <RowItem index={index} style={style} />;
 }, areEqual);

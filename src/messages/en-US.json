@@ -108,6 +108,10 @@
       "video": {
         "fetchFailed": "Failed to fetch video source，please retry"
       },
+      "fullText": {
+        "loading": "Fetching post full text...",
+        "failed": "Fetching post full text..failed, please retry"
+      },
       "updateFrequency": "The data is updated once per hour."
     },
     "rotn": {

@@ -13,5 +13,6 @@ import type { VirtualListCtx } from './types';
 export const VirtualListContext = createContext<VirtualListCtx>({
   list: [],
   setRowHeight: () => {},
+  getRowItemKey: () => '',
   renderRowItemContent: () => null,
 });
