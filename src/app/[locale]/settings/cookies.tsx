@@ -17,9 +17,9 @@ import { useDialog } from '@/components/common/dialog';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import NoData from '@/components/common/no-data';
-import { Button, Divider, Textarea } from '@/components/daisyui';
+import { Button, Textarea } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
-import { RadarIcon, SaveIcon, Trash2Icon } from 'lucide-react';
+import { PlusIcon, RadarIcon, SaveIcon, Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -164,12 +164,13 @@ export default function CookiesSettings() {
         ) : (
           <NoData className="justify-start" />
         )}
-        <Divider
-          className={cn('before:h-[1px] after:h-[1px]', {
-            '!mt-8': cookies.length > 0,
-          })}
-        />
-        <AddCookies onAdded={getCookies} />
+        <div className="h-[1px] bg-base-content/10" />
+        <AddCookies onAdded={getCookies}>
+          <Button size="sm" color="primary">
+            <PlusIcon size={16} />
+            {t('operation.add')}
+          </Button>
+        </AddCookies>
       </div>
     </MotionContainer>
   );

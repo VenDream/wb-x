@@ -9,14 +9,14 @@
 
 import { appendCookie } from '@/api/client';
 import { Dialog } from '@/components/common/dialog';
-import { Button, Textarea } from '@/components/daisyui';
+import { Textarea } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
-import { CookieIcon, PlusIcon } from 'lucide-react';
+import { CookieIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRef, useState } from 'react';
+import { PropsWithChildren, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-interface IProps {
+interface IProps extends PropsWithChildren {
   onAdded?: () => void | Promise<void>;
 }
 
@@ -79,16 +79,7 @@ export default function AddCookiesDialog(props: IProps) {
         setIsNewCookiesValid(true);
       }}
     >
-      <Dialog.Trigger asChild>
-        <Button
-          size="sm"
-          color="primary"
-          onClick={() => setOpenAddDialog(true)}
-        >
-          <PlusIcon size={16} />
-          {t('operation.add')}
-        </Button>
-      </Dialog.Trigger>
+      <Dialog.Trigger asChild>{props.children}</Dialog.Trigger>
       <Dialog.Title>
         <CookieIcon size={18} className="mr-2 !stroke-2" />
         {t('addCookie.title')}

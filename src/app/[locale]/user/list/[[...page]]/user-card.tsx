@@ -10,8 +10,9 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
+import Tooltip from '@/components/common/tooltip';
 import { FAKE_IMG } from '@/contants/debug';
-import { moveUp } from '@/contants/motions';
+// import { moveUp } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
@@ -31,12 +32,12 @@ export default function UserCard(props: IProps) {
 
   return (
     <MotionContainer
-      whileHover={moveUp}
+      // whileHover={moveUp}
       className={cn(
-        'flex cursor-pointer flex-col items-center justify-between gap-4 px-2 py-6',
+        'flex flex-col items-center justify-between gap-4 px-2 py-6',
         'rounded-[--rounded-box] border border-base-content/10 bg-base-200/50',
-        'hover:shadow hover:outline hover:outline-2 hover:outline-primary',
-        '!will-change-transform'
+        'hover:border-transparent hover:shadow hover:outline hover:outline-1',
+        '!will-change-transform hover:outline-primary'
       )}
     >
       <Avatar
@@ -49,20 +50,24 @@ export default function UserCard(props: IProps) {
       <p title={name} className={cn(blockClasses, 'line-clamp-1 text-sm')}>
         {name || '-'}
       </p>
-      <p className={cn(blockClasses, 'text-xs text-base-content/80')}>
+      <p className={cn(blockClasses, 'text-xs')}>
         {t('follows')}：{followCount || 0}
         <br />
         {t('followers')}：{followersCount || 0}
       </p>
-      <p
-        title={desc}
-        className={cn(
-          blockClasses,
-          'line-clamp-2 h-[3em] text-xs leading-normal text-base-content/80'
-        )}
+      <Tooltip
+        message={desc || '-'}
+        className="max-w-64 break-all border border-primary text-justify text-xs"
       >
-        {t('desc')}: {desc || '-'}
-      </p>
+        <p
+          className={cn(
+            blockClasses,
+            'line-clamp-2 h-[3em] text-xs leading-normal'
+          )}
+        >
+          {desc || '-'}
+        </p>
+      </Tooltip>
     </MotionContainer>
   );
 }
