@@ -15,7 +15,7 @@ import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
 import { cn } from '@/utils/classnames';
-import { formatNumberWithUnit } from '@/utils/common';
+import { formatNumberWithUnit, htmlString } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
 import {
   ChevronDownIcon,
@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
-import CommentReplies from './comment-replies';
+import CommentsReplies from './comments-replies';
 import {
   preprocessCommentText,
   preprocessSourceText,
@@ -42,7 +42,7 @@ import './comment-item.sass';
 export default function CommentItem(props: CommentItemProps) {
   const t = useTranslations('pages.status.comments');
   const { show: showDialog } = useDialog();
-  const { isReply, isDetailReplies, isReplyToSomeone } = props;
+  const { sorter, isReply, isDetailReplies } = props;
   const {
     id,
     user,
@@ -52,8 +52,6 @@ export default function CommentItem(props: CommentItemProps) {
     images,
     comments,
     likesCount,
-    replyUser,
-    isReplySelf,
     totalReplies,
     hasMoreReplies,
   } = props.comment;
@@ -61,19 +59,18 @@ export default function CommentItem(props: CommentItemProps) {
   const getUserName = useCallback(
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
-      const username = `
+      const username = htmlString(`
         <a href="${WEIBO_HOST}/n/${user.name}" target="_blank">
           @${user.name}
         </a>
-      `;
-      const opTag = `
-        <span 
-          style="zoom: 80%;"
+      `);
+      const opTag = htmlString(`
+        <span style="zoom: 80%;"
           class="text-xs text-accent border border-accent px-0.5 ml-1"
         >
           ${t('op')}
         </span>
-      `;
+      `);
       return user.isOP ? username + opTag : username;
     },
     [t]
@@ -81,12 +78,8 @@ export default function CommentItem(props: CommentItemProps) {
 
   const userName = useMemo(() => {
     if (!isReply) return '';
-
-    let userName = getUserName(user);
-    if (isReplySelf || !isReplyToSomeone) return `${userName}：`;
-
-    return `${userName}&nbsp;${t('replyTo')}&nbsp;${getUserName(replyUser)}：`;
-  }, [getUserName, isReply, isReplySelf, isReplyToSomeone, replyUser, t, user]);
+    return getUserName(user);
+  }, [getUserName, isReply, user]);
 
   const createtime = useMemo(
     () => getCreateTime(createdAt, { relativeAlways: true }),
@@ -98,7 +91,7 @@ export default function CommentItem(props: CommentItemProps) {
     [source]
   );
 
-  const showCommentReplies = (comment: Backend.StatusComment) => {
+  const showCommentsReplies = (comment: Backend.StatusComment) => {
     showDialog({
       footer: null,
       title: t('replies'),
@@ -107,7 +100,7 @@ export default function CommentItem(props: CommentItemProps) {
         wrapper: 'w-[40rem] h-[40rem] max-h-[85vh]',
         scrollArea: 'pr-6',
       },
-      content: <CommentReplies comment={comment} />,
+      content: <CommentsReplies comment={comment} />,
     });
   };
 
@@ -155,13 +148,18 @@ export default function CommentItem(props: CommentItemProps) {
         </div>
       )}
       <div className={commentBody({ type: variantType })}>
-        <div className="col-start-2 col-end-4">
+        <div className="col-start-2 col-end-4 space-y-4">
           <div
-            className="comment-text break-all text-left leading-5 tracking-tight"
+            className={cn(
+              'comment-text break-all text-left leading-5 tracking-tight',
+              {
+                'text-justify': isReply,
+              }
+            )}
             dangerouslySetInnerHTML={{
               __html:
                 userName +
-                preprocessCommentText(text) +
+                preprocessCommentText(text, t, !!isReply) +
                 (isReply
                   ? `
                     <span
@@ -177,36 +175,26 @@ export default function CommentItem(props: CommentItemProps) {
             }}
           />
           {!isReply && <ImageGrid cols={5} isSinaImg images={images} />}
+          {sorter}
           {comments.length > 0 && (
             <div
               className={cn(
-                'comment-replies mt-2 flex flex-col gap-1 bg-base-200/30 p-2',
+                'comments-replies flex flex-col gap-1 bg-base-200/30 p-2',
                 'rounded border border-base-content/10'
               )}
             >
-              {comments.map((cm, idx) => {
-                const prevComments = comments.slice(0, idx);
-                const isReplyToSomeone = prevComments.some(
-                  pcm => pcm.user.id === cm.replyUser?.id
-                );
-                return (
-                  <CommentItem
-                    key={cm.id}
-                    comment={cm}
-                    isReply
-                    isReplyToSomeone={isReplyToSomeone}
-                  />
-                );
-              })}
+              {comments.map(cm => (
+                <CommentItem key={cm.id} comment={cm} isReply />
+              ))}
             </div>
           )}
           {!isDetailReplies && hasMoreReplies && (
             <span
               className={cn(
-                'relative mt-6 inline-flex cursor-pointer items-center text-xs',
+                'relative !mt-6 inline-flex cursor-pointer items-center text-xs',
                 'text-[#eb7340]'
               )}
-              onClick={() => showCommentReplies(props.comment)}
+              onClick={() => showCommentsReplies(props.comment)}
             >
               <div
                 className={cn(

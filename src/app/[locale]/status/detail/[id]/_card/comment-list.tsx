@@ -10,12 +10,12 @@
  */
 
 import { getStatusComments } from '@/api/client';
+import GhostTabs from '@/components/common/ghost-tabs';
 import LoadingIndicator from '@/components/common/loading-indicator';
-import { Tab, Tabs } from '@/components/daisyui';
 import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
-import { MessageSquareQuoteIcon } from 'lucide-react';
+import { ArrowUpDownIcon, MessageSquareQuoteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import {
   useCallback,
@@ -35,7 +35,7 @@ export default function CommentList(props: CommentListProps) {
   const listRef = useRef<HTMLDivElement>(null);
   const listHeaderRef = useRef<HTMLDivElement>(null);
   const [total, setTotal] = useState(0);
-  const [orderBy, setOrderBy] = useState<Backend.StatusCommentOrderBy>('hot');
+  const [orderBy, setOrderBy] = useState<Backend.CommentsOrderBy>('hot');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
   const [commentList, setCommentList] = useState<Backend.StatusComment[]>([]);
@@ -72,7 +72,7 @@ export default function CommentList(props: CommentListProps) {
     }
   }, [orderBy, props.id]);
 
-  const switchOrderBy = (orderBy: Backend.StatusCommentOrderBy) => {
+  const switchOrderBy = (orderBy: Backend.CommentsOrderBy) => {
     maxIdRef.current = '';
     setOrderBy(orderBy);
   };
@@ -118,7 +118,6 @@ export default function CommentList(props: CommentListProps) {
           'z-10 w-full bg-base-200/30 backdrop-blur',
           {
             'rounded-t-none': isSticky,
-            'p-2': props.hideTitle,
           }
         )}
       >
@@ -128,17 +127,26 @@ export default function CommentList(props: CommentListProps) {
             {t('label')} ({total})
           </p>
         )}
-        <Tabs value={orderBy} onChange={switchOrderBy}>
-          <Tab className="p-1" value="hot">
-            {t('orderByHot')}
-          </Tab>
-          <Tab className="p-1" value="asc">
-            {t('orderByAsc')}
-          </Tab>
-          <Tab className="p-1" value="desc">
-            {t('orderByDesc')}
-          </Tab>
-        </Tabs>
+        <GhostTabs
+          size="sm"
+          value={orderBy}
+          onChange={switchOrderBy}
+          icon={<ArrowUpDownIcon size={16} className="text-base-content/50" />}
+          options={[
+            {
+              label: t('orderByHot'),
+              value: 'hot',
+            },
+            {
+              label: t('orderByDesc'),
+              value: 'desc',
+            },
+            {
+              label: t('orderByAsc'),
+              value: 'asc',
+            },
+          ]}
+        />
       </div>
       <div
         className={cn(

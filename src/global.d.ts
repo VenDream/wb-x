@@ -177,7 +177,8 @@ declare global {
       needTotal?: boolean;
     }
 
-    type StatusCommentOrderBy = 'asc' | 'desc' | 'hot';
+    type CommentsOrderBy = 'asc' | 'desc' | 'hot';
+    type CommentsRepliesOrderBy = 'time' | 'hot';
 
     interface StatusComment {
       /** comment Id */
@@ -198,8 +199,6 @@ declare global {
       user: User & { isOP: boolean };
       /** replay user */
       replyUser: StatusComment['user'] | null;
-      /** is reply to self  */
-      isReplySelf: boolean;
       /** total replies */
       totalReplies: number;
       /** has more replies */

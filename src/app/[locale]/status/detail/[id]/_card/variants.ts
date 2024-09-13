@@ -67,7 +67,7 @@ export const comment = cva(['comment-item', 'w-full', 'relative', 'group'], {
   },
 });
 
-export const commentBody = cva(['comment-item-body', 'text-justify', 'peer'], {
+export const commentBody = cva(['text-justify', 'peer'], {
   variants: {
     type: {
       default: [
@@ -84,14 +84,7 @@ export const commentBody = cva(['comment-item-body', 'text-justify', 'peer'], {
 });
 
 export const commnetLikes = cva(
-  [
-    'comment-item-likes',
-    'flex',
-    'items-center',
-    'text-xs',
-    'absolute',
-    'tracking-tight',
-  ],
+  ['flex', 'items-center', 'text-xs', 'absolute', 'tracking-tight'],
   {
     variants: {
       type: {

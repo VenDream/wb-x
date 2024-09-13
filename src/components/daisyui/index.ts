@@ -65,6 +65,8 @@ export {
   useTheme,
 } from 'react-daisyui';
 
+export type * from 'react-daisyui';
+
 export {
   Breadcrumbs,
   BreadcrumbsItem,

@@ -15,7 +15,12 @@ type StatusListParams = PaginationParams & Backend.StatusListFilterParams;
 type StatusCommentsParams = {
   id: string;
   maxId?: string;
-  orderBy?: Backend.StatusCommentOrderBy;
+  orderBy?: Backend.CommentsOrderBy;
+};
+type StatusCommentsRepliesParams = {
+  id: string;
+  maxId?: string;
+  orderBy?: Backend.CommentsRepliesOrderBy;
 };
 type ROTNListParams = PaginationParams & {
   type?: Backend.ROTN_TYPE;
@@ -60,7 +65,9 @@ export async function getStatusComments(params: StatusCommentsParams) {
   return comments;
 }
 
-export async function getStatusCommentsReplies(params: StatusCommentsParams) {
+export async function getStatusCommentsReplies(
+  params: StatusCommentsRepliesParams
+) {
   let url = '/api/weibo/status/comments/replies';
   url = appendURLParams(url, params);
   const comments = await get<Backend.StatusCommentList>(url);

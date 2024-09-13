@@ -7,6 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { ReactNode } from 'react';
+
 /* -------------------------------------------------------------------------- */
 /*                                    Card                                    */
 /* -------------------------------------------------------------------------- */
@@ -78,15 +80,15 @@ export interface CommentListProps {
 export interface CommentItemProps {
   /** status comment */
   comment: Backend.StatusComment;
+  /** comment sorter */
+  sorter?: ReactNode;
   /** if is a comment reply */
   isReply?: boolean;
-  /** if is reply to someone */
-  isReplyToSomeone?: boolean;
   /** if is detail replies  */
   isDetailReplies?: boolean;
 }
 
-export interface CommentRepliesProps {
+export interface CommentsRepliesProps {
   /** status comment */
   comment: Backend.StatusComment;
 }

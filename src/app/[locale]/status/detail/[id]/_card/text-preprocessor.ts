@@ -52,11 +52,22 @@ export function preprocessStatusText(text: string) {
  *
  * @export
  * @param {string} text text
+ * @param {TFunction} t translation function
+ * @param {boolean} isReply is reply or not
  */
-export function preprocessCommentText(text: string) {
+export function preprocessCommentText(
+  text: string,
+  t: TFunction,
+  isReply: boolean
+) {
+  const replyTo = t('replyTo');
+
   const rules: ReplaceRule[] = [
     // reply text: 回复xxx
-    { regex: /回复(.+)\<\/a\>\:/g, value: '' },
+    {
+      regex: /^回复\<a[^\>]+\>(.+)\<\/a\>\:/g,
+      value: `<span class="reply-user"> ${replyTo} $1：</span>`,
+    },
     // weibo profile: https://weibo.com/n/xxx
     {
       regex: /\<a\shref=('|")?(\/n\/[^<\s]+)\1[^>]*\>/g,
@@ -64,13 +75,19 @@ export function preprocessCommentText(text: string) {
     },
   ];
 
-  return rules.reduce((prevText, rule) => {
+  let commentText = rules.reduce((prevText, rule) => {
     const { regex, value } = rule;
     // string
     if (typeof value === 'string') return prevText.replace(regex, value);
     // function
     return prevText.replace(regex, value);
   }, text);
+
+  if (isReply && !commentText.startsWith('<span class="reply-user">')) {
+    commentText = '<span class="reply-user">：</span>' + commentText;
+  }
+
+  return commentText;
 }
 
 /**

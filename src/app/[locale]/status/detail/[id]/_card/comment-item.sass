@@ -13,10 +13,9 @@
 
       @apply text-lg
 
-.comment-replies
-  .comment-item
-    .comment-text
-      img, .url-icon
-        width: 0.85em
-        height: 0.85em
-        line-height: 0.85em
+  .comments-replies-sorter
+    .tab
+      &.tab-active
+        @apply border-base-content/10
+      &:not(:first-child)
+        @apply pl-2
