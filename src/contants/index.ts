@@ -51,6 +51,8 @@ export const LS_KEYS = {
 };
 
 export const PAGINATION_LIMIT = 10;
+export const COMMENTS_PAGE_SIZE = 20;
+export const COMMENTS_REPLIES_PAGE_SIZE = 20;
 export const MIN_IMAGES_COUNT = 0;
 export const MAX_IMAGES_COUNT = 18;
 

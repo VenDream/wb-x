@@ -9,7 +9,7 @@
 
 import { getDbRetweetStatusDetail, getDbStatusDetail } from '@/api/server';
 import MotionContainer from '@/components/common/motion-container';
-import NoData from '@/components/common/no-data';
+import { NoData } from '@/components/common/no-data';
 import { Metadata } from 'next';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import StatusCard from './_card';

@@ -10,6 +10,7 @@
 import { getStatusCommentsReplies } from '@/api/client';
 import GhostTabs from '@/components/common/ghost-tabs';
 import LoadingIndicator from '@/components/common/loading-indicator';
+import { COMMENTS_REPLIES_PAGE_SIZE } from '@/contants';
 import { usePrevious } from 'ahooks';
 import { ArrowUpDownIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -43,6 +44,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         maxId,
         orderBy,
       });
+
       if (maxId === '') {
         setComment(cm => ({ ...cm, comments: resp.comments }));
       } else {
@@ -52,7 +54,13 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         }));
       }
       maxIdRef.current = resp.maxId;
-      if (resp.maxId === '0') setIsLoadAll(true);
+
+      if (
+        resp.maxId === '0' ||
+        resp.comments.length < COMMENTS_REPLIES_PAGE_SIZE
+      ) {
+        setIsLoadAll(true);
+      }
     } catch (err) {
       const error = err as Error;
       console.error(error);
@@ -112,6 +120,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         isLoadAll={isLoadAll}
         isNoData={comment.comments.length === 0}
         loadMore={fetchCommentsReplies}
+        scrollLoading={{ enable: true, threshold: 500 }}
       />
     </div>
   );

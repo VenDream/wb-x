@@ -49,9 +49,9 @@ export default function RotnList() {
     }
   }, [itemType, pageNo]);
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     setPageNo(pageNo => pageNo + 1);
-  };
+  }, []);
 
   const switchItemType = (type: Backend.ROTN_TYPE) => {
     setItemType(type);

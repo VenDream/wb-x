@@ -12,6 +12,7 @@
 import { getStatusComments } from '@/api/client';
 import GhostTabs from '@/components/common/ghost-tabs';
 import LoadingIndicator from '@/components/common/loading-indicator';
+import { COMMENTS_PAGE_SIZE } from '@/contants';
 import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
@@ -61,7 +62,9 @@ export default function CommentList(props: CommentListProps) {
       }
 
       setTotal(resp.total);
-      if (resp.maxId === '0') setIsLoadAll(true);
+      if (resp.maxId === '0' || resp.comments.length < COMMENTS_PAGE_SIZE) {
+        setIsLoadAll(true);
+      }
       maxIdRef.current = resp.maxId;
     } catch (err) {
       const error = err as Error;
@@ -162,6 +165,7 @@ export default function CommentList(props: CommentListProps) {
           isLoadAll={isLoadAll}
           isNoData={commentList.length === 0}
           loadMore={fetchCommentList}
+          scrollLoading={{ enable: true, threshold: 500 }}
         />
       </div>
     </div>

@@ -10,7 +10,7 @@
  */
 
 import Loading from '@/components/common/loading';
-import NoData from '@/components/common/no-data';
+import { NoData } from '@/components/common/no-data';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
 import { useTranslations } from 'next-intl';

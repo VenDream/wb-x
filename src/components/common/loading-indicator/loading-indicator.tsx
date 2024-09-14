@@ -8,10 +8,13 @@
  */
 
 import Loading from '@/components/common/loading';
-import NoData from '@/components/common/no-data';
+import { NoData, NoMoreData } from '@/components/common/no-data';
 import { Button } from '@/components/daisyui';
+import useScrollLoading from '@/hooks/use-scroll-loading';
 import { cn } from '@/utils/classnames';
+import { usePrevious } from 'ahooks';
 import { useTranslations } from 'next-intl';
+import { useEffect, useRef } from 'react';
 
 interface LoadingIndicatorProps {
   isLoading: boolean;
@@ -19,25 +22,46 @@ interface LoadingIndicatorProps {
   isNoData: boolean;
   loadMore: () => void;
   className?: string;
+  scrollLoading?: {
+    enable?: boolean;
+    threshold?: number;
+    options?: IntersectionObserverInit;
+  };
 }
 
 export default function LoadingIndicator(props: LoadingIndicatorProps) {
   const t = useTranslations('global.dataFetching');
   const { isLoading, isLoadAll, isNoData, loadMore, className } = props;
+  const { enable, threshold, options } = props.scrollLoading || {};
+
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const shouldLoad = useScrollLoading(triggerRef, threshold, options);
+  const prevShouldLoad = usePrevious(shouldLoad);
+
+  useEffect(() => {
+    if (!enable || isLoadAll) return;
+
+    if (prevShouldLoad === false && shouldLoad === true) {
+      loadMore();
+    }
+  }, [enable, isLoadAll, loadMore, prevShouldLoad, shouldLoad]);
 
   return (
-    <div className={cn(className, 'flex h-[4rem] items-center justify-center')}>
+    <div
+      ref={triggerRef}
+      className={cn(className, 'flex h-[4rem] items-center justify-center')}
+    >
       {isLoading ? (
         <Loading align="center" />
       ) : isLoadAll ? (
-        <p className="text-sm text-base-content/50">{t('noMore')}</p>
+        <NoMoreData />
       ) : isNoData ? (
         <NoData />
-      ) : (
+      ) : !enable ? (
         <Button size="sm" onClick={loadMore}>
           {t('loadMore')}
         </Button>
-      )}
+      ) : null}
     </div>
   );
 }
