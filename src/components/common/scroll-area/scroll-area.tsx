@@ -19,7 +19,10 @@ export default function ScrollArea(props: IProps) {
   return (
     <IScrollArea.Root className={cn('h-full', props.className)}>
       <IScrollArea.Viewport
-        className={cn('h-full w-full', props.viewportClassName)}
+        className={cn(
+          'h-full w-full will-change-scroll',
+          props.viewportClassName
+        )}
       >
         {props.children}
       </IScrollArea.Viewport>

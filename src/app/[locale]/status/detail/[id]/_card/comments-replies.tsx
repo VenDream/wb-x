@@ -31,6 +31,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
   const [orderBy, setOrderBy] = useState<Backend.CommentsRepliesOrderBy>('hot');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
+  const [isLoadFailed, setIsLoadFailed] = useState(false);
 
   const prevOrderBy = usePrevious(orderBy);
 
@@ -43,6 +44,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         maxId,
         orderBy,
       });
+
       if (maxId === '') {
         setComment(cm => ({ ...cm, comments: resp.comments }));
       } else {
@@ -52,11 +54,13 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         }));
       }
       maxIdRef.current = resp.maxId;
-      if (resp.maxId === '0') setIsLoadAll(true);
+      setIsLoadFailed(false);
+      if (resp.maxId === '0' || !resp.comments.length) setIsLoadAll(true);
     } catch (err) {
       const error = err as Error;
       console.error(error);
       toast.error(error.message);
+      setIsLoadFailed(true);
     } finally {
       setIsLoading(false);
     }
@@ -112,6 +116,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         isLoadAll={isLoadAll}
         isNoData={comment.comments.length === 0}
         loadMore={fetchCommentsReplies}
+        scrollLoading={{ enable: !isLoadFailed, threshold: 500 }}
       />
     </div>
   );

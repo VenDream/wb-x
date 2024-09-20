@@ -38,6 +38,7 @@ export default function CommentList(props: CommentListProps) {
   const [orderBy, setOrderBy] = useState<Backend.CommentsOrderBy>('hot');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
+  const [isLoadFailed, setIsLoadFailed] = useState(false);
   const [commentList, setCommentList] = useState<Backend.StatusComment[]>([]);
 
   const prevOrderBy = usePrevious(orderBy);
@@ -54,19 +55,21 @@ export default function CommentList(props: CommentListProps) {
         maxId,
         orderBy,
       });
+
       if (maxId === '') {
         setCommentList(resp.comments);
       } else {
         setCommentList(list => [...list, ...resp.comments]);
       }
-
       setTotal(resp.total);
-      if (resp.maxId === '0') setIsLoadAll(true);
       maxIdRef.current = resp.maxId;
+      setIsLoadFailed(false);
+      if (resp.maxId === '0' || !resp.comments.length) setIsLoadAll(true);
     } catch (err) {
       const error = err as Error;
       console.error(error);
       toast.error(error.message);
+      setIsLoadFailed(true);
     } finally {
       setIsLoading(false);
     }
@@ -162,6 +165,7 @@ export default function CommentList(props: CommentListProps) {
           isLoadAll={isLoadAll}
           isNoData={commentList.length === 0}
           loadMore={fetchCommentList}
+          scrollLoading={{ enable: !isLoadFailed, threshold: 500 }}
         />
       </div>
     </div>

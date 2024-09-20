@@ -8,10 +8,13 @@
  */
 
 import Loading from '@/components/common/loading';
-import NoData from '@/components/common/no-data';
+import { NoData, NoMoreData } from '@/components/common/no-data';
 import { Button } from '@/components/daisyui';
+import useScrollLoading from '@/hooks/use-scroll-loading';
 import { cn } from '@/utils/classnames';
+import { useThrottleFn } from 'ahooks';
 import { useTranslations } from 'next-intl';
+import { useCallback, useRef } from 'react';
 
 interface LoadingIndicatorProps {
   isLoading: boolean;
@@ -19,25 +22,58 @@ interface LoadingIndicatorProps {
   isNoData: boolean;
   loadMore: () => void;
   className?: string;
+
+  scrollLoading?: {
+    enable?: boolean;
+    threshold?: number;
+    options?: IntersectionObserverInit;
+  };
 }
+
+const THROTTLE_INTERVAL = 300;
 
 export default function LoadingIndicator(props: LoadingIndicatorProps) {
   const t = useTranslations('global.dataFetching');
   const { isLoading, isLoadAll, isNoData, loadMore, className } = props;
+  const { enable, threshold, options } = props.scrollLoading || {};
+
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  const onIntersect = useCallback(
+    (_ratio: number) => {
+      if (!!enable && !isLoadAll && !isLoading) {
+        loadMore();
+      }
+    },
+    [enable, isLoadAll, isLoading, loadMore]
+  );
+
+  const { run: callback } = useThrottleFn(onIntersect, {
+    wait: THROTTLE_INTERVAL,
+  });
+
+  useScrollLoading(triggerRef, {
+    callback,
+    threshold,
+    observerOptions: options,
+  });
 
   return (
-    <div className={cn(className, 'flex h-[4rem] items-center justify-center')}>
+    <div
+      ref={triggerRef}
+      className={cn(className, 'flex h-[4rem] items-center justify-center')}
+    >
       {isLoading ? (
         <Loading align="center" />
       ) : isLoadAll ? (
-        <p className="text-sm text-base-content/50">{t('noMore')}</p>
+        <NoMoreData />
       ) : isNoData ? (
         <NoData />
-      ) : (
+      ) : !enable ? (
         <Button size="sm" onClick={loadMore}>
           {t('loadMore')}
         </Button>
-      )}
+      ) : null}
     </div>
   );
 }

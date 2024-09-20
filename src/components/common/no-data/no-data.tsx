@@ -16,7 +16,7 @@ interface IProps {
   className?: string;
 }
 
-export default function NoData(props: IProps) {
+export function NoData(props: IProps) {
   const { tips, className } = props;
   const t = useTranslations('global.dataFetching');
 
@@ -29,6 +29,22 @@ export default function NoData(props: IProps) {
     >
       <BracketsIcon size={16} className="mr-2 !stroke-2" />
       {tips || t('noData')}
+    </p>
+  );
+}
+
+export function NoMoreData(props: IProps) {
+  const { tips, className } = props;
+  const t = useTranslations('global.dataFetching');
+
+  return (
+    <p
+      className={cn(
+        'flex items-center justify-center text-sm text-base-content/50',
+        className
+      )}
+    >
+      - {tips || t('noMore')} -
     </p>
   );
 }

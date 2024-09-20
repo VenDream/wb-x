@@ -136,11 +136,16 @@ export function getFileName(url: string) {
 export function getScrollableAncestor(element: HTMLElement) {
   let ancestor = element;
 
+  const isScrollable = (element: HTMLElement) => {
+    return (
+      'radixScrollAreaViewport' in element.dataset ||
+      element.scrollHeight > element.clientHeight
+    );
+  };
+
   while (ancestor.parentElement) {
     ancestor = ancestor.parentElement;
-    if ('radixScrollAreaViewport' in ancestor.dataset) {
-      return ancestor;
-    }
+    if (isScrollable(ancestor)) return ancestor;
   }
 
   return null;
