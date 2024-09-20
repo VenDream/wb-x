@@ -22,8 +22,9 @@ export default function RotnList() {
   const t = useTranslations('pages.rotn.type');
 
   const [pageNo, setPageNo] = useState(0);
-  const [isLoadAll, setIsLoadAll] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadAll, setIsLoadAll] = useState(false);
+  const [isLoadFailed, setIsLoadFailed] = useState(false);
 
   const [items, setItems] = useState<Backend.ROTNItem[]>([]);
   const [itemType, setItemType] = useState<Backend.ROTN_TYPE>('ALL');
@@ -39,11 +40,13 @@ export default function RotnList() {
         type: itemType,
       });
       setItems(pageNo === 0 ? items : list => [...list, ...items]);
+      setIsLoadFailed(false);
       if (items.length < limit) setIsLoadAll(true);
     } catch (err) {
       const error = err as Error;
       console.error(error);
       toast.error(error.message);
+      setIsLoadFailed(true);
     } finally {
       setIsLoading(false);
     }
@@ -89,6 +92,8 @@ export default function RotnList() {
         isLoadAll={isLoadAll}
         isNoData={items.length === 0}
         loadMore={loadMore}
+        // @TODO enable scroll loading
+        scrollLoading={{ enable: false && !isLoadFailed, threshold: 500 }}
       />
     </div>
   );

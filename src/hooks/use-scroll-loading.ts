@@ -8,14 +8,19 @@
  */
 
 import { getScrollableAncestor } from '@/utils/common';
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect } from 'react';
+
+export interface ScrollLoadingOptions {
+  callback?: (intersectionRatio: number) => void;
+  threshold?: number;
+  observerOptions?: IntersectionObserverInit;
+}
 
 export default function useScrollLoading(
   ref: RefObject<HTMLElement>,
-  threshold = 0,
-  options?: IntersectionObserverInit
+  options?: ScrollLoadingOptions
 ) {
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const { callback, threshold = 0, observerOptions = {} } = options || {};
 
   useEffect(() => {
     const element = ref.current;
@@ -23,12 +28,13 @@ export default function useScrollLoading(
     const scrollableAncestor = getScrollableAncestor(element);
 
     const observer = new IntersectionObserver(
-      ([entry]) => setShouldLoad(entry.intersectionRatio > 0),
+      ([entry]) =>
+        entry.intersectionRatio > 0 && callback?.(entry.intersectionRatio),
       {
         root: scrollableAncestor,
         rootMargin: `0px 0px ${threshold}px 0px`,
         threshold: [0],
-        ...options,
+        ...observerOptions,
       }
     );
 
@@ -37,7 +43,5 @@ export default function useScrollLoading(
     return () => {
       observer.unobserve(element);
     };
-  }, [options, ref, threshold]);
-
-  return shouldLoad;
+  }, [callback, observerOptions, options, ref, threshold]);
 }
