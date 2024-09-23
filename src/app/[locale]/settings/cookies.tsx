@@ -29,6 +29,7 @@ export default function CookiesSettings() {
   const t = useTranslations('pages.settings.cookies');
   const { show: showDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
+  const [isOperating, setIsOperating] = useState(false);
   const [cookies, setCookies] = useState<Backend.Cookie[]>([]);
 
   const operatingTips = t('status.operating');
@@ -55,9 +56,19 @@ export default function CookiesSettings() {
   const update = (idx: number) => {
     const cookie = cookies[idx];
     if (!cookie.value) return toast.error(t('status.noInput'));
+
+    setIsOperating(true);
     toast.promise(
-      new Promise((resolve, reject) =>
-        updateCookie(idx, cookie.value).then(resolve).catch(reject)
+      new Promise<void>((resolve, reject) =>
+        updateCookie(idx, cookie.value)
+          .then(() => {
+            getCookies();
+            resolve();
+          })
+          .catch(reject)
+          .finally(() => {
+            setIsOperating(false);
+          })
       ),
       {
         loading: operatingTips,
@@ -70,6 +81,8 @@ export default function CookiesSettings() {
   const check = (idx: number) => {
     const cookie = cookies[idx];
     if (!cookie.value) return toast.error(t('status.noInput'));
+
+    setIsOperating(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
         checkCookie(cookie.value)
@@ -78,6 +91,9 @@ export default function CookiesSettings() {
             isValid ? resolve() : reject();
           })
           .catch(reject)
+          .finally(() => {
+            setIsOperating(false);
+          })
       ),
       {
         loading: checkingTips,
@@ -92,6 +108,7 @@ export default function CookiesSettings() {
       preset: 'confirm',
       content: t('deleteConfirm.confirm'),
       onOk: () => {
+        setIsOperating(true);
         toast.promise(
           new Promise<void>((resolve, reject) =>
             removeCookie(idx)
@@ -100,6 +117,9 @@ export default function CookiesSettings() {
                 resolve();
               })
               .catch(reject)
+              .finally(() => {
+                setIsOperating(false);
+              })
           ),
           {
             loading: operatingTips,
@@ -122,7 +142,7 @@ export default function CookiesSettings() {
     </div>
   ) : (
     <MotionContainer>
-      <div className={cn('space-y-4 p-4')}>
+      <div className={cn('relative space-y-4 p-4')}>
         {cookies.length > 0 ? (
           cookies.map((cookie, idx) => (
             <div key={cookie.idx} className="flex gap-4">
@@ -171,6 +191,9 @@ export default function CookiesSettings() {
             {t('operation.add')}
           </Button>
         </AddCookies>
+        {isOperating && (
+          <div className="absolute inset-0 !mt-0 h-full w-full bg-base-100/80" />
+        )}
       </div>
     </MotionContainer>
   );
