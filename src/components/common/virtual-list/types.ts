@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import type { NoDataProps } from '@/components/common/no-data';
 import React from 'react';
 
 export interface VirtualListHandle {
@@ -55,6 +56,9 @@ export interface VirtualListProps<T, R> {
   estimatedRowHeight?: number;
   /** how to concat new list */
   concatList?: (prevList: T[], newList: T[]) => T[];
+
+  /** no data props */
+  noDataProps?: NoDataProps;
 
   /** total count update callback */
   onTotalUpdate?: (total: number) => void;

@@ -12,7 +12,6 @@
 import Loading from '@/components/common/loading';
 import { NoData } from '@/components/common/no-data';
 import { cn } from '@/utils/classnames';
-import { usePrevious } from 'ahooks';
 import { useTranslations } from 'next-intl';
 import React, {
   ForwardedRef,
@@ -54,6 +53,8 @@ function VirtualListRenderFunc<T, R>(
     estimatedRowHeight = 50,
     concatList = Array.prototype.concat,
     renderRowItemContent,
+
+    noDataProps,
 
     onTotalUpdate,
     onDataFetchingStart,
@@ -145,14 +146,7 @@ function VirtualListRenderFunc<T, R>(
   );
 
   const isNoData = pageNo === 0 && isLoadAll && dataList.length === 0;
-  const prevIsNoData = usePrevious(isNoData);
   const isFirstLoading = pageNo === 0 && isLoading;
-
-  useEffect(() => {
-    if (prevIsNoData !== undefined && !prevIsNoData && isNoData) {
-      toast.info(t('noMatchedData'));
-    }
-  }, [isNoData, prevIsNoData, t]);
 
   useEffect(() => {
     fetchDataList();
@@ -176,7 +170,7 @@ function VirtualListRenderFunc<T, R>(
       {isFirstLoading ? (
         <Loading className="h-10" align="center" />
       ) : isNoData ? (
-        <NoData tips={t('noMatchedData')} className="h-10" />
+        <NoData tips={t('noMatchingData')} className="h-10" {...noDataProps} />
       ) : (
         <VirtualListContext.Provider value={listCtx}>
           <AutoSizer>

@@ -11,7 +11,14 @@ import MotionContainer from '@/components/common/motion-container';
 import { fadeIn } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import EVENT_EMITTER, { RESIZE_ROW_ITEM } from '@/utils/eventemitter';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  CSSProperties,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { VirtualListContext } from './context';
 import type { VirtualListRowItemProps } from './types';
 
@@ -31,7 +38,7 @@ export default function RowItem(props: VirtualListRowItemProps) {
 
   const [visible, setVisible] = useState(false);
 
-  const itemStyle = {
+  const itemStyle: CSSProperties = {
     ...style,
     top: index === 0 ? style.top : (style.top as number) + GUTTER,
   };

@@ -17,7 +17,7 @@ import VirtualList, {
 } from '@/components/common/virtual-list';
 import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
-import { ListRestartIcon, ScanSearchIcon } from 'lucide-react';
+import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useMemo, useRef, useState } from 'react';
@@ -85,8 +85,14 @@ export default function StatusList() {
         onDataFetchingEnd: () => setIsFetching(false),
         className: 'pl-72 2xl:pl-0',
         estimatedRowHeight: 500,
+        noDataProps: {
+          tips: t('noData'),
+          tooltips: t('noDataTips'),
+          tooltipsClassName: 'text-xs',
+          icon: <CircleHelpIcon size={16} className="!stroke-2" />,
+        },
       }),
-      [filterParams, fetchListData]
+      [t, fetchListData, filterParams]
     );
 
   return (
@@ -116,7 +122,14 @@ export default function StatusList() {
           ) : total >= 0 ? (
             <p className="flex items-center">
               <ScanSearchIcon size={18} className="mr-2" />
-              {t('filter.totalStatuses', { num: total })}
+              {t.rich('filter.totalStatuses', {
+                s: () => <>&nbsp;</>,
+                total: () => (
+                  <span className="text-accent underline underline-offset-4">
+                    {total}
+                  </span>
+                ),
+              })}
             </p>
           ) : null}
         </div>

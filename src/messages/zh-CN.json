@@ -36,7 +36,7 @@
     "dataFetching": {
       "noMore": "没有更多数据了",
       "noData": "暂无数据",
-      "noMatchedData": "暂无符合条件的数据",
+      "noMatchingData": "暂无符合条件的数据",
       "loadMore": "加载更多"
     },
     "dialog": {
@@ -99,7 +99,7 @@
         "leastImagesCountTips": "至少包含的图片数量",
         "startDate": "开始日期",
         "endDate": "结束日期 ",
-        "totalStatuses": "共搜索到 {num} 条微博。"
+        "totalStatuses": "共搜索到<s></s><total></total><s></s>条微博。"
       },
       "menu": {
         "comments": "查看评论",
@@ -117,7 +117,9 @@
         "loading": "获取微博全文中...",
         "failed": "获取微博全文中...失败，请重试"
       },
-      "updateFrequency": "数据每小时更新一次。"
+      "updateFrequency": "数据每小时更新一次。",
+      "noData": "暂无符合条件的数据",
+      "noDataTips": "请检查筛选条件或尝试切换数据来源"
     },
     "rotn": {
       "type": {

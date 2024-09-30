@@ -36,7 +36,7 @@
     "dataFetching": {
       "noMore": "No more data",
       "noData": "No data",
-      "noMatchedData": "No matched data",
+      "noMatchingData": "No matching data",
       "loadMore": "Load more"
     },
     "dialog": {
@@ -94,12 +94,12 @@
         "uid": "UID",
         "keyword": "Keyword",
         "original": "Original",
-        "originalTips": "Posts without retweeted posts",
+        "originalTips": "Posts without retweets",
         "leastImagesCount": "Images count",
         "leastImagesCountTips": "Least images count",
         "startDate": "StartDate",
         "endDate": "EndDate",
-        "totalStatuses": "{num} weibo posts were found."
+        "totalStatuses": "<total></total><s></s>weibo posts were found."
       },
       "menu": {
         "comments": "View comments",
@@ -117,7 +117,9 @@
         "loading": "Fetching post full text...",
         "failed": "Fetching post full text..failed, please retry"
       },
-      "updateFrequency": "The data is updated once per hour."
+      "updateFrequency": "The data is updated once per hour.",
+      "noData": "No matching data found",
+      "noDataTips": "Please check the filter options or try switching the data source"
     },
     "rotn": {
       "type": {

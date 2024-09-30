@@ -43,7 +43,7 @@ export default async function Page({ params }: ParamsBody) {
         </>
       ) : (
         <div className="p-4">
-          <NoData tips={t('noMatchedData')} />
+          <NoData tips={t('noMatchingData')} />
         </div>
       )}
     </MotionContainer>

@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 const Flags: Record<keyof typeof LANGS, string> = {
   en: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.0/svg/1f1ec-1f1e7.svg',
@@ -35,6 +36,7 @@ const Flags: Record<keyof typeof LANGS, string> = {
 export default function LocaleChange() {
   const locale = useLocale();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const t = useTranslations('global.locale');
 
   return (
@@ -58,7 +60,9 @@ export default function LocaleChange() {
             <DropdownItem key={k} anchor={false}>
               <Link
                 locale={l}
-                href={pathname}
+                href={
+                  pathname + (searchParams.toString() ? '?' + searchParams : '')
+                }
                 className="flex items-center gap-4"
               >
                 <div className="flex items-center">
