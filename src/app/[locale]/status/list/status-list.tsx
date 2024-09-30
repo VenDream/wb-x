@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDbStatusList } from '@/api/client';
+import { getDbRetweetStatusList, getDbStatusList } from '@/api/client';
 import Loading from '@/components/common/loading';
 import VirtualList, {
   VirtualListHandle,
@@ -19,11 +19,13 @@ import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
 import { ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { StatusCard } from '../detail';
 import Filter from './_filter';
 
-const defaultFilterParams: Backend.StatusListFilterParams = {
+export const defaultFilterParams: Backend.StatusListFilterParams = {
+  dataSource: 'trackings',
   uid: '',
   keyword: '',
   original: false,
@@ -39,12 +41,13 @@ export default function StatusList() {
   const [total, setTotal] = useState(-1);
   const [isFetching, setIsFetching] = useState(false);
 
+  const searchParams = useSearchParams();
+
   const [filterParams, setFilterParams] =
     useState<Backend.StatusListFilterParams>(() => {
       if (typeof window === 'undefined') return defaultFilterParams;
 
-      const searchParams = new URLSearchParams(window.location.search);
-      const { uid } = Object.fromEntries(searchParams.entries());
+      const uid = searchParams.get('uid');
       const urlParams: Backend.StatusListFilterParams = { uid: uid || '' };
 
       return {
@@ -52,6 +55,11 @@ export default function StatusList() {
         ...urlParams,
       };
     });
+
+  const fetchListData =
+    filterParams.dataSource === 'trackings'
+      ? getDbStatusList
+      : getDbRetweetStatusList;
 
   const updateFilterParams = useCallback(
     (patch: Partial<Backend.StatusListFilterParams>) => {
@@ -65,7 +73,7 @@ export default function StatusList() {
     useMemo(
       () => ({
         getDataFetcher: params => () =>
-          getDbStatusList({ ...params, ...filterParams }),
+          fetchListData({ ...params, ...filterParams }),
         getDataParser: () => data => data.statuses,
         getTotalParser: () => data => data.total as number,
         getRowItemKey: (_, list) => list.id,
@@ -78,7 +86,7 @@ export default function StatusList() {
         className: 'pl-72 2xl:pl-0',
         estimatedRowHeight: 500,
       }),
-      [filterParams]
+      [filterParams, fetchListData]
     );
 
   return (

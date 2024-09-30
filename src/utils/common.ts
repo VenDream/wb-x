@@ -163,3 +163,33 @@ export function htmlString(str: string) {
     .map(s => s.trim())
     .join('');
 }
+
+/**
+ * pick object properties
+ *
+ * @export
+ * @template T
+ * @param {T} obj object
+ * @param {(keyof T)[]} keys keys to pick
+ */
+export function pick<T extends Record<string, any>>(obj: T, keys: (keyof T)[]) {
+  return keys.reduce((prev, key) => {
+    prev[key] = obj[key];
+    return prev;
+  }, {} as Partial<T>);
+}
+
+/**
+ * omit object properties
+ *
+ * @export
+ * @template T
+ * @param {T} obj object
+ * @param {(keyof T)[]} keys keys to omit
+ */
+export function omit<T extends Record<string, any>>(obj: T, keys: (keyof T)[]) {
+  return (Object.keys(obj) as (keyof T)[]).reduce((prev, key) => {
+    if (!keys.includes(key)) prev[key] = obj[key];
+    return prev;
+  }, {} as Partial<T>);
+}

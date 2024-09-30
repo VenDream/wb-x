@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { sleep } from '@/utils/common';
+import { omit, sleep } from '@/utils/common';
 import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
@@ -28,26 +28,24 @@ type ROTNListParams = PaginationParams & {
 
 export async function getDbStatusList(params: StatusListParams) {
   let url = '/api/db/status/list';
+  params = omit(params, ['dataSource']);
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
   let statuses = await get<Backend.StatusList>(url);
-  // if no statuses, check retweet status instead
-  if (!statuses.statuses?.length) {
-    const retweetStatuses = await getDbRetweetStatusList(params);
-    statuses = {
-      total: retweetStatuses.total,
-      count: retweetStatuses.count,
-      statuses: retweetStatuses.retweetStatuses,
-    };
-  }
   return statuses;
 }
 
 export async function getDbRetweetStatusList(params: StatusListParams) {
   let url = '/api/db/retweet_status/list';
+  params = omit(params, ['dataSource']);
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
-  const statuses = await get<Backend.RetweetStatusList>(url);
+  const retweetStatuses = await get<Backend.RetweetStatusList>(url);
+  const statuses: Backend.StatusList = {
+    statuses: retweetStatuses.retweetStatuses,
+    count: retweetStatuses.count,
+    total: retweetStatuses.total,
+  };
   return statuses;
 }
 

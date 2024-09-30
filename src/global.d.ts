@@ -160,7 +160,11 @@ declare global {
       total?: number;
     }
 
+    type StatusListDataSource = 'trackings' | 'retweets';
+
     interface StatusListFilterParams {
+      /** data source */
+      dataSource?: StatusListDataSource;
       /** uid */
       uid?: string;
       /** keyword */

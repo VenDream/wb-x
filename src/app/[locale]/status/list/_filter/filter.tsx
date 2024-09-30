@@ -9,13 +9,16 @@
 
 import DatePicker, { DateValueType } from '@/components/common/datepicker';
 import MotionContainer from '@/components/common/motion-container';
-import { Button, Checkbox, Input } from '@/components/daisyui';
+import Tooltip from '@/components/common/tooltip';
+import { Button, Checkbox, Input, Tab, Tabs } from '@/components/daisyui';
 import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
 import { cn } from '@/utils/classnames';
+import { omit } from '@/utils/common';
 import dayjs from '@/utils/dayjs';
-import { RotateCcwIcon, SearchIcon } from 'lucide-react';
+import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';
+import { defaultFilterParams } from '../status-list';
 
 interface FilterProps {
   /** filter params */
@@ -23,15 +26,6 @@ interface FilterProps {
   /** update filter params */
   updateFilterParams: (patch: Partial<Backend.StatusListFilterParams>) => void;
 }
-
-const initialFilter: Backend.StatusListFilterParams = {
-  uid: '',
-  keyword: '',
-  original: false,
-  leastImagesCount: '',
-  startDate: '',
-  endDate: '',
-};
 
 export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
@@ -51,13 +45,14 @@ export default function Filter(props: FilterProps) {
     return { startDate: date && new Date(date), endDate: date };
   }, [filter.endDate]);
 
-  const applyFilter = () => {
-    updateFilterParams(filter);
+  const applyFilter = (f?: Backend.StatusListFilterParams) => {
+    updateFilterParams(f || filter);
   };
 
   const resetFilter = () => {
-    setFilter(initialFilter);
-    updateFilterParams(initialFilter);
+    const resetParams = omit(defaultFilterParams, ['dataSource']);
+    setFilter(resetParams);
+    updateFilterParams(resetParams);
   };
 
   useEffect(() => {
@@ -72,6 +67,30 @@ export default function Filter(props: FilterProps) {
       )}
     >
       <div className="m-auto flex flex-col gap-2">
+        <div className="flex items-center gap-1">
+          <p className="w-20 text-xs">{t2('dataSource')}</p>
+          <Tabs
+            boxed
+            size="sm"
+            value={filter.dataSource}
+            className={cn(
+              '[&>.tab]:text-base-content',
+              'h-[2rem] w-40 flex-nowrap items-center bg-transparent p-0',
+              '[&>.tab]:h-full [&>.tab]:w-1/2 [&>.tab]:px-1 [&>.tab]:py-0',
+              '[&>.tab]:rounded [&>.tab]:bg-base-100 [&>.tab]:text-xs',
+              '[&>.tab]:border [&>.tab]:!border-base-content/20',
+              '[&>.tab.tab-active]:!border-primary',
+              '[&>.tab:first-child]:rounded-r-none',
+              '[&>.tab:first-child]:border-r-0',
+              '[&>.tab:last-child]:rounded-l-none',
+              '[&>.tab:last-child]:border-l-0'
+            )}
+            onChange={ds => applyFilter({ ...filter, dataSource: ds })}
+          >
+            <Tab value="trackings">{t2('trackings')}</Tab>
+            <Tab value="retweets">{t2('retweets')}</Tab>
+          </Tabs>
+        </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('uid')}</p>
           <Input
@@ -153,7 +172,12 @@ export default function Filter(props: FilterProps) {
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
-          <p className="w-20 text-xs">{t2('original')}</p>
+          <p className="flex w-20 items-center gap-1 text-xs">
+            {t2('original')}
+            <Tooltip message={t2('originalTips')} className="text-xs">
+              <CircleHelpIcon size={14} />
+            </Tooltip>
+          </p>
           <Checkbox
             checked={!!filter.original}
             size="xs"
@@ -179,7 +203,7 @@ export default function Filter(props: FilterProps) {
           color="primary"
           className="h-[2rem] rounded"
           startIcon={<SearchIcon size={16} />}
-          onClick={applyFilter}
+          onClick={() => applyFilter()}
         >
           {t1('search')}
         </Button>

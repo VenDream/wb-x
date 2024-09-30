@@ -88,9 +88,13 @@
         "totalReplies": "共 {num} 条回复"
       },
       "filter": {
+        "dataSource": "数据来源",
+        "trackings": "正在关注",
+        "retweets": "转发微博",
         "uid": "UID",
         "keyword": "关键字",
         "original": "原创微博",
+        "originalTips": "不包含转发微博的微博",
         "leastImagesCount": "图片数量",
         "leastImagesCountTips": "至少包含的图片数量",
         "startDate": "开始日期",

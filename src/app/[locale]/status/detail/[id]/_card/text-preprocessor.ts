@@ -65,7 +65,7 @@ export function preprocessCommentText(
   const rules: ReplaceRule[] = [
     // reply text: 回复xxx
     {
-      regex: /^回复\<a[^\>]+\>(.+)\<\/a\>\:/g,
+      regex: /^回复\s?\<a[^\>]+\>(.+)\<\/a\>\:/g,
       value: `<span class="reply-user"> ${replyTo} $1：</span>`,
     },
     // weibo profile: https://weibo.com/n/xxx

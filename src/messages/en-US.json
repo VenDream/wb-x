@@ -88,9 +88,13 @@
         "totalReplies": "{num} replies in total"
       },
       "filter": {
+        "dataSource": "Data Source",
+        "trackings": "Trackings",
+        "retweets": "Retweets",
         "uid": "UID",
         "keyword": "Keyword",
         "original": "Original",
+        "originalTips": "Posts without retweeted posts",
         "leastImagesCount": "Images count",
         "leastImagesCountTips": "Least images count",
         "startDate": "StartDate",
