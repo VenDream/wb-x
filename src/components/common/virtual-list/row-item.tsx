@@ -11,14 +11,7 @@ import MotionContainer from '@/components/common/motion-container';
 import { fadeIn } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import EVENT_EMITTER, { RESIZE_ROW_ITEM } from '@/utils/eventemitter';
-import {
-  CSSProperties,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { VirtualListContext } from './context';
 import type { VirtualListRowItemProps } from './types';
 
@@ -34,14 +27,7 @@ export default function RowItem(props: VirtualListRowItemProps) {
   const itemId = getRowItemKey(index, list[index]);
 
   const domRef = useRef<HTMLDivElement>(null);
-  const GUTTER = index === 0 ? 0 : gutter;
-
   const [visible, setVisible] = useState(false);
-
-  const itemStyle: CSSProperties = {
-    ...style,
-    top: index === 0 ? style.top : (style.top as number) + GUTTER,
-  };
 
   const measureSize = useCallback(
     (init?: boolean) => {
@@ -49,14 +35,14 @@ export default function RowItem(props: VirtualListRowItemProps) {
       if (!card) return;
 
       !!init && setVisible(false);
-      const cardH = card.getBoundingClientRect().height + GUTTER * 2;
+      const cardH = card.getBoundingClientRect().height + gutter * 2;
       setRowHeight(index, cardH, !init);
       !!init &&
         setTimeout(() => {
           setVisible(true);
         });
     },
-    [GUTTER, index, setRowHeight]
+    [gutter, index, setRowHeight]
   );
 
   const reMeasureSize = useCallback(
@@ -78,7 +64,7 @@ export default function RowItem(props: VirtualListRowItemProps) {
   return (
     <div
       data-row-item-id={itemId}
-      style={itemStyle}
+      style={style}
       className={cn('flex items-start justify-center', {
         visible: visible,
         invisible: !visible,
