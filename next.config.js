@@ -16,6 +16,9 @@ const nextConfig = withNextIntl({
   images: {
     unoptimized: true,
   },
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api'],
+  },
   webpack: function (config) {
     config.module.rules.push({
       test: /\.m?js$/,

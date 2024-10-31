@@ -10,8 +10,10 @@
 import { LANGS } from '@/contants';
 import { cn } from '@/utils/classnames';
 import dayjs from '@/utils/dayjs';
+import ReactDatePicker, {
+  DatepickerType,
+} from '@tarabao/react-tailwindcss-datepicker';
 import { useLocale, useTranslations } from 'next-intl';
-import ReactDatePicker, { DatepickerType } from 'react-tailwindcss-datepicker';
 
 import './datepicker.sass';
 

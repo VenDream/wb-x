@@ -17,7 +17,7 @@ declare global {
   /* ------------------------------------------------------------------------ */
   type LocaleProps<T = any> = T & { params: { locale: string } };
   type ChildrenProps<T = any> = PropsWithChildren<T>;
-  type ParamsBody = { params: Record<string, any> };
+  type ParamsBody = { params: Promise<Record<string, any>> };
 
   interface PaginationParams {
     /** page size */
@@ -50,6 +50,10 @@ declare global {
   /*                                    App                                   */
   /* ------------------------------------------------------------------------ */
   namespace App {
+    interface StoreState {
+      trackingUsers: string[];
+    }
+
     interface Settings {
       /** use image porxy */
       useImageProxy?: boolean;

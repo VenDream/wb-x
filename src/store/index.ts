@@ -8,7 +8,7 @@
  */
 
 import { LS_KEYS } from '@/contants';
-import { getDefaultStore } from 'jotai';
+import { atom, createStore } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
 export const DEFAULT_SETTINGS: App.Settings = {
@@ -23,4 +23,7 @@ export const settingsAtom = atomWithStorage<App.Settings>(
   { getOnInit: true }
 );
 
-export default getDefaultStore();
+export const trackingUsersAtom = atom<string[]>([]);
+
+const store = createStore();
+export default store;

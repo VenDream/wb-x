@@ -5,6 +5,7 @@
       "weibo": "微博",
       "rotn": "ROTN",
       "user": "用户",
+      "trackings": "正在追踪",
       "settings": "设置"
     },
     "locale": {
@@ -133,7 +134,13 @@
     "user": {
       "follows": "关注",
       "followers": "粉丝",
-      "desc": "简介"
+      "desc": "简介",
+      "track": "追踪",
+      "untrack": "取消追踪",
+      "trackingOperating": "添加追踪中...",
+      "untrackingOperating": "移除追踪中...",
+      "addToTrackings": "确认开始追踪 <username></username> 吗？",
+      "removeFromTrackings": "确认取消追踪 <username></username> 吗？"
     },
     "settings": {
       "tabs": {
@@ -173,8 +180,6 @@
           "valid": "有效",
           "invalid": "已失效",
           "operating": "执行操作中...",
-          "ok": "成功",
-          "failed": "失败",
           "fetchFailed": "获取Cookies失败，请重试",
           "noInput": "Cookie不能为空"
         }

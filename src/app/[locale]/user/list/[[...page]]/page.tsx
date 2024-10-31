@@ -12,7 +12,6 @@ import MotionContainer from '@/components/common/motion-container';
 import { PAGINATION_LIMIT } from '@/contants';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Paginator from './paginator';
 import UsersList from './user-list';
 
 // revalidate user list at most every hour - 60 * 60
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({ params }: ParamsBody) {
-  const { page = 1 } = params;
+  const { page = 1 } = await params;
   if (page && isNaN(page)) notFound();
 
   const pageNo = Number(page) - 1;
@@ -37,14 +36,7 @@ export default async function Page({ params }: ParamsBody) {
   return (
     <MotionContainer className="flex flex-col gap-10">
       {users.length > 0 ? (
-        <>
-          <UsersList users={users} />
-          <Paginator
-            total={total}
-            pageSize={pageSize}
-            defaultCurrent={pageNo + 1}
-          />
-        </>
+        <UsersList users={users} pageNo={pageNo} total={total} />
       ) : (
         notFound()
       )}

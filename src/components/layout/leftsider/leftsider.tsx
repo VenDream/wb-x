@@ -12,7 +12,7 @@
 import { Menu, MenuItem } from '@/components/daisyui';
 import { MAIN_ROUTES } from '@/contants';
 import useUser from '@/hooks/use-user';
-import { Link, usePathname } from '@/navigation';
+import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { produce } from 'immer';
 import { useTranslations } from 'next-intl';

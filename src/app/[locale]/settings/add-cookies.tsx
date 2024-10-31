@@ -21,10 +21,12 @@ interface IProps extends PropsWithChildren {
 }
 
 export default function AddCookiesDialog(props: IProps) {
-  const t = useTranslations('pages.settings.cookies');
-  const operatingTips = t('status.operating');
-  const operationOkTips = operatingTips + t('status.ok');
-  const operationFailedTips = operatingTips + t('status.failed');
+  const t1 = useTranslations('pages.settings.cookies');
+  const t2 = useTranslations('global.status');
+
+  const operatingTips = t1('status.operating');
+  const operationOkTips = operatingTips + t2('success');
+  const operationFailedTips = operatingTips + t2('error');
 
   const [isAdding, setIsAdding] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -82,7 +84,7 @@ export default function AddCookiesDialog(props: IProps) {
       <Dialog.Trigger asChild>{props.children}</Dialog.Trigger>
       <Dialog.Title>
         <CookieIcon size={18} className="mr-2 !stroke-2" />
-        {t('addCookie.title')}
+        {t1('addCookie.title')}
       </Dialog.Title>
       <Dialog.Content>
         <Textarea
@@ -97,7 +99,7 @@ export default function AddCookiesDialog(props: IProps) {
             setCookies(e.target.value);
             setIsNewCookiesValid(true);
           }}
-          placeholder={t('addCookie.placeholder')}
+          placeholder={t1('addCookie.placeholder')}
         />
       </Dialog.Content>
     </Dialog>

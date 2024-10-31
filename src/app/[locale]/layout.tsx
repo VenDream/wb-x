@@ -7,52 +7,51 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { getTrackingUsers } from '@/api/server';
 import Toaster from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS, META_DATA } from '@/contants';
 import { font } from '@/fonts';
+import { routing } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { LoaderCircleIcon } from 'lucide-react';
 import { NextIntlClientProvider } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Provider from './prodiver';
 
 import './globals.scss';
 
-const locales = Object.values(LANGS);
 export const metadata = META_DATA;
 
-export function generateStaticParams() {
-  return locales.map(locale => ({
-    locale,
-  }));
-}
+export default async function RootLayout({ children, params }: ChildrenProps) {
+  const { locale } = await params;
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: ChildrenProps) {
-  if (!locales.includes(locale)) notFound();
-
-  let messages;
-  try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as any)) {
     notFound();
   }
 
-  unstable_setRequestLocale(locale);
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
+  let userIds: string[] = [];
+  try {
+    userIds = (await getTrackingUsers()).userIds;
+  } catch (err) {
+    console.error('failed to fetch tracking users', err);
+  }
 
   return (
     <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>
       <html lang={locale} className={cn(font.className, 'preparing')}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
-            <Provider>
+            <Provider trackingUsers={userIds}>
               <LayoutHeader />
               <LayoutBody>{children}</LayoutBody>
               <SpeedInsights />

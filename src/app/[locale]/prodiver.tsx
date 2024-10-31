@@ -1,5 +1,5 @@
 /*
- * Global Provider Wrapper
+ * Server Provider
  *
  * @Author: VenDream
  * @Date: 2024-09-09 15:08:04
@@ -9,14 +9,20 @@
 
 import { DialogProvider } from '@/components/common/dialog';
 import { Theme as ThemeProvider } from '@/components/daisyui';
+import { JotaiProvider } from '@/store/provider';
 import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
 
-export default function Provider({ children }: ChildrenProps) {
+export default function Provider({
+  children,
+  trackingUsers,
+}: ChildrenProps<App.StoreState>) {
   return (
-    <ThemeProvider className="wbx-theme-provoder">
-      <TooltipProvider>
-        <DialogProvider>{children}</DialogProvider>
-      </TooltipProvider>
-    </ThemeProvider>
+    <JotaiProvider initialState={{ trackingUsers }}>
+      <ThemeProvider className="wbx-theme-provoder">
+        <TooltipProvider>
+          <DialogProvider>{children}</DialogProvider>
+        </TooltipProvider>
+      </ThemeProvider>
+    </JotaiProvider>
   );
 }

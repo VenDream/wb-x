@@ -5,6 +5,7 @@
       "weibo": "Weibo",
       "rotn": "ROTN",
       "user": "User",
+      "trackings": "Trackings",
       "settings": "Settings"
     },
     "locale": {
@@ -133,7 +134,13 @@
     "user": {
       "follows": "follows",
       "followers": "followers",
-      "desc": "desc"
+      "desc": "desc",
+      "track": "track",
+      "untrack": "untrack",
+      "trackingOperating": "Adding to trackings...",
+      "untrackingOperating": "Removing from trackings...",
+      "addToTrackings": "Are you sure to start tracking <username></username> ?",
+      "removeFromTrackings": "Are you sure to untrack <username></username> ?"
     },
     "settings": {
       "tabs": {
@@ -173,8 +180,6 @@
           "valid": "Valid",
           "invalid": "Invalid",
           "operating": "Operating...",
-          "ok": "Success",
-          "failed": "Failed",
           "fetchFailed": "Failed to fetch cookies, please retry",
           "noInput": "Cookie string is required"
         }

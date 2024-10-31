@@ -1,5 +1,3 @@
-'use client';
-
 /*
  * User card
  *
@@ -11,12 +9,12 @@
 
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
+import TrackingsBtn from '@/components/common/trackings-btn';
+import { Avatar } from '@/components/daisyui';
 import { FAKE_IMG } from '@/contants/debug';
-// import { moveUp } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
-import { Avatar } from 'react-daisyui';
 
 interface IProps {
   user: Backend.User;
@@ -32,7 +30,6 @@ export default function UserCard(props: IProps) {
 
   return (
     <MotionContainer
-      // whileHover={moveUp}
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-2 py-6',
         'rounded-[--rounded-box] border border-base-content/10 bg-base-200/50',
@@ -50,6 +47,7 @@ export default function UserCard(props: IProps) {
       <p title={name} className={cn(blockClasses, 'line-clamp-1 text-sm')}>
         {name || '-'}
       </p>
+      <TrackingsBtn user={props.user} />
       <p className={cn(blockClasses, 'text-xs')}>
         {t('follows')}：{followCount || 0}
         <br />
