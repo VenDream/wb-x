@@ -22,19 +22,21 @@ interface BaseCardProps {
   renderCustomMenus?: (ctx: CardContext) => JSX.Element;
 }
 
-export type CardProps =
-  | (BaseCardProps & {
-      /** is retweet status */
-      isRetweet?: never;
-      /** source status id */
-      sourceStatusId?: never;
-    })
-  | (BaseCardProps & {
-      /** is retweet status */
-      isRetweet: true;
-      /** source status id */
-      sourceStatusId: string;
-    });
+export type CardProps = BaseCardProps &
+  (
+    | {
+        /** is retweet status */
+        isRetweet?: never;
+        /** source status id */
+        sourceStatusId?: never;
+      }
+    | {
+        /** is retweet status */
+        isRetweet: true;
+        /** source status id */
+        sourceStatusId: string;
+      }
+  );
 
 export interface CardContext {
   /** status */

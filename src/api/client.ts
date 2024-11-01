@@ -93,6 +93,14 @@ export async function getWeiboStatusDetail(id: string) {
 /*                                    Users                                   */
 /* -------------------------------------------------------------------------- */
 
+export async function getTrackingUsers() {
+  const url = '/api/config/users/list';
+  const data = await get<{ userIds: string[]; count: number }>(url, {
+    next: { tags: ['tracking-users'] },
+  });
+  return data;
+}
+
 export async function getUserIdByName(name: string) {
   let url = `${WBU_PROXY}/n/${name}`;
   const data = await get<{ uid: string }>(url);

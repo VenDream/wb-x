@@ -32,9 +32,9 @@ export default function UserCard(props: IProps) {
     <MotionContainer
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-2 py-6',
-        'rounded-[--rounded-box] border border-base-content/10 bg-base-200/50',
-        'hover:border-transparent hover:shadow hover:outline hover:outline-1',
-        '!will-change-transform hover:outline-primary'
+        'rounded-[--rounded-box] bg-base-200/50 outline outline-base-content/10',
+        'outline-1 hover:shadow hover:outline-info',
+        '!will-change-transform'
       )}
     >
       <Avatar
@@ -42,7 +42,7 @@ export default function UserCard(props: IProps) {
         border
         size="sm"
         shape="circle"
-        borderColor="primary"
+        borderColor="info"
       />
       <p title={name} className={cn(blockClasses, 'line-clamp-1 text-sm')}>
         {name || '-'}
@@ -55,7 +55,7 @@ export default function UserCard(props: IProps) {
       </p>
       <Tooltip
         message={desc || '-'}
-        className="max-w-64 break-all border border-primary text-justify text-xs"
+        className="max-w-64 break-all border border-info text-justify text-xs"
       >
         <p
           className={cn(

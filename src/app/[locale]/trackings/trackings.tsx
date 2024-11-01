@@ -1,9 +1,5 @@
 'use client';
 
-import useTrackings from '@/hooks/use-trackings';
-import { getAppSettings } from '@/utils/settings';
-import { useEffect } from 'react';
-
 /*
  * Trackings Page
  *
@@ -13,13 +9,19 @@ import { useEffect } from 'react';
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import useTrackings from '@/hooks/use-trackings';
+import { settingsAtom } from '@/store';
+import { useAtomValue } from 'jotai';
+import { useEffect } from 'react';
+
 export default function Trackings() {
   const [trackings] = useTrackings();
+  const settings = useAtomValue(settingsAtom);
 
   useEffect(() => {
-    const settings = getAppSettings();
+    // const settings = getAppSettings();
     console.log(settings);
-  }, []);
+  }, [settings]);
 
   return (
     <div>

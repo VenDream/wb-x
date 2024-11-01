@@ -67,7 +67,7 @@ export default function CardMenu() {
     <Dropdown
       end={alignEnd}
       className={cn('absolute right-[14px]', {
-        'top-[20px]': isRetweet,
+        'top-[18px]': isRetweet,
         'top-[35px]': !isRetweet,
       })}
     >

@@ -17,11 +17,12 @@ import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { RenderingBoundary } from 'jotai-ssr';
 import { LoaderCircleIcon } from 'lucide-react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import Provider from './prodiver';
+import Provider from './provider';
 
 import './globals.scss';
 
@@ -39,9 +40,10 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
   // side is the easiest way to get started
   const messages = await getMessages();
 
-  let userIds: string[] = [];
+  let trackingUsers: string[] = [];
   try {
-    userIds = (await getTrackingUsers()).userIds;
+    const { userIds } = await getTrackingUsers();
+    userIds && trackingUsers.push(...userIds);
   } catch (err) {
     console.error('failed to fetch tracking users', err);
   }
@@ -51,23 +53,25 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
       <html lang={locale} className={cn(font.className, 'preparing')}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
-            <Provider trackingUsers={userIds}>
-              <LayoutHeader />
-              <LayoutBody>{children}</LayoutBody>
-              <SpeedInsights />
-              <Toaster font={font.className} />
-            </Provider>
-            <div
-              className={cn(
-                'loading-mask fixed z-50 flex h-screen w-screen items-center',
-                'justify-center gap-2 bg-base-100/50 backdrop-blur-lg'
-              )}
-            >
-              <LoaderCircleIcon
-                size={30}
-                className="animate-spin text-base-content"
-              />
-            </div>
+            <RenderingBoundary performanceImpactingUseUpperStore>
+              <Provider trackingUsers={trackingUsers}>
+                <LayoutHeader />
+                <LayoutBody>{children}</LayoutBody>
+                <SpeedInsights />
+                <Toaster font={font.className} />
+              </Provider>
+              <div
+                className={cn(
+                  'loading-mask fixed z-50 flex h-screen w-screen items-center',
+                  'justify-center gap-2 bg-base-100/50 backdrop-blur-lg'
+                )}
+              >
+                <LoaderCircleIcon
+                  size={30}
+                  className="animate-spin text-base-content"
+                />
+              </div>
+            </RenderingBoundary>
           </body>
         </NextIntlClientProvider>
       </html>

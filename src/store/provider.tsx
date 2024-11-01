@@ -9,10 +9,11 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import { getTrackingUsers } from '@/api/client';
+import { useMount } from 'ahooks';
 import { Provider } from 'jotai';
-import { useHydrateAtoms } from 'jotai/utils';
-import React from 'react';
-
+import { HydrationBoundary, RenderingBoundary } from 'jotai-ssr';
+import React, { useCallback, useState } from 'react';
 import store, { trackingUsersAtom } from '.';
 
 type Props = {
@@ -20,19 +21,39 @@ type Props = {
   children: React.ReactNode;
 };
 
-function StateWrapper({ initialState, children }: Props) {
-  useHydrateAtoms([[trackingUsersAtom, initialState.trackingUsers]], {
-    store,
-    dangerouslyForceHydrate: true,
+export function JotaiProvider({ initialState, children }: Props) {
+  const { trackingUsers } = initialState;
+  const [users, setUsers] = useState(trackingUsers);
+  const [isReady, setIsReady] = useState(false);
+
+  const fetchTrackingUsers = useCallback(async () => {
+    try {
+      const { userIds } = await getTrackingUsers();
+      setUsers(userIds);
+    } catch (err) {
+      console.error('failed to fetch tracking users', err);
+    } finally {
+      setIsReady(true);
+    }
+  }, []);
+
+  useMount(() => {
+    if (trackingUsers.length <= 0) {
+      fetchTrackingUsers();
+    } else {
+      setIsReady(true);
+    }
   });
 
-  return children;
-}
-
-export function JotaiProvider({ initialState, children }: Props) {
   return (
-    <Provider store={store}>
-      <StateWrapper initialState={initialState}>{children}</StateWrapper>
-    </Provider>
+    isReady && (
+      <Provider store={store}>
+        <HydrationBoundary hydrateAtoms={[[trackingUsersAtom, users]]}>
+          <RenderingBoundary performanceImpactingUseUpperStore>
+            {children}
+          </RenderingBoundary>
+        </HydrationBoundary>
+      </Provider>
+    )
   );
 }
