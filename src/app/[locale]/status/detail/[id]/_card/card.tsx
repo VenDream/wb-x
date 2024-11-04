@@ -48,7 +48,7 @@ export default function Card(props: CardProps) {
         {/* <div
           className={cn(
             'absolute left-0 top-0 z-50 flex h-full w-full items-center',
-            'justify-center rounded-[inherit] bg-base-200/50 backdrop-blur-lg'
+            'justify-center rounded-[inherit] bg-base-200/30 backdrop-blur-lg'
           )}
         >
           CARD - {status.id}

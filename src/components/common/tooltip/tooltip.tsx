@@ -22,11 +22,17 @@ interface IProps extends ITooltip.TooltipProps {
 }
 
 export default function Tooltip(props: IProps) {
+  const { message, className, children, ...tooltipProps } = props;
   const [open, setOpen] = useState(false);
 
   return (
-    <ITooltip.Root delayDuration={0} open={open} onOpenChange={setOpen}>
-      <ITooltip.Trigger asChild>{props.children}</ITooltip.Trigger>
+    <ITooltip.Root
+      open={open}
+      delayDuration={0}
+      onOpenChange={setOpen}
+      {...tooltipProps}
+    >
+      <ITooltip.Trigger asChild>{children}</ITooltip.Trigger>
       <AnimatePresence>
         {open && (
           <ITooltip.Portal forceMount>
@@ -37,10 +43,10 @@ export default function Tooltip(props: IProps) {
                   'flex items-center justify-center px-4 py-2 text-sm shadow-sm',
                   'border border-base-content/10 bg-base-100/50 backdrop-blur',
                   'rounded-[--rounded-box]',
-                  props.className
+                  className
                 )}
               >
-                {props.message}
+                {message}
               </MotionContainer>
               <ITooltip.Arrow className="fill-none stroke-base-content/10" />
             </ITooltip.Content>

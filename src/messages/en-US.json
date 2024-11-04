@@ -68,7 +68,7 @@
   },
   "pages": {
     "home": {
-      "title": "Database Info",
+      "title": "Database",
       "records": "records",
       "totalDbSize": "Total File Size",
       "totalUsers": "Total Users",
@@ -141,6 +141,22 @@
       "untrackingOperating": "Removing from trackings...",
       "addToTrackings": "Are you sure to start tracking <username></username> ?",
       "removeFromTrackings": "Are you sure to untrack <username></username> ?"
+    },
+    "trackings": {
+      "title": "Tracking Users",
+      "stat": {
+        "title": "Total tracking users",
+        "desc": "counts"
+      },
+      "add": {
+        "title": "Add new tracking users",
+        "placeholder": "search user by name",
+        "search": "Search",
+        "reset": "Reset",
+        "emptyTips": "Please input username to search",
+        "searchingTips": "Searching...",
+        "searchFailedTips": "Failed to search user: {reason}"
+      }
     },
     "settings": {
       "tabs": {

@@ -86,7 +86,7 @@ export default async function Stats() {
 
   return (
     <div>
-      <IStats className="stats-vertical border border-base-content/10 shadow 2xl:stats-horizontal">
+      <IStats className="stats-vertical border border-base-content/10 2xl:stats-horizontal">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}

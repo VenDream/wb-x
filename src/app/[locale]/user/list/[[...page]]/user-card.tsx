@@ -11,6 +11,7 @@ import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
+import { WEIBO_HOST } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
@@ -18,6 +19,7 @@ import { useTranslations } from 'next-intl';
 
 interface IProps {
   user: Backend.User;
+  className?: string;
 }
 
 export default function UserCard(props: IProps) {
@@ -32,9 +34,10 @@ export default function UserCard(props: IProps) {
     <MotionContainer
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-2 py-6',
-        'rounded-[--rounded-box] bg-base-200/50 outline outline-base-content/10',
+        'rounded-[--rounded-box] bg-base-200/30 outline outline-base-content/10',
         'outline-1 hover:shadow hover:outline-info',
-        '!will-change-transform'
+        '!will-change-transform',
+        props.className
       )}
     >
       <Avatar
@@ -44,9 +47,18 @@ export default function UserCard(props: IProps) {
         shape="circle"
         borderColor="info"
       />
-      <p title={name} className={cn(blockClasses, 'line-clamp-1 text-sm')}>
-        {name || '-'}
-      </p>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href={`${WEIBO_HOST}/${id}`}
+        className={cn(
+          blockClasses,
+          'line-clamp-1 text-sm hover:underline',
+          'hover:text-accent hover:underline-offset-4'
+        )}
+      >
+        <p title={name}>{name ? `@${name}` : '-'}</p>
+      </a>
       <TrackingsBtn user={props.user} />
       <p className={cn(blockClasses, 'text-xs')}>
         {t('follows')}：{followCount || 0}
@@ -54,6 +66,7 @@ export default function UserCard(props: IProps) {
         {t('followers')}：{followersCount || 0}
       </p>
       <Tooltip
+        delayDuration={500}
         message={desc || '-'}
         className="max-w-64 break-all border border-info text-justify text-xs"
       >

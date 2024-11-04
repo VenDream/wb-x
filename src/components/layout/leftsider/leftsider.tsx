@@ -30,6 +30,7 @@ export default function Leftsider() {
       : produce(MAIN_ROUTES, draft => {
           draft.ROTN = '';
           draft.USER = '';
+          draft.TRACKINGS = '';
         });
   }, [isAdmin]);
 

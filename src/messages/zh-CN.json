@@ -68,7 +68,7 @@
   },
   "pages": {
     "home": {
-      "title": "数据库信息",
+      "title": "数据库",
       "records": "条",
       "totalDbSize": "文件总大小",
       "totalUsers": "用户记录总数",
@@ -141,6 +141,22 @@
       "untrackingOperating": "移除追踪中...",
       "addToTrackings": "确认开始追踪 <username></username> 吗？",
       "removeFromTrackings": "确认取消追踪 <username></username> 吗？"
+    },
+    "trackings": {
+      "title": "正在追踪",
+      "stat": {
+        "title": "追踪用户总数",
+        "desc": "人"
+      },
+      "add": {
+        "title": "新增追踪",
+        "placeholder": "输入用户名称进行搜索",
+        "search": "搜索",
+        "reset": "重置",
+        "emptyTips": "请输入用户名称进行搜索",
+        "searchingTips": "搜索中...",
+        "searchFailedTips": "搜索失败：{reason}"
+      }
     },
     "settings": {
       "tabs": {

@@ -184,3 +184,9 @@ export async function appendCookie(cookie: string) {
   const rlt = await post('/api/weibo/cookie/append', { cookie: cookie });
   return rlt;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                  Scanning                                  */
+/* -------------------------------------------------------------------------- */
+
+export async function triggerFullScan() {}

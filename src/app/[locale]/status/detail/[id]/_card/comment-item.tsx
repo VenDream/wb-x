@@ -60,7 +60,7 @@ export default function CommentItem(props: CommentItemProps) {
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
       const username = htmlString(`
-        <a href="${WEIBO_HOST}/n/${user.name}" target="_blank">
+        <a href="${WEIBO_HOST}/${user.id}" target="_blank" rel="noreferrer">
           @${user.name}
         </a>
       `);

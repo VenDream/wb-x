@@ -40,13 +40,12 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
   // side is the easiest way to get started
   const messages = await getMessages();
 
+  // Pre-fetch tracking users
   let trackingUsers: string[] = [];
   try {
     const { userIds } = await getTrackingUsers();
     userIds && trackingUsers.push(...userIds);
-  } catch (err) {
-    console.error('failed to fetch tracking users', err);
-  }
+  } catch {}
 
   return (
     <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>

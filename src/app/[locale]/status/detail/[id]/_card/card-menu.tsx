@@ -118,6 +118,7 @@ export default function CardMenu() {
           <DropdownItem anchor={false}>
             <Link
               target="_blank"
+              rel="noreferrer"
               className="rounded p-2"
               href={`${WEIBO_HOST}/detail/${id}`}
             >

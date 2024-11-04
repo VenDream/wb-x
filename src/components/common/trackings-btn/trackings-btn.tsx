@@ -39,7 +39,8 @@ export default function TrackingsBtn(props: IProps) {
   const username = (
     <a
       target="_blank"
-      href={`${WEIBO_HOST}/n/${user.name}`}
+      rel="noreferrer"
+      href={`${WEIBO_HOST}/${user.id}`}
       className="text-accent underline underline-offset-4"
     >
       @{user.name}

@@ -33,8 +33,9 @@ export default function CardHeader() {
       <div className="flex items-center gap-2 p-2">
         <a
           target="_blank"
+          rel="noreferrer"
+          href={`${WEIBO_HOST}/${user.id}`}
           className="text-[#eb7340] underline underline-offset-4"
-          href={`${WEIBO_HOST}/n/${user.name}`}
         >
           @{user.name}
         </a>
