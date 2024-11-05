@@ -24,6 +24,8 @@
       "noPermission": "No access permission"
     },
     "action": {
+      "no": "No",
+      "yes": "Yes",
       "cancel": "Cancel",
       "ok": "OK",
       "save": "Save",
@@ -139,8 +141,13 @@
       "untrack": "untrack",
       "trackingOperating": "Adding to trackings...",
       "untrackingOperating": "Removing from trackings...",
-      "addToTrackings": "Are you sure to start tracking <username></username> ?",
-      "removeFromTrackings": "Are you sure to untrack <username></username> ?"
+      "addToTrackings": "Are you sure to start tracking user <username></username> ?",
+      "removeFromTrackings": "Are you sure to untrack user <username></username> ?",
+      "askForScanning": {
+        "title": "Successfully added",
+        "desc": "Do you want to schedule a full scan task for user <username></username> ?",
+        "schedulingTips": "Task scheduling..."
+      }
     },
     "trackings": {
       "title": "Tracking Users",
@@ -150,12 +157,11 @@
       },
       "add": {
         "title": "Add new tracking users",
-        "placeholder": "search user by name",
+        "placeholder": "Enter username to search",
         "search": "Search",
         "reset": "Reset",
-        "emptyTips": "Please input username to search",
-        "searchingTips": "Searching...",
-        "searchFailedTips": "Failed to search user: {reason}"
+        "emptyTips": "Username is required",
+        "searchingTips": "Searching..."
       }
     },
     "settings": {

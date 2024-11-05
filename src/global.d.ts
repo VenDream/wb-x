@@ -73,6 +73,25 @@ declare global {
       value: string;
     }
 
+    interface ScanningParams {
+      /** uid */
+      uid: string;
+      /** how many days to scan from now on */
+      days?: number;
+      /** scan all posts */
+      all?: boolean;
+      /** scan from which sinceid */
+      sinceid?: string;
+      /** scan from which date */
+      startDate?: string;
+      /** scan until which date */
+      endDate?: string;
+      /** use cookie or not */
+      useCookie?: boolean;
+      /** force upload or not */
+      forceUpload?: boolean;
+    }
+
     /* ---------------------------------------------------------------------- */
     /*                                  User                                  */
     /* ---------------------------------------------------------------------- */

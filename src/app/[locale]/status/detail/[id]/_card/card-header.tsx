@@ -13,12 +13,10 @@ import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/contants';
 import { FAKE_IMG } from '@/contants/debug';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
-import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
 
 export default function CardHeader() {
-  const t = useTranslations('pages.status');
   const { status, isRetweet } = useContext(CardCtx);
   const { user, createdAt, source } = status!;
 
@@ -31,20 +29,26 @@ export default function CardHeader() {
   if (isRetweet)
     return (
       <div className="flex items-center gap-2 p-2">
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href={`${WEIBO_HOST}/${user.id}`}
-          className="text-[#eb7340] underline underline-offset-4"
-        >
-          @{user.name}
-        </a>
-        <TrackingsBtn
-          user={user}
-          iconOnly
-          iconSize={14}
-          className="h-5 min-h-0 w-10"
-        />
+        {user.id !== '-1' ? (
+          <>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`${WEIBO_HOST}/${user.id}`}
+              className="text-[#eb7340] underline underline-offset-4"
+            >
+              @{user.name}
+            </a>
+            <TrackingsBtn
+              user={user}
+              iconOnly
+              iconSize={14}
+              className="h-5 min-h-0 w-10"
+            />
+          </>
+        ) : (
+          '-'
+        )}
       </div>
     );
 

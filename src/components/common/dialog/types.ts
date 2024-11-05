@@ -49,6 +49,9 @@ export interface DialogProps extends PropsWithChildren {
   cancelBtnLabel?: string;
   cancelBtnProps?: ButtonProps;
 
+  onOpened?: () => void;
+  onClosed?: () => void;
+
   className?: string;
   classNames?: {
     wrapper?: string;

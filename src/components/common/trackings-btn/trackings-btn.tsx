@@ -9,7 +9,11 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { appendTrackingUser, removeTrackingUser } from '@/api/client';
+import {
+  appendTrackingUser,
+  removeTrackingUser,
+  triggerFullScan,
+} from '@/api/client';
 import { refreshTrackingUsers } from '@/app/actions';
 import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
@@ -19,6 +23,7 @@ import useTrackings, { useIsTracking } from '@/hooks/use-trackings';
 import { cn } from '@/utils/classnames';
 import { UserMinusIcon, UserPlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useRef } from 'react';
 import { toast } from 'sonner';
 
 interface IProps extends ButtonProps {
@@ -30,9 +35,11 @@ interface IProps extends ButtonProps {
 export default function TrackingsBtn(props: IProps) {
   const t1 = useTranslations('pages.user');
   const t2 = useTranslations('global.status');
+  const t3 = useTranslations('global.action');
   const { user, iconOnly, iconSize = 16, ...btnProps } = props;
 
   const isTracking = useIsTracking(user.id);
+  const shouldAskForScanning = useRef(false);
   const [, updateTrackings] = useTrackings();
   const { show: showDialog, update: updateDialog } = useDialog();
 
@@ -52,6 +59,44 @@ export default function TrackingsBtn(props: IProps) {
     : t1('trackingOperating');
   const operationOkTips = operatingTips + t2('success');
   const operationFailedTips = operatingTips + t2('error');
+
+  const schedulingTips = t1('askForScanning.schedulingTips');
+  const schedulingOkTips = schedulingTips + t2('success');
+  const schedulingFailedTips = schedulingTips + t2('error');
+
+  const askForScanning = () => {
+    const dialogId = showDialog({
+      preset: 'success',
+      title: t1('askForScanning.title'),
+      content: t1.rich('askForScanning.desc', { username: () => username }),
+      okBtnLabel: t3('yes'),
+      cancelBtnLabel: t3('no'),
+      cancelBtn: undefined,
+      onOk: async () => {
+        return new Promise<boolean>(outerResolve => {
+          updateDialog(dialogId, { loading: true });
+          toast.promise(
+            new Promise<void>((innerResolve, reject) =>
+              triggerFullScan(user.id)
+                .then(() => {
+                  innerResolve();
+                  outerResolve(true);
+                })
+                .catch(reject)
+                .finally(() => {
+                  updateDialog(dialogId, { loading: false });
+                })
+            ),
+            {
+              loading: schedulingTips,
+              success: schedulingOkTips,
+              error: (err: Error) => schedulingFailedTips + ': ' + err.message,
+            }
+          );
+        });
+      },
+    });
+  };
 
   const toggleTrackingStatus = () => {
     const toggleApi = isTracking ? removeTrackingUser : appendTrackingUser;
@@ -73,6 +118,7 @@ export default function TrackingsBtn(props: IProps) {
                       updateTrackings(ids => ids.filter(id => id !== user.id));
                     } else {
                       updateTrackings(ids => [...ids, user.id]);
+                      shouldAskForScanning.current = true;
                     }
                     innerResolve();
                     outerResolve(true);
@@ -90,6 +136,12 @@ export default function TrackingsBtn(props: IProps) {
             }
           );
         });
+      },
+      onClosed: () => {
+        if (shouldAskForScanning.current) {
+          askForScanning();
+          shouldAskForScanning.current = false;
+        }
       },
     });
   };

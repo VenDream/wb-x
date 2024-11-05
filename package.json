@@ -15,9 +15,9 @@
     "fix": "tsx scripts/fix.ts"
   },
   "dependencies": {
-    "@clerk/localizations": "^3.4.4",
-    "@clerk/nextjs": "^6.1.3",
-    "@clerk/themes": "^2.1.40",
+    "@clerk/localizations": "^3.5.0",
+    "@clerk/nextjs": "^6.2.0",
+    "@clerk/themes": "^2.1.41",
     "@emotion/is-prop-valid": "^1.3.1",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-scroll-area": "^1.2.0",
@@ -54,7 +54,7 @@
     "yet-another-react-lightbox": "^3.21.6"
   },
   "devDependencies": {
-    "@types/node": "22.8.7",
+    "@types/node": "22.9.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@types/react-window": "^1.8.8",

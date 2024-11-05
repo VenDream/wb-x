@@ -18,6 +18,7 @@ import { Button, Input, Stat, StatItem, Stats } from '@/components/daisyui';
 import useTrackings from '@/hooks/use-trackings';
 import {
   AudioLinesIcon,
+  CircleXIcon,
   RotateCcwIcon,
   UserPlusIcon,
   UserRoundSearchIcon,
@@ -25,33 +26,35 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 export default function Trackings() {
   const t = useTranslations('pages.trackings');
   const [trackings] = useTrackings();
 
   const [username, setUsername] = useState('');
+  const [user, setUser] = useState<Backend.User>();
+
   const [isSearching, setIsSearching] = useState(false);
-  const [trackingUser, setTrackingUser] = useState<Backend.User>();
+  const [searchFailedReason, setSearchFailedReason] = useState('');
 
   const searchUser = async () => {
     if (!username) {
-      toast.error(t('add.emptyTips'));
+      setSearchFailedReason(t('add.emptyTips'));
       return;
     }
 
-    setTrackingUser(undefined);
+    setUser(undefined);
+    setSearchFailedReason('');
 
     try {
       setIsSearching(true);
       const { uid } = await getUserIdByName(username);
-      const trackingUser = await searchUserById(uid);
-      setTrackingUser(trackingUser);
+      const user = await searchUserById(uid);
+      setUser(user);
     } catch (err) {
       const error = err as Error;
       console.error(error);
-      toast.error(t('add.searchFailedTips', { reason: error.message }));
+      setSearchFailedReason(error.message);
     } finally {
       setIsSearching(false);
     }
@@ -59,8 +62,9 @@ export default function Trackings() {
 
   const reset = () => {
     setUsername('');
+    setUser(undefined);
     setIsSearching(false);
-    setTrackingUser(undefined);
+    setSearchFailedReason('');
   };
 
   return (
@@ -70,8 +74,8 @@ export default function Trackings() {
           <UsersIcon size={24} className="mr-2" />
           {t('title')}
         </h1>
-        <Stats className="stats-vertical border border-base-content/10">
-          <Stat className="min-w-[270px]">
+        <Stats className="stats-vertical border border-base-content/20">
+          <Stat className="min-w-80">
             <StatItem variant="figure" className="">
               <AudioLinesIcon
                 size={24}
@@ -98,8 +102,11 @@ export default function Trackings() {
               value={username}
               disabled={isSearching}
               onKeyDown={e => e.key === 'Enter' && searchUser()}
-              onChange={e => setUsername(e.target.value)}
-              className="h-9 w-60 pr-10"
+              onChange={e => {
+                setUsername(e.target.value);
+                setSearchFailedReason('');
+              }}
+              className="h-9 w-80 pr-10"
               placeholder={t('add.placeholder')}
             />
             <Button
@@ -124,11 +131,23 @@ export default function Trackings() {
             </Button>
           </div>
           <div className="relative">
-            {isSearching && <Loading text={t('add.searchingTips')} />}
-            {trackingUser && (
+            {isSearching && (
+              <MotionContainer>
+                <Loading text={t('add.searchingTips')} />
+              </MotionContainer>
+            )}
+            {searchFailedReason && (
+              <MotionContainer>
+                <p className="flex items-center gap-2 text-sm text-error">
+                  <CircleXIcon size={20} className="text-error" />
+                  {searchFailedReason}
+                </p>
+              </MotionContainer>
+            )}
+            {user && (
               <MotionContainer className="w-80">
                 <UserCard
-                  user={trackingUser}
+                  user={user}
                   className="bg-transparent shadow-sm outline-base-content/20"
                 />
               </MotionContainer>

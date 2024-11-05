@@ -24,6 +24,8 @@
       "noPermission": "无访问权限"
     },
     "action": {
+      "no": "不用",
+      "yes": "好的",
       "cancel": "取消",
       "ok": "确认",
       "save": "保存",
@@ -139,8 +141,13 @@
       "untrack": "取消追踪",
       "trackingOperating": "添加追踪中...",
       "untrackingOperating": "移除追踪中...",
-      "addToTrackings": "确认开始追踪 <username></username> 吗？",
-      "removeFromTrackings": "确认取消追踪 <username></username> 吗？"
+      "addToTrackings": "确认开始追踪用户 <username></username> 吗？",
+      "removeFromTrackings": "确认取消追踪用户 <username></username> 吗？",
+      "askForScanning": {
+        "title": "已添加",
+        "desc": "现在要创建一个对用户 <username></username> 的全量扫描任务吗？",
+        "schedulingTips": "任务创建中..."
+      }
     },
     "trackings": {
       "title": "正在追踪",
@@ -153,9 +160,8 @@
         "placeholder": "输入用户名称进行搜索",
         "search": "搜索",
         "reset": "重置",
-        "emptyTips": "请输入用户名称进行搜索",
-        "searchingTips": "搜索中...",
-        "searchFailedTips": "搜索失败：{reason}"
+        "emptyTips": "请输入用户名称",
+        "searchingTips": "搜索中..."
       }
     },
     "settings": {
