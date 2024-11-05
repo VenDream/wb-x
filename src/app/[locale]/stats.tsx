@@ -29,7 +29,7 @@ interface StatUnitProps {
 
 function StatUnit({ title, value, desc, icon }: StatUnitProps) {
   return (
-    <Stat className="min-w-[270px]">
+    <Stat className="min-w-80">
       <StatItem variant="figure" className="">
         {icon}
       </StatItem>
@@ -86,7 +86,7 @@ export default async function Stats() {
 
   return (
     <div>
-      <IStats className="stats-vertical border border-base-content/10 shadow 2xl:stats-horizontal">
+      <IStats className="stats-vertical border border-base-content/20">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}

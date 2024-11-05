@@ -5,6 +5,7 @@
       "weibo": "微博",
       "rotn": "ROTN",
       "user": "用户",
+      "trackings": "正在追踪",
       "settings": "设置"
     },
     "locale": {
@@ -23,6 +24,8 @@
       "noPermission": "无访问权限"
     },
     "action": {
+      "no": "不用",
+      "yes": "好的",
       "cancel": "取消",
       "ok": "确认",
       "save": "保存",
@@ -67,7 +70,7 @@
   },
   "pages": {
     "home": {
-      "title": "数据库信息",
+      "title": "数据库",
       "records": "条",
       "totalDbSize": "文件总大小",
       "totalUsers": "用户记录总数",
@@ -133,7 +136,33 @@
     "user": {
       "follows": "关注",
       "followers": "粉丝",
-      "desc": "简介"
+      "desc": "简介",
+      "track": "追踪",
+      "untrack": "取消追踪",
+      "trackingOperating": "添加追踪中...",
+      "untrackingOperating": "移除追踪中...",
+      "addToTrackings": "确认开始追踪用户 <username></username> 吗？",
+      "removeFromTrackings": "确认取消追踪用户 <username></username> 吗？",
+      "askForScanning": {
+        "title": "已添加",
+        "desc": "现在要创建一个对用户 <username></username> 的全量扫描任务吗？",
+        "schedulingTips": "任务创建中..."
+      }
+    },
+    "trackings": {
+      "title": "正在追踪",
+      "stat": {
+        "title": "追踪用户总数",
+        "desc": "人"
+      },
+      "add": {
+        "title": "新增追踪",
+        "placeholder": "输入用户名称进行搜索",
+        "search": "搜索",
+        "reset": "重置",
+        "emptyTips": "请输入用户名称",
+        "searchingTips": "搜索中..."
+      }
     },
     "settings": {
       "tabs": {
@@ -173,8 +202,6 @@
           "valid": "有效",
           "invalid": "已失效",
           "operating": "执行操作中...",
-          "ok": "成功",
-          "failed": "失败",
           "fetchFailed": "获取Cookies失败，请重试",
           "noInput": "Cookie不能为空"
         }

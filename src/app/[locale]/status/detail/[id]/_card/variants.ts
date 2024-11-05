@@ -43,7 +43,7 @@ export const cardBody = cva(['card-body', 'relative'], {
   },
 });
 
-export const cardFooter = cva(['card-footer', 'relative'], {
+export const cardFooter = cva(['relative'], {
   variants: {
     type: {
       default: ['my-4', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],

@@ -186,6 +186,10 @@ export default function Dialog(dialogProps: DialogProps) {
             'relative flex flex-1 flex-col gap-6 shadow-sm',
             props.className
           )}
+          onAnimationComplete={def => {
+            def === 'open' && props.onOpened?.();
+            def === 'closed' && props.onClosed?.();
+          }}
         >
           <div className="flex flex-col gap-1">
             {parts.title && (

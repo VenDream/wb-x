@@ -9,24 +9,19 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import AuthGuard from '@/components/common/auth-guard';
 import MotionContainer from '@/components/common/motion-container';
 import { Tab, Tabs } from '@/components/daisyui';
-import useUser from '@/hooks/use-user';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import CookiesSettings from './cookies';
 import LocalSettings from './local';
-import NoPermission from './no-permission';
 import ServerSettings from './server';
 
 type SettingsType = 'local' | 'server' | 'cookies';
 
-const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
-
 export default function Settings() {
   const t = useTranslations('pages.settings.tabs');
-  const { isAdmin } = useUser();
-
   const [settingsType, setSettingsType] = useState<SettingsType>('local');
 
   return (
@@ -42,10 +37,16 @@ export default function Settings() {
             <LocalSettings />
           </MotionContainer>
         )}
-        {settingsType === 'server' &&
-          (isAdmin ? <ServerSettings /> : <NoPermission />)}
-        {settingsType === 'cookies' &&
-          (isAdmin ? <CookiesSettings /> : <NoPermission />)}
+        {settingsType === 'server' && (
+          <AuthGuard>
+            <ServerSettings />
+          </AuthGuard>
+        )}
+        {settingsType === 'cookies' && (
+          <AuthGuard>
+            <CookiesSettings />
+          </AuthGuard>
+        )}
       </div>
     </div>
   );

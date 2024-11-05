@@ -9,13 +9,19 @@
 
 import { MAIN_ROUTES } from '@/contants';
 import { ROTN_ICON, WEIBO_ICON } from '@/contants/svgs';
-import { HouseIcon, SettingsIcon, UserIcon } from 'lucide-react';
+import {
+  AudioLinesIcon,
+  HouseIcon,
+  SettingsIcon,
+  UserIcon,
+} from 'lucide-react';
 
 const ICONS: Record<keyof typeof MAIN_ROUTES, React.ReactNode> = {
   HOME: <HouseIcon size={18} />,
   WEIBO: WEIBO_ICON,
   ROTN: ROTN_ICON,
   USER: <UserIcon size={18} />,
+  TRACKINGS: <AudioLinesIcon size={18} />,
   SETTINGS: <SettingsIcon size={18} />,
 };
 

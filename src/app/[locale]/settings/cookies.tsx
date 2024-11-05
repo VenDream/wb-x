@@ -26,19 +26,20 @@ import { toast } from 'sonner';
 import AddCookies from './add-cookies';
 
 export default function CookiesSettings() {
-  const t = useTranslations('pages.settings.cookies');
+  const t1 = useTranslations('pages.settings.cookies');
+  const t2 = useTranslations('global.status');
   const { show: showDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const [isOperating, setIsOperating] = useState(false);
   const [cookies, setCookies] = useState<Backend.Cookie[]>([]);
 
-  const operatingTips = t('status.operating');
-  const operationOkTips = operatingTips + t('status.ok');
-  const operationFailedTips = operatingTips + t('status.failed');
+  const operatingTips = t1('status.operating');
+  const operationOkTips = operatingTips + t2('success');
+  const operationFailedTips = operatingTips + t2('error');
 
-  const checkingTips = t('status.checking');
-  const validTips = checkingTips + t('status.valid');
-  const invalidTips = checkingTips + t('status.invalid');
+  const checkingTips = t1('status.checking');
+  const validTips = checkingTips + t1('status.valid');
+  const invalidTips = checkingTips + t1('status.invalid');
 
   const getCookies = useCallback(async () => {
     try {
@@ -47,15 +48,15 @@ export default function CookiesSettings() {
       setCookies(cookies);
     } catch (err) {
       console.error(err);
-      toast.error(t('status.fetchFailed'));
+      toast.error(t1('status.fetchFailed'));
     } finally {
       setIsLoading(false);
     }
-  }, [t]);
+  }, [t1]);
 
   const update = (idx: number) => {
     const cookie = cookies[idx];
-    if (!cookie.value) return toast.error(t('status.noInput'));
+    if (!cookie.value) return toast.error(t1('status.noInput'));
 
     setIsOperating(true);
     toast.promise(
@@ -80,7 +81,7 @@ export default function CookiesSettings() {
 
   const check = (idx: number) => {
     const cookie = cookies[idx];
-    if (!cookie.value) return toast.error(t('status.noInput'));
+    if (!cookie.value) return toast.error(t1('status.noInput'));
 
     setIsOperating(true);
     toast.promise(
@@ -106,7 +107,7 @@ export default function CookiesSettings() {
   const remove = (idx: number) => {
     showDialog({
       preset: 'confirm',
-      content: t('deleteConfirm.confirm'),
+      content: t1('deleteConfirm.confirm'),
       onOk: () => {
         setIsOperating(true);
         toast.promise(
@@ -150,7 +151,7 @@ export default function CookiesSettings() {
               <Textarea
                 rows={4}
                 value={cookie.value}
-                placeholder={t('addCookie.placeholder')}
+                placeholder={t1('addCookie.placeholder')}
                 className="no-scrollbar flex-1 resize-none break-all"
                 onChange={e =>
                   setCookies(cookies => {
@@ -163,11 +164,11 @@ export default function CookiesSettings() {
               <div className="flex flex-col gap-4">
                 <Button size="sm" color="primary" onClick={() => update(idx)}>
                   <SaveIcon size={16} />
-                  {t('operation.save')}
+                  {t1('operation.save')}
                 </Button>
                 <Button size="sm" color="primary" onClick={() => check(idx)}>
                   <RadarIcon size={16} />
-                  {t('operation.check')}
+                  {t1('operation.check')}
                 </Button>
                 <Button
                   size="sm"
@@ -176,7 +177,7 @@ export default function CookiesSettings() {
                   disabled={cookies.length <= 1}
                 >
                   <Trash2Icon size={16} />
-                  {t('operation.delete')}
+                  {t1('operation.delete')}
                 </Button>
               </div>
             </div>
@@ -188,7 +189,7 @@ export default function CookiesSettings() {
         <AddCookies onAdded={getCookies}>
           <Button size="sm" color="primary">
             <PlusIcon size={16} />
-            {t('operation.add')}
+            {t1('operation.add')}
           </Button>
         </AddCookies>
         {isOperating && (

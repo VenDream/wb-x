@@ -5,6 +5,7 @@
       "weibo": "Weibo",
       "rotn": "ROTN",
       "user": "User",
+      "trackings": "Trackings",
       "settings": "Settings"
     },
     "locale": {
@@ -23,6 +24,8 @@
       "noPermission": "No access permission"
     },
     "action": {
+      "no": "No",
+      "yes": "Yes",
       "cancel": "Cancel",
       "ok": "OK",
       "save": "Save",
@@ -67,7 +70,7 @@
   },
   "pages": {
     "home": {
-      "title": "Database Info",
+      "title": "Database",
       "records": "records",
       "totalDbSize": "Total File Size",
       "totalUsers": "Total Users",
@@ -133,7 +136,33 @@
     "user": {
       "follows": "follows",
       "followers": "followers",
-      "desc": "desc"
+      "desc": "desc",
+      "track": "track",
+      "untrack": "untrack",
+      "trackingOperating": "Adding to trackings...",
+      "untrackingOperating": "Removing from trackings...",
+      "addToTrackings": "Are you sure to start tracking user <username></username> ?",
+      "removeFromTrackings": "Are you sure to untrack user <username></username> ?",
+      "askForScanning": {
+        "title": "Successfully added",
+        "desc": "Do you want to schedule a full scan task for user <username></username> ?",
+        "schedulingTips": "Task scheduling..."
+      }
+    },
+    "trackings": {
+      "title": "Tracking Users",
+      "stat": {
+        "title": "Total tracking users",
+        "desc": "counts"
+      },
+      "add": {
+        "title": "Add new tracking users",
+        "placeholder": "Enter username to search",
+        "search": "Search",
+        "reset": "Reset",
+        "emptyTips": "Username is required",
+        "searchingTips": "Searching..."
+      }
     },
     "settings": {
       "tabs": {
@@ -173,8 +202,6 @@
           "valid": "Valid",
           "invalid": "Invalid",
           "operating": "Operating...",
-          "ok": "Success",
-          "failed": "Failed",
           "fetchFailed": "Failed to fetch cookies, please retry",
           "noInput": "Cookie string is required"
         }

@@ -17,7 +17,7 @@ import {
   DropdownToggle,
 } from '@/components/daisyui';
 import { LANGS } from '@/contants';
-import { Link, usePathname } from '@/navigation';
+import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import {
   ChevronDownIcon,

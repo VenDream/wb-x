@@ -21,11 +21,10 @@ const isPublicRoute = createRouteMatcher([]);
 
 const middleware = isClerkEnabled
   ? clerkMiddleware(
-      (auth, req) => {
+      async (auth, req) => {
         if (!isPublicRoute(req)) {
-          auth().protect();
+          await auth.protect();
         }
-
         return i18nMiddleware(req);
       },
       { debug: process.env.NODE_ENV === 'development' }

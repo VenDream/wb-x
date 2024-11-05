@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { useRouter } from '@/navigation';
+import { useRouter } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';

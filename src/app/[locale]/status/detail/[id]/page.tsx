@@ -1,5 +1,5 @@
 /*
- * Weibo Status Detail
+ * Status Detail Page
  *
  * @Author: VenDream
  * @Date: 2023-11-23 11:42:51
@@ -11,21 +11,18 @@ import { getDbRetweetStatusDetail, getDbStatusDetail } from '@/api/server';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
 import { Metadata } from 'next';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import StatusCard from './_card';
-import CommentList from './_card/comment-list';
+import { getTranslations } from 'next-intl/server';
+import StatusDetail from './status-detail';
 
 export const metadata: Metadata = {
   title: 'Status Detail',
 };
 
 export default async function Page({ params }: ParamsBody) {
-  unstable_setRequestLocale(params.locale);
-
-  const { id } = params;
-  let status: Backend.Status;
-
+  const { id } = await params;
   const t = await getTranslations('global.dataFetching');
+
+  let status: Backend.Status;
 
   // try status first
   status = await getDbStatusDetail(id);
@@ -37,10 +34,7 @@ export default async function Page({ params }: ParamsBody) {
   return (
     <MotionContainer className="flex flex-col items-center">
       {status ? (
-        <>
-          <StatusCard status={status} menu={{ viewComments: false }} />
-          <CommentList id={id} />
-        </>
+        <StatusDetail id={id} status={status} />
       ) : (
         <div className="p-4">
           <NoData tips={t('noMatchingData')} />

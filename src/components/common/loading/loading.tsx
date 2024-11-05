@@ -12,6 +12,7 @@ import { LoaderCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 interface IProps extends React.PropsWithChildren {
+  text?: string;
   size?: number;
   align?: 'center' | 'start' | 'end';
   className?: string;
@@ -26,7 +27,7 @@ const defaultProps: IProps = {
 
 export default function LoadingUI(props: IProps) {
   const t = useTranslations('global.action');
-  const { size, align, className, textClass, loaderClass, children } = {
+  const { text, size, align, className, textClass, loaderClass, children } = {
     ...defaultProps,
     ...props,
   };
@@ -44,7 +45,9 @@ export default function LoadingUI(props: IProps) {
         className={cn('animate-spin text-primary', loaderClass)}
       />
       {children || (
-        <p className={cn('text-sm text-primary', textClass)}>{t('loading')}</p>
+        <p className={cn('text-sm text-primary', textClass)}>
+          {text || t('loading')}
+        </p>
       )}
     </div>
   );

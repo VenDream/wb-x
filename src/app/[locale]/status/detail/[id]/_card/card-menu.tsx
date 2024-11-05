@@ -21,7 +21,7 @@ import {
   WEIBO_IMAGES_DOWNLOAD_API,
 } from '@/contants';
 import { WEIBO_ICON } from '@/contants/svgs';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { copyText } from '@/utils/common';
 import {
@@ -67,7 +67,7 @@ export default function CardMenu() {
     <Dropdown
       end={alignEnd}
       className={cn('absolute right-[14px]', {
-        'top-[20px]': isRetweet,
+        'top-[18px]': isRetweet,
         'top-[35px]': !isRetweet,
       })}
     >
@@ -118,6 +118,7 @@ export default function CardMenu() {
           <DropdownItem anchor={false}>
             <Link
               target="_blank"
+              rel="noreferrer"
               className="rounded p-2"
               href={`${WEIBO_HOST}/detail/${id}`}
             >

@@ -14,7 +14,7 @@ import { Button } from '@/components/daisyui';
 import { APP_NAME } from '@/contants';
 import { DatabaseIcon, RefreshCcwIcon } from 'lucide-react';
 import { Metadata } from 'next';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import Stats from './stats';
 
 // revalidate homepage requests at most every hour - 60 * 60
@@ -24,9 +24,7 @@ export const metadata: Metadata = {
   title: `Home | ${APP_NAME}`,
 };
 
-export default async function Page({ params }: ParamsBody) {
-  unstable_setRequestLocale(params.locale);
-
+export default async function Page() {
   const t1 = await getTranslations('global');
   const t2 = await getTranslations('pages.home');
 

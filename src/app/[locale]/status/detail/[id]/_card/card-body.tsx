@@ -8,7 +8,6 @@
  */
 
 import { getWeiboStatusDetail } from '@/api/client';
-import { WEIBO_HOST } from '@/contants';
 import { sleep } from '@/utils/common';
 import EVENT_EMITTER, { RESIZE_ROW_ITEM } from '@/utils/eventemitter';
 import { usePrevious } from 'ahooks';
@@ -26,20 +25,7 @@ export default function CardBody() {
   const t = useTranslations('pages.status');
   const { status, sourceStatusId, isRetweet, renderCustomMenus } =
     useContext(CardCtx);
-  const { id, user, text, retweetedStatus } = status!;
-
-  const userName = isRetweet
-    ? `
-      <a 
-        target="_blank"
-        class="inline-block mb-2"
-        href="${WEIBO_HOST}/n/${user.name}"
-      >
-        @${user.name}
-      </a>&nbsp;&nbsp;
-      <br />
-      `
-    : '';
+  const { id, text, retweetedStatus } = status!;
 
   const [statusText, setStatusText] = useState(text);
   const prevStatusText = usePrevious(statusText);
@@ -86,7 +72,7 @@ export default function CardBody() {
           onClick={showFullText}
           className="status-text pr-8 text-sm leading-6 tracking-tight"
           dangerouslySetInnerHTML={{
-            __html: userName + preprocessStatusText(statusText),
+            __html: preprocessStatusText(statusText),
           }}
         />
         <CardImages />

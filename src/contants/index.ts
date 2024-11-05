@@ -32,6 +32,7 @@ export const MAIN_ROUTES = {
   WEIBO: '/status/list',
   ROTN: '/rotn/list',
   USER: '/user/list',
+  TRACKINGS: '/trackings',
   SETTINGS: '/settings',
 };
 

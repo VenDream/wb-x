@@ -7,9 +7,15 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { omit, sleep } from '@/utils/common';
+import { omit } from '@/utils/common';
 import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
+
+const WBU_PROXY = process.env.NEXT_PUBLIC_WBU_PROXY;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Types                                   */
+/* -------------------------------------------------------------------------- */
 
 type StatusListParams = PaginationParams & Backend.StatusListFilterParams;
 type StatusCommentsParams = {
@@ -25,6 +31,10 @@ type StatusCommentsRepliesParams = {
 type ROTNListParams = PaginationParams & {
   type?: Backend.ROTN_TYPE;
 };
+
+/* -------------------------------------------------------------------------- */
+/*                                   Status                                   */
+/* -------------------------------------------------------------------------- */
 
 export async function getDbStatusList(params: StatusListParams) {
   let url = '/api/db/status/list';
@@ -72,12 +82,64 @@ export async function getStatusCommentsReplies(
   return comments;
 }
 
+export async function getWeiboStatusDetail(id: string) {
+  let url = '/api/weibo/status/detail';
+  url = appendURLParams(url, { id });
+  const status = await get<Backend.Status>(url);
+  return status;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Users                                   */
+/* -------------------------------------------------------------------------- */
+
+export async function getTrackingUsers() {
+  const url = '/api/config/users/list';
+  const data = await get<{ userIds: string[]; count: number }>(url, {
+    next: { tags: ['tracking-users'] },
+  });
+  return data;
+}
+
+export async function getUserIdByName(name: string) {
+  let url = `${WBU_PROXY}/n/${name}`;
+  const data = await get<{ uid: string }>(url);
+  return data;
+}
+
+export async function searchUserById(uid: string) {
+  let url = '/api/weibo/user/info';
+  url = appendURLParams(url, { uid });
+  const data = await get<Backend.User>(url);
+  return data;
+}
+
+export async function appendTrackingUser(userId: string) {
+  const url = '/api/config/users/append';
+  const rlt = await post(url, { userId });
+  return rlt;
+}
+
+export async function removeTrackingUser(userId: string) {
+  const url = '/api/config/users/remove';
+  const rlt = await post(url, { userId });
+  return rlt;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    ROTN                                    */
+/* -------------------------------------------------------------------------- */
+
 export async function getDbRotnList(params: ROTNListParams) {
   let url = '/api/db/rotn/list';
   url = appendURLParams(url, params);
   const items = await get<Backend.ROTNItemList>(url);
   return items;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                   Configs                                  */
+/* -------------------------------------------------------------------------- */
 
 export async function getSystemConfig() {
   const config = await get<string>('/api/config');
@@ -89,13 +151,16 @@ export async function saveSystemConfig(configStr: string, locale: string) {
   return rlt;
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                   Cookies                                  */
+/* -------------------------------------------------------------------------- */
+
 export async function listCookies() {
   const config = await get<Backend.Cookie[]>('/api/weibo/cookie/list');
   return config;
 }
 
 export async function updateCookie(idx: number, raw: string | any[]) {
-  await sleep(500);
   const rlt = await post('/api/weibo/cookie/update', { idx, cookie: raw });
   return rlt;
 }
@@ -106,20 +171,29 @@ export async function checkCookie(cookie: string) {
 }
 
 export async function removeCookie(idx: number) {
-  await sleep(500);
   const rlt = await post('/api/weibo/cookie/remove', { idx });
   return rlt;
 }
 
 export async function appendCookie(cookie: string) {
-  await sleep(500);
   const rlt = await post('/api/weibo/cookie/append', { cookie: cookie });
   return rlt;
 }
 
-export async function getWeiboStatusDetail(id: string) {
-  let url = '/api/weibo/status/detail';
-  url = appendURLParams(url, { id });
-  const status = await get<Backend.Status>(url);
-  return status;
+/* -------------------------------------------------------------------------- */
+/*                                  Scanning                                  */
+/* -------------------------------------------------------------------------- */
+
+export async function triggerScan(params: Backend.ScanningParams) {
+  const rlt = await post('/api/weibo/scan', { ...params, trigger: true });
+  return rlt;
+}
+
+export async function triggerFullScan(uid: string) {
+  const fullScanParams: Backend.ScanningParams = {
+    uid,
+    all: true,
+    useCookie: true,
+  };
+  return triggerScan(fullScanParams);
 }
