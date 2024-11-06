@@ -10,7 +10,12 @@
  */
 
 import { Menu, MenuItem } from '@/components/daisyui';
-import { MAIN_ROUTES } from '@/contants';
+import {
+  ADMIN_ROUTES,
+  PRIMARY_ROUTE_KEYS,
+  PRIMARY_ROUTES,
+  PrimaryRouteKey,
+} from '@/contants';
 import useUser from '@/hooks/use-user';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -20,17 +25,17 @@ import { useCallback, useMemo } from 'react';
 import ICONS from './icons';
 
 export default function Leftsider() {
-  const pathname = usePathname();
   const t = useTranslations('global.pages');
   const { isAdmin } = useUser();
+  const pathname = usePathname();
 
-  const menus = useMemo(() => {
+  const routes = useMemo(() => {
     return isAdmin
-      ? MAIN_ROUTES
-      : produce(MAIN_ROUTES, draft => {
-          draft.ROTN = '';
-          draft.USER = '';
-          draft.TRACKINGS = '';
+      ? PRIMARY_ROUTES
+      : produce(PRIMARY_ROUTES, draft => {
+          Object.keys(ADMIN_ROUTES).forEach(key => {
+            delete draft[key as PrimaryRouteKey];
+          });
         });
   }, [isAdmin]);
 
@@ -44,21 +49,23 @@ export default function Leftsider() {
   );
 
   return (
-    <Menu className="h-full w-60 gap-2 border-r border-base-content/10 bg-base-100 p-4">
-      {Object.entries(menus).map(
-        ([k, p]) =>
-          k &&
-          p && (
-            <MenuItem key={k}>
-              <Link
-                href={p}
-                className={cn('text-base', { active: isActive(p) })}
-              >
-                {ICONS[k as keyof typeof MAIN_ROUTES]} {t(k.toLowerCase())}
-              </Link>
-            </MenuItem>
-          )
+    <Menu
+      className={cn(
+        'h-full w-60 gap-2 border-r border-base-content/10 bg-base-100 p-4',
+        '!transition-none !duration-0'
       )}
+    >
+      {PRIMARY_ROUTE_KEYS.map(k => {
+        const p = routes[k];
+        if (!p) return null;
+        return (
+          <MenuItem key={k}>
+            <Link href={p} className={cn('text-base', { active: isActive(p) })}>
+              {ICONS[k as keyof typeof PRIMARY_ROUTES]} {t(k.toLowerCase())}
+            </Link>
+          </MenuItem>
+        );
+      })}
     </Menu>
   );
 }

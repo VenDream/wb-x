@@ -15,7 +15,7 @@ import {
   DropdownToggle,
 } from '@/components/daisyui';
 import {
-  MAIN_ROUTES,
+  PRIMARY_ROUTES,
   SECONDARY_ROUTES,
   WEIBO_HOST,
   WEIBO_IMAGES_DOWNLOAD_API,
@@ -156,7 +156,7 @@ export default function CardMenu() {
             <Link
               target="_blank"
               className="rounded p-2"
-              href={`${MAIN_ROUTES.WEIBO}?uid=${user.id}`}
+              href={`${PRIMARY_ROUTES.WEIBO}?uid=${user.id}`}
             >
               <SquareArrowOutUpRightIcon size={16} className="!stroke-2" />
               {t('opPosts')}

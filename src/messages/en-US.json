@@ -6,6 +6,7 @@
       "rotn": "ROTN",
       "user": "User",
       "trackings": "Trackings",
+      "scanning": "Scanning",
       "settings": "Settings"
     },
     "locale": {
@@ -139,10 +140,12 @@
       "desc": "desc",
       "track": "track",
       "untrack": "untrack",
+      "trackTips": "Add to trackings",
+      "untrackTips": "Remove from trackings",
       "trackingOperating": "Adding to trackings...",
       "untrackingOperating": "Removing from trackings...",
       "addToTrackings": "Are you sure to start tracking user <username></username> ?",
-      "removeFromTrackings": "Are you sure to untrack user <username></username> ?",
+      "removeFromTrackings": "Are you sure to stop tracking user <username></username> ?",
       "askForScanning": {
         "title": "Successfully added",
         "desc": "Do you want to schedule a full scan task for user <username></username> ?",

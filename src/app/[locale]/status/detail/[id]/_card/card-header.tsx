@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import AuthGuard from '@/components/common/auth-guard';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
@@ -39,12 +40,14 @@ export default function CardHeader() {
             >
               @{user.name}
             </a>
-            <TrackingsBtn
-              user={user}
-              iconOnly
-              iconSize={14}
-              className="h-5 min-h-0 w-10"
-            />
+            <AuthGuard fallback={null}>
+              <TrackingsBtn
+                user={user}
+                iconOnly
+                iconSize={14}
+                className="h-5 min-h-0 w-10"
+              />
+            </AuthGuard>
           </>
         ) : (
           '-'
@@ -63,15 +66,17 @@ export default function CardHeader() {
           borderColor="primary"
           className="row-start-1 row-end-3 flex items-center justify-center"
         />
-        <div className="absolute left-1/2 top-[calc(100%_+_12px)] z-10 w-10 -translate-x-1/2">
-          <TrackingsBtn
-            user={user}
-            iconOnly
-            fullWidth
-            iconSize={14}
-            className="h-5 min-h-0"
-          />
-        </div>
+        <AuthGuard fallback={null}>
+          <div className="absolute left-1/2 top-[calc(100%_+_12px)] z-10 w-10 -translate-x-1/2">
+            <TrackingsBtn
+              user={user}
+              iconOnly
+              fullWidth
+              iconSize={14}
+              className="h-5 min-h-0"
+            />
+          </div>
+        </AuthGuard>
       </div>
 
       <span className="flex items-center gap-4 text-sm">{user.name}</span>

@@ -1,6 +1,5 @@
 'use client';
 
-import { getUserIdByName, searchUserById } from '@/api/client';
 /*
  * Trackings Page
  *
@@ -10,6 +9,7 @@ import { getUserIdByName, searchUserById } from '@/api/client';
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import { getUserIdByName, searchUserById } from '@/api/client';
 import UserCard from '@/app/[locale]/user/list/[[...page]]/user-card';
 import Counter from '@/components/common/counter';
 import Loading from '@/components/common/loading';

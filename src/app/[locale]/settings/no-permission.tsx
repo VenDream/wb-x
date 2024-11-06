@@ -8,14 +8,19 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
+import { cn } from '@/utils/classnames';
 import { BanIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-export default function NoPermission() {
+interface IProps {
+  className?: string;
+}
+
+export default function NoPermission(props: IProps) {
   const t = useTranslations('global.status');
 
   return (
-    <MotionContainer className="p-4">
+    <MotionContainer className={cn('p-4', props.className)}>
       <p className="flex items-center text-sm text-red-500">
         <BanIcon size={16} className="mr-2" />
         {t('noPermission')}

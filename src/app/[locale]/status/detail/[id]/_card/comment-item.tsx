@@ -60,7 +60,7 @@ export default function CommentItem(props: CommentItemProps) {
     (user: Backend.StatusComment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
       const username = htmlString(`
-        <a href="${WEIBO_HOST}/${user.id}" target="_blank" rel="noreferrer">
+        <a href="${WEIBO_HOST}/${user.id}" target="_blank" rel="noreferrer" class="username">
           @${user.name}
         </a>
       `);
@@ -198,7 +198,7 @@ export default function CommentItem(props: CommentItemProps) {
             >
               <div
                 className={cn(
-                  'absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/20'
+                  'absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/10'
                 )}
               />
               {t('totalReplies', { num: totalReplies })}

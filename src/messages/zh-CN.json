@@ -6,6 +6,7 @@
       "rotn": "ROTN",
       "user": "用户",
       "trackings": "正在追踪",
+      "scanning": "扫描",
       "settings": "设置"
     },
     "locale": {
@@ -139,6 +140,8 @@
       "desc": "简介",
       "track": "追踪",
       "untrack": "取消追踪",
+      "trackTips": "追踪",
+      "untrackTips": "移除追踪",
       "trackingOperating": "添加追踪中...",
       "untrackingOperating": "移除追踪中...",
       "addToTrackings": "确认开始追踪用户 <username></username> 吗？",

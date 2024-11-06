@@ -7,14 +7,12 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { refreshDbInfo } from '@/app/actions';
 import MotionContainer from '@/components/common/motion-container';
-import RouterRefresh from '@/components/common/router-refresh';
-import { Button } from '@/components/daisyui';
 import { APP_NAME } from '@/contants';
-import { DatabaseIcon, RefreshCcwIcon } from 'lucide-react';
+import { DatabaseIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import RefreshBtn from './refresh-btn';
 import Stats from './stats';
 
 // revalidate homepage requests at most every hour - 60 * 60
@@ -25,22 +23,16 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const t1 = await getTranslations('global');
-  const t2 = await getTranslations('pages.home');
+  const t = await getTranslations('pages.home');
 
   return (
     <MotionContainer className="space-y-4 pr-4">
       <h1 className="flex items-center text-2xl">
         <DatabaseIcon size={24} className="mr-2" />
-        {t2('title')}
+        {t('title')}
       </h1>
       <Stats />
-      <RouterRefresh action={refreshDbInfo}>
-        <Button color="primary" size="sm">
-          <RefreshCcwIcon size={16} />
-          {t1('action.refresh')}
-        </Button>
-      </RouterRefresh>
+      <RefreshBtn />
     </MotionContainer>
   );
 }

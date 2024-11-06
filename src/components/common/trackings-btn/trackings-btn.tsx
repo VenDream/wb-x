@@ -166,7 +166,7 @@ export default function TrackingsBtn(props: IProps) {
 
   return iconOnly ? (
     <Tooltip
-      message={isTracking ? t1('untrack') : t1('track')}
+      message={isTracking ? t1('untrackTips') : t1('trackTips')}
       className={cn('px-2 py-1 text-xs', {
         'text-error': isTracking,
         'border-error': isTracking,
