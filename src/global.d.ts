@@ -88,6 +88,8 @@ declare global {
       endDate?: string;
       /** use cookie or not */
       useCookie?: boolean;
+      /** upload or not */
+      upload?: boolean;
       /** force upload or not */
       forceUpload?: boolean;
     }

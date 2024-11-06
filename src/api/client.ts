@@ -193,6 +193,7 @@ export async function triggerFullScan(uid: string) {
   const fullScanParams: Backend.ScanningParams = {
     uid,
     all: true,
+    upload: true,
     useCookie: true,
   };
   return triggerScan(fullScanParams);
