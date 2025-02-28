@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 /* -------------------------------------------------------------------------- */
 /*                                    MISC                                    */
@@ -29,6 +29,7 @@ export const LANGS = {
 
 export type Lang = (typeof LANGS)[keyof typeof LANGS];
 
+export const DEFAULT_FAV_UID = 'yeshenxue@qq.com';
 export const WEIBO_HOST = 'https://weibo.com';
 export const WEIBO_IMAGES_DOWNLOAD_API =
   '/api/weibo/status/images?responseType=zip';
@@ -43,6 +44,7 @@ export const COMMENTS_PAGE_SIZE = 20;
 export const COMMENTS_REPLIES_PAGE_SIZE = 20;
 export const MIN_IMAGES_COUNT = 0;
 export const MAX_IMAGES_COUNT = 18;
+export const ESTIMATED_COUNT = 1000.1;
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROUTES                                   */

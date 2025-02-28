@@ -7,13 +7,12 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import DatePicker, { DateValueType } from '@/components/common/datepicker';
+import DatePicker, { type DateValueType } from '@/components/common/datepicker';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
-import { Button, Checkbox, Input, Tab, Tabs } from '@/components/daisyui';
+import { Button, Input, Tab, Tabs, Toggle } from '@/components/daisyui';
 import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
 import { cn } from '@/utils/classnames';
-import { omit } from '@/utils/common';
 import dayjs from '@/utils/dayjs';
 import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -50,9 +49,8 @@ export default function Filter(props: FilterProps) {
   };
 
   const resetFilter = () => {
-    const resetParams = omit(defaultFilterParams, ['dataSource']);
-    setFilter(resetParams);
-    updateFilterParams(resetParams);
+    setFilter(defaultFilterParams);
+    updateFilterParams(defaultFilterParams);
   };
 
   useEffect(() => {
@@ -72,7 +70,7 @@ export default function Filter(props: FilterProps) {
           <Tabs
             boxed
             size="sm"
-            value={filter.dataSource}
+            value={filter.isTracking ? 'trackings' : 'all'}
             className={cn(
               '[&>.tab]:text-base-content',
               'h-[2rem] w-40 flex-nowrap items-center bg-transparent p-0',
@@ -85,16 +83,53 @@ export default function Filter(props: FilterProps) {
               '[&>.tab:last-child]:rounded-l-none',
               '[&>.tab:last-child]:border-l-0'
             )}
-            onChange={ds => applyFilter({ ...filter, dataSource: ds })}
+            onChange={ds =>
+              setFilter(f => ({ ...f, isTracking: ds === 'trackings' }))
+            }
           >
             <Tab value="trackings">{t2('trackings')}</Tab>
-            <Tab value="retweets">{t2('retweets')}</Tab>
+            <Tab value="all">{t2('all')}</Tab>
           </Tabs>
+        </div>
+        <div className="flex items-center gap-1">
+          <p className="w-20 text-xs">{t2('order')}</p>
+          <Tabs
+            boxed
+            size="sm"
+            value={filter.order}
+            className={cn(
+              '[&>.tab]:text-base-content',
+              'h-[2rem] w-40 flex-nowrap items-center bg-transparent p-0',
+              '[&>.tab]:h-full [&>.tab]:w-1/2 [&>.tab]:px-1 [&>.tab]:py-0',
+              '[&>.tab]:rounded [&>.tab]:bg-base-100 [&>.tab]:text-xs',
+              '[&>.tab]:border [&>.tab]:!border-base-content/20',
+              '[&>.tab.tab-active]:!border-primary',
+              '[&>.tab:first-child]:rounded-r-none',
+              '[&>.tab:first-child]:border-r-0',
+              '[&>.tab:last-child]:rounded-l-none',
+              '[&>.tab:last-child]:border-l-0'
+            )}
+            onChange={order => setFilter({ ...filter, order })}
+          >
+            <Tab value="desc">{t2('desc')}</Tab>
+            <Tab value="asc">{t2('asc')}</Tab>
+          </Tabs>
+        </div>
+        <div className="flex items-center gap-1">
+          <p className="w-20 text-xs">{t2('id')}</p>
+          <Input
+            value={filter.id || ''}
+            size="xs"
+            placeholder={t2('id')}
+            className="h-[2rem] w-40 rounded"
+            onKeyDown={e => e.key === 'Enter' && applyFilter()}
+            onChange={e => setFilter(f => ({ ...f, id: e.target.value }))}
+          />
         </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('uid')}</p>
           <Input
-            value={filter.uid}
+            value={filter.uid || ''}
             size="xs"
             placeholder={t2('uid')}
             className="h-[2rem] w-40 rounded"
@@ -105,7 +140,7 @@ export default function Filter(props: FilterProps) {
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('keyword')}</p>
           <Input
-            value={filter.keyword}
+            value={filter.keyword || ''}
             size="xs"
             placeholder={t2('keyword')}
             className="h-[2rem] w-40 rounded"
@@ -152,7 +187,7 @@ export default function Filter(props: FilterProps) {
         <div className="flex h-[2rem] items-center gap-1">
           <p className="w-20 text-xs">{t2('leastImagesCount')}</p>
           <Input
-            value={filter.leastImagesCount}
+            value={filter.leastImagesCount || ''}
             size="xs"
             type="number"
             placeholder={t2('leastImagesCountTips')}
@@ -161,14 +196,30 @@ export default function Filter(props: FilterProps) {
             onChange={e => {
               const val = e.target.value;
               if (val === '') {
-                setFilter(f => ({ ...f, leastImagesCount: val }));
+                setFilter(f => ({ ...f, leastImagesCount: 0 }));
               } else {
                 let count = +val;
                 count = Math.max(count, MIN_IMAGES_COUNT);
                 count = Math.min(count, MAX_IMAGES_COUNT);
-                setFilter(f => ({ ...f, leastImagesCount: String(count) }));
+                setFilter(f => ({ ...f, leastImagesCount: count }));
               }
             }}
+          />
+        </div>
+        <div className="flex h-[2rem] items-center gap-1">
+          <p className="flex w-20 items-center gap-1 text-xs">
+            {t2('favourite')}
+          </p>
+          <Toggle
+            color="primary"
+            checked={!!filter.isFavourite}
+            className="rounded-none"
+            onChange={e =>
+              setFilter(f => ({
+                ...f,
+                isFavourite: e.target.checked ? true : undefined,
+              }))
+            }
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -178,12 +229,47 @@ export default function Filter(props: FilterProps) {
               <CircleHelpIcon size={14} className="!stroke-2" />
             </Tooltip>
           </p>
-          <Checkbox
-            checked={!!filter.original}
-            size="xs"
+          <Toggle
+            color="primary"
+            checked={!!filter.isOriginal}
             className="rounded-none"
             onChange={e =>
-              setFilter(f => ({ ...f, original: e.target.checked }))
+              setFilter(f => ({
+                ...f,
+                isOriginal: e.target.checked ? true : undefined,
+              }))
+            }
+          />
+        </div>
+        <div className="flex h-[2rem] items-center gap-1">
+          <p className="flex w-20 items-center gap-1 text-xs">
+            {t2('hasVideo')}
+          </p>
+          <Toggle
+            color="primary"
+            checked={!!filter.hasVideo}
+            className="rounded-none"
+            onChange={e =>
+              setFilter(f => ({
+                ...f,
+                hasVideo: e.target.checked ? true : undefined,
+              }))
+            }
+          />
+        </div>
+        <div className="flex h-[2rem] items-center gap-1">
+          <p className="flex w-20 items-center gap-1 text-xs">
+            {t2('hasImages')}
+          </p>
+          <Toggle
+            color="primary"
+            checked={!!filter.hasImages}
+            className="rounded-none"
+            onChange={e =>
+              setFilter(f => ({
+                ...f,
+                hasImages: e.target.checked ? true : undefined,
+              }))
             }
           />
         </div>

@@ -13,8 +13,8 @@ import Loading from '@/components/common/loading';
 import { NoData } from '@/components/common/no-data';
 import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
+import type { ForwardedRef } from 'react';
 import React, {
-  ForwardedRef,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -80,7 +80,7 @@ function VirtualListRenderFunc<T, R>(
       const limit = pageSize;
       const offset = pageNo * limit;
       const parseListData = getDataParser();
-      const fetchListData = getDataFetcher({ limit, offset });
+      const fetchListData = getDataFetcher({ limit, offset, needTotal: true });
       const data = await fetchListData();
       const list = parseListData(data);
 
@@ -148,6 +148,10 @@ function VirtualListRenderFunc<T, R>(
   const isNoData = pageNo === 0 && isLoadAll && dataList.length === 0;
   const isFirstLoading = pageNo === 0 && isLoading;
 
+  const loadMore = useCallback(() => {
+    setPageNo(pn => pn + 1);
+  }, []);
+
   useEffect(() => {
     fetchDataList();
   }, [fetchDataList]);
@@ -179,7 +183,7 @@ function VirtualListRenderFunc<T, R>(
                 threshold={loadingThreshold}
                 isItemLoaded={idx => isLoadAll || idx < dataList.length}
                 itemCount={isLoadAll ? dataList.length : dataList.length + 1}
-                loadMoreItems={() => setPageNo(pageNo + 1)}
+                loadMoreItems={loadMore}
               >
                 {({ onItemsRendered, ref }) => (
                   <VariableSizeList

@@ -11,7 +11,7 @@ const withNextIntl = require('next-intl/plugin')();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withNextIntl({
-  reactStrictMode: true,
+  reactStrictMode: false,
   transpilePackages: ['react-daisyui', 'shiki'],
   images: {
     unoptimized: true,
@@ -19,7 +19,7 @@ const nextConfig = withNextIntl({
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
-  webpack: function (config) {
+  webpack: config => {
     config.module.rules.push({
       test: /\.m?js$/,
       type: 'javascript/auto',

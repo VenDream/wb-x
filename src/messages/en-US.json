@@ -76,7 +76,6 @@
       "totalDbSize": "Total File Size",
       "totalUsers": "Total Users",
       "totalStatuses": "Total Posts",
-      "totalRetweetStatuses": "Total Retweet Posts",
       "totalRotns": "Total ROTNs"
     },
     "status": {
@@ -93,16 +92,25 @@
       },
       "filter": {
         "dataSource": "Data Source",
+        "all": "All",
         "trackings": "Trackings",
-        "retweets": "Retweets",
-        "uid": "UID",
-        "keyword": "Keyword",
+
+        "id": "Post ID",
+        "uid": "User ID",
         "original": "Original",
         "originalTips": "Posts without retweets",
+        "favourite": "Favourite",
+        "hasVideo": "With videos",
+        "hasImages": "With images",
+        "endDate": "EndDate",
+        "startDate": "StartDate",
         "leastImagesCount": "Images count",
         "leastImagesCountTips": "Least images count",
-        "startDate": "StartDate",
-        "endDate": "EndDate",
+        "order": "Order",
+        "asc": "Ascending",
+        "desc": "Descending",
+        "keyword": "Keyword",
+
         "totalStatuses": "<total></total><s></s>weibo posts were found."
       },
       "menu": {
@@ -121,7 +129,7 @@
         "loading": "Fetching post full text...",
         "failed": "Fetching post full text..failed, please retry"
       },
-      "updateFrequency": "The data is updated once per hour.",
+      "updateFrequency": "Data source is updated once per hour.",
       "noData": "No matching data found",
       "noDataTips": "Please check the filter options or try switching the data source"
     },

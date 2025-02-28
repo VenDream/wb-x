@@ -76,7 +76,6 @@
       "totalDbSize": "文件总大小",
       "totalUsers": "用户记录总数",
       "totalStatuses": "微博记录总数",
-      "totalRetweetStatuses": "转发微博记录总数",
       "totalRotns": "ROTN记录总数"
     },
     "status": {
@@ -93,16 +92,25 @@
       },
       "filter": {
         "dataSource": "数据来源",
+        "all": "所有微博",
         "trackings": "正在关注",
-        "retweets": "转发微博",
-        "uid": "UID",
-        "keyword": "关键字",
+
+        "id": "微博ID",
+        "uid": "用户ID",
         "original": "原创微博",
         "originalTips": "不包含转发微博的微博",
+        "favourite": "收藏微博",
+        "hasVideo": "包含视频",
+        "hasImages": "包含图片",
+        "endDate": "结束日期",
+        "startDate": "开始日期",
         "leastImagesCount": "图片数量",
         "leastImagesCountTips": "至少包含的图片数量",
-        "startDate": "开始日期",
-        "endDate": "结束日期 ",
+        "order": "排序",
+        "asc": "从旧到新",
+        "desc": "从新到旧",
+        "keyword": "关键字",
+
         "totalStatuses": "共搜索到<s></s><total></total><s></s>条微博。"
       },
       "menu": {

@@ -46,6 +46,7 @@ export default function LocalSettings() {
           <Toggle
             color="primary"
             checked={settings.useImageProxy}
+            className="rounded-none"
             onChange={evt =>
               updateSettings({ useImageProxy: evt.target.checked })
             }
@@ -56,6 +57,7 @@ export default function LocalSettings() {
           <Toggle
             color="primary"
             checked={settings.useVideoProxy}
+            className="rounded-none"
             onChange={evt =>
               updateSettings({ useVideoProxy: evt.target.checked })
             }

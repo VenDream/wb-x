@@ -7,7 +7,6 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { omit } from '@/utils/common';
 import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
@@ -37,25 +36,10 @@ type ROTNListParams = PaginationParams & {
 /* -------------------------------------------------------------------------- */
 
 export async function getDbStatusList(params: StatusListParams) {
-  let url = '/api/db/status/list';
-  params = omit(params, ['dataSource']);
+  let url = '/api/db/weibo/status/list';
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
-  let statuses = await get<Backend.StatusList>(url);
-  return statuses;
-}
-
-export async function getDbRetweetStatusList(params: StatusListParams) {
-  let url = '/api/db/retweet_status/list';
-  params = omit(params, ['dataSource']);
-  if (params.endDate) params.endDate += ' 23:59:59';
-  url = appendURLParams(url, params);
-  const retweetStatuses = await get<Backend.RetweetStatusList>(url);
-  const statuses: Backend.StatusList = {
-    statuses: retweetStatuses.retweetStatuses,
-    count: retweetStatuses.count,
-    total: retweetStatuses.total,
-  };
+  const statuses = await get<Backend.StatusList>(url);
   return statuses;
 }
 
@@ -93,16 +77,8 @@ export async function getWeiboStatusDetail(id: string) {
 /*                                    Users                                   */
 /* -------------------------------------------------------------------------- */
 
-export async function getTrackingUsers() {
-  const url = '/api/config/users/list';
-  const data = await get<{ userIds: string[]; count: number }>(url, {
-    next: { tags: ['tracking-users'] },
-  });
-  return data;
-}
-
 export async function getUserIdByName(name: string) {
-  let url = `${WBU_PROXY}/n/${name}`;
+  const url = `${WBU_PROXY}/n/${name}`;
   const data = await get<{ uid: string }>(url);
   return data;
 }
@@ -114,15 +90,15 @@ export async function searchUserById(uid: string) {
   return data;
 }
 
-export async function appendTrackingUser(userId: string) {
-  const url = '/api/config/users/append';
-  const rlt = await post(url, { userId });
+export async function trackUser(uid: string) {
+  const url = '/api/weibo/user/track';
+  const rlt = await post(url, { uid });
   return rlt;
 }
 
-export async function removeTrackingUser(userId: string) {
-  const url = '/api/config/users/remove';
-  const rlt = await post(url, { userId });
+export async function untrackUser(uid: string) {
+  const url = '/api/weibo/user/untrack';
+  const rlt = await post(url, { uid });
   return rlt;
 }
 
@@ -160,7 +136,7 @@ export async function listCookies() {
   return config;
 }
 
-export async function updateCookie(idx: number, raw: string | any[]) {
+export async function updateCookie(idx: number, raw: string | string[]) {
   const rlt = await post('/api/weibo/cookie/update', { idx, cookie: raw });
   return rlt;
 }

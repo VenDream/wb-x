@@ -46,11 +46,3 @@ export async function getDatabaseInfo() {
   });
   return info;
 }
-
-export async function getTrackingUsers() {
-  const url = getApiHost() + '/api/config/users/list';
-  const data = await get<{ userIds: string[]; count: number }>(url, {
-    next: { tags: ['tracking-users'] },
-  });
-  return data;
-}

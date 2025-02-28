@@ -9,17 +9,11 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import {
-  appendTrackingUser,
-  removeTrackingUser,
-  triggerFullScan,
-} from '@/api/client';
-import { refreshTrackingUsers } from '@/app/actions';
+import { trackUser, triggerFullScan, untrackUser } from '@/api/client';
 import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
 import { Button, ButtonProps } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/contants';
-import useTrackings, { useIsTracking } from '@/hooks/use-trackings';
 import { cn } from '@/utils/classnames';
 import { UserMinusIcon, UserPlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -38,9 +32,8 @@ export default function TrackingsBtn(props: IProps) {
   const t3 = useTranslations('global.action');
   const { user, iconOnly, iconSize = 16, ...btnProps } = props;
 
-  const isTracking = useIsTracking(user.id);
+  const isTracking = user.isTracking;
   const shouldAskForScanning = useRef(false);
-  const [, updateTrackings] = useTrackings();
   const { show: showDialog, update: updateDialog } = useDialog();
 
   const username = (
@@ -99,7 +92,7 @@ export default function TrackingsBtn(props: IProps) {
   };
 
   const toggleTrackingStatus = () => {
-    const toggleApi = isTracking ? removeTrackingUser : appendTrackingUser;
+    const toggleApi = isTracking ? untrackUser : trackUser;
 
     const dialogId = showDialog({
       preset: 'confirm',
@@ -113,16 +106,14 @@ export default function TrackingsBtn(props: IProps) {
             new Promise<void>((innerResolve, reject) =>
               toggleApi(user.id)
                 .then(() => {
-                  refreshTrackingUsers().then(() => {
-                    if (isTracking) {
-                      updateTrackings(ids => ids.filter(id => id !== user.id));
-                    } else {
-                      updateTrackings(ids => [...ids, user.id]);
-                      shouldAskForScanning.current = true;
-                    }
-                    innerResolve();
-                    outerResolve(true);
-                  });
+                  if (isTracking) {
+                    console.log('untracked');
+                  } else {
+                    console.log('tracked');
+                    shouldAskForScanning.current = true;
+                  }
+                  innerResolve();
+                  outerResolve(true);
                 })
                 .catch((err: Error) => {
                   reject(err);

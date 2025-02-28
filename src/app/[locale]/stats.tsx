@@ -13,7 +13,6 @@ import { Stats as IStats, Stat, StatItem } from '@/components/daisyui';
 import {
   BoxIcon,
   MessageSquareTextIcon,
-  Repeat2Icon,
   ShirtIcon,
   UsersIcon,
 } from 'lucide-react';
@@ -46,9 +45,9 @@ export default async function Stats() {
   const dbInfo = await getDatabaseInfo();
   const t = await getTranslations('pages.home');
 
-  const { fileSize = '0MB', records } = dbInfo || {};
-  const { user = 0, status = 0, retweetStatus = 0, rotn = 0 } = records || {};
-  const fileSizeNum = +fileSize.split('MB')[0] || 0;
+  const { size = '0MB', tables } = dbInfo || {};
+  const { wb_users = 0, wb_statuses = 0, rotn_items = 0 } = tables || {};
+  const fileSizeNum = +size.split('MB')[0] || 0;
   const iconClass = 'relative top-1 text-accent';
 
   const statUnits: StatUnitProps[] = [
@@ -60,25 +59,19 @@ export default async function Stats() {
     },
     {
       title: t('totalUsers'),
-      value: user,
+      value: wb_users,
       desc: t('records'),
       icon: <UsersIcon size={24} className={iconClass} />,
     },
     {
       title: t('totalStatuses'),
-      value: status,
+      value: wb_statuses,
       desc: t('records'),
       icon: <MessageSquareTextIcon className={iconClass} />,
     },
     {
-      title: t('totalRetweetStatuses'),
-      value: retweetStatus,
-      desc: t('records'),
-      icon: <Repeat2Icon className={iconClass} />,
-    },
-    {
       title: t('totalRotns'),
-      value: rotn,
+      value: rotn_items,
       desc: t('records'),
       icon: <ShirtIcon className={iconClass} />,
     },
