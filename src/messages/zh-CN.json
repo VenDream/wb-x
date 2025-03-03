@@ -139,7 +139,8 @@
         "likes": "点赞"
       },
       "updateFrequency": "数据每小时更新一次。",
-      "noData": "暂无符合条件的数据",
+      "notExists": "该微博不存在",
+      "noData": "暂无符合条件的微博",
       "noDataTips": "请检查筛选条件或尝试切换数据来源"
     },
     "rotn": {

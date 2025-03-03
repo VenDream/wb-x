@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getWeiboStatusDetail } from '@/api/client';
+import { getStatusDetail } from '@/api/client';
 import { sleep } from '@/utils/common';
 import EVENT_EMITTER, { RESIZE_ROW_ITEM } from '@/utils/eventemitter';
 import { usePrevious } from 'ahooks';
@@ -40,7 +40,7 @@ export default function CardBody() {
     setIsLoadingFullText(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        getWeiboStatusDetail(id)
+        getStatusDetail(id)
           .then(status => {
             sleep(300).then(() => {
               setStatusText(status.text);

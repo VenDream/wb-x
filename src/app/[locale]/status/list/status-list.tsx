@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDbStatusList } from '@/api/client';
+import { getStatusList } from '@/api/client';
 import Loading from '@/components/common/loading';
 import VirtualList, {
   type VirtualListHandle,
@@ -66,7 +66,7 @@ export default function StatusList() {
   > = useMemo(
     () => ({
       getDataFetcher: params => () =>
-        getDbStatusList({ ...params, ...filterParams }),
+        getStatusList({ ...params, ...filterParams }),
       getDataParser: () => data => data.list,
       getTotalParser: () => data => data.total as number,
       getRowItemKey: (_, list) => list.id,

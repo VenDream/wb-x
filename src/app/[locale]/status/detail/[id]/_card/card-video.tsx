@@ -7,8 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDbStatusVideo } from '@/api/client';
-import { Slide, useLightbox } from '@/components/common/lightbox';
+import { getStatusVideo } from '@/api/client';
+import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/contants/debug';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
 import { PlayIcon } from 'lucide-react';
@@ -43,7 +43,7 @@ export default function CardVideo() {
   const fetchVideoSrc = async (callback: () => void) => {
     try {
       setIsLoading(true);
-      const src = await getDbStatusVideo(status.id);
+      const src = await getStatusVideo(status.id);
       const proxiedVideoUrl = getProxiedVideoUrl(src);
       const video: Slide = {
         type: 'video',

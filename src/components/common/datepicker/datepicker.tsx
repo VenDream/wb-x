@@ -1,13 +1,4 @@
 /*
- * @Todo: 请补充模块描述
- *
- * @Author: VenDream
- * @Date: 2025-03-03 15:01:39
- *
- * Copyright © 2014-2025 Rabbitpre.com. All Rights Reserved.
- */
-
-/*
  * DatePicker
  *
  * @Author: VenDream
@@ -20,7 +11,7 @@ import { LANGS } from '@/contants';
 import { cn } from '@/utils/classnames';
 import dayjs from '@/utils/dayjs';
 import ReactDatePicker, {
-  DatepickerType,
+  type DatepickerType,
 } from '@tarabao/react-tailwindcss-datepicker';
 import { useLocale, useTranslations } from 'next-intl';
 

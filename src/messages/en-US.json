@@ -139,7 +139,8 @@
         "likes": "Likes"
       },
       "updateFrequency": "Data source is updated once per hour.",
-      "noData": "No matching data found",
+      "notExists": "The post does not exist",
+      "noData": "No matching posts found",
       "noDataTips": "Please check the filter options or try switching the data source"
     },
     "rotn": {

@@ -11,7 +11,7 @@ import Tooltip from '@/components/common/tooltip';
 import { cn } from '@/utils/classnames';
 import { BracketsIcon, CircleHelpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface IProps {
   tips?: ReactNode;

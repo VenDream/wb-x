@@ -35,7 +35,7 @@ type ROTNListParams = PaginationParams & {
 /*                                   Status                                   */
 /* -------------------------------------------------------------------------- */
 
-export async function getDbStatusList(params: StatusListParams) {
+export async function getStatusList(params: StatusListParams) {
   let url = '/api/db/weibo/status/list';
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
@@ -43,7 +43,7 @@ export async function getDbStatusList(params: StatusListParams) {
   return statuses;
 }
 
-export async function getDbStatusVideo(id: string) {
+export async function getStatusVideo(id: string) {
   let url = '/api/weibo/status/video';
   url = appendURLParams(url, { id });
   const { video: videoUrl } = await get<{ video: string }>(url);
@@ -66,7 +66,7 @@ export async function getStatusCommentsReplies(
   return comments;
 }
 
-export async function getWeiboStatusDetail(id: string) {
+export async function getStatusDetail(id: string) {
   let url = '/api/weibo/status/detail';
   url = appendURLParams(url, { id });
   const status = await get<Backend.Status>(url);
