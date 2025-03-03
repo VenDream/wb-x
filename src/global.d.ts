@@ -15,9 +15,9 @@ declare global {
   /* ------------------------------------------------------------------------ */
   /*                                  Globals                                 */
   /* ------------------------------------------------------------------------ */
-  type LocaleProps<T = unknown> = T & { params: { locale: string } };
-  type ChildrenProps<T = unknown> = PropsWithChildren<T>;
-  type ParamsBody = { params: Promise<Record<string, unknown>> };
+  type LocaleProps<T = any> = T & { params: { locale: string } };
+  type ChildrenProps<T = any> = PropsWithChildren<T>;
+  type ParamsBody = { params: Promise<Record<string, any>> };
 
   interface PaginationParams {
     /** limit */
@@ -92,6 +92,16 @@ declare global {
       startDate?: string;
       /** end date */
       endDate?: string;
+
+      /** trigger only */
+      triggerOnly?: boolean;
+      /** all tracking uids */
+      allTrackingUids?: boolean;
+    }
+
+    interface DBList<T> {
+      list: T[];
+      total?: number;
     }
 
     /* ---------------------------------------------------------------------- */
@@ -114,12 +124,6 @@ declare global {
       followersCount: string;
       /** is tracking */
       isTracking: boolean;
-    }
-
-    interface UserList {
-      users: User[];
-      count: number;
-      total?: number;
     }
 
     /* ---------------------------------------------------------------------- */
@@ -164,6 +168,8 @@ declare global {
       isEdited: boolean;
       /** is original */
       isOriginal: boolean;
+      /** is favourite */
+      isFavourite: boolean;
       /** has video */
       hasVideo: boolean;
       /** has images */
@@ -189,11 +195,6 @@ declare global {
       duration: number;
       /** duration string */
       durationStr: string;
-    }
-
-    interface StatusList {
-      list: Status[];
-      total?: number;
     }
 
     type StatusListFilterParams = {
@@ -287,12 +288,6 @@ declare global {
       images: string[];
     }
 
-    interface ROTNItemList {
-      items: ROTNItem[];
-      count: number;
-      total?: number;
-    }
-
     /* ---------------------------------------------------------------------- */
     /*                                 DB info                                */
     /* ---------------------------------------------------------------------- */
@@ -312,7 +307,7 @@ declare global {
 }
 
 declare module 'react' {
-  declare function IForwardRef<T, P = Record<string, unknown>>(
+  declare function IForwardRef<T, P = Record<string, any>>(
     render: (props: P, ref: Ref<T>) => ReactElement | null
   ): (props: P & RefAttributes<T>) => ReactElement | null;
 }

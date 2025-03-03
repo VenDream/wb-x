@@ -25,13 +25,10 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentsReplies from './comments-replies';
-import {
-  preprocessCommentText,
-  preprocessSourceText,
-} from './text-preprocessor';
+import { preprocessCommentText } from './text-preprocessor';
 import type { CommentItemProps } from './types';
 import {
-  CommentVariants,
+  type CommentVariants,
   comment,
   commentBody,
   commnetLikes,
@@ -47,7 +44,7 @@ export default function CommentItem(props: CommentItemProps) {
     id,
     user,
     createdAt,
-    source,
+    region,
     text,
     images,
     comments,
@@ -84,11 +81,6 @@ export default function CommentItem(props: CommentItemProps) {
   const createtime = useMemo(
     () => getCreateTime(createdAt, { relativeAlways: true }),
     [createdAt]
-  );
-
-  const sourceFrom = useMemo(
-    () => (source ? preprocessSourceText(source) : ''),
-    [source]
   );
 
   const showCommentsReplies = (comment: Backend.StatusComment) => {
@@ -141,7 +133,8 @@ export default function CommentItem(props: CommentItemProps) {
                 )}
               >
                 {createtime}
-                {sourceFrom}
+                &nbsp;•&nbsp;
+                {region}
               </span>
             </Tooltip>
           </span>
@@ -168,7 +161,8 @@ export default function CommentItem(props: CommentItemProps) {
                       class="text-xs text-base-content/50"
                     >
                       ${createtime}
-                      ${sourceFrom}
+                      &nbsp;•&nbsp;
+                      ${region}
                     </span>
                     `
                   : ''),

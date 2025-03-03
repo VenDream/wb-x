@@ -9,7 +9,7 @@
 
 import { LANGS } from '@/contants';
 import dayjs, { EN, ZH } from '@/utils/dayjs';
-import { OpUnitType } from 'dayjs';
+import type { OpUnitType } from 'dayjs';
 import { getLocale } from './common';
 import { getAppSettings } from './settings';
 
@@ -158,7 +158,7 @@ export function getCreateTime(ct: string, options?: GetCreateTimeOptions) {
     return dayjs(ct)
       .locale(locale === LANGS.en ? EN : ZH)
       .fromNow();
-  } else {
-    return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
   }
+
+  return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
 }

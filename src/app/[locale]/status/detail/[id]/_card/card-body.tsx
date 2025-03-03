@@ -12,7 +12,8 @@ import { sleep } from '@/utils/common';
 import EVENT_EMITTER, { RESIZE_ROW_ITEM } from '@/utils/eventemitter';
 import { usePrevious } from 'ahooks';
 import { useTranslations } from 'next-intl';
-import { MouseEvent, useContext, useEffect, useState } from 'react';
+import type { MouseEvent } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import Card from './card';
 import CardImages from './card-images';
@@ -25,7 +26,7 @@ export default function CardBody() {
   const t = useTranslations('pages.status');
   const { status, sourceStatusId, isRetweet, renderCustomMenus } =
     useContext(CardCtx);
-  const { id, text, retweetedStatus } = status!;
+  const { id, text, retweetedStatus } = status as Backend.Status;
 
   const [statusText, setStatusText] = useState(text);
   const prevStatusText = usePrevious(statusText);

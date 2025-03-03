@@ -84,7 +84,7 @@ export default function Filter(props: FilterProps) {
               '[&>.tab:last-child]:border-l-0'
             )}
             onChange={ds =>
-              setFilter(f => ({ ...f, isTracking: ds === 'trackings' }))
+              applyFilter({ isTracking: ds === 'trackings' ? true : undefined })
             }
           >
             <Tab value="trackings">{t2('trackings')}</Tab>
@@ -109,7 +109,7 @@ export default function Filter(props: FilterProps) {
               '[&>.tab:last-child]:rounded-l-none',
               '[&>.tab:last-child]:border-l-0'
             )}
-            onChange={order => setFilter({ ...filter, order })}
+            onChange={order => applyFilter({ order })}
           >
             <Tab value="desc">{t2('desc')}</Tab>
             <Tab value="asc">{t2('asc')}</Tab>

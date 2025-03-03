@@ -129,6 +129,15 @@
         "loading": "Fetching post full text...",
         "failed": "Fetching post full text..failed, please retry"
       },
+      "footer": {
+        "favourite": "Favourite",
+        "unfavourite": "Unfavourite",
+        "favouriteOperating": "Adding to favourites...",
+        "unfavouriteOperating": "Removing from favourites...",
+        "reposts": "Reposts",
+        "comments": "Comments",
+        "likes": "Likes"
+      },
       "updateFrequency": "Data source is updated once per hour.",
       "noData": "No matching data found",
       "noDataTips": "Please check the filter options or try switching the data source"

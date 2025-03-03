@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 /* -------------------------------------------------------------------------- */
 /*                                    Card                                    */

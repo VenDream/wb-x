@@ -13,7 +13,6 @@ import StatusCard from './_card';
 import CommentList from './_card/comment-list';
 
 interface IProps {
-  id: string;
   status: Backend.Status;
 }
 
@@ -21,7 +20,7 @@ export default function StatusDetail(props: IProps) {
   return (
     <>
       <StatusCard status={props.status} menu={{ viewComments: false }} />
-      <CommentList id={props.id} />
+      <CommentList id={props.status.id} />
     </>
   );
 }

@@ -39,7 +39,7 @@ export async function getDbStatusList(params: StatusListParams) {
   let url = '/api/db/weibo/status/list';
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
-  const statuses = await get<Backend.StatusList>(url);
+  const statuses = await get<Backend.DBList<Backend.Status>>(url);
   return statuses;
 }
 
@@ -71,6 +71,18 @@ export async function getWeiboStatusDetail(id: string) {
   url = appendURLParams(url, { id });
   const status = await get<Backend.Status>(url);
   return status;
+}
+
+export async function favouriteStatus(uid: string, sid: string) {
+  const url = '/api/weibo/status/favourite';
+  const rlt = await post(url, { uid, statusId: sid });
+  return rlt;
+}
+
+export async function unfavouriteStatus(uid: string, sid: string) {
+  const url = '/api/weibo/status/unfavourite';
+  const rlt = await post(url, { uid, statusId: sid });
+  return rlt;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -109,7 +121,7 @@ export async function untrackUser(uid: string) {
 export async function getDbRotnList(params: ROTNListParams) {
   let url = '/api/db/rotn/list';
   url = appendURLParams(url, params);
-  const items = await get<Backend.ROTNItemList>(url);
+  const items = await get<Backend.DBList<Backend.ROTNItem>>(url);
   return items;
 }
 
@@ -161,7 +173,11 @@ export async function appendCookie(cookie: string) {
 /* -------------------------------------------------------------------------- */
 
 export async function triggerScan(params: Backend.ScanningParams) {
-  const rlt = await post('/api/weibo/scan', { ...params, trigger: true });
+  const scanParams: Backend.ScanningParams = {
+    ...params,
+    triggerOnly: true,
+  };
+  const rlt = await post('/api/weibo/scan', scanParams);
   return rlt;
 }
 

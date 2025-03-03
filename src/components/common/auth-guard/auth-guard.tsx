@@ -10,7 +10,7 @@
 import NoPermission from '@/app/[locale]/settings/no-permission';
 import Loading from '@/components/common/loading';
 import useUser from '@/hooks/use-user';
-import React from 'react';
+import type React from 'react';
 
 interface IProps extends React.PropsWithChildren {
   loading?: boolean;

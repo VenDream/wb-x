@@ -12,35 +12,23 @@ import { get } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
 export async function getDbStatusDetail(id: string) {
-  let url = getApiHost() + '/api/db/status';
+  let url = `${getApiHost()}/api/db/weibo/status/list`;
   url = appendURLParams(url, { id });
-  const status = await get<Backend.Status>(url);
-  return status;
-}
-
-export async function getDbRetweetStatusDetail(id: string) {
-  let url = getApiHost() + '/api/db/retweet_status';
-  url = appendURLParams(url, { id });
-  const status = await get<Backend.Status>(url);
-  return status;
-}
-
-export async function getDbRotnItem(id: string) {
-  let url = getApiHost() + '/api/db/rotn';
-  url = appendURLParams(url, { id });
-  const item = await get<Backend.ROTNItem>(url);
-  return item;
+  const { list } = await get<Backend.DBList<Backend.Status>>(url, {
+    cache: 'no-store',
+  });
+  return list ? list[0] : null;
 }
 
 export async function getDbUsers(params: PaginationParams) {
-  let url = getApiHost() + '/api/db/user/list';
+  let url = `${getApiHost()}/api/db/weibo/users/list`;
   url = appendURLParams(url, params);
-  const users = await get<Backend.UserList>(url);
-  return users;
+  const { list } = await get<Backend.DBList<Backend.User>>(url);
+  return list;
 }
 
 export async function getDatabaseInfo() {
-  const url = getApiHost() + '/api/db/info';
+  const url = `${getApiHost()}/api/db/info`;
   const info = await get<Backend.DbInfo>(url, {
     next: { tags: ['db-info'] },
   });

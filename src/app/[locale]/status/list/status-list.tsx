@@ -60,31 +60,32 @@ export default function StatusList() {
     []
   );
 
-  const listProps: VirtualListProps<Backend.Status, Backend.StatusList> =
-    useMemo(
-      () => ({
-        getDataFetcher: params => () =>
-          getDbStatusList({ ...params, ...filterParams }),
-        getDataParser: () => data => data.list,
-        getTotalParser: () => data => data.total as number,
-        getRowItemKey: (_, list) => list.id,
-        renderRowItemContent: data => <StatusCard status={data} />,
-        concatList: (prevList, list) =>
-          dedupeStatusList([...prevList, ...list]),
-        onTotalUpdate: total => setTotal(total),
-        onDataFetchingStart: () => setIsFetching(true),
-        onDataFetchingEnd: () => setIsFetching(false),
-        className: 'pl-72 2xl:pl-0',
-        estimatedRowHeight: 500,
-        noDataProps: {
-          tips: t('noData'),
-          tooltips: t('noDataTips'),
-          tooltipsClassName: 'text-xs',
-          icon: <CircleHelpIcon size={16} className="!stroke-2" />,
-        },
-      }),
-      [t, filterParams]
-    );
+  const listProps: VirtualListProps<
+    Backend.Status,
+    Backend.DBList<Backend.Status>
+  > = useMemo(
+    () => ({
+      getDataFetcher: params => () =>
+        getDbStatusList({ ...params, ...filterParams }),
+      getDataParser: () => data => data.list,
+      getTotalParser: () => data => data.total as number,
+      getRowItemKey: (_, list) => list.id,
+      renderRowItemContent: data => <StatusCard status={data} />,
+      concatList: (prevList, list) => dedupeStatusList([...prevList, ...list]),
+      onTotalUpdate: total => setTotal(total),
+      onDataFetchingStart: () => setIsFetching(true),
+      onDataFetchingEnd: () => setIsFetching(false),
+      className: 'pl-72 2xl:pl-0',
+      estimatedRowHeight: 500,
+      noDataProps: {
+        tips: t('noData'),
+        tooltips: t('noDataTips'),
+        tooltipsClassName: 'text-xs',
+        icon: <CircleHelpIcon size={16} className="!stroke-2" />,
+      },
+    }),
+    [t, filterParams]
+  );
 
   useEffect(() => {
     if (isInited) {

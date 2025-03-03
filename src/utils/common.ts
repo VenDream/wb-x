@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { LANGS, Lang } from '@/contants';
+import { LANGS, type Lang } from '@/contants';
 import enUS from '@/messages/en-US.json';
 import zhCN from '@/messages/zh-CN.json';
 import { createTranslator } from 'next-intl';
@@ -102,8 +102,9 @@ export function copyText(text: string) {
  *
  * @export
  * @param {number} number number
+ * @param {number} [fixed] fixed digits
  */
-export function formatNumberWithUnit(number: number) {
+export function formatNumberWithUnit(number: number, fixed = 1) {
   const locale = getLocale();
   const units =
     locale === LANGS.en
@@ -115,9 +116,7 @@ export function formatNumberWithUnit(number: number) {
 
   if (unitIdx === 0) return String(number);
 
-  const formattedNumber = (
-    number / Math.pow(Math.pow(10, sep), unitIdx)
-  ).toFixed(1);
+  const formattedNumber = (number / (10 ** sep) ** unitIdx).toFixed(fixed);
 
   return formattedNumber + units[unitIdx];
 }

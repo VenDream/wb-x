@@ -14,7 +14,8 @@ import { dialogMotion } from '@/contants/motions';
 import { cn } from '@/utils/classnames';
 import * as ITooltip from '@radix-ui/react-tooltip';
 import { AnimatePresence } from 'framer-motion';
-import { ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 
 interface IProps extends ITooltip.TooltipProps {
   message: ReactNode;

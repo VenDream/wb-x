@@ -149,8 +149,9 @@ function VirtualListRenderFunc<T, R>(
   const isFirstLoading = pageNo === 0 && isLoading;
 
   const loadMore = useCallback(() => {
+    if (isLoading || isLoadAll) return;
     setPageNo(pn => pn + 1);
-  }, []);
+  }, [isLoadAll, isLoading]);
 
   useEffect(() => {
     fetchDataList();

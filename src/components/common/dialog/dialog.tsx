@@ -19,16 +19,16 @@ import { AnimatePresence, useAnimate } from 'framer-motion';
 import { XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import React, {
-  ComponentType,
+  type ComponentType,
   isValidElement,
-  MouseEvent,
-  PropsWithChildren,
-  ReactElement,
+  type MouseEvent,
+  type PropsWithChildren,
+  type ReactElement,
   useMemo,
 } from 'react';
 import MotionContainer from '../motion-container';
 import { getPreset } from './presets';
-import { DialogProps } from './types';
+import type { DialogProps } from './types';
 
 type DialogChildrenProps = PropsWithChildren<{
   className?: string;

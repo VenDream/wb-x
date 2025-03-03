@@ -19,7 +19,7 @@ import CardCtx from './context';
 
 export default function CardHeader() {
   const { status, isRetweet } = useContext(CardCtx);
-  const { user, createdAt, source } = status!;
+  const { user, createdAt, source, region } = status as Backend.Status;
 
   const [ct, setCt] = useState('');
 
@@ -78,7 +78,6 @@ export default function CardHeader() {
           </div>
         </AuthGuard>
       </div>
-
       <span className="flex items-center gap-4 text-sm">{user.name}</span>
       <span className="inline-flex items-center">
         <Tooltip message={createdAt} className="text-xs">
@@ -88,6 +87,12 @@ export default function CardHeader() {
               <>
                 &nbsp;•&nbsp;
                 {source}
+              </>
+            )}
+            {region && region !== source && (
+              <>
+                &nbsp;•&nbsp;
+                {region}
               </>
             )}
           </span>

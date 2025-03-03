@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Tab, Tabs, TabsProps } from '@/components/daisyui';
+import { Tab, Tabs, type TabsProps } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 
 import './ghost-tabs.sass';

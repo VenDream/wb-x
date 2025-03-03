@@ -10,7 +10,11 @@
 'use client';
 
 import { fadeInFromBottom } from '@/contants/motions';
-import { AnimationProps, HTMLMotionProps, motion } from 'framer-motion';
+import {
+  type AnimationProps,
+  type HTMLMotionProps,
+  motion,
+} from 'framer-motion';
 import React, { useState } from 'react';
 
 interface IProps extends HTMLMotionProps<'div'> {

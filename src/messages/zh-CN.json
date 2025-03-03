@@ -129,6 +129,15 @@
         "loading": "获取微博全文中...",
         "failed": "获取微博全文中...失败，请重试"
       },
+      "footer": {
+        "favourite": "收藏",
+        "unfavourite": "取消收藏",
+        "favouriteOperating": "收藏中...",
+        "unfavouriteOperating": "取消收藏中...",
+        "reposts": "转发",
+        "comments": "评论",
+        "likes": "点赞"
+      },
       "updateFrequency": "数据每小时更新一次。",
       "noData": "暂无符合条件的数据",
       "noDataTips": "请检查筛选条件或尝试切换数据来源"

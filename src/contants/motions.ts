@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { AnimationProps, TargetAndTransition } from 'framer-motion';
+import type { AnimationProps, TargetAndTransition } from 'framer-motion';
 
 export const DEFAULT_DURATION = 0.2;
 export const DEFAULT_EASE = 'easeOut';
