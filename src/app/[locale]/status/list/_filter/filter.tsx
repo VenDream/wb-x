@@ -11,7 +11,7 @@ import DatePicker, { type DateValueType } from '@/components/common/datepicker';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import { Button, Input, Tab, Tabs, Toggle } from '@/components/daisyui';
-import { MAX_IMAGES_COUNT, MIN_IMAGES_COUNT } from '@/contants';
+import { MAX_IMAGES_NUM, MIN_IMAGES_NUM } from '@/constants';
 import { cn } from '@/utils/classnames';
 import dayjs from '@/utils/dayjs';
 import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';
@@ -22,6 +22,8 @@ import { defaultFilterParams } from '../status-list';
 interface FilterProps {
   /** filter params */
   filterParams: Backend.StatusListFilterParams;
+  /** reset filter params */
+  resetFilterParams: () => void;
   /** update filter params */
   updateFilterParams: (patch: Partial<Backend.StatusListFilterParams>) => void;
 }
@@ -29,7 +31,7 @@ interface FilterProps {
 export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
   const t2 = useTranslations('pages.status.filter');
-  const { filterParams, updateFilterParams } = props;
+  const { filterParams, resetFilterParams, updateFilterParams } = props;
 
   const [filter, setFilter] =
     useState<Backend.StatusListFilterParams>(filterParams);
@@ -50,7 +52,7 @@ export default function Filter(props: FilterProps) {
 
   const resetFilter = () => {
     setFilter(defaultFilterParams);
-    updateFilterParams(defaultFilterParams);
+    resetFilterParams();
   };
 
   useEffect(() => {
@@ -199,8 +201,8 @@ export default function Filter(props: FilterProps) {
                 setFilter(f => ({ ...f, leastImagesCount: 0 }));
               } else {
                 let count = +val;
-                count = Math.max(count, MIN_IMAGES_COUNT);
-                count = Math.min(count, MAX_IMAGES_COUNT);
+                count = Math.max(count, MIN_IMAGES_NUM);
+                count = Math.min(count, MAX_IMAGES_NUM);
                 setFilter(f => ({ ...f, leastImagesCount: count }));
               }
             }}

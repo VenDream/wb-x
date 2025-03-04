@@ -17,7 +17,6 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import CookiesSettings from './cookies';
 import LocalSettings from './local';
-import ServerSettings from './server';
 
 type SettingsType = 'local' | 'server' | 'cookies';
 
@@ -35,11 +34,6 @@ export default function Settings() {
       <Tabs boxed value={settingsType} onChange={setSettingsType}>
         <Tab value="local">{t('local')}</Tab>
         {isAdmin ? (
-          <Tab value="server">{t('server')}</Tab>
-        ) : (
-          <EmptyTab value="1" />
-        )}
-        {isAdmin ? (
           <Tab value="cookies">{t('cookies')}</Tab>
         ) : (
           <EmptyTab value="2" />
@@ -50,11 +44,6 @@ export default function Settings() {
           <MotionContainer className="p-4">
             <LocalSettings />
           </MotionContainer>
-        )}
-        {settingsType === 'server' && (
-          <AuthGuard>
-            <ServerSettings />
-          </AuthGuard>
         )}
         {settingsType === 'cookies' && (
           <AuthGuard>

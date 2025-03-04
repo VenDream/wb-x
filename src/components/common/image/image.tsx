@@ -9,13 +9,13 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { IMG_ERROR_PLACEHOLDER, IMG_PLACEHOLDER } from '@/contants';
+import { IMG_ERROR_PLACEHOLDER, IMG_PLACEHOLDER } from '@/constants';
 import {
   DEFAULT_DURATION,
   DEFAULT_EASE_CSS,
   fadeIn,
   fadeOut,
-} from '@/contants/motions';
+} from '@/constants/motions';
 import { AnimatePresence, motion } from 'framer-motion';
 import NextImage from 'next/image';
 import { useRef, useState } from 'react';

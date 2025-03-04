@@ -13,7 +13,7 @@ import { Textarea } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { CookieIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { PropsWithChildren, useRef, useState } from 'react';
+import { type PropsWithChildren, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 interface IProps extends PropsWithChildren {
@@ -61,7 +61,7 @@ export default function AddCookiesDialog(props: IProps) {
       {
         loading: operatingTips,
         success: operationOkTips,
-        error: (err: Error) => operationFailedTips + ': ' + err.message,
+        error: (err: Error) => `${operationFailedTips}: ${err.message}`,
       }
     );
   };

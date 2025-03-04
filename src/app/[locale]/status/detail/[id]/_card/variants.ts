@@ -7,7 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { cva, VariantProps } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
 /* -------------------------------------------------------------------------- */
 /*                                Card Variants                               */
@@ -89,7 +90,7 @@ export const commnetLikes = cva(
     variants: {
       type: {
         default: ['top-[18px]', 'right-2'],
-        reply: ['top-[2px]', 'right-0', , 'hidden', 'peer-hover:flex'],
+        reply: ['top-[2px]', 'right-0', 'hidden', 'peer-hover:flex'],
       },
     },
   }

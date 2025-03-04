@@ -13,7 +13,7 @@ import { trackUser, triggerFullScan, untrackUser } from '@/api/client';
 import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
 import { Button, type ButtonProps } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/contants';
+import { WEIBO_HOST } from '@/constants';
 import { userTrackingsAtom } from '@/store';
 import { cn } from '@/utils/classnames';
 import { useAtom } from 'jotai';
@@ -26,13 +26,22 @@ interface IProps extends ButtonProps {
   user: Backend.User;
   iconOnly?: boolean;
   iconSize?: number;
+  onTrackUser?: () => void;
+  onUntrackUser?: () => void;
 }
 
 export default function TrackingsBtn(props: IProps) {
   const t1 = useTranslations('pages.user');
   const t2 = useTranslations('global.status');
   const t3 = useTranslations('global.action');
-  const { user, iconOnly, iconSize = 16, ...btnProps } = props;
+  const {
+    user,
+    iconOnly,
+    iconSize = 16,
+    onTrackUser,
+    onUntrackUser,
+    ...btnProps
+  } = props;
 
   const shouldAskForScanning = useRef(false);
   const [userTrackings, setUserTrackings] = useAtom(userTrackingsAtom);
@@ -120,8 +129,10 @@ export default function TrackingsBtn(props: IProps) {
                 .then(() => {
                   if (isTracking) {
                     updateUserTrackings({ [userId]: false });
+                    onUntrackUser?.();
                   } else {
                     updateUserTrackings({ [userId]: true });
+                    onTrackUser?.();
                     shouldAskForScanning.current = true;
                   }
                   innerResolve();

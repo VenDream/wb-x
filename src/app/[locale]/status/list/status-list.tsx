@@ -15,7 +15,7 @@ import VirtualList, {
   type VirtualListHandle,
   type VirtualListProps,
 } from '@/components/common/virtual-list';
-import { DEFAULT_FAV_UID, ESTIMATED_COUNT } from '@/contants';
+import { DEFAULT_FAV_UID, ESTIMATE_COUNT } from '@/constants';
 import useUser from '@/hooks/use-user';
 import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
@@ -60,6 +60,14 @@ export default function StatusList() {
     []
   );
 
+  const resetFilterParams = useCallback(() => {
+    setFilterParams(params => ({
+      ...defaultFilterParams,
+      favUid: params.favUid,
+    }));
+    listRef.current?.reset();
+  }, []);
+
   const listProps: VirtualListProps<
     Backend.Status,
     Backend.DBList<Backend.Status>
@@ -103,6 +111,7 @@ export default function StatusList() {
       <div className="absolute left-0 top-0">
         <Filter
           filterParams={filterParams}
+          resetFilterParams={resetFilterParams}
           updateFilterParams={updateFilterParams}
         />
         <div
@@ -128,7 +137,7 @@ export default function StatusList() {
                 s: () => <>&nbsp;</>,
                 total: () => (
                   <span className="text-accent underline underline-offset-4">
-                    {total === ESTIMATED_COUNT ? '1000+' : total}
+                    {total === ESTIMATE_COUNT ? '1000+' : total}
                   </span>
                 ),
               })}

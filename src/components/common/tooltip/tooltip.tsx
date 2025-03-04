@@ -10,7 +10,7 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
-import { dialogMotion } from '@/contants/motions';
+import { dialogMotion } from '@/constants/motions';
 import { cn } from '@/utils/classnames';
 import * as ITooltip from '@radix-ui/react-tooltip';
 import { AnimatePresence } from 'framer-motion';

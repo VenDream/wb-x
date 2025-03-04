@@ -15,7 +15,6 @@ declare global {
   /* ------------------------------------------------------------------------ */
   /*                                  Globals                                 */
   /* ------------------------------------------------------------------------ */
-  type LocaleProps<T = any> = T & { params: { locale: string } };
   type ChildrenProps<T = any> = PropsWithChildren<T>;
   type ParamsBody = { params: Promise<Record<string, any>> };
 
@@ -64,13 +63,6 @@ declare global {
     /* ---------------------------------------------------------------------- */
     /*                                  Misc                                  */
     /* ---------------------------------------------------------------------- */
-    interface Cookie {
-      /** index */
-      idx: number;
-      /** cookie value */
-      value: string;
-    }
-
     interface ScanningParams {
       /** uid */
       uid: string;
@@ -124,6 +116,15 @@ declare global {
       followersCount: string;
       /** is tracking */
       isTracking: boolean;
+    }
+
+    interface UserListFilterParams {
+      /** id */
+      id?: string;
+      /** keyword */
+      keyword?: string;
+      /** is tracking */
+      isTracking?: boolean;
     }
 
     /* ---------------------------------------------------------------------- */
@@ -273,7 +274,7 @@ declare global {
     /* ---------------------------------------------------------------------- */
     /*                                  ROTN                                  */
     /* ---------------------------------------------------------------------- */
-    type ROTN_TYPE = 'ALL' | 'RO' | 'TN';
+    type ROTN_TYPE = '' | 'RO' | 'TN';
 
     interface ROTNItem {
       /** id */

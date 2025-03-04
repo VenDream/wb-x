@@ -8,7 +8,7 @@
  */
 
 import type { NoDataProps } from '@/components/common/no-data';
-import React from 'react';
+import type React from 'react';
 
 export interface VirtualListHandle {
   /** reset */

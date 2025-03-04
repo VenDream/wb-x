@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { LANGS, type Lang } from '@/contants';
+import { LANGS, type Lang } from '@/constants';
 import enUS from '@/messages/en-US.json';
 import zhCN from '@/messages/zh-CN.json';
 import { createTranslator } from 'next-intl';

@@ -16,7 +16,7 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from '@/components/daisyui';
-import { LANGS } from '@/contants';
+import { LANGS } from '@/constants';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import {
@@ -61,7 +61,7 @@ export default function LocaleChange() {
               <Link
                 locale={l}
                 href={
-                  pathname + (searchParams.toString() ? '?' + searchParams : '')
+                  pathname + (searchParams.toString() ? `?${searchParams}` : '')
                 }
                 className="flex items-center gap-4"
               >

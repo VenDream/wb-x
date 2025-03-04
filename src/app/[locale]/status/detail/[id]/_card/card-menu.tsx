@@ -19,8 +19,8 @@ import {
   SECONDARY_ROUTES,
   WEIBO_HOST,
   WEIBO_IMAGES_DOWNLOAD_API,
-} from '@/contants';
-import { WEIBO_ICON } from '@/contants/svgs';
+} from '@/constants';
+import { WEIBO_ICON } from '@/constants/svgs';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { copyText } from '@/utils/common';
@@ -42,7 +42,7 @@ const ALIGN_END_TRIGGER_W = 1450;
 export default function CardMenu() {
   const cardCtx = useContext(CardCtx);
   const { status, isRetweet, menu, renderCustomMenus } = cardCtx;
-  const { id, user, images } = status!;
+  const { id, user, images } = status as Backend.Status;
   const t = useTranslations('pages.status.menu');
   const [alignEnd, setAlignEnd] = useState(false);
 
@@ -131,6 +131,7 @@ export default function CardMenu() {
           <DropdownItem anchor={false}>
             <a
               target="_blank"
+              rel="noreferrer"
               className="rounded p-2"
               href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
             >
@@ -163,7 +164,7 @@ export default function CardMenu() {
             </Link>
           </DropdownItem>
         )}
-        {renderCustomMenus && renderCustomMenus(cardCtx)}
+        {renderCustomMenus?.(cardCtx)}
       </DropdownMenu>
     </Dropdown>
   );

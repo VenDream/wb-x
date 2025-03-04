@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { PAGINATION_LIMIT } from '@/contants';
+import { PAGINATION_LIMIT } from '@/constants';
 import { cn } from '@/utils/classnames';
 import Paginator from './paginator';
 import UserCard from './user-card';

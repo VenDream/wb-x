@@ -11,8 +11,8 @@ import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/contants';
-import { FAKE_IMG } from '@/contants/debug';
+import { WEIBO_HOST } from '@/constants';
+import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
@@ -20,6 +20,8 @@ import { useTranslations } from 'next-intl';
 interface IProps {
   user: Backend.User;
   className?: string;
+  onTrackUser?: () => void;
+  onUntrackUser?: () => void;
 }
 
 export default function UserCard(props: IProps) {
@@ -59,7 +61,11 @@ export default function UserCard(props: IProps) {
       >
         <p title={name}>{name ? `@${name}` : '-'}</p>
       </a>
-      <TrackingsBtn user={props.user} />
+      <TrackingsBtn
+        user={props.user}
+        onTrackUser={props.onTrackUser}
+        onUntrackUser={props.onUntrackUser}
+      />
       <p className={cn(blockClasses, 'text-xs')}>
         {t('follows')}：{followCount || 0}
         <br />

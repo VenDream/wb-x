@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { LANGS } from '@/contants';
+import { LANGS } from '@/constants';
 import { cn } from '@/utils/classnames';
 import dayjs from '@/utils/dayjs';
 import ReactDatePicker, {

@@ -57,6 +57,7 @@ export default function RotnCard(props: IProps) {
         <Carousel
           lightbox
           items={items}
+          counter={false}
           gap={CAROUSEL_GAP}
           cols={CAROUSEL_COLS}
           aspectRatio={CAROUSEL_ASPECT_RATIO}

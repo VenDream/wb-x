@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { RequestInit } from 'next/dist/server/web/spec-extension/request';
+import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
 
 interface Response<T = Record<string, any>> {
   code: number;
@@ -36,7 +36,7 @@ export async function get<T = Record<string, any>>(
     const { code, data, errormsg } = (await res.json()) as Response<T>;
 
     if (+code !== 200 || errormsg) {
-      return raiseRequestError(errormsg!);
+      return raiseRequestError(errormsg || 'Failed to fetch');
     }
 
     return data;
@@ -71,7 +71,7 @@ export async function post<T = Record<string, any>>(
     const { code, data: r, errormsg } = (await res.json()) as Response<T>;
 
     if (+code !== 200 || errormsg) {
-      return raiseRequestError(errormsg!);
+      return raiseRequestError(errormsg || 'Failed to fetch');
     }
 
     return r;

@@ -17,7 +17,7 @@ import {
   DropdownToggle,
   useTheme,
 } from '@/components/daisyui';
-import { THEMES } from '@/contants';
+import { THEMES } from '@/constants';
 import { cn } from '@/utils/classnames';
 import { getLsTheme, isDarkTheme, setLsTheme } from '@/utils/theme';
 import { ChevronDownIcon, CircleCheckBigIcon, PaletteIcon } from 'lucide-react';

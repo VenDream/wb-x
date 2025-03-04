@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { LANGS } from '@/contants';
+import { LANGS } from '@/constants';
 import dayjs, { EN, ZH } from '@/utils/dayjs';
 import type { OpUnitType } from 'dayjs';
 import { getLocale } from './common';

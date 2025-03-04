@@ -37,7 +37,7 @@ export default function Paginator(props: PaginatorProps) {
   } = props;
 
   const totalPages = useMemo(
-    () => Math.ceil(total / pageSize!),
+    () => Math.ceil(total / pageSize),
     [pageSize, total]
   );
   const shouldHide = hideOnSinglePage && totalPages <= 1;
@@ -83,7 +83,7 @@ export default function Paginator(props: PaginatorProps) {
       if (!input || key !== 'Enter') return;
 
       let targetPage = Number(input.value);
-      if (isNaN(targetPage) || !Number.isInteger(targetPage)) {
+      if (Number.isNaN(targetPage) || !Number.isInteger(targetPage)) {
         input.value = '';
         return;
       }

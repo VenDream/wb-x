@@ -13,7 +13,7 @@ import { getStatusDetail, getStatusList } from '@/api/client';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
-import { DEFAULT_FAV_UID } from '@/contants';
+import { DEFAULT_FAV_UID } from '@/constants';
 import useUser from '@/hooks/use-user';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';

@@ -11,7 +11,7 @@
 
 import ScrollArea from '@/components/common/scroll-area';
 import { Button } from '@/components/daisyui';
-import { dialogMaskMotion, dialogMotion } from '@/contants/motions';
+import { dialogMaskMotion, dialogMotion } from '@/constants/motions';
 import { cn } from '@/utils/classnames';
 import * as IDialog from '@radix-ui/react-dialog';
 import { useControllableValue } from 'ahooks';
@@ -176,6 +176,7 @@ export default function Dialog(dialogProps: DialogProps) {
         onOpenAutoFocus={evt => evt.preventDefault()}
         onInteractOutside={evt => evt.preventDefault()}
         onPointerDownOutside={evt => evt.preventDefault()}
+        aria-describedby={undefined}
       >
         <MotionContainer
           ref={scope}

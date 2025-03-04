@@ -11,20 +11,17 @@ import { getApiHost } from '@/utils/api-host';
 import { get } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
-export async function getDbStatusDetail(id: string) {
-  let url = `${getApiHost()}/api/db/weibo/status/list`;
-  url = appendURLParams(url, { id });
-  const { list } = await get<Backend.DBList<Backend.Status>>(url, {
-    cache: 'no-store',
-  });
-  return list ? list[0] : null;
-}
+type UserListParams = PaginationParams & Backend.UserListFilterParams;
 
-export async function getDbUsers(params: PaginationParams) {
+export async function getUserList(params: UserListParams) {
   let url = `${getApiHost()}/api/db/weibo/users/list`;
   url = appendURLParams(url, params);
-  const { list } = await get<Backend.DBList<Backend.User>>(url);
-  return list;
+  const users = await get<Backend.DBList<Backend.User>>(url);
+  return users;
+}
+
+export async function getTrackingUsers() {
+  return getUserList({ limit: 9999, isTracking: true });
 }
 
 export async function getDatabaseInfo() {

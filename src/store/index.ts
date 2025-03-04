@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { LS_KEYS } from '@/contants';
+import { LS_KEYS } from '@/constants';
 import { atom, createStore } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 

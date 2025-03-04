@@ -15,7 +15,7 @@ import {
   NavbarEnd,
   NavbarStart,
 } from '@/components/daisyui';
-import { PRIMARY_ROUTES } from '@/contants';
+import { PRIMARY_ROUTES } from '@/constants';
 import { Link } from '@/i18n/routing';
 import LocaleChange from './locale-change';
 import Profile from './profile';

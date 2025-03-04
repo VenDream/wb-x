@@ -8,8 +8,8 @@
  */
 
 import Image from '@/components/common/image';
-import { Slide, useLightbox } from '@/components/common/lightbox';
-import { FAKE_IMG } from '@/contants/debug';
+import { type Slide, useLightbox } from '@/components/common/lightbox';
+import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useMemo, useState } from 'react';
@@ -62,9 +62,9 @@ export default function ImageGrid(props: ImageGridProps) {
     });
   }, [images, isSinaImg]);
 
-  const MAX_DISPLAY_IMAGES = Math.pow(cols, 2);
+  const MAX_DISPLAY_IMAGES = cols ** 2;
   const REMAIN_IMAGES_NUM = images.length - MAX_DISPLAY_IMAGES;
-  const DISPLAY_IMAGES_NUM = !!showHasMoreIndicator
+  const DISPLAY_IMAGES_NUM = showHasMoreIndicator
     ? MAX_DISPLAY_IMAGES
     : images.length;
   const GRID_COLS_CLASS =

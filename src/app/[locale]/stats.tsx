@@ -17,7 +17,7 @@ import {
   UsersIcon,
 } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import React from 'react';
+import type React from 'react';
 
 interface StatUnitProps {
   title: string;

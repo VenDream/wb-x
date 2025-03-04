@@ -9,7 +9,7 @@
 
 import Toaster from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
-import { LANGS, META_DATA } from '@/contants';
+import { LANGS, META_DATA } from '@/constants';
 import { font } from '@/fonts';
 import { routing } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';

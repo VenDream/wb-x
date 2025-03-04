@@ -21,7 +21,7 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function ErrorUI({ error, reset }: ErrorProps) {
   const t = useTranslations('global');
 
   useEffect(() => {

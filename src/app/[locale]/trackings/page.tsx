@@ -7,7 +7,8 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Metadata } from 'next';
+import { getTrackingUsers } from '@/api/server';
+import type { Metadata } from 'next';
 import Trackings from './trackings';
 
 export const metadata: Metadata = {
@@ -15,5 +16,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  return <Trackings />;
+  const { list: users = [] } = await getTrackingUsers();
+  return <Trackings users={users} />;
 }

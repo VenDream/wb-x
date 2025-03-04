@@ -9,10 +9,10 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDbRotnList } from '@/api/client';
+import { getRotnList } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import { Tab, Tabs } from '@/components/daisyui';
-import { PAGINATION_LIMIT } from '@/contants';
+import { PAGINATION_LIMIT } from '@/constants';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -27,14 +27,14 @@ export default function RotnList() {
   const [isLoadFailed, setIsLoadFailed] = useState(false);
 
   const [items, setItems] = useState<Backend.ROTNItem[]>([]);
-  const [itemType, setItemType] = useState<Backend.ROTN_TYPE>('ALL');
+  const [itemType, setItemType] = useState<Backend.ROTN_TYPE>('');
 
   const fetchItems = useCallback(async () => {
     try {
       setIsLoading(true);
       const limit = PAGINATION_LIMIT;
       const offset = pageNo * limit;
-      const { items = [] } = await getDbRotnList({
+      const { list: items = [] } = await getRotnList({
         limit,
         offset,
         type: itemType,
@@ -70,7 +70,7 @@ export default function RotnList() {
   return (
     <div className="flex h-full flex-col gap-4 pr-8">
       <Tabs boxed value={itemType} onChange={switchItemType}>
-        <Tab className="w-32" value="ALL">
+        <Tab className="w-32" value="">
           {t('all')}
         </Tab>
         <Tab className="w-32" value="RO">

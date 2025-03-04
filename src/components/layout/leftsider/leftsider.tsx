@@ -12,10 +12,10 @@
 import { Menu, MenuItem } from '@/components/daisyui';
 import {
   ADMIN_ROUTES,
-  PRIMARY_ROUTE_KEYS,
   PRIMARY_ROUTES,
-  PrimaryRouteKey,
-} from '@/contants';
+  PRIMARY_ROUTE_KEYS,
+  type PrimaryRouteKey,
+} from '@/constants';
 import useUser from '@/hooks/use-user';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';

@@ -15,7 +15,7 @@ import {
   InfoIcon,
   TriangleAlertIcon,
 } from 'lucide-react';
-import { DialogProps } from './types';
+import type { DialogProps } from './types';
 
 type PresetGetter = (t: TFunction) => DialogProps;
 

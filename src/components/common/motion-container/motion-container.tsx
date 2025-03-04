@@ -9,7 +9,7 @@
 
 'use client';
 
-import { fadeInFromBottom } from '@/contants/motions';
+import { fadeInFromBottom } from '@/constants/motions';
 import {
   type AnimationProps,
   type HTMLMotionProps,

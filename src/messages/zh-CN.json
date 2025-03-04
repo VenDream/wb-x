@@ -188,7 +188,6 @@
     "settings": {
       "tabs": {
         "local": "本地设置",
-        "server": "服务端设置",
         "cookies": "Cookies设置"
       },
       "local": {
@@ -196,34 +195,27 @@
         "useVideoProxy": "启用视频代理",
         "successTips": "设置已保存"
       },
-      "server": {
-        "title": "保存配置",
-        "confirm": "此操作会触发服务重启，确认继续吗 ?",
-        "nothingChanged": "配置未改动，操作取消",
-        "fetchFailed": "获取配置失败，请重试",
-        "saveFailed": "保存配置失败，请重试"
-      },
       "cookies": {
         "operation": {
           "add": "添加",
-          "save": "保存",
+          "save": "更新",
           "check": "检测",
           "delete": "删除"
         },
         "addCookie": {
-          "title": "添加Cookies",
-          "placeholder": "请输入Cookies字符串，必须包含\"SUB\"字段"
+          "title": "添加Cookie",
+          "placeholder": "请输入Cookie字符串，必须包含\"SUB\"字段"
         },
         "deleteConfirm": {
-          "title": "删除Cookies",
-          "confirm": "确认删除此cookies吗 ?"
+          "title": "删除Cookie",
+          "confirm": "确认删除此Cookie吗 ?"
         },
         "status": {
           "checking": "检测中...",
           "valid": "有效",
           "invalid": "已失效",
           "operating": "执行操作中...",
-          "fetchFailed": "获取Cookies失败，请重试",
+          "fetchFailed": "获取Cookies列表失败，请重试",
           "noInput": "Cookie不能为空"
         }
       }

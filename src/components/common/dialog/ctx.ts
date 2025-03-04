@@ -10,7 +10,7 @@
  */
 
 import React from 'react';
-import { DialogContext } from './types';
+import type { DialogContext } from './types';
 
 const DialogCtx = React.createContext<DialogContext>({
   instances: [],

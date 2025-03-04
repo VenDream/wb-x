@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import RotnList from './rotn-list';
 
 export const metadata: Metadata = {

@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { WEIBO_HOST } from '@/contants';
+import { WEIBO_HOST } from '@/constants';
 
 type Replacer = string | ((substring: string, ...args: any[]) => string);
 

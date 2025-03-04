@@ -9,13 +9,12 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { getUserIdByName, searchUserById } from '@/api/client';
+import { getUserByName } from '@/api/client';
 import UserCard from '@/app/[locale]/user/list/[[...page]]/user-card';
 import Counter from '@/components/common/counter';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import { Button, Input, Stat, StatItem, Stats } from '@/components/daisyui';
-import useTrackings from '@/hooks/use-trackings';
 import {
   AudioLinesIcon,
   CircleXIcon,
@@ -27,12 +26,17 @@ import {
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-export default function Trackings() {
+interface IProps {
+  users: Backend.User[];
+}
+
+export default function Trackings(props: IProps) {
+  const { users: initialUsers } = props;
   const t = useTranslations('pages.trackings');
-  const [trackings] = useTrackings();
 
   const [username, setUsername] = useState('');
   const [user, setUser] = useState<Backend.User>();
+  const [users, setUsers] = useState<Backend.User[]>(initialUsers);
 
   const [isSearching, setIsSearching] = useState(false);
   const [searchFailedReason, setSearchFailedReason] = useState('');
@@ -48,8 +52,8 @@ export default function Trackings() {
 
     try {
       setIsSearching(true);
-      const { uid } = await getUserIdByName(username);
-      const user = await searchUserById(uid);
+      const user = await getUserByName(username);
+      user.isTracking = users.some(u => u.id === user.id);
       setUser(user);
     } catch (err) {
       const error = err as Error;
@@ -84,7 +88,7 @@ export default function Trackings() {
             </StatItem>
             <StatItem variant="title">{t('stat.title')}</StatItem>
             <StatItem variant="value" className="text-accent">
-              <Counter from={0} to={trackings.length} />
+              <Counter from={0} to={users.length} />
             </StatItem>
             <StatItem variant="desc">{t('stat.desc')}</StatItem>
           </Stat>
@@ -148,6 +152,12 @@ export default function Trackings() {
               <MotionContainer className="w-80">
                 <UserCard
                   user={user}
+                  onTrackUser={() => {
+                    setUsers(users => [...users, user]);
+                  }}
+                  onUntrackUser={() => {
+                    setUsers(users => users.filter(u => u.id !== user.id));
+                  }}
                   className="bg-transparent shadow-sm outline-base-content/20"
                 />
               </MotionContainer>

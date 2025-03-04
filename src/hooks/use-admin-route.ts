@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { ADMIN_ROUTES } from '@/contants';
+import { ADMIN_ROUTES } from '@/constants';
 import { usePathname } from '@/i18n/routing';
 import { useMemo } from 'react';
 

@@ -12,10 +12,10 @@
 import { generateId } from '@/utils/id';
 import { produce } from 'immer';
 import { useTranslations } from 'next-intl';
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { type PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import DialogContainer from './container';
 import DialogCtx from './ctx';
-import { DialogContext, DialogInstance, DialogProps } from './types';
+import type { DialogContext, DialogInstance, DialogProps } from './types';
 
 export default function DialogProvider(props: PropsWithChildren) {
   const t = useTranslations();

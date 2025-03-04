@@ -8,11 +8,13 @@
  */
 
 import Image from '@/components/common/image';
-import { Slide, useLightbox } from '@/components/common/lightbox';
+import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { Button } from '@/components/daisyui';
-import { FAKE_IMG } from '@/contants/debug';
+import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
-import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react';
+import useEmblaCarousel, {
+  type UseEmblaCarouselType,
+} from 'embla-carousel-react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -89,9 +91,9 @@ export default function Carousel(props: IProps) {
 
   const slides = useMemo<Slide[]>(() => {
     return items.map((item, idx) => {
-      let src = item.image;
-      let download = item.image;
-      let filename = item.name || getDefaultName(idx);
+      const src = item.image;
+      const download = item.image;
+      const filename = item.name || getDefaultName(idx);
 
       return {
         type: 'image',
@@ -140,7 +142,7 @@ export default function Carousel(props: IProps) {
           className="flex h-full w-full will-change-transform"
         >
           {items.map((item, idx) => {
-            const name = getDefaultName(idx) + ' - ' + (item.name || '');
+            const name = `${getDefaultName(idx)} - ${item.name || ''}`;
             return (
               <div
                 key={item.image}

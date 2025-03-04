@@ -10,8 +10,6 @@
 import { get, post } from '@/utils/request';
 import { appendURLParams } from '@/utils/url';
 
-const WBU_PROXY = process.env.NEXT_PUBLIC_WBU_PROXY;
-
 /* -------------------------------------------------------------------------- */
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
@@ -89,15 +87,9 @@ export async function unfavouriteStatus(uid: string, sid: string) {
 /*                                    Users                                   */
 /* -------------------------------------------------------------------------- */
 
-export async function getUserIdByName(name: string) {
-  const url = `${WBU_PROXY}/n/${name}`;
-  const data = await get<{ uid: string }>(url);
-  return data;
-}
-
-export async function searchUserById(uid: string) {
+export async function getUserByName(name: string) {
   let url = '/api/weibo/user/info';
-  url = appendURLParams(url, { uid });
+  url = appendURLParams(url, { name });
   const data = await get<Backend.User>(url);
   return data;
 }
@@ -118,25 +110,11 @@ export async function untrackUser(uid: string) {
 /*                                    ROTN                                    */
 /* -------------------------------------------------------------------------- */
 
-export async function getDbRotnList(params: ROTNListParams) {
-  let url = '/api/db/rotn/list';
+export async function getRotnList(params: ROTNListParams) {
+  let url = '/api/db/rotn/items/list';
   url = appendURLParams(url, params);
   const items = await get<Backend.DBList<Backend.ROTNItem>>(url);
   return items;
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                   Configs                                  */
-/* -------------------------------------------------------------------------- */
-
-export async function getSystemConfig() {
-  const config = await get<string>('/api/config');
-  return config;
-}
-
-export async function saveSystemConfig(configStr: string, locale: string) {
-  const rlt = await post('/api/config', { config: configStr, locale });
-  return rlt;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -144,27 +122,30 @@ export async function saveSystemConfig(configStr: string, locale: string) {
 /* -------------------------------------------------------------------------- */
 
 export async function listCookies() {
-  const config = await get<Backend.Cookie[]>('/api/weibo/cookie/list');
-  return config;
+  const cookies = await get<Backend.DBList<string>>('/api/weibo/cookies/list');
+  return cookies;
 }
 
-export async function updateCookie(idx: number, raw: string | string[]) {
-  const rlt = await post('/api/weibo/cookie/update', { idx, cookie: raw });
+export async function updateCookie(idx: number, cookie: string) {
+  const rlt = await post('/api/weibo/cookies/update', { idx, cookie });
   return rlt;
 }
 
-export async function checkCookie(cookie: string) {
-  const rlt = await post('/api/weibo/cookie/check', { cookie });
+export async function checkCookie(idx: number) {
+  const rlt = await post<{ isValid: boolean }>('/api/weibo/cookies/check', {
+    idx,
+    notify: false,
+  });
   return rlt;
 }
 
 export async function removeCookie(idx: number) {
-  const rlt = await post('/api/weibo/cookie/remove', { idx });
+  const rlt = await post('/api/weibo/cookies/remove', { idx });
   return rlt;
 }
 
 export async function appendCookie(cookie: string) {
-  const rlt = await post('/api/weibo/cookie/append', { cookie: cookie });
+  const rlt = await post('/api/weibo/cookies/append', { cookie });
   return rlt;
 }
 

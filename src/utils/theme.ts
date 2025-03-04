@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { DARK_THEMES, LS_KEYS } from '@/contants';
+import { DARK_THEMES, LS_KEYS } from '@/constants';
 import { getLocalStorageValue, setLocalStorageValue } from './common';
 
 export function getLsTheme() {

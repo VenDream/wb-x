@@ -1,13 +1,5 @@
 'use client';
 
-import { LS_KEYS } from '@/contants';
-import { isDarkTheme } from '@/utils/theme';
-import { SignedIn, UserButton } from '@clerk/nextjs';
-import { shadesOfPurple } from '@clerk/themes';
-import { useCallback, useEffect, useState } from 'react';
-
-const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
-
 /*
  * User Profile
  *
@@ -16,6 +8,14 @@ const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
  *
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
+
+import { LS_KEYS } from '@/constants';
+import { isDarkTheme } from '@/utils/theme';
+import { SignedIn, UserButton } from '@clerk/nextjs';
+import { shadesOfPurple } from '@clerk/themes';
+import { useCallback, useEffect, useState } from 'react';
+
+const isClerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true';
 
 export default function Profile() {
   const [isDark, setIsDark] = useState(false);

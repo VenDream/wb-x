@@ -9,7 +9,7 @@
 
 import { getStatusVideo } from '@/api/client';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
-import { FAKE_POSTER, FAKE_VIDEO } from '@/contants/debug';
+import { FAKE_POSTER, FAKE_VIDEO } from '@/constants/debug';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
 import { PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
