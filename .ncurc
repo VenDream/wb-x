@@ -2,6 +2,7 @@
   "reject": [
     "daisyui",
     "eslint",
-    "react-daisyui"
+    "react-daisyui",
+    "pnpm"
   ]
 }

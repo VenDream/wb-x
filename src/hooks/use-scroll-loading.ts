@@ -17,7 +17,7 @@ export interface ScrollLoadingOptions {
 }
 
 export default function useScrollLoading(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   options?: ScrollLoadingOptions
 ) {
   const { callback, threshold = 0, observerOptions = {} } = options || {};

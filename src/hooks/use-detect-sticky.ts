@@ -11,7 +11,7 @@ import { getScrollableAncestor } from '@/utils/common';
 import { type RefObject, useEffect, useState } from 'react';
 
 export default function useDetectSticky(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   options?: IntersectionObserverInit
 ) {
   const [isSticky, setIsSticky] = useState(false);

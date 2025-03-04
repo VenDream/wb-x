@@ -62,7 +62,7 @@ function VirtualListRenderFunc<T, R>(
   } = props;
 
   const t = useTranslations('global.dataFetching');
-  const listRef = useRef<VariableSizeList<T>>();
+  const listRef = useRef<VariableSizeList<T>>(null);
 
   const [pageNo, setPageNo] = useState(0);
   const [isLoadAll, setIsLoadAll] = useState(false);
