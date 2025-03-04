@@ -17,6 +17,7 @@ import {
   DropdownToggle,
 } from '@/components/daisyui';
 import { LANGS } from '@/constants';
+import { EN_FLAG, ZH_FLAG } from '@/constants/svgs';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import {
@@ -25,18 +26,12 @@ import {
   LanguagesIcon,
 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-
-const Flags: Record<keyof typeof LANGS, string> = {
-  en: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.0/svg/1f1ec-1f1e7.svg',
-  zh: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.0/svg/1f1e8-1f1f3.svg',
-};
 
 export default function LocaleChange() {
   const locale = useLocale();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams().toString();
   const t = useTranslations('global.locale');
 
   return (
@@ -60,9 +55,7 @@ export default function LocaleChange() {
             <DropdownItem key={k} anchor={false}>
               <Link
                 locale={l}
-                href={
-                  pathname + (searchParams.toString() ? `?${searchParams}` : '')
-                }
+                href={pathname + (searchParams ? `?${searchParams}` : '')}
                 className="flex items-center gap-4"
               >
                 <div className="flex items-center">
@@ -73,12 +66,9 @@ export default function LocaleChange() {
                   )}
                   {l}
                 </div>
-                <Image
-                  alt="FLAG"
-                  width={30}
-                  height={22}
-                  src={Flags[k as keyof typeof LANGS]}
-                />
+                <div className="h-7 w-7">
+                  {l === LANGS.en ? EN_FLAG : ZH_FLAG}
+                </div>
               </Link>
             </DropdownItem>
           );
