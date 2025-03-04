@@ -16,7 +16,7 @@
     "fix": "tsx scripts/fix.ts"
   },
   "engines": {
-    "node": ">=20"
+    "node": "20.x"
   },
   "dependencies": {
     "@clerk/localizations": "^3.5.0",
