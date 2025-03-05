@@ -149,8 +149,14 @@
         "ro": "RO",
         "tn": "TN"
       },
+      "search": {
+        "placeholder": "输入ROTN ID进行搜索",
+        "search": "搜索",
+        "reset": "重置"
+      },
       "noImages": "暂无图片",
-      "sourceURL": "源链接"
+      "sourceURL": "源链接",
+      "sourceURLTips": "查看源链接"
     },
     "user": {
       "follows": "关注",

@@ -1,23 +1,13 @@
 /*
- * Request Utils
+ * Requester for server side
  *
  * @Author: VenDream
- * @Date: 2023-08-25 11:18:23
+ * @Date: 2025-03-05 11:13:17
  *
- * Copyright © 2023 VenDream. All Rights Reserved.
+ * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
-
-interface Response<T = Record<string, any>> {
-  code: number;
-  data: T;
-  errormsg: string | null;
-}
-
-const raiseRequestError = (msg: string) => {
-  throw new Error(msg || 'Failed to fetch');
-};
+import { type Response, raiseRequestError } from '.';
 
 /**
  * request.get
@@ -33,9 +23,9 @@ export async function get<T = Record<string, any>>(
 ) {
   try {
     const res = await fetch(url, opts);
-    const { code, data, errormsg } = (await res.json()) as Response<T>;
+    const { ok, code, data, errormsg } = (await res.json()) as Response<T>;
 
-    if (+code !== 200 || errormsg) {
+    if (!ok || +code !== 200) {
       return raiseRequestError(errormsg || 'Failed to fetch');
     }
 
@@ -68,9 +58,9 @@ export async function post<T = Record<string, any>>(
       },
       body: JSON.stringify(data),
     });
-    const { code, data: r, errormsg } = (await res.json()) as Response<T>;
+    const { ok, code, data: r, errormsg } = (await res.json()) as Response<T>;
 
-    if (+code !== 200 || errormsg) {
+    if (!ok || +code !== 200) {
       return raiseRequestError(errormsg || 'Failed to fetch');
     }
 

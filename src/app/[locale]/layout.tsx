@@ -20,11 +20,19 @@ import { LoaderCircleIcon } from 'lucide-react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import Provider from './provider';
 
 import './globals.scss';
 
 export const metadata = META_DATA;
+
+if (process.env.LOCAL_PROXY_ENABLED === 'true') {
+  const proxyUrl = process.env.LOCAL_PROXY_URL as string;
+  const proxyAgent = new ProxyAgent(proxyUrl);
+  setGlobalDispatcher(proxyAgent);
+  console.log('[undici] proxy enabled: %s', proxyUrl);
+}
 
 export default async function RootLayout({ children, params }: ChildrenProps) {
   const { locale } = await params;

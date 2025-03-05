@@ -63,6 +63,7 @@ function VirtualListRenderFunc<T, R>(
 
   const t = useTranslations('global.dataFetching');
   const listRef = useRef<VariableSizeList<T>>(null);
+  const canLoadMoreRef = useRef(false);
 
   const [pageNo, setPageNo] = useState(0);
   const [isLoadAll, setIsLoadAll] = useState(false);
@@ -149,7 +150,14 @@ function VirtualListRenderFunc<T, R>(
   const isFirstLoading = pageNo === 0 && isLoading;
 
   const loadMore = useCallback(() => {
+    // stop the first loadMore request
+    if (!canLoadMoreRef.current) {
+      canLoadMoreRef.current = true;
+      return;
+    }
+
     if (isLoading || isLoadAll) return;
+
     setPageNo(pn => pn + 1);
   }, [isLoadAll, isLoading]);
 
@@ -167,6 +175,7 @@ function VirtualListRenderFunc<T, R>(
       setDataList([]);
       setIsLoadAll(false);
       rowHeightsRef.current = {};
+      canLoadMoreRef.current = false;
     },
   }));
 

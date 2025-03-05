@@ -165,7 +165,7 @@ export default function CommentList(props: CommentListProps) {
           isLoadAll={isLoadAll}
           isNoData={commentList.length === 0}
           loadMore={fetchCommentList}
-          scrollLoading={{ enable: !isLoadFailed, threshold: 500 }}
+          scrollLoading={{ enabled: !isLoadFailed, threshold: 500 }}
         />
       </div>
     </div>

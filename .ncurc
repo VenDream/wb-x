@@ -3,6 +3,7 @@
     "daisyui",
     "eslint",
     "react-daisyui",
-    "pnpm"
+    "pnpm",
+    "undici"
   ]
 }

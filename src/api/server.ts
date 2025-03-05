@@ -8,7 +8,7 @@
  */
 
 import { getApiHost } from '@/utils/api-host';
-import { get } from '@/utils/request';
+import { get } from '@/utils/request/server';
 import { appendURLParams } from '@/utils/url';
 
 type UserListParams = PaginationParams & Backend.UserListFilterParams;

@@ -149,8 +149,14 @@
         "ro": "RO",
         "tn": "TN"
       },
+      "search": {
+        "placeholder": "Enter ROTN ID to search",
+        "search": "Search",
+        "reset": "Reset"
+      },
       "noImages": "No images",
-      "sourceURL": "Source URL"
+      "sourceURL": "Source URL",
+      "sourceURLTips": "View source URL"
     },
     "user": {
       "follows": "follows",

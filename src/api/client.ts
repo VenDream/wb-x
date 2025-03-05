@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { get, post } from '@/utils/request';
+import { get, post } from '@/utils/request/client';
 import { appendURLParams } from '@/utils/url';
 
 /* -------------------------------------------------------------------------- */
@@ -26,6 +26,7 @@ type StatusCommentsRepliesParams = {
   orderBy?: Backend.CommentsRepliesOrderBy;
 };
 type ROTNListParams = PaginationParams & {
+  id?: string;
   type?: Backend.ROTN_TYPE;
 };
 

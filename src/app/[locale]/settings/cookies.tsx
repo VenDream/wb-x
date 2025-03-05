@@ -147,7 +147,9 @@ export default function CookiesSettings() {
         {cookies.length > 0 ? (
           cookies.map((cookie, idx) => (
             <div key={idx} className="flex gap-4">
-              <label htmlFor={`cookie-${idx}`}>Cookie #{idx + 1}</label>
+              <label htmlFor={`cookie-${idx}`} className="basis-20">
+                Cookie #{idx + 1}
+              </label>
               <Textarea
                 id={`cookie-${idx}`}
                 rows={4}

@@ -116,7 +116,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         isLoadAll={isLoadAll}
         isNoData={comment.comments.length === 0}
         loadMore={fetchCommentsReplies}
-        scrollLoading={{ enable: !isLoadFailed, threshold: 500 }}
+        scrollLoading={{ enabled: !isLoadFailed, threshold: 500 }}
       />
     </div>
   );

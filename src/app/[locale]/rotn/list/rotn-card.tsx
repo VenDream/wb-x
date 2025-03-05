@@ -9,9 +9,9 @@
 
 import Carousel from '@/components/common/carousel';
 import MotionContainer from '@/components/common/motion-container';
+import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
-import { getFileName } from '@/utils/common';
 import { SquareArrowOutUpRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -20,7 +20,7 @@ interface IProps {
 }
 
 const CAROUSEL_GAP = 10;
-const CAROUSEL_COLS = 3;
+const CAROUSEL_COLS = 1;
 const CAROUSEL_ASPECT_RATIO = 9 / 16;
 
 export default function RotnCard(props: IProps) {
@@ -29,7 +29,6 @@ export default function RotnCard(props: IProps) {
 
   const items = images.map(img => ({
     image: img,
-    name: getFileName(img),
   }));
 
   return (
@@ -43,20 +42,23 @@ export default function RotnCard(props: IProps) {
         <span className="text-sm">
           {type} - {id}
         </span>
-        <a href={url} target="_blank" rel="noreferrer" title={t('sourceURL')}>
-          <Button
-            size="sm"
-            color="ghost"
-            className="h-[2rem] w-[2rem] rounded-full p-0"
-          >
-            <SquareArrowOutUpRightIcon size={18} />
-          </Button>
-        </a>
+        <Tooltip message={t('sourceURLTips')}>
+          <a href={url} target="_blank" rel="noreferrer">
+            <Button
+              size="sm"
+              color="ghost"
+              className="h-[2rem] w-[2rem] rounded-full p-0"
+            >
+              <SquareArrowOutUpRightIcon size={18} />
+            </Button>
+          </a>
+        </Tooltip>
       </p>
       {images.length > 0 ? (
         <Carousel
           lightbox
-          items={items}
+          items={items.splice(-1)}
+          buttons={false}
           counter={false}
           gap={CAROUSEL_GAP}
           cols={CAROUSEL_COLS}
