@@ -11,16 +11,13 @@
 
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
-import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
-import { FileCodeIcon, SaveIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useControllableValue } from 'ahooks';
+import { FileCodeIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 import type { HighlighterCore } from 'shiki';
-import { getHighlighterCore } from 'shiki/core';
-import theme from 'shiki/themes/min-light.mjs';
-import getWasmInlined from 'shiki/wasm';
+import { createHighlighter } from 'shiki';
 
 import './code-editor.sass';
 
@@ -31,28 +28,28 @@ interface CodeEditorProps {
   code: string;
   /** languange */
   lang: string;
-  /** onSave callback */
-  onSave?: (code: string) => void;
+  /** onCodeChange callback */
+  onCodeChange?: (code: string) => void;
 }
 
 export default function CodeEditor(props: CodeEditorProps) {
-  const t = useTranslations('global');
-  const { title, lang, onSave } = props;
-  const [code, setCode] = useState(props.code);
+  const { title, lang } = props;
+  const [code, setCode] = useControllableValue(props, {
+    defaultValue: props.code,
+    valuePropName: 'code',
+    trigger: 'onCodeChange',
+  });
   const [highlighter, setHighlighter] = useState<HighlighterCore>();
 
   useEffect(() => {
     (async function setup() {
-      const highlighter = await getHighlighterCore({
-        themes: [theme],
-        langs: [import('shiki/langs/yaml.mjs')],
-        loadWasm: getWasmInlined,
+      const highlighter = await createHighlighter({
+        langs: [lang],
+        themes: ['min-light'],
       });
-      setTimeout(() => {
-        setHighlighter(highlighter);
-      }, 500);
+      setHighlighter(highlighter);
     })();
-  }, []);
+  }, [lang]);
 
   return highlighter ? (
     <MotionContainer className="flex min-h-[50vh] w-full flex-col justify-start bg-base-100">
@@ -85,12 +82,6 @@ export default function CodeEditor(props: CodeEditorProps) {
           fontSize: 13,
         }}
       />
-      <div className="mt-4">
-        <Button size="sm" color="primary" onClick={() => onSave?.(code)}>
-          <SaveIcon size={16} />
-          {t('action.save')}
-        </Button>
-      </div>
     </MotionContainer>
   ) : (
     <div className="p-4">
