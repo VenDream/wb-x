@@ -31,7 +31,7 @@ if (process.env.LOCAL_PROXY_ENABLED === 'true') {
   const proxyUrl = process.env.LOCAL_PROXY_URL as string;
   const proxyAgent = new ProxyAgent(proxyUrl);
   setGlobalDispatcher(proxyAgent);
-  console.log('[undici] proxy enabled: %s', proxyUrl);
+  console.log('[undici] using local proxy: %s', proxyUrl);
 }
 
 export default async function RootLayout({ children, params }: ChildrenProps) {

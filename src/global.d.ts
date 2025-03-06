@@ -280,7 +280,7 @@ declare global {
       /** id */
       id: string;
       /** type */
-      type: Type;
+      type: ROTN_TYPE;
       /** item name */
       name: string;
       /** original url */

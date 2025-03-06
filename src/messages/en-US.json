@@ -204,7 +204,7 @@
       "cookies": {
         "operation": {
           "add": "Add",
-          "save": "Save",
+          "save": "Update",
           "check": "Check",
           "delete": "Delete"
         },

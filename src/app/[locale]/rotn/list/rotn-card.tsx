@@ -19,15 +19,23 @@ interface IProps {
   item: Backend.ROTNItem;
 }
 
-const CAROUSEL_GAP = 10;
+const CAROUSEL_GAP = 0;
 const CAROUSEL_COLS = 1;
-const CAROUSEL_ASPECT_RATIO = 9 / 16;
+
+const getAspectRatio = (id: string) => {
+  const idNum = +id;
+  let ratio = ((idNum % 9) + 1) / ((idNum % 16) + 1);
+  ratio = Math.min(ratio, 1);
+  ratio = Math.max(ratio, 1 / 2);
+  return ratio;
+};
 
 export default function RotnCard(props: IProps) {
   const { id, type, images, url } = props.item;
   const t = useTranslations('pages.rotn');
 
-  const items = images.map(img => ({
+  const items = images.map((img, idx) => ({
+    id: String(+id + idx),
     image: img,
   }));
 
@@ -35,7 +43,7 @@ export default function RotnCard(props: IProps) {
     <MotionContainer
       className={cn(
         'flex flex-col gap-2 rounded border border-base-content/10 p-4',
-        'h-full rounded-[--rounded-box] bg-base-200/30 text-sm shadow'
+        'h-full rounded-[--rounded-box] bg-base-200 text-sm shadow'
       )}
     >
       <p className="flex items-center justify-between">
@@ -58,14 +66,20 @@ export default function RotnCard(props: IProps) {
         <Carousel
           lightbox
           items={items.splice(-1)}
+          slideItems={items}
           buttons={false}
           counter={false}
           gap={CAROUSEL_GAP}
           cols={CAROUSEL_COLS}
-          aspectRatio={CAROUSEL_ASPECT_RATIO}
+          aspectRatio={getAspectRatio(id)}
         />
       ) : (
-        <div className="flex flex-1 items-center justify-center text-base-content/50">
+        <div
+          className={cn(
+            'flex flex-1 items-center justify-center text-base-content/50',
+            'aspect-square rounded-[--rounded-box] bg-base-content/10'
+          )}
+        >
           {t('noImages')}
         </div>
       )}

@@ -40,10 +40,10 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
   const triggerRef = useRef<HTMLDivElement>(null);
 
   const onIntersect = useCallback(
-    (_ratio: number) => {
-      if (!!enabled && !isLoadAll && !isLoading) {
-        loadMore();
-      }
+    (ratio: number) => {
+      const isIntersected = ratio > 0 && ratio < 1;
+      const isEnabled = enabled && !isLoadAll && !isLoading;
+      isEnabled && isIntersected && loadMore();
     },
     [enabled, isLoadAll, isLoading, loadMore]
   );

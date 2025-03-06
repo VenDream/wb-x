@@ -192,3 +192,14 @@ export function omit<T extends Record<string, any>>(obj: T, keys: (keyof T)[]) {
     return prev;
   }, {} as Partial<T>);
 }
+
+/**
+ * get random integer
+ *
+ * @export
+ * @param {number} min min
+ * @param {number} max max
+ */
+export function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

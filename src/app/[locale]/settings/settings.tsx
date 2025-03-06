@@ -31,7 +31,12 @@ export default function Settings() {
 
   return (
     <div className="w-[800px] space-y-4 pr-4">
-      <Tabs boxed value={settingsType} onChange={setSettingsType}>
+      <Tabs
+        boxed
+        value={settingsType}
+        onChange={setSettingsType}
+        className="h-12 items-center bg-base-200 p-2"
+      >
         <Tab value="local">{t('local')}</Tab>
         {isAdmin ? (
           <Tab value="cookies">{t('cookies')}</Tab>

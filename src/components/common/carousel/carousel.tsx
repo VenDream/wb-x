@@ -22,12 +22,14 @@ type EmblaOptionsType = NonNullable<Parameters<typeof useEmblaCarousel>[0]>;
 type EmblaCarouselType = NonNullable<UseEmblaCarouselType[1]>;
 
 interface Item {
-  name?: string;
+  id: string;
   image: string;
+  name?: string;
 }
 
 interface IProps {
   items: Item[];
+  slideItems?: Item[];
 
   gap?: number;
   cols?: number;
@@ -44,6 +46,7 @@ interface IProps {
 export default function Carousel(props: IProps) {
   const {
     items,
+    slideItems,
 
     gap = 10,
     cols = 1,
@@ -84,14 +87,14 @@ export default function Carousel(props: IProps) {
   );
 
   const slides = useMemo<Slide[]>(() => {
-    return items.map((item, idx) => {
+    return (slideItems || items).map((item, idx) => {
       const src = item.image;
       const download = item.image;
       const filename = item.name;
 
       return {
         type: 'image',
-        src: FAKE_IMG(idx) || src,
+        src: FAKE_IMG(item.id) || src,
         title: filename ? (
           <p className="h-[2rem] text-sm font-normal leading-[2rem]">
             {idx + 1} / {items.length} - {filename}
@@ -100,7 +103,7 @@ export default function Carousel(props: IProps) {
         download,
       };
     });
-  }, [items]);
+  }, [items, slideItems]);
 
   const previewSlides = (idx: number) => {
     setCurrSlide(idx);
@@ -149,13 +152,16 @@ export default function Carousel(props: IProps) {
                 <div
                   className={cn(
                     'relative h-full w-full rounded border shadow-sm',
-                    'border-base-content/10'
+                    'border-base-content/10',
+                    {
+                      'cursor-pointer': items.length === 1,
+                    }
                   )}
                 >
                   <Image
                     alt="IMG"
-                    src={FAKE_IMG(idx) || item.image}
                     className="rounded-[inherit]"
+                    src={FAKE_IMG(item.id) || item.image}
                   />
                   {item.name && (
                     <p

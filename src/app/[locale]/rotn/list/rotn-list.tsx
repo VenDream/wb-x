@@ -13,14 +13,13 @@ import { getRotnList } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import { Button, Input, Tab, Tabs } from '@/components/daisyui';
 import { PAGINATION_LIMIT } from '@/constants';
-import { SearchIcon } from 'lucide-react';
+import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import { toast } from 'sonner';
 import RotnCard from './rotn-card';
 
-import { RotateCcwIcon } from 'lucide-react';
 import './rotn-list.sass';
 
 const BREAKPOINT_COLS = {
@@ -31,6 +30,7 @@ const BREAKPOINT_COLS = {
 export default function RotnList() {
   const t = useTranslations('pages.rotn');
 
+  const [refresh, setRefresh] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
@@ -42,6 +42,8 @@ export default function RotnList() {
   const [itemType, setItemType] = useState<Backend.ROTN_TYPE>('');
 
   const fetchItems = useCallback(async () => {
+    if (!refresh) return;
+
     try {
       setIsLoading(true);
       const limit = PAGINATION_LIMIT * 2;
@@ -54,7 +56,7 @@ export default function RotnList() {
       });
       setItems(pageNo === 0 ? items : list => [...list, ...items]);
       setIsLoadFailed(false);
-      if (items.length < limit) setIsLoadAll(true);
+      setIsLoadAll(items.length < limit);
     } catch (err) {
       const error = err as Error;
       console.error(error);
@@ -63,7 +65,7 @@ export default function RotnList() {
     } finally {
       setIsLoading(false);
     }
-  }, [itemId, itemType, pageNo]);
+  }, [itemId, itemType, pageNo, refresh]);
 
   const loadMore = useCallback(() => {
     if (isLoadAll || isLoading || isLoadFailed) return;
@@ -74,23 +76,41 @@ export default function RotnList() {
     setItemType(type);
     setPageNo(0);
     setItems([]);
-    setIsLoadAll(false);
   };
 
   const searchItem = () => {
     setItemId(id);
     switchItemType('');
+    setRefresh({});
   };
 
   const resetId = () => {
     setId('');
     setItemId('');
     switchItemType('');
+    setRefresh({});
   };
 
   useEffect(() => {
     fetchItems();
   }, [fetchItems]);
+
+  const cards = useMemo(
+    () => (
+      <Masonry
+        breakpointCols={BREAKPOINT_COLS}
+        className="rotn-masonry-list"
+        columnClassName="rotn-masonry-list-column"
+      >
+        {items.map(item => (
+          <div key={item.id} data-id={item.id} data-type={item.type}>
+            <RotnCard item={item} />
+          </div>
+        ))}
+      </Masonry>
+    ),
+    [items]
+  );
 
   return (
     <div className="flex h-full flex-col gap-4 pr-8">
@@ -138,25 +158,13 @@ export default function RotnList() {
           </Button>
         </div>
       </div>
-      {items.length > 0 && (
-        <Masonry
-          breakpointCols={BREAKPOINT_COLS}
-          className="rotn-masonry-list"
-          columnClassName="rotn-masonry-list-column"
-        >
-          {items.map(item => (
-            <div key={item.id}>
-              <RotnCard item={item} />
-            </div>
-          ))}
-        </Masonry>
-      )}
+      {items.length > 0 && cards}
       <LoadingIndicator
         isLoading={isLoading}
         isLoadAll={isLoadAll}
         isNoData={items.length === 0}
         loadMore={loadMore}
-        scrollLoading={{ enabled: !isLoadFailed, threshold: 200 }}
+        scrollLoading={{ enabled: true, threshold: 200 }}
       />
     </div>
   );

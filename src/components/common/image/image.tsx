@@ -32,7 +32,7 @@ export default function CommonImage(props: NextImageProps) {
 
   const imageProps: NextImageProps = {
     ...props,
-    fill: props.fill || true,
+    fill: props.fill !== false,
     width: props.width || 0,
     height: props.height || 0,
     loading: props.loading || 'lazy',
