@@ -53,7 +53,7 @@ export default function ImageGrid(props: ImageGridProps) {
         type: 'image',
         src: FAKE_IMG(idx) || src,
         title: (
-          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+          <p className="h-[2rem] text-sm leading-[2rem] font-normal">
             {idx + 1} / {images.length} - {filename}
           </p>
         ),
@@ -105,8 +105,8 @@ export default function ImageGrid(props: ImageGridProps) {
             key={idx}
             {...dataProps}
             className={cn(
-              'aspect-square h-full w-full border border-base-content/10',
-              'relative cursor-zoom-in rounded shadow-sm',
+              'border-base-content/10 aspect-square h-full w-full border',
+              'relative cursor-zoom-in rounded-sm shadow-xs',
               {
                 'has-more': hasMore,
               }
@@ -116,7 +116,7 @@ export default function ImageGrid(props: ImageGridProps) {
             <Image
               alt="IMG"
               src={FAKE_IMG(idx) || thumbnail}
-              className="aspect-square !h-full !w-full rounded object-cover"
+              className="aspect-square !h-full !w-full rounded-sm object-cover"
             />
           </div>
         );

@@ -45,9 +45,9 @@ export default function Toaster(props: IProps) {
       toastOptions={{
         unstyled: true,
         className: cn(
-          'flex items-center justify-center gap-2 shadow-sm text-sm py-2 px-6',
+          'flex items-center justify-center gap-2 shadow-xs text-sm py-2 px-6',
           'min-w-[300px] max-w-[60vw] rounded-[--rounded-box] text-base-content',
-          'bg-base-100/80 backdrop-blur border border-base-content/20'
+          'bg-base-100/80 backdrop-blur-sm border border-base-content/20'
         ),
         classNames: {
           content: cn(font, 'break-all'),

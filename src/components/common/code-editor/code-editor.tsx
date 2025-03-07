@@ -52,13 +52,13 @@ export default function CodeEditor(props: CodeEditorProps) {
   }, [lang]);
 
   return highlighter ? (
-    <MotionContainer className="flex min-h-[50vh] w-full flex-col justify-start bg-base-100">
+    <MotionContainer className="bg-base-100 flex min-h-[50vh] w-full flex-col justify-start">
       {title && (
         <p
           className={cn(
             'flex items-center rounded-[--rounded-box]',
-            'rounded-b-none bg-base-200 p-2 text-sm',
-            'border-b border-base-content/10'
+            'bg-base-200 rounded-b-none p-2 text-sm',
+            'border-base-content/10 border-b'
           )}
         >
           <FileCodeIcon size={16} className="mr-2" />

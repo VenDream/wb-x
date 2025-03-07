@@ -49,7 +49,7 @@ export default function GhostTabs<T>(props: IProps<T>) {
             key={idx}
             value={option.value}
             className={cn(
-              'h-auto border-base-content/10 p-0 text-sm leading-3',
+              'border-base-content/10 h-auto p-0 text-sm leading-3',
               tabClassName
             )}
           >

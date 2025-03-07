@@ -29,11 +29,11 @@ export default function ScrollArea(props: IProps) {
       <IScrollArea.Scrollbar
         orientation="vertical"
         className={cn(
-          'flex w-2.5 touch-none select-none p-0.5',
+          'flex w-2.5 touch-none p-0.5 select-none',
           'transition-colors duration-[160ms] ease-out'
         )}
       >
-        <IScrollArea.Thumb className="flex-1 rounded-full bg-base-content/15" />
+        <IScrollArea.Thumb className="bg-base-content/15 flex-1 rounded-full" />
       </IScrollArea.Scrollbar>
     </IScrollArea.Root>
   );

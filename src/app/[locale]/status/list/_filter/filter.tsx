@@ -62,8 +62,8 @@ export default function Filter(props: FilterProps) {
   return (
     <MotionContainer
       className={cn(
-        'flex w-72 flex-col gap-4 border border-base-content/10 p-4',
-        'rounded-[--rounded-box] bg-base-200/30 shadow-sm'
+        'border-base-content/10 flex w-72 flex-col gap-4 border p-4',
+        'bg-base-200/30 rounded-[--rounded-box] shadow-xs'
       )}
     >
       <div className="m-auto flex flex-col gap-2">
@@ -77,8 +77,8 @@ export default function Filter(props: FilterProps) {
               '[&>.tab]:text-base-content',
               'h-[2rem] w-40 flex-nowrap items-center bg-transparent p-0',
               '[&>.tab]:h-full [&>.tab]:w-1/2 [&>.tab]:px-1 [&>.tab]:py-0',
-              '[&>.tab]:rounded [&>.tab]:bg-base-100 [&>.tab]:text-xs',
-              '[&>.tab]:border [&>.tab]:!border-base-content/20',
+              '[&>.tab]:bg-base-100 [&>.tab]:rounded-sm [&>.tab]:text-xs',
+              '[&>.tab]:!border-base-content/20 [&>.tab]:border',
               '[&>.tab.tab-active]:!border-primary',
               '[&>.tab:first-child]:rounded-r-none',
               '[&>.tab:first-child]:border-r-0',
@@ -103,8 +103,8 @@ export default function Filter(props: FilterProps) {
               '[&>.tab]:text-base-content',
               'h-[2rem] w-40 flex-nowrap items-center bg-transparent p-0',
               '[&>.tab]:h-full [&>.tab]:w-1/2 [&>.tab]:px-1 [&>.tab]:py-0',
-              '[&>.tab]:rounded [&>.tab]:bg-base-100 [&>.tab]:text-xs',
-              '[&>.tab]:border [&>.tab]:!border-base-content/20',
+              '[&>.tab]:bg-base-100 [&>.tab]:rounded-sm [&>.tab]:text-xs',
+              '[&>.tab]:!border-base-content/20 [&>.tab]:border',
               '[&>.tab.tab-active]:!border-primary',
               '[&>.tab:first-child]:rounded-r-none',
               '[&>.tab:first-child]:border-r-0',
@@ -123,7 +123,7 @@ export default function Filter(props: FilterProps) {
             value={filter.id || ''}
             size="xs"
             placeholder={t2('id')}
-            className="h-[2rem] w-40 rounded"
+            className="w-40rounded-sm h-[2rem]"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, id: e.target.value }))}
           />
@@ -134,7 +134,7 @@ export default function Filter(props: FilterProps) {
             value={filter.uid || ''}
             size="xs"
             placeholder={t2('uid')}
-            className="h-[2rem] w-40 rounded"
+            className="w-40rounded-sm h-[2rem]"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, uid: e.target.value }))}
           />
@@ -145,7 +145,7 @@ export default function Filter(props: FilterProps) {
             value={filter.keyword || ''}
             size="xs"
             placeholder={t2('keyword')}
-            className="h-[2rem] w-40 rounded"
+            className="w-40rounded-sm h-[2rem]"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, keyword: e.target.value }))}
           />
@@ -193,7 +193,7 @@ export default function Filter(props: FilterProps) {
             size="xs"
             type="number"
             placeholder={t2('leastImagesCountTips')}
-            className="m-0 h-[2rem] w-40 appearance-none rounded"
+            className="appearance-nonerounded-sm m-0 h-[2rem] w-40"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => {
               const val = e.target.value;
@@ -280,7 +280,7 @@ export default function Filter(props: FilterProps) {
         <Button
           size="xs"
           color="ghost"
-          className="h-[2rem] rounded border-base-content/10 bg-base-content/10"
+          className="border-base-content/10 bg-base-content/10 h-[2rem]rounded-sm"
           startIcon={<RotateCcwIcon size={16} />}
           onClick={resetFilter}
         >
@@ -289,7 +289,7 @@ export default function Filter(props: FilterProps) {
         <Button
           size="xs"
           color="primary"
-          className="h-[2rem] rounded"
+          className="h-[2rem]rounded-sm"
           startIcon={<SearchIcon size={16} />}
           onClick={() => applyFilter()}
         >

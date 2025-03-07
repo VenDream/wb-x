@@ -161,14 +161,14 @@ export default function Dialog(dialogProps: DialogProps) {
           onClick={onMaskClick}
           motion={dialogMaskMotion}
           className={cn(
-            'fixed inset-0 z-50 bg-base-100/80 backdrop-blur',
+            'bg-base-100/80 fixed inset-0 z-50 backdrop-blur-sm',
             props.classNames?.mask
           )}
         />
       )}
       <IDialog.Content
         className={cn(
-          'fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%]',
+          'fixed top-[50%] left-[50%] z-50 translate-x-[-50%] translate-y-[-50%]',
           'flex w-[30rem]',
           props.classNames?.wrapper
         )}
@@ -183,8 +183,8 @@ export default function Dialog(dialogProps: DialogProps) {
           key="DIALOG_CONTENT"
           motion={dialogMotion}
           className={cn(
-            'rounded-[--rounded-box] border border-base-content/10 bg-base-100/50 p-6',
-            'relative flex flex-1 flex-col gap-6 shadow-sm',
+            'border-base-content/10 bg-base-100/50 rounded-[--rounded-box] border p-6',
+            'relative flex flex-1 flex-col gap-6 shadow-xs',
             props.className
           )}
           onAnimationComplete={def => {
@@ -203,7 +203,7 @@ export default function Dialog(dialogProps: DialogProps) {
             )}
             {parts.desc && (
               <IDialog.Description
-                className={cn('text-xs text-base-content/50', parts.descClass)}
+                className={cn('text-base-content/50 text-xs', parts.descClass)}
               >
                 {parts.desc || t2('desc')}
               </IDialog.Description>
@@ -257,7 +257,7 @@ export default function Dialog(dialogProps: DialogProps) {
               animation={false}
               onClick={onCancel}
               disabled={props.loading}
-              className="absolute right-4 top-5 h-[2.1rem] w-[2.1rem] rounded-full p-0"
+              className="absolute top-5 right-4 h-[2.1rem] w-[2.1rem] rounded-full p-0"
             >
               <XIcon size={20} />
             </Button>

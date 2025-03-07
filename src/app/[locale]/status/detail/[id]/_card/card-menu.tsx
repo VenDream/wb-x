@@ -82,14 +82,14 @@ export default function CardMenu() {
       </DropdownToggle>
       <DropdownMenu
         className={cn(
-          'z-20 mt-2 w-[190px] rounded border border-base-content/10',
-          'bg-base-100/50 backdrop-blur will-change-transform'
+          'border-base-content/10 z-20 mt-2 w-[190px] rounded-sm border',
+          'bg-base-100/50 backdrop-blur-sm will-change-transform'
         )}
       >
         {!!menu.copyId && (
           <DropdownItem anchor={false}>
             <span
-              className="rounded p-2"
+              className="rounded-sm p-2"
               onClick={() => {
                 copyText(id);
                 toast.success(t('copySuccessTips'));
@@ -103,7 +103,7 @@ export default function CardMenu() {
         {!!menu.copyUid && (
           <DropdownItem anchor={false}>
             <span
-              className="rounded p-2"
+              className="rounded-sm p-2"
               onClick={() => {
                 copyText(user.id);
                 toast.success(t('copySuccessTips'));
@@ -119,7 +119,7 @@ export default function CardMenu() {
             <Link
               target="_blank"
               rel="noreferrer"
-              className="rounded p-2"
+              className="rounded-sm p-2"
               href={`${WEIBO_HOST}/detail/${id}`}
             >
               {WEIBO_ICON}
@@ -132,7 +132,7 @@ export default function CardMenu() {
             <a
               target="_blank"
               rel="noreferrer"
-              className="rounded p-2"
+              className="rounded-sm p-2"
               href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
             >
               <ImageDownIcon size={16} className="!stroke-2" />
@@ -144,7 +144,7 @@ export default function CardMenu() {
           <DropdownItem anchor={false}>
             <Link
               target="_blank"
-              className="rounded p-2"
+              className="rounded-sm p-2"
               href={`${SECONDARY_ROUTES.STATUS_DETAIL}/${id}#comments`}
             >
               <MessageCircleMoreIcon size={16} className="!stroke-2" />
@@ -156,7 +156,7 @@ export default function CardMenu() {
           <DropdownItem anchor={false}>
             <Link
               target="_blank"
-              className="rounded p-2"
+              className="rounded-sm p-2"
               href={`${PRIMARY_ROUTES.WEIBO}?uid=${user.id}`}
             >
               <SquareArrowOutUpRightIcon size={16} className="!stroke-2" />

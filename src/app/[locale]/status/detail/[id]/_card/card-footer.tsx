@@ -87,8 +87,8 @@ export default function CardFooter() {
               animation={false}
               onClick={showComments}
               className={cn(
-                'm-0 h-auto min-h-0 gap-0 p-0 text-base-content/60 no-underline',
-                'text-xs hover:text-accent'
+                'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
+                'hover:text-accent text-xs'
               )}
             >
               <MessageCircleMoreIcon size={16} className="mr-1" />
@@ -106,7 +106,7 @@ export default function CardFooter() {
           <Tooltip message={createdAt} className="text-xs">
             <div
               className={cn(
-                'flex cursor-text items-center tracking-tight text-base-content/50'
+                'text-base-content/50 flex cursor-text items-center tracking-tight'
               )}
             >
               {ct}

@@ -89,7 +89,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         isDetailReplies
         sorter={
           <>
-            <div className="h-[1px] bg-base-content/10" />
+            <div className="bg-base-content/10 h-[1px]" />
             <GhostTabs
               size="sm"
               value={orderBy}

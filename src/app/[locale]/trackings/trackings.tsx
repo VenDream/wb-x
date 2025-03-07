@@ -78,12 +78,12 @@ export default function Trackings(props: IProps) {
           <UsersIcon size={24} className="mr-2" />
           {t('title')}
         </h1>
-        <Stats className="stats-vertical border border-base-content/20">
+        <Stats className="stats-vertical border-base-content/20 border">
           <Stat className="min-w-80">
             <StatItem variant="figure" className="">
               <AudioLinesIcon
                 size={24}
-                className="relative top-1 text-accent"
+                className="text-accent relative top-1"
               />
             </StatItem>
             <StatItem variant="title">{t('stat.title')}</StatItem>
@@ -129,7 +129,7 @@ export default function Trackings(props: IProps) {
               onClick={reset}
               disabled={isSearching}
               startIcon={<RotateCcwIcon size={16} />}
-              className="h-9 min-h-9 bg-base-content/10"
+              className="bg-base-content/10 h-9 min-h-9"
             >
               {t('add.reset')}
             </Button>
@@ -142,7 +142,7 @@ export default function Trackings(props: IProps) {
             )}
             {searchFailedReason && (
               <MotionContainer>
-                <p className="flex items-center gap-2 text-sm text-error">
+                <p className="text-error flex items-center gap-2 text-sm">
                   <CircleXIcon size={20} className="text-error" />
                   {searchFailedReason}
                 </p>
@@ -158,7 +158,7 @@ export default function Trackings(props: IProps) {
                   onUntrackUser={() => {
                     setUsers(users => users.filter(u => u.id !== user.id));
                   }}
-                  className="bg-transparent shadow-sm outline-base-content/20"
+                  className="outline-base-content/20 bg-transparent shadow-xs"
                 />
               </MotionContainer>
             )}

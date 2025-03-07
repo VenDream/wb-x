@@ -42,10 +42,10 @@ export default function LoadingUI(props: IProps) {
     >
       <LoaderCircleIcon
         size={size}
-        className={cn('animate-spin text-primary', loaderClass)}
+        className={cn('text-primary animate-spin', loaderClass)}
       />
       {children || (
-        <p className={cn('text-sm text-primary', textClass)}>
+        <p className={cn('text-primary text-sm', textClass)}>
           {text || t('loading')}
         </p>
       )}

@@ -82,7 +82,7 @@ export default function Carousel(props: IProps) {
   };
 
   const btnClass = cn(
-    'h-8 w-8 rounded-full border-base-content/20 p-0 shadow-sm',
+    'h-8 w-8 rounded-full border-base-content/20 p-0 shadow-xs',
     'disabled:border-base-300 disabled:bg-base-300'
   );
 
@@ -96,7 +96,7 @@ export default function Carousel(props: IProps) {
         type: 'image',
         src: FAKE_IMG(item.id) || src,
         title: filename ? (
-          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+          <p className="h-[2rem] text-sm leading-[2rem] font-normal">
             {idx + 1} / {items.length} - {filename}
           </p>
         ) : undefined,
@@ -151,7 +151,7 @@ export default function Carousel(props: IProps) {
               >
                 <div
                   className={cn(
-                    'relative h-full w-full rounded border shadow-sm',
+                    'relative h-full w-full rounded-sm border shadow-xs',
                     'border-base-content/10',
                     {
                       'cursor-pointer': items.length === 1,
@@ -170,7 +170,7 @@ export default function Carousel(props: IProps) {
                       className={cn(
                         'absolute bottom-0 left-0 w-full bg-black/60 px-2 py-0.5',
                         'rounded-[inherit] rounded-t-none text-xs text-white/80',
-                        'line-clamp-1 break-all leading-5'
+                        'line-clamp-1 leading-5 break-all'
                       )}
                     >
                       {item.name}
@@ -207,7 +207,7 @@ export default function Carousel(props: IProps) {
             </div>
           )}
           {counter && (
-            <span className="select-none text-base-content">
+            <span className="text-base-content select-none">
               {currSnap} / {totalSnaps}
             </span>
           )}

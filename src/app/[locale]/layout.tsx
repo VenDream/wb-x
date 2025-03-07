@@ -12,18 +12,16 @@ import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS, META_DATA } from '@/constants';
 import { font } from '@/fonts';
 import { routing } from '@/i18n/routing';
-import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { LoaderCircleIcon } from 'lucide-react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import Provider from './provider';
 
-import './globals.scss';
+import './global.css';
 
 export const metadata = META_DATA;
 
@@ -48,7 +46,7 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
 
   return (
     <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>
-      <html lang={locale} className={cn(font.className, 'preparing')}>
+      <html lang={locale} className={font.className}>
         <NextIntlClientProvider messages={messages}>
           <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
             <Provider>
@@ -57,17 +55,6 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
               <SpeedInsights />
               <Toaster font={font.className} />
             </Provider>
-            <div
-              className={cn(
-                'loading-mask fixed z-50 flex h-screen w-screen items-center',
-                'justify-center gap-2 bg-base-100/50 backdrop-blur-lg'
-              )}
-            >
-              <LoaderCircleIcon
-                size={30}
-                className="animate-spin text-base-content"
-              />
-            </div>
           </body>
         </NextIntlClientProvider>
       </html>

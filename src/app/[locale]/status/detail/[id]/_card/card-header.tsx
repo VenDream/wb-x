@@ -67,7 +67,7 @@ export default function CardHeader() {
           className="row-start-1 row-end-3 flex items-center justify-center"
         />
         <AuthGuard fallback={null}>
-          <div className="absolute left-1/2 top-[calc(100%_+_12px)] z-10 w-10 -translate-x-1/2">
+          <div className="absolute top-[calc(100%_+_12px)] left-1/2 z-10 w-10 -translate-x-1/2">
             <TrackingsBtn
               user={user}
               iconOnly
@@ -81,7 +81,7 @@ export default function CardHeader() {
       <span className="flex items-center gap-4 text-sm">{user.name}</span>
       <span className="inline-flex items-center">
         <Tooltip message={createdAt} className="text-xs">
-          <span className="flex cursor-text items-center text-xs text-base-content/50">
+          <span className="text-base-content/50 flex cursor-text items-center text-xs">
             {ct}
             {source && (
               <>

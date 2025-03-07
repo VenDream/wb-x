@@ -9,13 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from '@/components/daisyui';
+import { Button, Dropdown } from '@/components/daisyui/index2';
 import { LANGS } from '@/constants';
 import { EN_FLAG, ZH_FLAG } from '@/constants/svgs';
 import { Link, usePathname } from '@/i18n/routing';
@@ -35,45 +29,43 @@ export default function LocaleChange() {
   const t = useTranslations('global.locale');
 
   return (
-    <Dropdown end>
-      <DropdownToggle button={false}>
-        <Button color="ghost">
+    <Dropdown align="end">
+      <Dropdown.Toggle>
+        <Button ghost>
           <LanguagesIcon size={18} />
           <span className="text-sm">{t('switcherLabel')}</span>
           <ChevronDownIcon size={18} />
         </Button>
-      </DropdownToggle>
-      <DropdownMenu
+      </Dropdown.Toggle>
+      <Dropdown.Menu
         className={cn(
-          'z-10 mt-4 w-44 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
-          'border border-base-content/10 bg-base-100/50 shadow backdrop-blur'
+          'z-10 mt-4 w-44 flex-nowrap gap-1 overflow-auto',
+          'bg-base-100/50 border-base-content/10 border backdrop-blur-lg'
         )}
       >
         {Object.entries(LANGS).map(([k, l]) => {
           const isSelected = l === locale;
           return (
-            <DropdownItem key={k} anchor={false}>
+            <Dropdown.Item key={k}>
               <Link
                 locale={l}
+                className="flex items-center gap-3"
                 href={pathname + (searchParams ? `?${searchParams}` : '')}
-                className="flex items-center gap-4"
               >
-                <div className="flex items-center">
-                  {isSelected ? (
-                    <CircleCheckBigIcon size={16} className="mr-2" />
-                  ) : (
-                    <div className="mr-2 h-4 w-4" />
-                  )}
-                  {l}
-                </div>
+                {isSelected ? (
+                  <CircleCheckBigIcon size={16} />
+                ) : (
+                  <div className="h-4 w-4" />
+                )}
+                {l}
                 <div className="h-7 w-7">
                   {l === LANGS.en ? EN_FLAG : ZH_FLAG}
                 </div>
               </Link>
-            </DropdownItem>
+            </Dropdown.Item>
           );
         })}
-      </DropdownMenu>
+      </Dropdown.Menu>
     </Dropdown>
   );
 }

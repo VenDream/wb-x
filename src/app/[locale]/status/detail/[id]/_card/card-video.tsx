@@ -30,7 +30,7 @@ export default function CardVideo() {
 
   const posterClass = twMerge(
     'relative flex items-center justify-center',
-    'aspect-video rounded shadow-sm',
+    'aspect-video rounded-sm shadow-xs',
     'before:absolute before:top-0 before:left-0 before:bg-black/30',
     'before:content-[""], before:w-full before:h-full before:rounded'
   );
@@ -51,7 +51,7 @@ export default function CardVideo() {
         height: WIDTH / (16 / 9),
         poster: FAKE_POSTER || poster,
         title: (
-          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+          <p className="h-[2rem] text-sm leading-[2rem] font-normal">
             {title}.mp4
           </p>
         ),

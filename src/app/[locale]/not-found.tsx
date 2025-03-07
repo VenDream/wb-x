@@ -17,9 +17,9 @@ export default function NotFound() {
 
   return (
     <MotionContainer
-      className={cn('rounded-[--rounded-box] bg-base-200 p-4', 'max-w-7xl')}
+      className={cn('bg-base-200 rounded-[--rounded-box] p-4', 'max-w-7xl')}
     >
-      <p className="flex items-center text-error">
+      <p className="text-error flex items-center">
         <CircleXIcon size={20} className="mr-1" />
         {t('misc.notFound')} :(
       </p>

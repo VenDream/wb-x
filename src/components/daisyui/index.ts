@@ -25,7 +25,12 @@ import {
 /* -------------------------------------------------------------------------- */
 const { Start: NavbarStart, Center: NavbarCenter, End: NavbarEnd } = Navbar;
 const { Stat } = Stats;
-const { Item: StatItem } = Stat;
+const {
+  Title: StatTitle,
+  Value: StatValue,
+  Desc: StatDesc,
+  Figure: StatFigure,
+} = Stat;
 const {
   Toggle: DropdownToggle,
   Menu: DropdownMenu,
@@ -88,8 +93,11 @@ export {
   NavbarEnd,
   NavbarStart,
   Stat,
-  StatItem,
+  StatDesc,
+  StatFigure,
   Stats,
+  StatTitle,
+  StatValue,
   Tab,
   Tabs,
 };

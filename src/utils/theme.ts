@@ -8,17 +8,13 @@
  */
 
 import { DARK_THEMES, LS_KEYS } from '@/constants';
-import { getLocalStorageValue, setLocalStorageValue } from './common';
+import { getLocalStorageValue } from './common';
 
 export function getLsTheme() {
   return getLocalStorageValue<string>(LS_KEYS.THEME) || '';
 }
 
-export function setLsTheme(theme: string) {
-  return setLocalStorageValue(LS_KEYS.THEME, theme);
-}
-
 export function isDarkTheme(theme?: string) {
   const t = theme || getLsTheme();
-  return DARK_THEMES.includes(t as DarkTheme);
+  return DARK_THEMES.includes(t as DaisyUI.DarkTheme);
 }

@@ -7,14 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import {
-  Badge,
-  Button,
-  Indicator,
-  Navbar,
-  NavbarEnd,
-  NavbarStart,
-} from '@/components/daisyui';
+import { Badge, Button, Indicator, Navbar } from '@/components/daisyui/index2';
 import { PRIMARY_ROUTES } from '@/constants';
 import { Link } from '@/i18n/routing';
 import LocaleChange from './locale-change';
@@ -23,27 +16,30 @@ import ThemeChange from './theme-change';
 
 export default function Header() {
   return (
-    <Navbar className="relative z-50 border-b border-base-content/10 bg-base-100 px-4">
-      <NavbarStart className="px-2 lg:flex-none">
+    <Navbar className="border-base-content/10 bg-base-100 relative z-50 border-b px-4">
+      <Navbar.Start className="px-2">
         <Indicator>
-          <Badge
-            color="primary"
-            className="indicator-item top-[5px] h-auto text-xs"
-          >
-            x
-          </Badge>
+          <Indicator.Item placement="end">
+            <Badge
+              size="sm"
+              color="primary"
+              className="relative top-[8px] left-[-8px] rounded-full"
+            >
+              x
+            </Badge>
+          </Indicator.Item>
           <Link href={PRIMARY_ROUTES.HOME}>
-            <Button color="ghost" size="md" className="text-2xl font-bold">
+            <Button ghost size="xl" className="h-10">
               @W__B
             </Button>
           </Link>
         </Indicator>
-      </NavbarStart>
-      <NavbarEnd className="flex items-center gap-2">
+      </Navbar.Start>
+      <Navbar.End className="items-center gap-2">
         <LocaleChange />
         <ThemeChange />
         <Profile />
-      </NavbarEnd>
+      </Navbar.End>
     </Navbar>
   );
 }

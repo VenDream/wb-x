@@ -188,7 +188,7 @@ export default function CookiesSettings() {
         ) : (
           <NoData className="justify-start" />
         )}
-        <div className="h-[1px] bg-base-content/10" />
+        <div className="bg-base-content/10 h-[1px]" />
         <AddCookies onAdded={getCookies}>
           <Button size="sm" color="primary">
             <PlusIcon size={16} />
@@ -196,7 +196,7 @@ export default function CookiesSettings() {
           </Button>
         </AddCookies>
         {isOperating && (
-          <div className="absolute inset-0 !mt-0 h-full w-full bg-base-100/80" />
+          <div className="bg-base-100/80 absolute inset-0 !mt-0 h-full w-full" />
         )}
       </div>
     </MotionContainer>

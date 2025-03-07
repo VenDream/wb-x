@@ -35,7 +35,7 @@ export default function Settings() {
         boxed
         value={settingsType}
         onChange={setSettingsType}
-        className="h-12 items-center bg-base-200 p-2"
+        className="bg-base-200 h-12 items-center p-2"
       >
         <Tab value="local">{t('local')}</Tab>
         {isAdmin ? (
@@ -44,7 +44,7 @@ export default function Settings() {
           <EmptyTab value="2" />
         )}
       </Tabs>
-      <div className="rounded-[--rounded-box] bg-base-200">
+      <div className="bg-base-200 rounded-[--rounded-box]">
         {settingsType === 'local' && (
           <MotionContainer className="p-4">
             <LocalSettings />

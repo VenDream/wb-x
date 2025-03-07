@@ -36,8 +36,8 @@ export default function UserCard(props: IProps) {
     <MotionContainer
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-2 py-6',
-        'rounded-[--rounded-box] bg-base-200/30 outline outline-base-content/10',
-        'outline-1 hover:shadow hover:outline-info',
+        'bg-base-200/30 outline-base-content/10 rounded-[--rounded-box] outline',
+        'hover:outline-info outline-1 hover:shadow',
         '!will-change-transform',
         props.className
       )}
@@ -74,7 +74,7 @@ export default function UserCard(props: IProps) {
       <Tooltip
         delayDuration={500}
         message={desc || '-'}
-        className="max-w-64 break-all border border-info text-justify text-xs"
+        className="border-info max-w-64 border text-justify text-xs break-all"
       >
         <p
           className={cn(

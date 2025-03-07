@@ -30,9 +30,9 @@ export default function ErrorUI({ error, reset }: ErrorProps) {
 
   return (
     <MotionContainer
-      className={cn('rounded-[--rounded-box] bg-base-200 p-4', 'max-w-7xl')}
+      className={cn('bg-base-200 rounded-[--rounded-box] p-4', 'max-w-7xl')}
     >
-      <div className="flex items-center text-error">
+      <div className="text-error flex items-center">
         <CircleXIcon size={20} className="mr-2" />
         {t('misc.systemDown')} :(
       </div>

@@ -108,7 +108,7 @@ export default function StatusList() {
       {isInited && filterParams.favUid && (
         <VirtualList {...listProps} ref={listRef} />
       )}
-      <div className="absolute left-0 top-0">
+      <div className="absolute top-0 left-0">
         <Filter
           filterParams={filterParams}
           resetFilterParams={resetFilterParams}
@@ -116,8 +116,8 @@ export default function StatusList() {
         />
         <div
           className={cn(
-            'mt-6 flex w-72 flex-col gap-2 pt-4 text-xs text-base-content/80',
-            'border-t border-base-content/10 drop-shadow-md'
+            'text-base-content/80 mt-6 flex w-72 flex-col gap-2 pt-4 text-xs',
+            'border-base-content/10 border-t drop-shadow-md'
           )}
         >
           <p className="flex items-center">

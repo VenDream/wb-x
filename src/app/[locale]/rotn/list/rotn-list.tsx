@@ -119,7 +119,7 @@ export default function RotnList() {
           boxed
           value={itemType}
           onChange={switchItemType}
-          className="h-12 items-center bg-base-200/50 p-2 backdrop-blur-lg"
+          className="bg-base-200/50 h-12 items-center p-2 backdrop-blur-lg"
         >
           <Tab className="w-32" value="">
             {t('type.all')}
@@ -131,7 +131,7 @@ export default function RotnList() {
             {t('type.tn')}
           </Tab>
         </Tabs>
-        <div className="absolute right-2 top-0 flex h-full items-center gap-4">
+        <div className="absolute top-0 right-2 flex h-full items-center gap-4">
           <Input
             size="sm"
             value={id}

@@ -29,21 +29,47 @@ declare global {
 
   type TFunction = ReturnType<typeof useTranslations>;
 
-  type Themes = typeof DEFAULT_THEMES;
-  type DarkTheme = readonly Extract<
-    (typeof DEFAULT_THEMES)[number],
-    | 'dark'
-    | 'synthwave'
-    | 'halloween'
-    | 'forest'
-    | 'aqua'
-    | 'black'
-    | 'luxury'
-    | 'dracula'
-    | 'business'
-    | 'night'
-    | 'coffee'
-  >;
+  /* ------------------------------------------------------------------------ */
+  /*                                 Daisy UI                                 */
+  /* ------------------------------------------------------------------------ */
+  namespace DaisyUI {
+    type Theme = (typeof DEFAULT_THEMES)[number];
+
+    type DarkTheme = readonly Extract<
+      Theme,
+      | 'dark'
+      | 'synthwave'
+      | 'halloween'
+      | 'forest'
+      | 'aqua'
+      | 'black'
+      | 'luxury'
+      | 'dracula'
+      | 'business'
+      | 'night'
+      | 'coffee'
+    >;
+
+    interface Style {
+      outline?: boolean;
+      dash?: boolean;
+      soft?: boolean;
+      ghost?: boolean;
+      link?: boolean;
+    }
+
+    type Color =
+      | 'neutral'
+      | 'primary'
+      | 'secondary'
+      | 'accent'
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'error';
+
+    type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  }
 
   /* ------------------------------------------------------------------------ */
   /*                                    App                                   */

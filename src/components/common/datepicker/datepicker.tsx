@@ -72,7 +72,7 @@ export default function DatePicker(props: DatepickerType) {
         props.containerClassName
       )}
       inputClassName={cn(
-        'w-full h-full rounded input input-bordered focus:outline-offset-0',
+        'w-full h-full rounded-sm input input-bordered focus:outline-offset-0',
         props.inputClassName
       )}
     />

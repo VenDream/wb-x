@@ -8,15 +8,12 @@
  */
 
 import { DialogProvider } from '@/components/common/dialog';
-import { Theme as ThemeProvider } from '@/components/daisyui';
 import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
 
 export default function Provider({ children }: ChildrenProps<App.StoreState>) {
   return (
-    <ThemeProvider className="wbx-theme-provoder">
-      <TooltipProvider>
-        <DialogProvider>{children}</DialogProvider>
-      </TooltipProvider>
-    </ThemeProvider>
+    <TooltipProvider>
+      <DialogProvider>{children}</DialogProvider>
+    </TooltipProvider>
   );
 }

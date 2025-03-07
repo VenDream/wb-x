@@ -89,7 +89,7 @@ export const ADMIN_ROUTES: Partial<typeof PRIMARY_ROUTES> = {
 /*                                   THEMES                                   */
 /* -------------------------------------------------------------------------- */
 
-export const THEMES: Themes = [
+export const THEMES: DaisyUI.Theme[] = [
   'light',
   'dark',
   'cupcake',
@@ -119,8 +119,11 @@ export const THEMES: Themes = [
   'night',
   'coffee',
   'winter',
+  'dim',
+  'nord',
+  'sunset',
 ];
-export const DARK_THEMES: DarkTheme[] = [
+export const DARK_THEMES: DaisyUI.DarkTheme[] = [
   'dark',
   'synthwave',
   'halloween',

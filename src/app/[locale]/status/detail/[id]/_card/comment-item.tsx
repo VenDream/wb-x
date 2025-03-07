@@ -119,7 +119,7 @@ export default function CommentItem(props: CommentItemProps) {
             {user.isOP && (
               <span
                 style={{ zoom: 0.8 }}
-                className="ml-1 border border-accent px-0.5 text-xs text-accent"
+                className="border-accent text-accent ml-1 border px-0.5 text-xs"
               >
                 {t('op')}
               </span>
@@ -129,7 +129,7 @@ export default function CommentItem(props: CommentItemProps) {
             <Tooltip message={createdAt} className="text-xs">
               <span
                 className={cn(
-                  'flex cursor-text items-center text-xs text-base-content/50'
+                  'text-base-content/50 flex cursor-text items-center text-xs'
                 )}
               >
                 {createtime}
@@ -144,7 +144,7 @@ export default function CommentItem(props: CommentItemProps) {
         <div className="col-start-2 col-end-4 space-y-4">
           <div
             className={cn(
-              'comment-text break-all text-left leading-5 tracking-tight',
+              'comment-text text-left leading-5 tracking-tight break-all',
               {
                 'text-justify': isReply,
               }
@@ -173,8 +173,8 @@ export default function CommentItem(props: CommentItemProps) {
           {comments.length > 0 && (
             <div
               className={cn(
-                'comments-replies flex flex-col gap-1 bg-base-200/30 p-2',
-                'rounded border border-base-content/10'
+                'comments-replies bg-base-200/30 flex flex-col gap-1 p-2',
+                'border-base-content/10 rounded-sm border'
               )}
             >
               {comments.map(cm => (
@@ -192,7 +192,7 @@ export default function CommentItem(props: CommentItemProps) {
             >
               <div
                 className={cn(
-                  'absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/10'
+                  'bg-base-content/10 absolute top-[-10px] left-0 h-[1px] w-full'
                 )}
               />
               {t('totalReplies', { num: totalReplies })}

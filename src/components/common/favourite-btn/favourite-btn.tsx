@@ -90,8 +90,8 @@ export default function FavouriteBtn(props: IProps) {
         animation={false}
         onClick={toggleStatusFavourites}
         className={cn(
-          'm-0 h-auto min-h-0 gap-0 p-0 text-base-content/60 no-underline',
-          'text-xs hover:text-accent'
+          'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
+          'hover:text-accent text-xs'
         )}
       >
         {isFavourite ? (
