@@ -17,7 +17,7 @@ import { useDialog } from '@/components/common/dialog';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
-import { Button, Textarea } from '@/components/daisyui';
+import { Button, Textarea } from '@/components/daisyui/index2';
 import { cn } from '@/utils/classnames';
 import { PlusIcon, RadarIcon, SaveIcon, Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -155,7 +155,7 @@ export default function CookiesSettings() {
                 rows={4}
                 value={cookie}
                 placeholder={t1('addCookie.placeholder')}
-                className="no-scrollbar flex-1 resize-none break-all"
+                className="flex-1 resize-none break-all"
                 onChange={e =>
                   setCookies(cookies => {
                     const newCookies = [...cookies];

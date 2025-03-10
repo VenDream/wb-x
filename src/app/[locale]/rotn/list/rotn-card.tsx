@@ -43,7 +43,7 @@ export default function RotnCard(props: IProps) {
     <MotionContainer
       className={cn(
         'border-base-content/10 flex flex-col gap-2 rounded-sm border p-4',
-        'bg-base-200 h-full rounded-[--rounded-box] text-sm shadow-sm'
+        'bg-base-200 rounded-box h-full text-sm shadow-sm'
       )}
     >
       <p className="flex items-center justify-between">
@@ -77,7 +77,7 @@ export default function RotnCard(props: IProps) {
         <div
           className={cn(
             'text-base-content/50 flex flex-1 items-center justify-center',
-            'bg-base-content/10 aspect-square rounded-[--rounded-box]'
+            'bg-base-content/10 rounded-box aspect-square'
           )}
         >
           {t('noImages')}

@@ -183,7 +183,7 @@ export default function Dialog(dialogProps: DialogProps) {
           key="DIALOG_CONTENT"
           motion={dialogMotion}
           className={cn(
-            'border-base-content/10 bg-base-100/50 rounded-[--rounded-box] border p-6',
+            'border-base-content/10 bg-base-100/50 rounded-box border p-6',
             'relative flex flex-1 flex-col gap-6 shadow-xs',
             props.className
           )}

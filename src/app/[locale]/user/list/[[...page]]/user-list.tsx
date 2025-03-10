@@ -25,11 +25,7 @@ export default function UsersList(props: UsersListProps) {
 
   return (
     <>
-      <div
-        className={cn(
-          'grid grid-cols-5 gap-6 rounded-[--rounded-box] px-2 py-4'
-        )}
-      >
+      <div className={cn('rounded-box grid grid-cols-5 gap-6 px-2 py-4')}>
         {users.map(user => (
           <UserCard key={user.id} user={user} />
         ))}

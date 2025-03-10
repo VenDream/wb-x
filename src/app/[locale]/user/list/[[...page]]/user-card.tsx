@@ -36,7 +36,7 @@ export default function UserCard(props: IProps) {
     <MotionContainer
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-2 py-6',
-        'bg-base-200/30 outline-base-content/10 rounded-[--rounded-box] outline',
+        'bg-base-200/30 outline-base-content/10 rounded-box outline',
         'hover:outline-info outline-1 hover:shadow',
         '!will-change-transform',
         props.className

@@ -21,7 +21,7 @@ export const card = cva(
     'p-4',
     'border',
     'relative',
-    'rounded-[--rounded-box]',
+    'rounded-box',
     'status-card',
     'border-base-content/10',
   ],

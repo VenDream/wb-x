@@ -6,6 +6,22 @@
   themes: all;
 }
 
+@utility backdrop-blur-xs {
+  backdrop-filter: blur(4px);
+}
+
+@utility backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+}
+
+@utility backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+@utility backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+
 html {
   &::-webkit-scrollbar,
   & *::-webkit-scrollbar {

@@ -15,3 +15,6 @@ export { default as Indicator } from './indicator';
 export { default as Menu } from './menu';
 export { default as Navbar } from './navbar';
 export { default as Stats } from './stats';
+export { default as Tabs } from './tabs';
+export { default as Textarea } from './textarea';
+export { default as Toggle } from './toggle';

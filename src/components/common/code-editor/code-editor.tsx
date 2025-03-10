@@ -56,7 +56,7 @@ export default function CodeEditor(props: CodeEditorProps) {
       {title && (
         <p
           className={cn(
-            'flex items-center rounded-[--rounded-box]',
+            'rounded-box flex items-center',
             'bg-base-200 rounded-b-none p-2 text-sm',
             'border-base-content/10 border-b'
           )}
@@ -72,7 +72,7 @@ export default function CodeEditor(props: CodeEditorProps) {
           highlighter.codeToHtml(code, { lang, theme: 'min-light' })
         }
         className={cn(
-          'code-editor__container flex-1 rounded-[--rounded-box]',
+          'code-editor__container rounded-box flex-1',
           'rounded-t-none'
         )}
         preClassName="code-editor__pre"

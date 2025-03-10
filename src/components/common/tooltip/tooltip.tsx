@@ -43,7 +43,7 @@ export default function Tooltip(props: IProps) {
                 className={cn(
                   'flex items-center justify-center px-4 py-2 text-sm shadow-xs',
                   'border-base-content/10 bg-base-100/50 border backdrop-blur-sm',
-                  'rounded-[--rounded-box]',
+                  'rounded-box',
                   className
                 )}
               >

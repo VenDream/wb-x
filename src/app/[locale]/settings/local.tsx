@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Toggle } from '@/components/daisyui';
+import { Button, Toggle } from '@/components/daisyui/index2';
 import { settingsAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { SaveIcon } from 'lucide-react';
@@ -46,7 +46,6 @@ export default function LocalSettings() {
           <Toggle
             color="primary"
             checked={settings.useImageProxy}
-            className="rounded-none"
             onChange={evt =>
               updateSettings({ useImageProxy: evt.target.checked })
             }
@@ -57,7 +56,6 @@ export default function LocalSettings() {
           <Toggle
             color="primary"
             checked={settings.useVideoProxy}
-            className="rounded-none"
             onChange={evt =>
               updateSettings({ useVideoProxy: evt.target.checked })
             }

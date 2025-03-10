@@ -23,19 +23,16 @@ export default function LayoutBody({ children }: ChildrenProps) {
   return (
     <div className="flex min-h-0 flex-1">
       <Leftsider />
-      <div
-        className={cn(
-          'bg-base-100 h-full rounded-[--rounded-box] px-6 py-4 text-sm',
-          'min-w-0 flex-1'
-        )}
-      >
-        <ScrollArea>
-          {isAdminRoute ? (
-            <AuthGuard noPermissionClassName="p-0">{children}</AuthGuard>
-          ) : (
-            children
-          )}
-        </ScrollArea>
+      <div className="bg-base-200 h-full min-w-0 flex-1 p-4">
+        <div className={cn('bg-base-100 rounded-box h-full px-6 py-4 text-sm')}>
+          <ScrollArea>
+            {isAdminRoute ? (
+              <AuthGuard noPermissionClassName="p-0">{children}</AuthGuard>
+            ) : (
+              children
+            )}
+          </ScrollArea>
+        </div>
       </div>
     </div>
   );

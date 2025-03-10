@@ -11,8 +11,7 @@
 
 import AuthGuard from '@/components/common/auth-guard';
 import MotionContainer from '@/components/common/motion-container';
-import { Tab, Tabs } from '@/components/daisyui';
-import useUser from '@/hooks/use-user';
+import { Tabs } from '@/components/daisyui/index2';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import CookiesSettings from './cookies';
@@ -20,37 +19,39 @@ import LocalSettings from './local';
 
 type SettingsType = 'local' | 'server' | 'cookies';
 
-export default function Settings() {
-  const { isAdmin } = useUser();
-  const t = useTranslations('pages.settings.tabs');
-  const [settingsType, setSettingsType] = useState<SettingsType>('local');
+const { Tab, Content } = Tabs;
 
-  const EmptyTab = (props: { value: string }) => (
-    <Tab className="hidden" value={props.value} />
-  );
+export default function Settings() {
+  const t = useTranslations('pages.settings.tabs');
+  const [activeTab, setActiveTab] = useState<SettingsType>('local');
+
+  const isLocalActive = activeTab === 'local';
+  const isCookiesActive = activeTab === 'cookies';
 
   return (
-    <div className="w-[800px] space-y-4 pr-4">
-      <Tabs
-        boxed
-        value={settingsType}
-        onChange={setSettingsType}
-        className="bg-base-200 h-12 items-center p-2"
-      >
-        <Tab value="local">{t('local')}</Tab>
-        {isAdmin ? (
-          <Tab value="cookies">{t('cookies')}</Tab>
-        ) : (
-          <EmptyTab value="2" />
-        )}
+    <div className="w-[800px] pr-4">
+      <Tabs size="sm" className="bg-base-200 rounded-box space-x-2 p-2">
+        <Tab
+          name="settings"
+          label={t('local')}
+          active={isLocalActive}
+          onClick={() => setActiveTab('local')}
+        />
+        <Tab
+          name="settings"
+          label={t('cookies')}
+          active={isCookiesActive}
+          onClick={() => setActiveTab('cookies')}
+        />
       </Tabs>
-      <div className="bg-base-200 rounded-[--rounded-box]">
-        {settingsType === 'local' && (
+
+      <div className="bg-base-200 rounded-box mt-4">
+        {isLocalActive && (
           <MotionContainer className="p-4">
             <LocalSettings />
           </MotionContainer>
         )}
-        {settingsType === 'cookies' && (
+        {isCookiesActive && (
           <AuthGuard>
             <CookiesSettings />
           </AuthGuard>

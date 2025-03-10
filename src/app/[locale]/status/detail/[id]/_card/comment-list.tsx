@@ -109,7 +109,7 @@ export default function CommentList(props: CommentListProps) {
     <div
       ref={listRef}
       className={cn(
-        'relative mt-4 w-[40rem] rounded-[--rounded-box] shadow-xs',
+        'rounded-box relative mt-4 w-[40rem] shadow-xs',
         props.className
       )}
     >
@@ -117,7 +117,7 @@ export default function CommentList(props: CommentListProps) {
         ref={listHeaderRef}
         className={cn(
           'border-base-content/10 flex items-center justify-between border',
-          'sticky top-0 left-0 rounded-[--rounded-box] rounded-b-none p-4',
+          'rounded-box sticky top-0 left-0 rounded-b-none p-4',
           'bg-base-200/30 z-10 w-full backdrop-blur-sm',
           {
             'rounded-t-none': isSticky,
@@ -153,7 +153,7 @@ export default function CommentList(props: CommentListProps) {
       </div>
       <div
         className={cn(
-          'rounded-[--rounded-box] rounded-t-none border border-t-0',
+          'rounded-box rounded-t-none border border-t-0',
           'border-base-content/10 bg-base-200/30 p-4'
         )}
       >

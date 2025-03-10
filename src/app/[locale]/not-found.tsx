@@ -16,9 +16,7 @@ export default function NotFound() {
   const t = useTranslations('global');
 
   return (
-    <MotionContainer
-      className={cn('bg-base-200 rounded-[--rounded-box] p-4', 'max-w-7xl')}
-    >
+    <MotionContainer className={cn('bg-base-200 rounded-box p-4', 'max-w-7xl')}>
       <p className="text-error flex items-center">
         <CircleXIcon size={20} className="mr-1" />
         {t('misc.notFound')} :(

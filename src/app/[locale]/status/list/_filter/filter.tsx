@@ -63,7 +63,7 @@ export default function Filter(props: FilterProps) {
     <MotionContainer
       className={cn(
         'border-base-content/10 flex w-72 flex-col gap-4 border p-4',
-        'bg-base-200/30 rounded-[--rounded-box] shadow-xs'
+        'bg-base-200/30 rounded-box shadow-xs'
       )}
     >
       <div className="m-auto flex flex-col gap-2">

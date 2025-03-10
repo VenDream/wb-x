@@ -46,7 +46,7 @@ export default function Toaster(props: IProps) {
         unstyled: true,
         className: cn(
           'flex items-center justify-center gap-2 shadow-xs text-sm py-2 px-6',
-          'min-w-[300px] max-w-[60vw] rounded-[--rounded-box] text-base-content',
+          'min-w-[300px] max-w-[60vw] rounded-box text-base-content',
           'bg-base-100/80 backdrop-blur-sm border border-base-content/20'
         ),
         classNames: {
