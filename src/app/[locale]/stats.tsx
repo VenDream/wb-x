@@ -9,14 +9,7 @@
 
 import { getDatabaseInfo } from '@/api/server';
 import Counter from '@/components/common/counter';
-import {
-  Stats as IStats,
-  Stat,
-  StatDesc,
-  StatFigure,
-  StatTitle,
-  StatValue,
-} from '@/components/daisyui';
+import { Stats as IStats } from '@/components/daisyui/index2';
 import {
   BoxIcon,
   MessageSquareTextIcon,
@@ -35,14 +28,14 @@ interface StatUnitProps {
 
 function StatUnit({ title, value, desc, icon }: StatUnitProps) {
   return (
-    <Stat className="min-w-80">
-      <StatFigure>{icon}</StatFigure>
-      <StatTitle>{title}</StatTitle>
-      <StatValue className="text-accent">
+    <IStats.Stat className="min-w-64">
+      <IStats.Figure>{icon}</IStats.Figure>
+      <IStats.Title>{title}</IStats.Title>
+      <IStats.Value className="text-accent">
         <Counter from={0} to={value} />
-      </StatValue>
-      <StatDesc>{desc}</StatDesc>
-    </Stat>
+      </IStats.Value>
+      <IStats.Desc>{desc}</IStats.Desc>
+    </IStats.Stat>
   );
 }
 
@@ -84,7 +77,7 @@ export default async function Stats() {
 
   return (
     <div>
-      <IStats className="stats-vertical border-base-content/20 border">
+      <IStats className="border-base-content/20 border" direction="vertical">
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}

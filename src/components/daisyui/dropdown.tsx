@@ -41,8 +41,13 @@ function Dropdown(props: DropdownProps) {
       dropdown: true,
       'dropdown-open': open,
       'dropdown-hover': trigger === 'hover',
-      [`dropdown-${align}`]: align,
-      [`dropdown-${placement}`]: placement,
+      'dropdown-start': align === 'start',
+      'dropdown-center': align === 'center',
+      'dropdown-end': align === 'end',
+      'dropdown-top': placement === 'top',
+      'dropdown-bottom': placement === 'bottom',
+      'dropdown-left': placement === 'left',
+      'dropdown-right': placement === 'right',
     },
     className
   );

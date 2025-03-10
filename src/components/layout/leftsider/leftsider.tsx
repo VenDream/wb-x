@@ -39,7 +39,7 @@ export default function Leftsider() {
         });
   }, [isAdmin]);
 
-  const isActive = useCallback(
+  const isActiveRoute = useCallback(
     (routePath: string) => {
       return routePath === '/'
         ? pathname === routePath
@@ -58,11 +58,16 @@ export default function Leftsider() {
       {PRIMARY_ROUTE_KEYS.map(k => {
         const p = routes[k];
         if (!p) return null;
+        const isActive = isActiveRoute(p);
+
         return (
           <Menu.Item key={k}>
             <Link
               href={p}
-              className={cn('text-base', { 'menu-active': isActive(p) })}
+              className={cn('text-base', {
+                'menu-active': isActive,
+                'pointer-events-none': isActive,
+              })}
             >
               {ICONS[k as keyof typeof PRIMARY_ROUTES]} {t(k.toLowerCase())}
             </Link>

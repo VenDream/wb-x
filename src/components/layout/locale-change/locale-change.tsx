@@ -49,7 +49,7 @@ export default function LocaleChange() {
             <Dropdown.Item key={k}>
               <Link
                 locale={l}
-                className="flex items-center gap-3"
+                className="flex h-10 items-center gap-3"
                 href={pathname + (searchParams ? `?${searchParams}` : '')}
               >
                 {isSelected ? (
@@ -58,7 +58,7 @@ export default function LocaleChange() {
                   <div className="h-4 w-4" />
                 )}
                 {l}
-                <div className="h-7 w-7">
+                <div className="ml-2 h-7 w-7">
                   {l === LANGS.en ? EN_FLAG : ZH_FLAG}
                 </div>
               </Link>

@@ -19,18 +19,14 @@ export default function Header() {
     <Navbar className="border-base-content/10 bg-base-100 relative z-50 border-b px-4">
       <Navbar.Start className="px-2">
         <Indicator>
-          <Indicator.Item placement="end">
-            <Badge
-              size="sm"
-              color="primary"
-              className="relative top-[8px] left-[-8px] rounded-full"
-            >
-              x
+          <Indicator.Item placement="end" className="top-[5px]">
+            <Badge size="sm" color="primary" className="h-5 w-5 rounded-full">
+              ✘
             </Badge>
           </Indicator.Item>
           <Link href={PRIMARY_ROUTES.HOME}>
-            <Button ghost size="xl" className="h-10">
-              @W__B
+            <Button size="sm" ghost>
+              <p className="text-lg">@W__B</p>
             </Button>
           </Link>
         </Indicator>

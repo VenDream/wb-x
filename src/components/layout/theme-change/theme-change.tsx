@@ -57,11 +57,9 @@ export default function ThemeChange() {
           const isSelected = t === theme;
           return (
             <Dropdown.Item key={t}>
-              <Button
-                block
-                ghost
+              <div
                 data-set-theme={t}
-                className="flex items-center gap-3"
+                className="flex h-10 items-center gap-3"
                 onClick={() => setTheme(t as DaisyUI.Theme)}
               >
                 {isSelected ? (
@@ -76,7 +74,7 @@ export default function ThemeChange() {
                   <div className="bg-accent w-2 rounded-xs" />
                   <div className="bg-neutral w-2 rounded-xs" />
                 </div>
-              </Button>
+              </div>
             </Dropdown.Item>
           );
         })}

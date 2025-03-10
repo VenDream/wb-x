@@ -39,7 +39,12 @@ function IndicatorItem(props: IndicatorItemProps) {
   const daisyUIClasses = cn(
     {
       'indicator-item': true,
-      [`indicator-${placement}`]: placement,
+      'indicator-start': placement === 'start',
+      'indicator-center': placement === 'center',
+      'indicator-end': placement === 'end',
+      'indicator-top': placement === 'top',
+      'indicator-middle': placement === 'middle',
+      'indicator-bottom': placement === 'bottom',
     },
     className
   );

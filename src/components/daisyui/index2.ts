@@ -14,3 +14,4 @@ export { default as Dropdown } from './dropdown';
 export { default as Indicator } from './indicator';
 export { default as Menu } from './menu';
 export { default as Navbar } from './navbar';
+export { default as Stats } from './stats';

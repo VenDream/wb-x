@@ -32,8 +32,13 @@ function Menu(props: MenuProps) {
   const daisyUIClasses = cn(
     'menu',
     {
-      [`menu-${size}`]: size,
-      [`menu-${direction}`]: direction,
+      'menu-xs': size === 'xs',
+      'menu-sm': size === 'sm',
+      'menu-md': size === 'md',
+      'menu-lg': size === 'lg',
+      'menu-xl': size === 'xl',
+      'menu-vertical': direction === 'vertical',
+      'menu-horizontal': direction === 'horizontal',
     },
     className
   );
