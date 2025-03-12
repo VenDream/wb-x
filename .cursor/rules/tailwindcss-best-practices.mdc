@@ -1,0 +1,9 @@
+---
+description: Best practices for using Tailwind CSS
+globs: **/*.{ts,tsx,css}
+alwaysApply: false
+---
+- Use utility classes directly in your JSX for rapid development.
+- Create custom components with `class-variance-authority` for consistent styling.
+- Utilize `tailwind-merge` to safely combine Tailwind classes.
+- Ensure responsive design by using Tailwind's responsive utilities.

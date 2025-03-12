@@ -7,16 +7,15 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import DatePicker, { type DateValueType } from '@/components/common/datepicker';
+import DatePicker from '@/components/common/datepicker';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
-import { Button, Input, Tab, Tabs, Toggle } from '@/components/daisyui';
+import { Button, Input, Tabs, Toggle } from '@/components/daisyui/index2';
 import { MAX_IMAGES_NUM, MIN_IMAGES_NUM } from '@/constants';
 import { cn } from '@/utils/classnames';
-import dayjs from '@/utils/dayjs';
 import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { defaultFilterParams } from '../status-list';
 
 interface FilterProps {
@@ -28,6 +27,8 @@ interface FilterProps {
   updateFilterParams: (patch: Partial<Backend.StatusListFilterParams>) => void;
 }
 
+const { Tab } = Tabs;
+
 export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
   const t2 = useTranslations('pages.status.filter');
@@ -35,16 +36,6 @@ export default function Filter(props: FilterProps) {
 
   const [filter, setFilter] =
     useState<Backend.StatusListFilterParams>(filterParams);
-
-  const startDate: DateValueType = useMemo<DateValueType>(() => {
-    const date = filter.startDate ? new Date(filter.startDate) : null;
-    return { startDate: date, endDate: date && new Date(date) };
-  }, [filter.startDate]);
-
-  const endDate: DateValueType = useMemo<DateValueType>(() => {
-    const date = filter.endDate ? new Date(filter.endDate) : null;
-    return { startDate: date && new Date(date), endDate: date };
-  }, [filter.endDate]);
 
   const applyFilter = (f?: Backend.StatusListFilterParams) => {
     updateFilterParams(f || filter);
@@ -70,51 +61,45 @@ export default function Filter(props: FilterProps) {
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('dataSource')}</p>
           <Tabs
-            boxed
-            size="sm"
-            value={filter.isTracking ? 'trackings' : 'all'}
-            className={cn(
-              '[&>.tab]:text-base-content',
-              'h-[2rem] w-40 flex-nowrap items-center bg-transparent p-0',
-              '[&>.tab]:h-full [&>.tab]:w-1/2 [&>.tab]:px-1 [&>.tab]:py-0',
-              '[&>.tab]:bg-base-100 [&>.tab]:rounded-sm [&>.tab]:text-xs',
-              '[&>.tab]:!border-base-content/20 [&>.tab]:border',
-              '[&>.tab.tab-active]:!border-primary',
-              '[&>.tab:first-child]:rounded-r-none',
-              '[&>.tab:first-child]:border-r-0',
-              '[&>.tab:last-child]:rounded-l-none',
-              '[&>.tab:last-child]:border-l-0'
-            )}
-            onChange={ds =>
-              applyFilter({ isTracking: ds === 'trackings' ? true : undefined })
-            }
+            size="xs"
+            className="bg-base-300 flex-1 flex-nowrap rounded-sm p-1"
           >
-            <Tab value="trackings">{t2('trackings')}</Tab>
-            <Tab value="all">{t2('all')}</Tab>
+            <Tab
+              name="isTracking"
+              label={t2('trackings')}
+              className="basis-1/2 !rounded-sm"
+              active={filter.isTracking}
+              onClick={() => applyFilter({ isTracking: true })}
+            />
+            <Tab
+              name="isTracking"
+              label={t2('all')}
+              className="basis-1/2 !rounded-sm"
+              active={!filter.isTracking}
+              onClick={() => applyFilter({ isTracking: undefined })}
+            />
           </Tabs>
         </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('order')}</p>
           <Tabs
-            boxed
-            size="sm"
-            value={filter.order}
-            className={cn(
-              '[&>.tab]:text-base-content',
-              'h-[2rem] w-40 flex-nowrap items-center bg-transparent p-0',
-              '[&>.tab]:h-full [&>.tab]:w-1/2 [&>.tab]:px-1 [&>.tab]:py-0',
-              '[&>.tab]:bg-base-100 [&>.tab]:rounded-sm [&>.tab]:text-xs',
-              '[&>.tab]:!border-base-content/20 [&>.tab]:border',
-              '[&>.tab.tab-active]:!border-primary',
-              '[&>.tab:first-child]:rounded-r-none',
-              '[&>.tab:first-child]:border-r-0',
-              '[&>.tab:last-child]:rounded-l-none',
-              '[&>.tab:last-child]:border-l-0'
-            )}
-            onChange={order => applyFilter({ order })}
+            size="xs"
+            className="bg-base-300 flex-1 flex-nowrap rounded-sm p-1"
           >
-            <Tab value="desc">{t2('desc')}</Tab>
-            <Tab value="asc">{t2('asc')}</Tab>
+            <Tab
+              name="order"
+              label={t2('desc')}
+              className="basis-1/2 !rounded-sm"
+              active={filter.order === 'desc'}
+              onClick={() => applyFilter({ order: 'desc' })}
+            />
+            <Tab
+              name="order"
+              label={t2('asc')}
+              className="basis-1/2 !rounded-sm"
+              active={filter.order === 'asc'}
+              onClick={() => applyFilter({ order: 'asc' })}
+            />
           </Tabs>
         </div>
         <div className="flex items-center gap-1">
@@ -123,7 +108,7 @@ export default function Filter(props: FilterProps) {
             value={filter.id || ''}
             size="xs"
             placeholder={t2('id')}
-            className="w-40rounded-sm h-[2rem]"
+            className="h-[2rem] w-40 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, id: e.target.value }))}
           />
@@ -134,7 +119,7 @@ export default function Filter(props: FilterProps) {
             value={filter.uid || ''}
             size="xs"
             placeholder={t2('uid')}
-            className="w-40rounded-sm h-[2rem]"
+            className="h-[2rem] w-40 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, uid: e.target.value }))}
           />
@@ -145,7 +130,7 @@ export default function Filter(props: FilterProps) {
             value={filter.keyword || ''}
             size="xs"
             placeholder={t2('keyword')}
-            className="w-40rounded-sm h-[2rem]"
+            className="h-[2rem] w-40 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => setFilter(f => ({ ...f, keyword: e.target.value }))}
           />
@@ -153,37 +138,19 @@ export default function Filter(props: FilterProps) {
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('startDate')}</p>
           <DatePicker
-            asSingle={true}
-            useRange={false}
-            containerClassName="w-40 h-[2rem]"
-            inputClassName="input-xs"
-            value={startDate}
-            onChange={date =>
-              setFilter(f => ({
-                ...f,
-                startDate: date?.startDate
-                  ? dayjs(date?.startDate).format('YYYY-MM-DD')
-                  : '',
-              }))
-            }
+            id="startDate"
+            value={filter.startDate}
+            className="h-[2rem] w-40 flex-1"
+            onChange={date => setFilter(f => ({ ...f, startDate: date }))}
           />
         </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('endDate')}</p>
           <DatePicker
-            asSingle={true}
-            useRange={false}
-            containerClassName="w-40 h-[2rem]"
-            inputClassName="input-xs"
-            value={endDate}
-            onChange={date =>
-              setFilter(f => ({
-                ...f,
-                endDate: date?.endDate
-                  ? dayjs(date?.endDate).format('YYYY-MM-DD')
-                  : '',
-              }))
-            }
+            id="endDate"
+            value={filter.endDate}
+            className="h-[2rem] w-40 flex-1"
+            onChange={date => setFilter(f => ({ ...f, endDate: date }))}
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -193,7 +160,7 @@ export default function Filter(props: FilterProps) {
             size="xs"
             type="number"
             placeholder={t2('leastImagesCountTips')}
-            className="appearance-nonerounded-sm m-0 h-[2rem] w-40"
+            className="m-0 h-[2rem] w-40 appearance-none rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => {
               const val = e.target.value;
@@ -215,7 +182,6 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.isFavourite}
-            className="rounded-none"
             onChange={e =>
               setFilter(f => ({
                 ...f,
@@ -234,7 +200,6 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.isOriginal}
-            className="rounded-none"
             onChange={e =>
               setFilter(f => ({
                 ...f,
@@ -250,7 +215,6 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.hasVideo}
-            className="rounded-none"
             onChange={e =>
               setFilter(f => ({
                 ...f,
@@ -266,7 +230,6 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.hasImages}
-            className="rounded-none"
             onChange={e =>
               setFilter(f => ({
                 ...f,
@@ -278,21 +241,16 @@ export default function Filter(props: FilterProps) {
       </div>
       <div className="flex items-center justify-between">
         <Button
-          size="xs"
-          color="ghost"
-          className="border-base-content/10 bg-base-content/10 h-[2rem]rounded-sm"
-          startIcon={<RotateCcwIcon size={16} />}
+          size="sm"
+          ghost
+          className="border-base-content/10 bg-base-content/10"
           onClick={resetFilter}
         >
+          <RotateCcwIcon size={16} />
           {t1('reset')}
         </Button>
-        <Button
-          size="xs"
-          color="primary"
-          className="h-[2rem]rounded-sm"
-          startIcon={<SearchIcon size={16} />}
-          onClick={() => applyFilter()}
-        >
+        <Button size="sm" color="primary" onClick={() => applyFilter()}>
+          <SearchIcon size={16} />
           {t1('search')}
         </Button>
       </div>

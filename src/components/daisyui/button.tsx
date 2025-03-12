@@ -11,7 +11,7 @@
 
 import { cn } from '@/utils/classnames';
 
-interface ButtonProps
+export interface ButtonProps
   extends DaisyUI.Style,
     React.PropsWithChildren,
     React.ButtonHTMLAttributes<HTMLButtonElement> {

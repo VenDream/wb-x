@@ -11,7 +11,7 @@
 
 import { cn } from '@/utils/classnames';
 
-interface DropdownProps
+export interface DropdownProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {
   open?: boolean;
@@ -20,15 +20,15 @@ interface DropdownProps
   placement?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-interface ToggleProps
+export interface DropdownToggleProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {}
 
-interface MenuProps
+export interface DropdownMenuProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLUListElement> {}
 
-interface ItemProps
+export interface DropdownItemProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLLIElement> {}
 
@@ -59,7 +59,7 @@ function Dropdown(props: DropdownProps) {
   );
 }
 
-function DropdownToggle(props: ToggleProps) {
+function DropdownToggle(props: DropdownToggleProps) {
   const { className, children, ...divProps } = props;
 
   return (
@@ -70,7 +70,7 @@ function DropdownToggle(props: ToggleProps) {
   );
 }
 
-function DropdownMenu(props: MenuProps) {
+function DropdownMenu(props: DropdownMenuProps) {
   const { className, children, ...ulProps } = props;
 
   const daisyUIClasses = cn(
@@ -90,7 +90,7 @@ function DropdownMenu(props: MenuProps) {
   );
 }
 
-function DropdownItem(props: ItemProps) {
+function DropdownItem(props: DropdownItemProps) {
   const { className, children, ...liProps } = props;
 
   return (

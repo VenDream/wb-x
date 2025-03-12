@@ -11,18 +11,18 @@
 
 import { cn } from '@/utils/classnames';
 
-interface MenuProps
+export interface MenuProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLUListElement> {
   size?: DaisyUI.Size;
   direction?: 'vertical' | 'horizontal';
 }
 
-interface MenuTitleProps
+export interface MenuTitleProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLLIElement> {}
 
-interface MenuItemProps extends MenuTitleProps {
+export interface MenuItemProps extends MenuTitleProps {
   disabled?: boolean;
 }
 

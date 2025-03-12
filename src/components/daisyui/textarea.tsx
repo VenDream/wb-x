@@ -4,7 +4,7 @@
  * @Author: VenDream
  * @Date: 2025-03-10 15:45:17
  *
- * @reference: https://daisyui.com/components/textarea/
+ * @reference: https://daisyui.com/components/textarea
  *
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
@@ -12,7 +12,7 @@
 import { cn } from '@/utils/classnames';
 import { forwardRef } from 'react';
 
-interface TextareaProps
+export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   ghost?: boolean;
 

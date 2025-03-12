@@ -24,11 +24,14 @@ export default function ThemeChange() {
   const t = useTranslations('global.theming');
   const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useLocalStorageState<DaisyUI.Theme>(LS_KEYS.THEME, {
-    defaultValue: 'dark',
+    defaultValue: 'light',
   });
 
   useEffect(() => {
     setMounted(true);
+
+    const loadingMask = document.querySelector('[data-role="loading-mask"]');
+    loadingMask?.classList.add('hidden');
   }, []);
 
   useEffect(() => {

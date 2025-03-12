@@ -1,0 +1,12 @@
+@reference "../../../app/[locale]/global.css";
+
+.wbx-ghost-tabs {
+  .tab {
+    &.tab-active {
+      @apply !border-base-content/10;
+    }
+    &:not(:first-child) {
+      @apply pl-2;
+    }
+  }
+}

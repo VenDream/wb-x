@@ -4,14 +4,14 @@
  * @Author: VenDream
  * @Date: 2025-03-10 15:29:42
  *
- * @reference: https://daisyui.com/components/toggle/
+ * @reference: https://daisyui.com/components/toggle
  *
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
 import { cn } from '@/utils/classnames';
 
-interface ToggleProps
+export interface ToggleProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   checked?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;

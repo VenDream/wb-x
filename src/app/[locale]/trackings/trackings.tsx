@@ -14,7 +14,7 @@ import UserCard from '@/app/[locale]/user/list/[[...page]]/user-card';
 import Counter from '@/components/common/counter';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
-import { Button, Input, Stat, StatItem, Stats } from '@/components/daisyui';
+import { Button, Input, Stats } from '@/components/daisyui/index2';
 import {
   AudioLinesIcon,
   CircleXIcon,
@@ -79,19 +79,19 @@ export default function Trackings(props: IProps) {
           {t('title')}
         </h1>
         <Stats className="stats-vertical border-base-content/20 border">
-          <Stat className="min-w-80">
-            <StatItem variant="figure" className="">
+          <Stats.Stat className="min-w-80">
+            <Stats.Figure className="">
               <AudioLinesIcon
                 size={24}
                 className="text-accent relative top-1"
               />
-            </StatItem>
-            <StatItem variant="title">{t('stat.title')}</StatItem>
-            <StatItem variant="value" className="text-accent">
+            </Stats.Figure>
+            <Stats.Title>{t('stat.title')}</Stats.Title>
+            <Stats.Value className="text-accent">
               <Counter from={0} to={users.length} />
-            </StatItem>
-            <StatItem variant="desc">{t('stat.desc')}</StatItem>
-          </Stat>
+            </Stats.Value>
+            <Stats.Desc>{t('stat.desc')}</Stats.Desc>
+          </Stats.Stat>
         </Stats>
       </div>
       <div className="space-y-4">
@@ -118,19 +118,19 @@ export default function Trackings(props: IProps) {
               color="primary"
               onClick={searchUser}
               disabled={isSearching}
-              startIcon={<UserRoundSearchIcon size={16} />}
               className="h-9 min-h-9"
             >
+              <UserRoundSearchIcon size={16} />
               {t('add.search')}
             </Button>
             <Button
               size="sm"
-              color="ghost"
+              ghost
               onClick={reset}
               disabled={isSearching}
-              startIcon={<RotateCcwIcon size={16} />}
               className="bg-base-content/10 h-9 min-h-9"
             >
+              <RotateCcwIcon size={16} />
               {t('add.reset')}
             </Button>
           </div>

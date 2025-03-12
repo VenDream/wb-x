@@ -7,6 +7,12 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import type {
+  CalendarDateProps,
+  CalendarMonthProps,
+  CalendarMultiProps,
+  CalendarRangeProps,
+} from 'cally';
 import type { useTranslations } from 'next-intl';
 import type { PropsWithChildren } from 'react';
 import type { DEFAULT_THEMES } from 'react-daisyui/dist/defaultThemes';
@@ -48,6 +54,8 @@ declare global {
       | 'business'
       | 'night'
       | 'coffee'
+      | 'dim'
+      | 'sunset'
     >;
 
     interface Style {
@@ -333,8 +341,25 @@ declare global {
   }
 }
 
+type MapEvents<T> = {
+  [K in keyof T as K extends `on${infer E}` ? `on${Lowercase<E>}` : K]: T[K];
+};
+
 declare module 'react' {
   declare function IForwardRef<T, P = Record<string, any>>(
     render: (props: P, ref: Ref<T>) => ReactElement | null
   ): (props: P & RefAttributes<T>) => ReactElement | null;
+
+  namespace JSX {
+    interface IntrinsicElements {
+      'calendar-month': MapEvents<CalendarMonthProps> &
+        React.HTMLAttributes<HTMLElement>;
+      'calendar-range': MapEvents<CalendarRangeProps> &
+        React.HTMLAttributes<HTMLElement>;
+      'calendar-date': MapEvents<CalendarDateProps> &
+        React.HTMLAttributes<HTMLElement>;
+      'calendar-multi': MapEvents<CalendarMultiProps> &
+        React.HTMLAttributes<HTMLElement>;
+    }
+  }
 }

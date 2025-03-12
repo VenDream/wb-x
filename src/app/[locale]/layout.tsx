@@ -7,16 +7,18 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import Loading from '@/components/common/loading';
 import Toaster from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS, META_DATA } from '@/constants';
 import { font } from '@/fonts';
 import { routing } from '@/i18n/routing';
+import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import Provider from './provider';
@@ -44,6 +46,8 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
   // side is the easiest way to get started
   const messages = await getMessages();
 
+  const t = await getTranslations('global.layout');
+
   return (
     <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>
       <html lang={locale} className={font.className}>
@@ -55,6 +59,15 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
               <SpeedInsights />
               <Toaster font={font.className} />
             </Provider>
+            <div
+              data-role="loading-mask"
+              className={cn(
+                'fixed inset-0 z-50 flex items-center justify-center',
+                'bg-base-100/80 backdrop-blur-lg'
+              )}
+            >
+              <Loading size={24} text={t('loading')} />
+            </div>
           </body>
         </NextIntlClientProvider>
       </html>

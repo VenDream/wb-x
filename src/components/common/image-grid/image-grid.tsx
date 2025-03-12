@@ -11,11 +11,11 @@ import Image from '@/components/common/image';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
+import { getFileName } from '@/utils/common';
 import { getImageVariants } from '@/utils/weibo';
 import { useMemo, useState } from 'react';
 
-import { getFileName } from '@/utils/common';
-import './image-grid.sass';
+import './image-grid.css';
 
 interface ImageGridProps {
   images: string[];

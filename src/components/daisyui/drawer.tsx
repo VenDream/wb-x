@@ -11,20 +11,20 @@
 
 import { cn } from '@/utils/classnames';
 
-interface DrawerProps
+export interface DrawerProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {
   open?: boolean;
   end?: boolean;
 }
 
-interface DrawerToggleProps
+export interface DrawerToggleProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {}
 
-type DrawerContentProps = DrawerProps;
-type DrawerSideProps = DrawerToggleProps;
-type DrawerOverlayProps = DrawerToggleProps;
+export interface DrawerContentProps extends DrawerProps {}
+export interface DrawerSideProps extends DrawerToggleProps {}
+export interface DrawerOverlayProps extends DrawerToggleProps {}
 
 function Drawer(props: DrawerProps) {
   const { open, end, className, children, ...divProps } = props;

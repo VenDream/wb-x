@@ -11,13 +11,13 @@
 
 import { cn } from '@/utils/classnames';
 
-interface NavbarProps
+export interface NavbarProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {}
 
-type NavbarStartProps = NavbarProps;
-type NavbarCenterProps = NavbarProps;
-type NavbarEndProps = NavbarProps;
+export interface NavbarStartProps extends NavbarProps {}
+export interface NavbarCenterProps extends NavbarProps {}
+export interface NavbarEndProps extends NavbarProps {}
 
 function Navbar(props: NavbarProps) {
   const { className, children, ...divProps } = props;

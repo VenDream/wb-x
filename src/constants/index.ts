@@ -135,6 +135,8 @@ export const DARK_THEMES: DaisyUI.DarkTheme[] = [
   'business',
   'night',
   'coffee',
+  'dim',
+  'sunset',
 ];
 
 /* -------------------------------------------------------------------------- */

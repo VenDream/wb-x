@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Input, Pagination } from '@/components/daisyui';
+import { Input, Pagination } from '@/components/daisyui/index2';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useRef } from 'react';
 
@@ -104,20 +104,20 @@ export default function Paginator(props: PaginatorProps) {
 
   return (
     <div className="flex items-center justify-start">
-      <Pagination horizontal>
+      <Pagination>
         {pages.map((page, idx) =>
           typeof page === 'number' ? (
-            <Button
+            <Pagination.Item
               key={idx}
               size="sm"
               active={page === currPage}
-              className="join-item px-6"
+              className="px-6"
               onClick={() => {
                 onCurrentPageChange?.(page);
               }}
             >
               {page}
-            </Button>
+            </Pagination.Item>
           ) : (
             <span key={idx} className="px-4">
               {page}

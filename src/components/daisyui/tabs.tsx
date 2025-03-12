@@ -11,21 +11,21 @@
 
 import { cn } from '@/utils/classnames';
 
-interface TabsProps
+export interface TabsProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {
   placement?: 'top' | 'bottom';
   size?: DaisyUI.Size;
 }
 
-interface TabProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TabProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name?: string;
   label?: string;
   active?: boolean;
   disabled?: boolean;
 }
 
-interface TabContentProps
+export interface TabContentProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {}
 
@@ -61,12 +61,14 @@ function Tab(props: TabProps) {
   const daisyUIClasses = cn(
     {
       tab: true,
-      'px-2': true,
       'tab-active': active,
       'tab-disabled': disabled,
-      'bg-primary': active,
-      'text-primary-content': active,
+      'px-2': true,
       'before:hidden': true,
+      'bg-primary': active,
+      'hover:after:text-primary': !active,
+      'after:text-primary-content': active,
+      'after:text-base-content/50': !active,
     },
     className
   );

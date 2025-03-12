@@ -7,10 +7,11 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import Image from '@/components/common/image';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
-import { Avatar } from '@/components/daisyui';
+import { Avatar } from '@/components/daisyui/index2';
 import { WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
@@ -42,13 +43,18 @@ export default function UserCard(props: IProps) {
         props.className
       )}
     >
-      <Avatar
-        src={FAKE_IMG() || getImageVariants(avatar).sm}
-        border
-        size="sm"
-        shape="circle"
-        borderColor="info"
-      />
+      <Avatar>
+        <div
+          className={cn(
+            'outline-primary relative h-12 w-12 rounded-full outline-2 outline-offset-3'
+          )}
+        >
+          <Image
+            alt={name}
+            src={FAKE_IMG(+id % 1000) || getImageVariants(avatar).sm}
+          />
+        </div>
+      </Avatar>
       <a
         target="_blank"
         rel="noreferrer"

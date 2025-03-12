@@ -1,0 +1,62 @@
+@reference "../../../app/[locale]/global.css";
+
+.wbx-datepicker {
+  & .transition-all {
+    @apply transition-none;
+  }
+
+  & .focus\:ring-1 {
+    @apply focus:ring-0;
+  }
+
+  & .focus\:bg-blue-100\/50 {
+    @apply focus:bg-base-content/10;
+  }
+
+  & .hover\:bg-gray-100 {
+    @apply hover:bg-base-content/10;
+  }
+
+  & .border-gray-300 {
+    @apply border-base-content/20;
+  }
+
+  & .bg-gray-50 {
+    @apply bg-base-content/10 font-normal;
+  }
+
+  & .bg-blue-500 {
+    @apply !bg-accent !pointer-events-none !text-white;
+  }
+
+  & .text-blue-500 {
+    @apply text-accent;
+  }
+
+  & .text-blue-600 {
+    @apply !text-accent hover:!bg-accent hover:!text-white;
+  }
+
+  & > button {
+    @apply top-0 right-0 p-0 pr-2;
+  }
+
+  & > div:last-child {
+    & > div:first-child {
+      @apply hidden;
+    }
+
+    & > div:last-child {
+      @apply border-base-content/20 bg-base-200/30 border shadow-sm backdrop-blur-sm;
+      @apply !m-0 !mt-[4px] !rounded-sm !text-xs;
+
+      & button {
+        @apply text-base-content;
+      }
+
+      & .text-gray-400 {
+        @apply text-base-content/50;
+      }
+    }
+  }
+}

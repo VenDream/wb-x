@@ -1,5 +1,8 @@
 {
   "global": {
+    "layout": {
+      "loading": "Loading..."
+    },
     "pages": {
       "home": "Home",
       "weibo": "Weibo",
@@ -107,8 +110,8 @@
         "leastImagesCount": "Images count",
         "leastImagesCountTips": "Least images count",
         "order": "Order",
-        "asc": "Ascending",
-        "desc": "Descending",
+        "asc": "Asc",
+        "desc": "Desc",
         "keyword": "Keyword",
 
         "totalStatuses": "<total></total><s></s>weibo posts were found."

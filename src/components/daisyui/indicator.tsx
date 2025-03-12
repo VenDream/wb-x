@@ -11,11 +11,11 @@
 
 import { cn } from '@/utils/classnames';
 
-interface IndicatorProps
+export interface IndicatorProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {}
 
-interface IndicatorItemProps
+export interface IndicatorItemProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLSpanElement> {
   placement?: 'start' | 'center' | 'end' | 'top' | 'middle' | 'bottom';

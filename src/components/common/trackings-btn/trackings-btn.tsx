@@ -12,7 +12,7 @@
 import { trackUser, triggerFullScan, untrackUser } from '@/api/client';
 import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
-import { Button, type ButtonProps } from '@/components/daisyui';
+import { Button, type ButtonProps } from '@/components/daisyui/index2';
 import { WEIBO_HOST } from '@/constants';
 import { userTrackingsAtom } from '@/store';
 import { cn } from '@/utils/classnames';
@@ -164,16 +164,14 @@ export default function TrackingsBtn(props: IProps) {
     <Button
       size="xs"
       color={isTracking ? 'error' : 'info'}
-      startIcon={
-        isTracking ? (
-          <UserMinusIcon size={iconSize} />
-        ) : (
-          <UserPlusIcon size={iconSize} />
-        )
-      }
       onClick={toggleUserTrackings}
       {...btnProps}
     >
+      {isTracking ? (
+        <UserMinusIcon size={iconSize} />
+      ) : (
+        <UserPlusIcon size={iconSize} />
+      )}
       {iconOnly ? null : isTracking ? t1('untrack') : t1('track')}
     </Button>
   );

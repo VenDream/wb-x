@@ -11,7 +11,7 @@
 
 import { cn } from '@/utils/classnames';
 
-interface BadgeProps
+export interface BadgeProps
   extends Omit<DaisyUI.Style, 'link'>,
     React.PropsWithChildren,
     React.HTMLAttributes<HTMLSpanElement> {

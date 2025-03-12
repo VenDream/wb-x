@@ -10,7 +10,7 @@
 import { Tab, Tabs, type TabsProps } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 
-import './ghost-tabs.sass';
+import './ghost-tabs.css';
 
 export interface TabOption<T> {
   label: string;

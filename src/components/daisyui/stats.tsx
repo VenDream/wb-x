@@ -11,21 +11,21 @@
 
 import { cn } from '@/utils/classnames';
 
-interface StatsProps
+export interface StatsProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {
   direction?: 'horizontal' | 'vertical';
 }
 
-interface StatProps
+export interface StatProps
   extends React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {}
 
-type StatTitleProps = StatProps;
-type StatValueProps = StatProps;
-type StatDescProps = StatProps;
-type StatFigureProps = StatProps;
-type StatActionsProps = StatProps;
+export interface StatTitleProps extends StatProps {}
+export interface StatValueProps extends StatProps {}
+export interface StatDescProps extends StatProps {}
+export interface StatFigureProps extends StatProps {}
+export interface StatActionsProps extends StatProps {}
 
 function Stats(props: StatsProps) {
   const { direction, children, className, ...divProps } = props;

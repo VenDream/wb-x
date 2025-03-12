@@ -1,10 +1,9 @@
 @import 'tailwindcss';
-
-@custom-variant dark (&:where(.dark, .dark *));
-
 @plugin 'daisyui' {
   themes: all;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @utility backdrop-blur-xs {
   backdrop-filter: blur(4px);
@@ -39,6 +38,12 @@ html {
   }
 }
 
+[data-type='loading'] {
+  .sonner-loading-wrapper {
+    @apply !static;
+  }
+}
+
 input[type='number'].appearance-none::-webkit-inner-spin-button,
 input[type='number'].appearance-none::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -53,9 +58,9 @@ input[type='number'].appearance-none {
   @apply font-normal;
 }
 
-.lucide {
+/* .lucide {
   @apply stroke-[1.5];
-}
+} */
 
 .tabs .tab-active {
   @apply pointer-events-none;
@@ -78,15 +83,6 @@ input[type='number'].appearance-none {
   @apply !border-accent !border-[3px];
 }
 
-dialog {
-  @apply border-none outline-hidden;
-}
-
-::backdrop,
-.modal-backdrop {
-  @apply backdrop-blur-sm;
-
-  button {
-    @apply cursor-default border-none outline-hidden;
-  }
+::backdrop {
+  @apply hidden;
 }
