@@ -8,9 +8,6 @@
  */
 
 import { LANGS, type Lang } from '@/constants';
-import enUS from '@/messages/en-US.json';
-import zhCN from '@/messages/zh-CN.json';
-import { createTranslator } from 'next-intl';
 
 /**
  * get locale
@@ -21,21 +18,6 @@ export function getLocale() {
   // if (typeof window === 'undefined') return LANGS.en;
   const html = document.documentElement;
   return (html.getAttribute('lang') as Lang) || LANGS.en;
-}
-
-/**
- * get locale string
- *
- * @export
- * @param {string} key key
- */
-export function getLocaleMessage(key: string) {
-  const locale = getLocale();
-  const t = createTranslator({
-    locale,
-    messages: locale === LANGS.en ? enUS : zhCN,
-  });
-  return t(key);
 }
 
 /**
@@ -202,4 +184,19 @@ export function omit<T extends Record<string, any>>(obj: T, keys: (keyof T)[]) {
  */
 export function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * generate unique id
+ *
+ * @export
+ * @param {number} [n] length
+ */
+export function genUniqueId(n = 6) {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+  let id = '';
+  for (let i = 0; i < n; i += 1) {
+    id += chars[getRandomInt(0, chars.length - 1)];
+  }
+  return id;
 }

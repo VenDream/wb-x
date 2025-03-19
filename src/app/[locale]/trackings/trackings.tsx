@@ -128,7 +128,7 @@ export default function Trackings(props: IProps) {
               ghost
               onClick={reset}
               disabled={isSearching}
-              className="bg-base-content/10 h-9 min-h-9"
+              className="bg-base-content/10 border-base-content/10 h-9 min-h-9"
             >
               <RotateCcwIcon size={16} />
               {t('add.reset')}

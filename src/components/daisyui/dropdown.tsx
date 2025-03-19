@@ -10,6 +10,7 @@
  */
 
 import { cn } from '@/utils/classnames';
+import { forwardRef } from 'react';
 
 export interface DropdownProps
   extends React.PropsWithChildren,
@@ -59,16 +60,24 @@ function Dropdown(props: DropdownProps) {
   );
 }
 
-function DropdownToggle(props: DropdownToggleProps) {
-  const { className, children, ...divProps } = props;
+const DropdownToggle = forwardRef<HTMLDivElement, DropdownToggleProps>(
+  (props, ref) => {
+    const { className, children, ...divProps } = props;
 
-  return (
-    // biome-ignore lint/a11y/useSemanticElements: <explanation>
-    <div tabIndex={0} role="button" className={className} {...divProps}>
-      {children}
-    </div>
-  );
-}
+    return (
+      <div
+        tabIndex={0}
+        ref={ref}
+        // biome-ignore lint/a11y/useSemanticElements: <explanation>
+        role="button"
+        className={className}
+        {...divProps}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 function DropdownMenu(props: DropdownMenuProps) {
   const { className, children, ...ulProps } = props;

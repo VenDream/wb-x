@@ -1,62 +1,44 @@
 @reference "../../../app/[locale]/global.css";
 
-.wbx-datepicker {
-  & .transition-all {
-    @apply transition-none;
+.rdp-popover {
+  @apply duration-100;
+}
+
+.react-day-picker {
+  @apply bg-base-100/50 border-base-content/10 w-[400px] p-6 font-sans backdrop-blur-lg;
+
+  & .rdp-month_caption {
+    @apply mb-4 flex w-full items-center justify-between;
   }
 
-  & .focus\:ring-1 {
-    @apply focus:ring-0;
-  }
+  & .rdp-months,
+  & .rdp-month_grid {
+    @apply w-full max-w-full;
 
-  & .focus\:bg-blue-100\/50 {
-    @apply focus:bg-base-content/10;
-  }
-
-  & .hover\:bg-gray-100 {
-    @apply hover:bg-base-content/10;
-  }
-
-  & .border-gray-300 {
-    @apply border-base-content/20;
-  }
-
-  & .bg-gray-50 {
-    @apply bg-base-content/10 font-normal;
-  }
-
-  & .bg-blue-500 {
-    @apply !bg-accent !pointer-events-none !text-white;
-  }
-
-  & .text-blue-500 {
-    @apply text-accent;
-  }
-
-  & .text-blue-600 {
-    @apply !text-accent hover:!bg-accent hover:!text-white;
-  }
-
-  & > button {
-    @apply top-0 right-0 p-0 pr-2;
-  }
-
-  & > div:last-child {
-    & > div:first-child {
-      @apply hidden;
+    & .rdp-month {
+      @apply w-full;
     }
+  }
 
-    & > div:last-child {
-      @apply border-base-content/20 bg-base-200/30 border shadow-sm backdrop-blur-sm;
-      @apply !m-0 !mt-[4px] !rounded-sm !text-xs;
+  & .rdp-weekday {
+    @apply text-xs;
+  }
 
-      & button {
-        @apply text-base-content;
-      }
-
-      & .text-gray-400 {
-        @apply text-base-content/50;
-      }
+  & .rdp-day {
+    & button {
+      @apply hover:border-primary hover:bg-primary/50 hover:border-1;
     }
+  }
+
+  & .rdp-selected {
+    @apply pointer-events-none;
+
+    & button {
+      @apply !bg-primary/50 text-primary-content;
+    }
+  }
+
+  & .rdp-day_button {
+    @apply rounded-field w-full text-sm;
   }
 }
