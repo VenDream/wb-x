@@ -7,13 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from '@/components/daisyui';
+import { Button, Dropdown } from '@/components/daisyui/index2';
 import {
   PRIMARY_ROUTES,
   SECONDARY_ROUTES,
@@ -65,57 +59,59 @@ export default function CardMenu() {
 
   return (
     <Dropdown
-      end={alignEnd}
+      align="end"
       className={cn('absolute right-[14px]', {
         'top-[18px]': isRetweet,
         'top-[35px]': !isRetweet,
       })}
     >
-      <DropdownToggle button={false}>
+      <Dropdown.Toggle>
         <Button
+          ghost
           size="sm"
-          color="ghost"
           className="h-[2.1rem] w-[2.1rem] rounded-full p-0"
         >
           <EllipsisVerticalIcon size={20} />
         </Button>
-      </DropdownToggle>
-      <DropdownMenu
+      </Dropdown.Toggle>
+      <Dropdown.Menu
         className={cn(
           'border-base-content/10 z-20 mt-2 w-[190px] rounded-sm border',
           'bg-base-100/50 backdrop-blur-sm will-change-transform'
         )}
       >
         {!!menu.copyId && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <span
               className="rounded-sm p-2"
               onClick={() => {
                 copyText(id);
                 toast.success(t('copySuccessTips'));
+                (document.activeElement as HTMLDivElement)?.blur();
               }}
             >
               <CopyIcon size={16} className="!stroke-2" />
               {t('copyID')}
             </span>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.copyUid && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <span
               className="rounded-sm p-2"
               onClick={() => {
                 copyText(user.id);
                 toast.success(t('copySuccessTips'));
+                (document.activeElement as HTMLDivElement)?.blur();
               }}
             >
               <IdCardIcon size={16} className="!stroke-2" />
               {t('copyUID')}
             </span>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.viewOriginal && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <Link
               target="_blank"
               rel="noreferrer"
@@ -125,10 +121,10 @@ export default function CardMenu() {
               {WEIBO_ICON}
               {t('source')}
             </Link>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.dlImages && hasImages && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <a
               target="_blank"
               rel="noreferrer"
@@ -138,10 +134,10 @@ export default function CardMenu() {
               <ImageDownIcon size={16} className="!stroke-2" />
               {t('download')}
             </a>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.viewComments && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <Link
               target="_blank"
               className="rounded-sm p-2"
@@ -150,10 +146,10 @@ export default function CardMenu() {
               <MessageCircleMoreIcon size={16} className="!stroke-2" />
               {t('comments')}
             </Link>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.viewOpPosts && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <Link
               target="_blank"
               className="rounded-sm p-2"
@@ -162,10 +158,10 @@ export default function CardMenu() {
               <SquareArrowOutUpRightIcon size={16} className="!stroke-2" />
               {t('opPosts')}
             </Link>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {renderCustomMenus?.(cardCtx)}
-      </DropdownMenu>
+      </Dropdown.Menu>
     </Dropdown>
   );
 }

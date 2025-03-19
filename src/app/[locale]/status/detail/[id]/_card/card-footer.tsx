@@ -10,7 +10,7 @@
 import { useDialog } from '@/components/common/dialog';
 import FavouriteBtn from '@/components/common/favourite-btn';
 import Tooltip from '@/components/common/tooltip';
-import { Button } from '@/components/daisyui';
+import { Button } from '@/components/daisyui/index2';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/weibo';
@@ -83,12 +83,11 @@ export default function CardFooter() {
           </Tooltip>
           <Tooltip message={t('footer.comments')} className="text-xs">
             <Button
-              variant="link"
-              animation={false}
+              link
               onClick={showComments}
               className={cn(
                 'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
-                'hover:text-accent text-xs'
+                'hover:text-accent text-xs active:!translate-none'
               )}
             >
               <MessageCircleMoreIcon size={16} className="mr-1" />

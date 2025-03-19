@@ -105,7 +105,7 @@ export default function StatusList() {
 
   return (
     <div className="relative h-[calc(100vh-8rem)]">
-      {false && isInited && filterParams.favUid && (
+      {isInited && filterParams.favUid && (
         <VirtualList {...listProps} ref={listRef} />
       )}
       <div className="absolute top-0 left-0">
