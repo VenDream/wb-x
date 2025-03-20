@@ -200,3 +200,13 @@ export function genUniqueId(n = 6) {
   }
   return id;
 }
+
+/**
+ * convert camel case to kebab case
+ *
+ * @export
+ * @param {string} str string
+ */
+export function camel2Kebab(str: string) {
+  return str.replace(/([A-Z])/g, '-$1').toLowerCase();
+}

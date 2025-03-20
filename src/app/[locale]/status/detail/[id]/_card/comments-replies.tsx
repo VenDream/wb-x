@@ -97,7 +97,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
               icon={
                 <ArrowUpDownIcon size={16} className="text-base-content/50" />
               }
-              options={[
+              items={[
                 {
                   label: t('orderByHot'),
                   value: 'hot',

@@ -12,9 +12,9 @@
 import { refreshDbInfo } from '@/app/actions';
 import AuthGuard from '@/components/common/auth-guard';
 import RouterRefresh from '@/components/common/router-refresh';
+import { Button } from '@/components/daisyui/index2';
 import { RefreshCcwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Button } from 'react-daisyui';
 
 export default function RefreshBtn() {
   const t = useTranslations('global.action');

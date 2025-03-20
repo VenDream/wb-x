@@ -1,2 +1,2 @@
+export type * from './ghost-tabs';
 export { default } from './ghost-tabs';
-export type { TabOption } from './ghost-tabs';

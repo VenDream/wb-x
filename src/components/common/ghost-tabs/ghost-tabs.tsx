@@ -1,3 +1,5 @@
+'use client';
+
 /*
  * Ghost Tabs
  *
@@ -7,56 +9,61 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Tab, Tabs, type TabsProps } from '@/components/daisyui';
+import { Tabs, type TabsProps } from '@/components/daisyui/index2';
 import { cn } from '@/utils/classnames';
+import { useControllableValue } from 'ahooks';
 
 import './ghost-tabs.css';
 
-export interface TabOption<T> {
+export interface TabItem {
   label: string;
-  value: T;
+  value: string | number;
 }
 
-interface IProps<T> extends Omit<TabsProps<T>, 'children'> {
-  options: TabOption<T>[];
+export interface GhostTabsProps extends Omit<TabsProps, 'onChange'> {
+  name: string;
+  items: TabItem[];
   icon?: React.ReactNode;
-  tabClassName?: string;
+
+  value?: string | number;
+  onChange?: (value: string | number) => void;
+
+  className?: string;
+  itemClassName?: string;
 }
 
-export default function GhostTabs<T>(props: IProps<T>) {
+const { Tab } = Tabs;
+
+export default function GhostTabs(props: GhostTabsProps) {
   const {
+    name,
     icon,
-    options,
+    items,
     value,
     onChange,
     className,
-    tabClassName,
+    itemClassName,
     ...tabsProps
   } = props;
 
+  const [activeItem, setActiveItem] = useControllableValue(props, {
+    defaultValue: items[0].value,
+    valuePropName: 'value',
+    trigger: 'onChange',
+  });
+
   return (
-    <div className="flex items-center gap-2">
-      {icon}
-      <Tabs
-        size="sm"
-        value={value}
-        onChange={onChange}
-        className={cn('wbx-ghost-tabs space-x-2 divide-x', className)}
-        {...tabsProps}
-      >
-        {options.map((option, idx) => (
-          <Tab
-            key={idx}
-            value={option.value}
-            className={cn(
-              'border-base-content/10 h-auto p-0 text-sm leading-3',
-              tabClassName
-            )}
-          >
-            {option.label}
-          </Tab>
-        ))}
-      </Tabs>
-    </div>
+    <Tabs className={cn('', className)} {...tabsProps}>
+      {items.map(item => (
+        <Tab
+          key={item.value.toString()}
+          name={name}
+          label={item.label}
+          className={itemClassName}
+          active={activeItem === item.value}
+          onClick={() => setActiveItem(item.value)}
+        />
+      ))}
+    </Tabs>
   );
 }

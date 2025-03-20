@@ -10,7 +10,7 @@
  */
 
 import ScrollArea from '@/components/common/scroll-area';
-import { Button } from '@/components/daisyui';
+import { Button } from '@/components/daisyui/index2';
 import { dialogMaskMotion, dialogMotion } from '@/constants/motions';
 import { cn } from '@/utils/classnames';
 import * as IDialog from '@radix-ui/react-dialog';
@@ -225,7 +225,7 @@ export default function Dialog(dialogProps: DialogProps) {
               ) : props.cancelBtn !== null ? (
                 <Button
                   size="sm"
-                  color="ghost"
+                  ghost
                   onClick={onCancel}
                   disabled={props.loading}
                   className={cn(props.classNames?.cancelBtn)}
@@ -253,8 +253,7 @@ export default function Dialog(dialogProps: DialogProps) {
           {props.closable !== false && (
             <Button
               size="sm"
-              color="ghost"
-              animation={false}
+              ghost
               onClick={onCancel}
               disabled={props.loading}
               className="absolute top-5 right-4 h-[2.1rem] w-[2.1rem] rounded-full p-0"

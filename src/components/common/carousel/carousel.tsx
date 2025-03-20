@@ -9,7 +9,7 @@
 
 import Image from '@/components/common/image';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
-import { Button } from '@/components/daisyui';
+import { Button } from '@/components/daisyui/index2';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import useEmblaCarousel, {
@@ -188,7 +188,7 @@ export default function Carousel(props: IProps) {
             <div className="flex items-center gap-2">
               <Button
                 size="sm"
-                variant="outline"
+                outline
                 disabled={!canPrev}
                 className={btnClass}
                 onClick={() => emblaApi?.scrollPrev()}
@@ -197,7 +197,7 @@ export default function Carousel(props: IProps) {
               </Button>
               <Button
                 size="sm"
-                variant="outline"
+                outline
                 disabled={!canNext}
                 className={btnClass}
                 onClick={() => emblaApi?.scrollNext()}

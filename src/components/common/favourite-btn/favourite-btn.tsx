@@ -12,8 +12,9 @@
 import { favouriteStatus, unfavouriteStatus } from '@/api/client';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
-import { Button } from '@/components/daisyui';
+import { Button } from '@/components/daisyui/index2';
 import { DEFAULT_FAV_UID } from '@/constants';
+import { favouriteBtnMotion } from '@/constants/motions';
 import useUser from '@/hooks/use-user';
 import { statusFavouritesAtom } from '@/store';
 import { cn } from '@/utils/classnames';
@@ -86,16 +87,15 @@ export default function FavouriteBtn(props: IProps) {
       message={isFavourite ? t1('unfavourite') : t1('favourite')}
     >
       <Button
-        variant="link"
-        animation={false}
+        link
         onClick={toggleStatusFavourites}
         className={cn(
           'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
-          'hover:text-accent text-xs'
+          'hover:text-accent text-xs active:!translate-none'
         )}
       >
         {isFavourite ? (
-          <MotionContainer>
+          <MotionContainer motion={favouriteBtnMotion}>
             <HeartIcon size={16} className="mr-1 fill-red-500 stroke-none" />
           </MotionContainer>
         ) : (

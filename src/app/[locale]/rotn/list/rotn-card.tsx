@@ -47,7 +47,7 @@ export default function RotnCard(props: IProps) {
       )}
     >
       <p className="flex items-center justify-between">
-        <span className="text-sm">
+        <span className="text-sm select-none">
           {type} - {id}
         </span>
         <Tooltip message={t('sourceURLTips')} className="text-xs">

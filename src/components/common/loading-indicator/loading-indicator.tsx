@@ -9,7 +9,7 @@
 
 import Loading from '@/components/common/loading';
 import { NoData, NoMoreData } from '@/components/common/no-data';
-import { Button } from '@/components/daisyui';
+import { Button } from '@/components/daisyui/index2';
 import useScrollLoading from '@/hooks/use-scroll-loading';
 import { cn } from '@/utils/classnames';
 import { useThrottleFn } from 'ahooks';

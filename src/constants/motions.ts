@@ -7,11 +7,12 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import { camel2Kebab } from '@/utils/common';
 import type { AnimationProps, TargetAndTransition } from 'framer-motion';
 
 export const DEFAULT_DURATION = 0.2;
 export const DEFAULT_EASE = 'easeOut';
-export const DEFAULT_EASE_CSS = 'ease-out';
+export const DEFAULT_EASE_CSS = camel2Kebab(DEFAULT_EASE);
 export const DEFAULT_SPRING = {
   type: 'spring',
   mass: 0.2,
@@ -44,6 +45,21 @@ export const fadeInFromBottom: AnimationProps = {
 export const moveUp: TargetAndTransition = {
   y: -5,
   transition: { duration: 0.1, ease: DEFAULT_EASE },
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               Favourite Btns                               */
+/* -------------------------------------------------------------------------- */
+
+export const favouriteBtnMotion: AnimationProps = {
+  initial: { opacity: 0, scale: 0.5 },
+  animate: { opacity: 1, scale: 1 },
+  transition: {
+    type: 'spring',
+    duration: DEFAULT_DURATION,
+    mass: 0.4,
+    damping: 5,
+  },
 };
 
 /* -------------------------------------------------------------------------- */

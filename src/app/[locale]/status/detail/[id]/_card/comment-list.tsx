@@ -135,7 +135,7 @@ export default function CommentList(props: CommentListProps) {
           value={orderBy}
           onChange={switchOrderBy}
           icon={<ArrowUpDownIcon size={16} className="text-base-content/50" />}
-          options={[
+          items={[
             {
               label: t('orderByHot'),
               value: 'hot',
