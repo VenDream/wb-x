@@ -10,7 +10,7 @@
  */
 
 import ScrollArea from '@/components/common/scroll-area';
-import { Button } from '@/components/daisyui/index2';
+import { Button } from '@/components/daisyui';
 import { dialogMaskMotion, dialogMotion } from '@/constants/motions';
 import { cn } from '@/utils/classnames';
 import * as IDialog from '@radix-ui/react-dialog';
@@ -161,7 +161,7 @@ export default function Dialog(dialogProps: DialogProps) {
           onClick={onMaskClick}
           motion={dialogMaskMotion}
           className={cn(
-            'bg-base-100/80 fixed inset-0 z-50 backdrop-blur-sm',
+            'bg-base-100/50 fixed inset-0 z-50 backdrop-blur-lg',
             props.classNames?.mask
           )}
         />

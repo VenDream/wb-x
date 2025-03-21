@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Dropdown } from '@/components/daisyui/index2';
+import { Button, Dropdown } from '@/components/daisyui';
 import { LS_KEYS, THEMES } from '@/constants';
 import { cn } from '@/utils/classnames';
 import { useLocalStorageState } from 'ahooks';
@@ -17,8 +17,6 @@ import { ChevronDownIcon, CircleCheckBigIcon, PaletteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { themeChange } from 'theme-change';
-
-import './theme-change.sass';
 
 export default function ThemeChange() {
   const t = useTranslations('global.theming');
@@ -52,7 +50,7 @@ export default function ThemeChange() {
       </Dropdown.Toggle>
       <Dropdown.Menu
         className={cn(
-          'z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto',
+          'no-scrollbar z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto',
           'bg-base-100/50 border-base-content/10 border backdrop-blur-lg'
         )}
       >

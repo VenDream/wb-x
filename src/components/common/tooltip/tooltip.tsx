@@ -42,7 +42,7 @@ export default function Tooltip(props: IProps) {
                 motion={dialogMotion}
                 className={cn(
                   'flex items-center justify-center px-4 py-2 text-sm shadow-xs',
-                  'border-base-content/10 bg-base-100/50 border backdrop-blur-sm',
+                  'border-base-content/10 bg-base-100/50 border backdrop-blur-lg',
                   'rounded-box',
                   className
                 )}

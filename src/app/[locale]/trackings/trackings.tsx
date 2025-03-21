@@ -14,7 +14,7 @@ import UserCard from '@/app/[locale]/user/list/[[...page]]/user-card';
 import Counter from '@/components/common/counter';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
-import { Button, Input, Stats } from '@/components/daisyui/index2';
+import { Button, Input, Stats } from '@/components/daisyui';
 import {
   AudioLinesIcon,
   CircleXIcon,

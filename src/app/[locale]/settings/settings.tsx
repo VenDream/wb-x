@@ -11,7 +11,7 @@
 
 import AuthGuard from '@/components/common/auth-guard';
 import MotionContainer from '@/components/common/motion-container';
-import { Tabs } from '@/components/daisyui/index2';
+import { Tabs } from '@/components/daisyui';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import CookiesSettings from './cookies';

@@ -9,7 +9,6 @@
 
 import type { useTranslations } from 'next-intl';
 import type { PropsWithChildren } from 'react';
-import type { DEFAULT_THEMES } from 'react-daisyui/dist/defaultThemes';
 
 declare global {
   /* ------------------------------------------------------------------------ */
@@ -33,7 +32,39 @@ declare global {
   /*                                 Daisy UI                                 */
   /* ------------------------------------------------------------------------ */
   namespace DaisyUI {
-    type Theme = (typeof DEFAULT_THEMES)[number];
+    type Theme =
+      | 'light'
+      | 'dark'
+      | 'cupcake'
+      | 'bumblebee'
+      | 'emerald'
+      | 'corporate'
+      | 'synthwave'
+      | 'retro'
+      | 'cyberpunk'
+      | 'valentine'
+      | 'halloween'
+      | 'garden'
+      | 'forest'
+      | 'aqua'
+      | 'lofi'
+      | 'pastel'
+      | 'fantasy'
+      | 'wireframe'
+      | 'black'
+      | 'luxury'
+      | 'dracula'
+      | 'cmyk'
+      | 'autumn'
+      | 'business'
+      | 'acid'
+      | 'lemonade'
+      | 'night'
+      | 'coffee'
+      | 'winter'
+      | 'dim'
+      | 'nord'
+      | 'sunset';
 
     type DarkTheme = readonly Extract<
       Theme,

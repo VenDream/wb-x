@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Dropdown } from '@/components/daisyui/index2';
+import { Button, Dropdown } from '@/components/daisyui';
 import { LANGS } from '@/constants';
 import { EN_FLAG, ZH_FLAG } from '@/constants/svgs';
 import { Link, usePathname } from '@/i18n/routing';

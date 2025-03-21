@@ -10,7 +10,7 @@
 import { useDialog } from '@/components/common/dialog';
 import FavouriteBtn from '@/components/common/favourite-btn';
 import Tooltip from '@/components/common/tooltip';
-import { Button } from '@/components/daisyui/index2';
+import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/weibo';

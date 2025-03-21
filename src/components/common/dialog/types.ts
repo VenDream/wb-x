@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import type { ButtonProps } from '@/components/daisyui/index2';
+import type { ButtonProps } from '@/components/daisyui';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 export interface DialogContext {

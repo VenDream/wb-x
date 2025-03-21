@@ -15,8 +15,6 @@ import useAdminRoute from '@/hooks/use-admin-route';
 import { cn } from '@/utils/classnames';
 import Leftsider from './leftsider';
 
-import './body.sass';
-
 export default function LayoutBody({ children }: ChildrenProps) {
   const isAdminRoute = useAdminRoute();
 

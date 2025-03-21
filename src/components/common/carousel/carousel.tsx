@@ -9,7 +9,7 @@
 
 import Image from '@/components/common/image';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
-import { Button } from '@/components/daisyui/index2';
+import { Button } from '@/components/daisyui';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import useEmblaCarousel, {

@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Toggle } from '@/components/daisyui/index2';
+import { Button, Toggle } from '@/components/daisyui';
 import { settingsAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { SaveIcon } from 'lucide-react';

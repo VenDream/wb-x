@@ -8,6 +8,7 @@
  */
 
 import { useDialog } from '@/components/common/dialog';
+import Image from '@/components/common/image';
 import ImageGrid from '@/components/common/image-grid';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
@@ -106,14 +107,19 @@ export default function CommentItem(props: CommentItemProps) {
     >
       {!isReply && (
         <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4 tracking-tight">
-          <Avatar
-            src={FAKE_IMG() || getImageVariants(user.avatar).sm}
-            border
-            size="xs"
-            shape="circle"
-            borderColor="primary"
-            className="row-start-1 row-end-3 flex items-center justify-center"
-          />
+          <Avatar className="row-start-1 row-end-3 flex items-center justify-center">
+            <div
+              className={cn(
+                'outline-primary relative h-10 w-10 rounded-full',
+                'outline-2 outline-offset-3'
+              )}
+            >
+              <Image
+                alt={user.name}
+                src={FAKE_IMG() || getImageVariants(user.avatar).sm}
+              />
+            </div>
+          </Avatar>
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
@@ -141,7 +147,11 @@ export default function CommentItem(props: CommentItemProps) {
         </div>
       )}
       <div className={commentBody({ type: variantType })}>
-        <div className="col-start-2 col-end-4 space-y-4">
+        <div
+          className={cn('col-start-2 col-end-4', {
+            'space-y-4': isDetailReplies,
+          })}
+        >
           <div
             className={cn(
               'comment-text text-left leading-5 tracking-tight break-all',
@@ -185,7 +195,7 @@ export default function CommentItem(props: CommentItemProps) {
           {!isDetailReplies && hasMoreReplies && (
             <span
               className={cn(
-                'relative !mt-6 inline-flex cursor-pointer items-center text-xs',
+                'relative mt-6 inline-flex cursor-pointer items-center text-xs',
                 'text-[#eb7340]'
               )}
               onClick={() => showCommentsReplies(props.comment)}

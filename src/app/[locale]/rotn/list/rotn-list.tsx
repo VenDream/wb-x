@@ -11,7 +11,7 @@
 
 import { getRotnList } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
-import { Button, Input, Tabs } from '@/components/daisyui/index2';
+import { Button, Input, Tabs } from '@/components/daisyui';
 import { PAGINATION_LIMIT } from '@/constants';
 import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -20,7 +20,7 @@ import Masonry from 'react-masonry-css';
 import { toast } from 'sonner';
 import RotnCard from './rotn-card';
 
-import './rotn-list.sass';
+import './rotn-list.css';
 
 const { Tab } = Tabs;
 const BREAKPOINT_COLS = {

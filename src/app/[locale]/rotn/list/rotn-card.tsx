@@ -10,7 +10,7 @@
 import Carousel from '@/components/common/carousel';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
-import { Button } from '@/components/daisyui/index2';
+import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { SquareArrowOutUpRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';

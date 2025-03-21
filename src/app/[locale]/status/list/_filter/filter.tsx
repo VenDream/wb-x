@@ -10,7 +10,7 @@
 import DatePicker from '@/components/common/datepicker';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
-import { Button, Input, Tabs, Toggle } from '@/components/daisyui/index2';
+import { Button, Input, Tabs, Toggle } from '@/components/daisyui';
 import { MAX_IMAGES_NUM, MIN_IMAGES_NUM } from '@/constants';
 import { cn } from '@/utils/classnames';
 import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';

@@ -9,7 +9,7 @@
 
 import { appendCookie } from '@/api/client';
 import { Dialog } from '@/components/common/dialog';
-import { Textarea } from '@/components/daisyui/index2';
+import { Textarea } from '@/components/daisyui';
 import { CookieIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type PropsWithChildren, useRef, useState } from 'react';

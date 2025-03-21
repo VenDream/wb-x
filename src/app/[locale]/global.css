@@ -21,6 +21,13 @@
   backdrop-filter: blur(16px);
 }
 
+@utility no-scrollbar {
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    @apply hidden;
+  }
+}
+
 html {
   &::-webkit-scrollbar,
   & *::-webkit-scrollbar {

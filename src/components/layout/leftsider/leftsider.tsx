@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Menu } from '@/components/daisyui/index2';
+import { Menu } from '@/components/daisyui';
 import {
   ADMIN_ROUTES,
   PRIMARY_ROUTES,

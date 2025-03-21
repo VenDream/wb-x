@@ -12,7 +12,7 @@
 import { trackUser, triggerFullScan, untrackUser } from '@/api/client';
 import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
-import { Button, type ButtonProps } from '@/components/daisyui/index2';
+import { Button, type ButtonProps } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/constants';
 import { userTrackingsAtom } from '@/store';
 import { cn } from '@/utils/classnames';

@@ -10,7 +10,7 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
-import { Button } from '@/components/daisyui/index2';
+import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { CircleXIcon, RotateCcwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';

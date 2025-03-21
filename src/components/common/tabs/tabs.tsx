@@ -1,7 +1,7 @@
 'use client';
 
 /*
- * Ghost Tabs
+ * Tabs
  *
  * @Author: VenDream
  * @Date: 2024-09-13 10:23:11
@@ -9,18 +9,19 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Tabs, type TabsProps } from '@/components/daisyui/index2';
+import {
+  Tabs as DaisyTabs,
+  type TabsProps as DaisyTabsProps,
+} from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { useControllableValue } from 'ahooks';
-
-import './ghost-tabs.css';
 
 export interface TabItem {
   label: string;
   value: string | number;
 }
 
-export interface GhostTabsProps extends Omit<TabsProps, 'onChange'> {
+export interface TabsProps extends Omit<DaisyTabsProps, 'onChange'> {
   name: string;
   items: TabItem[];
   icon?: React.ReactNode;
@@ -32,9 +33,9 @@ export interface GhostTabsProps extends Omit<TabsProps, 'onChange'> {
   itemClassName?: string;
 }
 
-const { Tab } = Tabs;
+const { Tab } = DaisyTabs;
 
-export default function GhostTabs(props: GhostTabsProps) {
+export default function Tabs(props: TabsProps) {
   const {
     name,
     icon,
@@ -53,7 +54,7 @@ export default function GhostTabs(props: GhostTabsProps) {
   });
 
   return (
-    <Tabs className={cn('', className)} {...tabsProps}>
+    <DaisyTabs className={cn('', className)} {...tabsProps}>
       {items.map(item => (
         <Tab
           key={item.value.toString()}
@@ -64,6 +65,6 @@ export default function GhostTabs(props: GhostTabsProps) {
           onClick={() => setActiveItem(item.value)}
         />
       ))}
-    </Tabs>
+    </DaisyTabs>
   );
 }

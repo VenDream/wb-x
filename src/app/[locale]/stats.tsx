@@ -9,7 +9,7 @@
 
 import { getDatabaseInfo } from '@/api/server';
 import Counter from '@/components/common/counter';
-import { Stats as IStats } from '@/components/daisyui/index2';
+import { Stats as IStats } from '@/components/daisyui';
 import {
   BoxIcon,
   MessageSquareTextIcon,

@@ -12,7 +12,7 @@
 import { favouriteStatus, unfavouriteStatus } from '@/api/client';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
-import { Button } from '@/components/daisyui/index2';
+import { Button } from '@/components/daisyui';
 import { DEFAULT_FAV_UID } from '@/constants';
 import { favouriteBtnMotion } from '@/constants/motions';
 import useUser from '@/hooks/use-user';

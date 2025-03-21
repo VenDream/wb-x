@@ -7,11 +7,7 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-import {
-  Dropdown,
-  type DropdownProps,
-  Input,
-} from '@/components/daisyui/index2';
+import { Dropdown, type DropdownProps, Input } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { useControllableValue } from 'ahooks';
 import { useRef } from 'react';

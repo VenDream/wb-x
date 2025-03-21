@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Button, Dropdown } from '@/components/daisyui/index2';
+import { Button, Dropdown } from '@/components/daisyui';
 import {
   PRIMARY_ROUTES,
   SECONDARY_ROUTES,
@@ -77,7 +77,7 @@ export default function CardMenu() {
       <Dropdown.Menu
         className={cn(
           'border-base-content/10 z-20 mt-2 w-[190px] rounded-sm border',
-          'bg-base-100/50 backdrop-blur-sm will-change-transform'
+          'bg-base-100/50 backdrop-blur-lg will-change-transform'
         )}
       >
         {!!menu.copyId && (

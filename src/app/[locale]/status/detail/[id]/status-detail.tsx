@@ -25,6 +25,7 @@ interface IProps {
 }
 
 const TRY_FETCHING_FROM_UPSTREAM = false;
+const DEBUG = true;
 
 export default function StatusDetail(props: IProps) {
   const t = useTranslations('pages.status');

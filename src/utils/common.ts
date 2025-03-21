@@ -120,7 +120,8 @@ export function getScrollableAncestor(element: HTMLElement) {
   const isScrollable = (element: HTMLElement) => {
     return (
       'radixScrollAreaViewport' in element.dataset ||
-      element.scrollHeight > element.clientHeight
+      (element.scrollHeight > element.clientHeight &&
+        window.getComputedStyle(element).overflowY !== 'visible')
     );
   };
 

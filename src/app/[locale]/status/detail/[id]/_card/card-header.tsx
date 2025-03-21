@@ -11,7 +11,7 @@ import AuthGuard from '@/components/common/auth-guard';
 import Image from '@/components/common/image';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
-import { Avatar } from '@/components/daisyui/index2';
+import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';

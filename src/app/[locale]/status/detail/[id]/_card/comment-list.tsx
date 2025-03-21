@@ -10,8 +10,8 @@
  */
 
 import { getStatusComments } from '@/api/client';
-import GhostTabs from '@/components/common/ghost-tabs';
 import LoadingIndicator from '@/components/common/loading-indicator';
+import Tabs from '@/components/common/tabs';
 import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
@@ -75,9 +75,9 @@ export default function CommentList(props: CommentListProps) {
     }
   }, [orderBy, props.id]);
 
-  const switchOrderBy = (orderBy: Backend.CommentsOrderBy) => {
+  const switchOrderBy = (orderBy: string | number) => {
     maxIdRef.current = '';
-    setOrderBy(orderBy);
+    setOrderBy(orderBy as Backend.CommentsOrderBy);
   };
 
   useEffect(() => {
@@ -118,7 +118,7 @@ export default function CommentList(props: CommentListProps) {
         className={cn(
           'border-base-content/10 flex items-center justify-between border',
           'rounded-box sticky top-0 left-0 rounded-b-none p-4',
-          'bg-base-200/30 z-10 w-full backdrop-blur-sm',
+          'bg-base-200/30 z-10 w-full backdrop-blur-lg',
           {
             'rounded-t-none': isSticky,
           }
@@ -130,7 +130,8 @@ export default function CommentList(props: CommentListProps) {
             {t('label')} ({total})
           </p>
         )}
-        <GhostTabs
+        <Tabs
+          name="comments-order"
           size="sm"
           value={orderBy}
           onChange={switchOrderBy}

@@ -17,7 +17,7 @@ import { useDialog } from '@/components/common/dialog';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
-import { Button, Textarea } from '@/components/daisyui/index2';
+import { Button, Textarea } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import { PlusIcon, RadarIcon, SaveIcon, Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';

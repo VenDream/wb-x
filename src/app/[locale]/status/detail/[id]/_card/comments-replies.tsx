@@ -8,8 +8,8 @@
  */
 
 import { getStatusCommentsReplies } from '@/api/client';
-import GhostTabs from '@/components/common/ghost-tabs';
 import LoadingIndicator from '@/components/common/loading-indicator';
+import Tabs from '@/components/common/tabs';
 import { usePrevious } from 'ahooks';
 import { ArrowUpDownIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -66,9 +66,9 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
     }
   }, [comment.id, orderBy]);
 
-  const switchOrderBy = (orderBy: Backend.CommentsRepliesOrderBy) => {
+  const switchOrderBy = (orderBy: string | number) => {
     maxIdRef.current = '';
-    setOrderBy(orderBy);
+    setOrderBy(orderBy as Backend.CommentsRepliesOrderBy);
   };
 
   useEffect(() => {
@@ -90,8 +90,9 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         sorter={
           <>
             <div className="bg-base-content/10 h-[1px]" />
-            <GhostTabs
-              size="sm"
+            <Tabs
+              name="comments-replies-order"
+              size="xs"
               value={orderBy}
               onChange={switchOrderBy}
               icon={
