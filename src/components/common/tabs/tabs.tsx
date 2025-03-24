@@ -19,12 +19,12 @@ import { useControllableValue } from 'ahooks';
 export interface TabItem {
   label: string;
   value: string | number;
+  icon?: React.ReactNode;
 }
 
 export interface TabsProps extends Omit<DaisyTabsProps, 'onChange'> {
   name: string;
   items: TabItem[];
-  icon?: React.ReactNode;
 
   value?: string | number;
   onChange?: (value: string | number) => void;
@@ -38,7 +38,6 @@ const { Tab } = DaisyTabs;
 export default function Tabs(props: TabsProps) {
   const {
     name,
-    icon,
     items,
     value,
     onChange,
@@ -54,15 +53,23 @@ export default function Tabs(props: TabsProps) {
   });
 
   return (
-    <DaisyTabs className={cn('', className)} {...tabsProps}>
+    <DaisyTabs
+      className={cn('rounded-box bg-base-200 space-x-2 p-2', className)}
+      {...tabsProps}
+    >
       {items.map(item => (
         <Tab
           key={item.value.toString()}
           name={name}
+          icon={item.icon}
           label={item.label}
           className={itemClassName}
           active={activeItem === item.value}
-          onClick={() => setActiveItem(item.value)}
+          onClick={evt => {
+            evt.preventDefault();
+            evt.stopPropagation();
+            setActiveItem(item.value);
+          }}
         />
       ))}
     </DaisyTabs>

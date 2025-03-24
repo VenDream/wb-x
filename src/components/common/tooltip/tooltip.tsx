@@ -43,13 +43,13 @@ export default function Tooltip(props: IProps) {
                 className={cn(
                   'flex items-center justify-center px-4 py-2 text-sm shadow-xs',
                   'border-base-content/10 bg-base-100/50 border backdrop-blur-lg',
-                  'rounded-box',
+                  'rounded-box mb-2',
                   className
                 )}
               >
                 {message}
               </MotionContainer>
-              <ITooltip.Arrow className="stroke-base-content/10 fill-none" />
+              {/* <ITooltip.Arrow className="stroke-base-content/10 fill-none" /> */}
             </ITooltip.Content>
           </ITooltip.Portal>
         )}

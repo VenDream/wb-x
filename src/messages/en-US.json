@@ -84,10 +84,10 @@
     "status": {
       "comments": {
         "label": "Comments",
-        "orderByAsc": "Older First",
-        "orderByDesc": "Newer First",
-        "orderByHot": "Hot",
-        "orderByTime": "Timeline (Newer First)",
+        "orderByAsc": "Earlier First",
+        "orderByDesc": "Recent First",
+        "orderByHot": "Most Popular",
+        "orderByTime": "Timeline (Recent First)",
         "replyTo": "replied to",
         "op": "OP",
         "replies": "Comment replies",

@@ -10,9 +10,9 @@
  */
 
 import { Button, Dropdown } from '@/components/daisyui';
-import { LS_KEYS, THEMES } from '@/constants';
+import { THEMES } from '@/constants';
+import useTheme from '@/hooks/use-theme';
 import { cn } from '@/utils/classnames';
-import { useLocalStorageState } from 'ahooks';
 import { ChevronDownIcon, CircleCheckBigIcon, PaletteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -21,9 +21,7 @@ import { themeChange } from 'theme-change';
 export default function ThemeChange() {
   const t = useTranslations('global.theming');
   const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useLocalStorageState<DaisyUI.Theme>(LS_KEYS.THEME, {
-    defaultValue: 'light',
-  });
+  const [theme, setTheme] = useTheme();
 
   useEffect(() => {
     setMounted(true);

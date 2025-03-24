@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import type { DARK_THEMES, THEMES } from '@/constants';
 import type { useTranslations } from 'next-intl';
 import type { PropsWithChildren } from 'react';
 
@@ -32,56 +33,8 @@ declare global {
   /*                                 Daisy UI                                 */
   /* ------------------------------------------------------------------------ */
   namespace DaisyUI {
-    type Theme =
-      | 'light'
-      | 'dark'
-      | 'cupcake'
-      | 'bumblebee'
-      | 'emerald'
-      | 'corporate'
-      | 'synthwave'
-      | 'retro'
-      | 'cyberpunk'
-      | 'valentine'
-      | 'halloween'
-      | 'garden'
-      | 'forest'
-      | 'aqua'
-      | 'lofi'
-      | 'pastel'
-      | 'fantasy'
-      | 'wireframe'
-      | 'black'
-      | 'luxury'
-      | 'dracula'
-      | 'cmyk'
-      | 'autumn'
-      | 'business'
-      | 'acid'
-      | 'lemonade'
-      | 'night'
-      | 'coffee'
-      | 'winter'
-      | 'dim'
-      | 'nord'
-      | 'sunset';
-
-    type DarkTheme = readonly Extract<
-      Theme,
-      | 'dark'
-      | 'synthwave'
-      | 'halloween'
-      | 'forest'
-      | 'aqua'
-      | 'black'
-      | 'luxury'
-      | 'dracula'
-      | 'business'
-      | 'night'
-      | 'coffee'
-      | 'dim'
-      | 'sunset'
-    >;
+    type Theme = (typeof THEMES)[number];
+    type DarkTheme = (typeof DARK_THEMES)[number];
 
     interface Style {
       outline?: boolean;

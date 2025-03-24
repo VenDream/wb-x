@@ -18,8 +18,9 @@ export interface TabsProps
   size?: DaisyUI.Size;
 }
 
-export interface TabProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TabProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   name?: string;
+  icon?: React.ReactNode;
   label?: string;
   active?: boolean;
   disabled?: boolean;
@@ -55,32 +56,34 @@ function Tabs(props: TabsProps) {
 }
 
 function Tab(props: TabProps) {
-  const { name, label, active, disabled, children, className, ...inputProps } =
-    props;
+  const {
+    name,
+    icon,
+    label,
+    active,
+    disabled,
+    children,
+    className,
+    ...labelProps
+  } = props;
 
   const daisyUIClasses = cn(
+    'tab flex items-center before:hidden after:hidden px-2 gap-1',
     {
-      tab: true,
       'tab-active': active,
       'tab-disabled': disabled,
-      'px-2': true,
-      'before:hidden': true,
       'bg-primary': active,
-      'hover:after:text-primary': !active,
-      'after:text-primary-content': active,
-      'after:text-base-content/50': !active,
+      'text-primary-content': active,
     },
     className
   );
 
   return (
-    <input
-      type="radio"
-      name={name}
-      aria-label={label}
-      className={daisyUIClasses}
-      {...inputProps}
-    />
+    <label className={daisyUIClasses} {...labelProps}>
+      <input type="radio" name={name} className="hidden" />
+      {icon}
+      {label}
+    </label>
   );
 }
 

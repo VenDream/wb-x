@@ -11,15 +11,14 @@
 
 import AuthGuard from '@/components/common/auth-guard';
 import MotionContainer from '@/components/common/motion-container';
-import { Tabs } from '@/components/daisyui';
+import Tabs from '@/components/common/tabs';
+import { CookieIcon, SlidersHorizontalIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import CookiesSettings from './cookies';
 import LocalSettings from './local';
 
-type SettingsType = 'local' | 'server' | 'cookies';
-
-const { Tab, Content } = Tabs;
+type SettingsType = 'local' | 'cookies';
 
 export default function Settings() {
   const t = useTranslations('pages.settings.tabs');
@@ -30,21 +29,24 @@ export default function Settings() {
 
   return (
     <div className="w-[800px] pr-4">
-      <Tabs size="sm" className="bg-base-200 rounded-box space-x-2 p-2">
-        <Tab
-          name="settings"
-          label={t('local')}
-          active={isLocalActive}
-          onClick={() => setActiveTab('local')}
-        />
-        <Tab
-          name="settings"
-          label={t('cookies')}
-          active={isCookiesActive}
-          onClick={() => setActiveTab('cookies')}
-        />
-      </Tabs>
-
+      <Tabs
+        size="sm"
+        name="settings"
+        items={[
+          {
+            label: t('local'),
+            value: 'local' as SettingsType,
+            icon: <SlidersHorizontalIcon size={16} />,
+          },
+          {
+            label: t('cookies'),
+            value: 'cookies' as SettingsType,
+            icon: <CookieIcon size={16} />,
+          },
+        ]}
+        value={activeTab}
+        onChange={value => setActiveTab(value as SettingsType)}
+      />
       <div className="bg-base-200 rounded-box mt-4">
         {isLocalActive && (
           <MotionContainer className="p-4">

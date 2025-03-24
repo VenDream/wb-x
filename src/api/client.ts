@@ -36,6 +36,7 @@ type ROTNListParams = PaginationParams & {
 
 export async function getStatusList(params: StatusListParams) {
   let url = '/api/db/weibo/status/list';
+  if (params.startDate) params.startDate += ' 00:00:00';
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
   const statuses = await get<Backend.DBList<Backend.Status>>(url);

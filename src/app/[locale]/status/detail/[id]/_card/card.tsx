@@ -19,7 +19,7 @@ import CardCtx, { DEFAULT_MENU } from './context';
 import type { CardContext, CardProps } from './types';
 import { card } from './variants';
 
-import './card.sass';
+import './card.css';
 
 export default function Card(props: CardProps) {
   const { status, isRetweet, sourceStatusId, menu, renderCustomMenus } = props;

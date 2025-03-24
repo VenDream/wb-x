@@ -1,0 +1,23 @@
+@reference "../../../../global.css";
+
+.status-card {
+  & .status-text {
+    & a {
+      @apply text-[#eb7340] underline underline-offset-4;
+    }
+
+    & .url-icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 0.125rem;
+      width: 1em;
+      height: 1em;
+      line-height: 1em;
+      @apply text-lg;
+    }
+
+    & .show-full-text {
+      @apply cursor-pointer text-[#eb7340] select-none;
+    }
+  }
+}

@@ -65,10 +65,6 @@ input[type='number'].appearance-none {
   @apply font-normal;
 }
 
-/* .lucide {
-  @apply stroke-[1.5];
-} */
-
 .tabs .tab-active {
   @apply pointer-events-none;
 }

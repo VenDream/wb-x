@@ -11,6 +11,7 @@
 
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
+import useIsDarkTheme from '@/hooks/use-is-dark-theme';
 import { cn } from '@/utils/classnames';
 import { useControllableValue } from 'ahooks';
 import { FileCodeIcon } from 'lucide-react';
@@ -19,7 +20,7 @@ import Editor from 'react-simple-code-editor';
 import type { HighlighterCore } from 'shiki';
 import { createHighlighter } from 'shiki';
 
-import './code-editor.sass';
+import './code-editor.css';
 
 interface CodeEditorProps {
   /** title */
@@ -34,6 +35,7 @@ interface CodeEditorProps {
 
 export default function CodeEditor(props: CodeEditorProps) {
   const { title, lang } = props;
+
   const [code, setCode] = useControllableValue(props, {
     defaultValue: props.code,
     valuePropName: 'code',
@@ -41,47 +43,55 @@ export default function CodeEditor(props: CodeEditorProps) {
   });
   const [highlighter, setHighlighter] = useState<HighlighterCore>();
 
+  const isDark = useIsDarkTheme();
+
+  console.log('isDark', isDark);
+
   useEffect(() => {
     (async function setup() {
       const highlighter = await createHighlighter({
         langs: [lang],
-        themes: ['min-light'],
+        themes: ['min-light', 'min-dark'],
       });
       setHighlighter(highlighter);
     })();
   }, [lang]);
 
   return highlighter ? (
-    <MotionContainer className="bg-base-100 flex min-h-[50vh] w-full flex-col justify-start">
+    <MotionContainer
+      className={cn(
+        'flex w-full flex-col justify-start',
+        'border-primary rounded-sm border'
+      )}
+    >
       {title && (
         <p
           className={cn(
-            'rounded-box flex items-center',
-            'bg-base-200 rounded-b-none p-2 text-sm',
-            'border-base-content/10 border-b'
+            'flex items-center rounded-sm',
+            'bg-primary rounded-b-none p-2 text-xs',
+            'border-primary text-primary-content border-b'
           )}
         >
           <FileCodeIcon size={16} className="mr-2" />
           {title}
         </p>
       )}
-      <Editor
-        value={code}
-        onValueChange={code => setCode(code)}
-        highlight={code =>
-          highlighter.codeToHtml(code, { lang, theme: 'min-light' })
-        }
-        className={cn(
-          'code-editor__container rounded-box flex-1',
-          'rounded-t-none'
-        )}
-        preClassName="code-editor__pre"
-        textareaClassName="code-editor__textarea"
-        padding={10}
-        style={{
-          fontSize: 13,
-        }}
-      />
+      <div className="code-editor flex-1">
+        <Editor
+          value={code}
+          onValueChange={code => setCode(code)}
+          highlight={code =>
+            highlighter.codeToHtml(code, {
+              lang,
+              theme: isDark ? 'min-dark' : 'min-light',
+            })
+          }
+          className={cn('code-editor__container rounded-sm', 'rounded-t-none')}
+          padding={10}
+          textareaClassName="code-editor__textarea"
+          style={{ fontSize: 13 }}
+        />
+      </div>
     </MotionContainer>
   ) : (
     <div className="p-4">

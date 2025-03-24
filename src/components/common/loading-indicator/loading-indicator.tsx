@@ -30,7 +30,7 @@ interface LoadingIndicatorProps {
   };
 }
 
-const THROTTLE_INTERVAL = 300;
+const THROTTLE_INTERVAL = 1000 / 60;
 
 export default function LoadingIndicator(props: LoadingIndicatorProps) {
   const t = useTranslations('global.dataFetching');

@@ -11,18 +11,20 @@
 
 import { getRotnList } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
-import { Button, Input, Tabs } from '@/components/daisyui';
+import Tabs from '@/components/common/tabs';
+import { Button, Input } from '@/components/daisyui';
 import { PAGINATION_LIMIT } from '@/constants';
+import useDetectSticky from '@/hooks/use-detect-sticky';
 import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import { toast } from 'sonner';
 import RotnCard from './rotn-card';
 
+import { cn } from '@/utils/classnames';
 import './rotn-list.css';
 
-const { Tab } = Tabs;
 const BREAKPOINT_COLS = {
   default: 5,
   1600: 4,
@@ -42,9 +44,8 @@ export default function RotnList() {
   const [items, setItems] = useState<Backend.ROTNItem[]>([]);
   const [itemType, setItemType] = useState<Backend.ROTN_TYPE>('');
 
-  const isAll = itemType === '';
-  const isRO = itemType === 'RO';
-  const isTN = itemType === 'TN';
+  const listHeaderRef = useRef<HTMLDivElement>(null);
+  const isSticky = useDetectSticky(listHeaderRef);
 
   const fetchItems = useCallback(async () => {
     if (!refresh) return;
@@ -77,8 +78,8 @@ export default function RotnList() {
     setPageNo(pageNo => pageNo + 1);
   }, [isLoadAll, isLoading, isLoadFailed]);
 
-  const switchItemType = (type: Backend.ROTN_TYPE) => {
-    setItemType(type);
+  const switchItemType = (type: string | number) => {
+    setItemType(type as Backend.ROTN_TYPE);
     setPageNo(0);
     setItems([]);
   };
@@ -119,30 +120,33 @@ export default function RotnList() {
 
   return (
     <div className="flex h-full flex-col gap-4 pr-8">
-      <div className="sticky top-0 z-10">
-        <Tabs size="sm" className="bg-base-200 rounded-box space-x-2 p-2">
-          <Tab
-            name="rotn_type"
-            label={t('type.all')}
-            active={isAll}
-            className="w-20"
-            onClick={() => switchItemType('')}
-          />
-          <Tab
-            name="rotn_type"
-            label={t('type.ro')}
-            active={isRO}
-            className="w-20"
-            onClick={() => switchItemType('RO')}
-          />
-          <Tab
-            name="rotn_type"
-            label={t('type.tn')}
-            active={isTN}
-            className="w-20"
-            onClick={() => switchItemType('TN')}
-          />
-        </Tabs>
+      <div
+        ref={listHeaderRef}
+        className={cn('sticky top-0 z-10', {
+          'rounded-t-none': isSticky,
+        })}
+      >
+        <Tabs
+          size="sm"
+          name="rotn_type"
+          itemClassName="w-20"
+          value={itemType}
+          onChange={switchItemType}
+          items={[
+            {
+              label: t('type.all'),
+              value: '',
+            },
+            {
+              label: t('type.ro'),
+              value: 'RO',
+            },
+            {
+              label: t('type.tn'),
+              value: 'TN',
+            },
+          ]}
+        />
         <div className="absolute top-0 right-2 flex h-full items-center gap-4">
           <Input
             size="sm"

@@ -9,8 +9,9 @@
 
 import DatePicker from '@/components/common/datepicker';
 import MotionContainer from '@/components/common/motion-container';
+import Tabs from '@/components/common/tabs';
 import Tooltip from '@/components/common/tooltip';
-import { Button, Input, Tabs, Toggle } from '@/components/daisyui';
+import { Button, Input, Toggle } from '@/components/daisyui';
 import { MAX_IMAGES_NUM, MIN_IMAGES_NUM } from '@/constants';
 import { cn } from '@/utils/classnames';
 import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';
@@ -27,8 +28,6 @@ interface FilterProps {
   updateFilterParams: (patch: Partial<Backend.StatusListFilterParams>) => void;
 }
 
-const { Tab } = Tabs;
-
 export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
   const t2 = useTranslations('pages.status.filter');
@@ -36,6 +35,10 @@ export default function Filter(props: FilterProps) {
 
   const [filter, setFilter] =
     useState<Backend.StatusListFilterParams>(filterParams);
+
+  const updateFilter = (patch: Partial<Backend.StatusListFilterParams>) => {
+    setFilter(f => ({ ...f, ...patch }));
+  };
 
   const applyFilter = (f?: Backend.StatusListFilterParams) => {
     updateFilterParams(f || filter);
@@ -62,45 +65,45 @@ export default function Filter(props: FilterProps) {
           <p className="w-20 text-xs">{t2('dataSource')}</p>
           <Tabs
             size="xs"
-            className="bg-base-300 flex-1 flex-nowrap rounded-sm p-1"
-          >
-            <Tab
-              name="isTracking"
-              label={t2('trackings')}
-              className="basis-1/2 !rounded-sm"
-              active={filter.isTracking}
-              onClick={() => applyFilter({ isTracking: true })}
-            />
-            <Tab
-              name="isTracking"
-              label={t2('all')}
-              className="basis-1/2 !rounded-sm"
-              active={!filter.isTracking}
-              onClick={() => applyFilter({ isTracking: undefined })}
-            />
-          </Tabs>
+            name="isTracking"
+            className="bg-base-300 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
+            itemClassName="basis-1/2 !rounded-sm"
+            value={filter.isTracking ? 1 : 0}
+            onChange={value =>
+              applyFilter({ isTracking: value === 1 ? true : undefined })
+            }
+            items={[
+              {
+                label: t2('trackings'),
+                value: 1,
+              },
+              {
+                label: t2('all'),
+                value: 0,
+              },
+            ]}
+          />
         </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('order')}</p>
           <Tabs
             size="xs"
-            className="bg-base-300 flex-1 flex-nowrap rounded-sm p-1"
-          >
-            <Tab
-              name="order"
-              label={t2('desc')}
-              className="basis-1/2 !rounded-sm"
-              active={filter.order === 'desc'}
-              onClick={() => applyFilter({ order: 'desc' })}
-            />
-            <Tab
-              name="order"
-              label={t2('asc')}
-              className="basis-1/2 !rounded-sm"
-              active={filter.order === 'asc'}
-              onClick={() => applyFilter({ order: 'asc' })}
-            />
-          </Tabs>
+            name="order"
+            className="bg-base-300 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
+            itemClassName="basis-1/2 !rounded-sm"
+            value={filter.order}
+            onChange={value => applyFilter({ order: value as 'asc' | 'desc' })}
+            items={[
+              {
+                label: t2('desc'),
+                value: 'desc',
+              },
+              {
+                label: t2('asc'),
+                value: 'asc',
+              },
+            ]}
+          />
         </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('id')}</p>
@@ -110,7 +113,7 @@ export default function Filter(props: FilterProps) {
             placeholder={t2('id')}
             className="h-[2rem] w-40 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
-            onChange={e => setFilter(f => ({ ...f, id: e.target.value }))}
+            onChange={e => updateFilter({ id: e.target.value })}
           />
         </div>
         <div className="flex items-center gap-1">
@@ -121,7 +124,7 @@ export default function Filter(props: FilterProps) {
             placeholder={t2('uid')}
             className="h-[2rem] w-40 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
-            onChange={e => setFilter(f => ({ ...f, uid: e.target.value }))}
+            onChange={e => updateFilter({ uid: e.target.value })}
           />
         </div>
         <div className="flex items-center gap-1">
@@ -132,7 +135,7 @@ export default function Filter(props: FilterProps) {
             placeholder={t2('keyword')}
             className="h-[2rem] w-40 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
-            onChange={e => setFilter(f => ({ ...f, keyword: e.target.value }))}
+            onChange={e => updateFilter({ keyword: e.target.value })}
           />
         </div>
         <div className="flex items-center gap-1">
@@ -142,7 +145,7 @@ export default function Filter(props: FilterProps) {
             date={filter.startDate}
             className="h-[2rem] w-40 flex-1"
             inputClassName="text-xs rounded-sm"
-            onChange={date => setFilter(f => ({ ...f, startDate: date }))}
+            onChange={date => updateFilter({ startDate: date })}
           />
         </div>
         <div className="flex items-center gap-1">
@@ -152,7 +155,7 @@ export default function Filter(props: FilterProps) {
             date={filter.endDate}
             className="h-[2rem] w-40 flex-1"
             inputClassName="text-xs rounded-sm"
-            onChange={date => setFilter(f => ({ ...f, endDate: date }))}
+            onChange={date => updateFilter({ endDate: date })}
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -167,12 +170,12 @@ export default function Filter(props: FilterProps) {
             onChange={e => {
               const val = e.target.value;
               if (val === '') {
-                setFilter(f => ({ ...f, leastImagesCount: 0 }));
+                updateFilter({ leastImagesCount: 0 });
               } else {
                 let count = +val;
                 count = Math.max(count, MIN_IMAGES_NUM);
                 count = Math.min(count, MAX_IMAGES_NUM);
-                setFilter(f => ({ ...f, leastImagesCount: count }));
+                updateFilter({ leastImagesCount: count });
               }
             }}
           />
@@ -185,10 +188,9 @@ export default function Filter(props: FilterProps) {
             color="primary"
             checked={!!filter.isFavourite}
             onChange={e =>
-              setFilter(f => ({
-                ...f,
+              updateFilter({
                 isFavourite: e.target.checked ? true : undefined,
-              }))
+              })
             }
           />
         </div>
@@ -202,12 +204,7 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.isOriginal}
-            onChange={e =>
-              setFilter(f => ({
-                ...f,
-                isOriginal: e.target.checked ? true : undefined,
-              }))
-            }
+            onChange={e => updateFilter({ isOriginal: e.target.checked })}
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -217,12 +214,7 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.hasVideo}
-            onChange={e =>
-              setFilter(f => ({
-                ...f,
-                hasVideo: e.target.checked ? true : undefined,
-              }))
-            }
+            onChange={e => updateFilter({ hasVideo: e.target.checked })}
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -232,12 +224,7 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.hasImages}
-            onChange={e =>
-              setFilter(f => ({
-                ...f,
-                hasImages: e.target.checked ? true : undefined,
-              }))
-            }
+            onChange={e => updateFilter({ hasImages: e.target.checked })}
           />
         </div>
       </div>

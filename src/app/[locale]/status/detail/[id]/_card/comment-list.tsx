@@ -15,7 +15,12 @@ import Tabs from '@/components/common/tabs';
 import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
-import { ArrowUpDownIcon, MessageSquareQuoteIcon } from 'lucide-react';
+import {
+  ArrowDownUpIcon,
+  ArrowUpDownIcon,
+  FlameIcon,
+  MessageSquareQuoteIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import {
   useCallback,
@@ -131,23 +136,26 @@ export default function CommentList(props: CommentListProps) {
           </p>
         )}
         <Tabs
+          size="xs"
           name="comments-order"
-          size="sm"
+          className="space-x-0 bg-transparent p-0"
           value={orderBy}
           onChange={switchOrderBy}
-          icon={<ArrowUpDownIcon size={16} className="text-base-content/50" />}
           items={[
             {
               label: t('orderByHot'),
               value: 'hot',
+              icon: <FlameIcon size={16} />,
             },
             {
               label: t('orderByDesc'),
               value: 'desc',
+              icon: <ArrowDownUpIcon size={16} />,
             },
             {
               label: t('orderByAsc'),
               value: 'asc',
+              icon: <ArrowUpDownIcon size={16} />,
             },
           ]}
         />
@@ -166,7 +174,7 @@ export default function CommentList(props: CommentListProps) {
           isLoadAll={isLoadAll}
           isNoData={commentList.length === 0}
           loadMore={fetchCommentList}
-          scrollLoading={{ enabled: !isLoadFailed, threshold: 500 }}
+          scrollLoading={{ enabled: !isLoadFailed, threshold: 200 }}
         />
       </div>
     </div>

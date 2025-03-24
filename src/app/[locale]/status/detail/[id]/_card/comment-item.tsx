@@ -35,7 +35,7 @@ import {
   commnetLikes,
 } from './variants';
 
-import './comment-item.sass';
+import './comment-item.css';
 
 export default function CommentItem(props: CommentItemProps) {
   const t = useTranslations('pages.status.comments');
@@ -184,7 +184,7 @@ export default function CommentItem(props: CommentItemProps) {
             <div
               className={cn(
                 'comments-replies bg-base-200/30 flex flex-col gap-1 p-2',
-                'border-base-content/10 rounded-sm border'
+                'border-base-content/10 mt-4 rounded-sm border'
               )}
             >
               {comments.map(cm => (
