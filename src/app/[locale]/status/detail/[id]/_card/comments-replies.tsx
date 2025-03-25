@@ -110,6 +110,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         }
       />
       <LoadingIndicator
+        size="xs"
         isLoading={isLoading}
         isLoadAll={isLoadAll}
         isNoData={comment.comments.length === 0}

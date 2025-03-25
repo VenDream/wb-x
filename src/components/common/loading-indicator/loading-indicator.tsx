@@ -21,7 +21,9 @@ interface LoadingIndicatorProps {
   isLoadAll: boolean;
   isNoData: boolean;
   loadMore: () => void;
+
   className?: string;
+  size?: DaisyUI.Size;
 
   scrollLoading?: {
     enabled?: boolean;
@@ -34,7 +36,14 @@ const THROTTLE_INTERVAL = 1000 / 60;
 
 export default function LoadingIndicator(props: LoadingIndicatorProps) {
   const t = useTranslations('global.dataFetching');
-  const { isLoading, isLoadAll, isNoData, loadMore, className } = props;
+  const {
+    isLoading,
+    isLoadAll,
+    isNoData,
+    loadMore,
+    className,
+    size = 'sm',
+  } = props;
   const { enabled, threshold, options } = props.scrollLoading || {};
 
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -58,19 +67,38 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
     observerOptions: options,
   });
 
+  const textClass = cn({
+    'text-xs': size === 'xs',
+    'text-sm': size === 'sm',
+    'text-base': size === 'md',
+    'text-lg': size === 'lg',
+    'text-xl': size === 'xl',
+  });
+
+  const rootClass = cn(
+    'flex items-center justify-center',
+    {
+      'h-[2rem]': size === 'xs',
+      'h-[2.5rem]': size === 'sm',
+      'h-[3rem]': size === 'md',
+      'h-[3.5rem]': size === 'lg',
+      'h-[4rem]': size === 'xl',
+    },
+    className
+  );
+
+  const iconSize = ['lg', 'xl'].includes(size || '') ? 24 : 16;
+
   return (
-    <div
-      ref={triggerRef}
-      className={cn(className, 'flex h-[4rem] items-center justify-center')}
-    >
+    <div ref={triggerRef} className={rootClass}>
       {isLoading ? (
-        <Loading align="center" />
+        <Loading align="center" textClass={textClass} size={iconSize} />
       ) : isLoadAll ? (
-        <NoMoreData />
+        <NoMoreData className={textClass} />
       ) : isNoData ? (
-        <NoData />
+        <NoData className={textClass} />
       ) : !enabled ? (
-        <Button size="sm" onClick={loadMore}>
+        <Button size={size} onClick={loadMore}>
           {t('loadMore')}
         </Button>
       ) : null}

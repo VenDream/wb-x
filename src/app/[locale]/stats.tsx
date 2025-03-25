@@ -46,38 +46,40 @@ export default async function Stats() {
   const { size = '0MB', tables } = dbInfo || {};
   const { wb_users = 0, wb_statuses = 0, rotn_items = 0 } = tables || {};
   const fileSizeNum = +size.split('MB')[0] || 0;
-  const iconClass = 'relative top-1 text-accent';
 
   const statUnits: StatUnitProps[] = [
     {
       title: t('totalDbSize'),
       value: fileSizeNum,
       desc: 'MB',
-      icon: <BoxIcon size={24} className={iconClass} />,
+      icon: <BoxIcon size={24} className="text-accent" />,
     },
     {
       title: t('totalUsers'),
       value: wb_users,
       desc: t('records'),
-      icon: <UsersIcon size={24} className={iconClass} />,
+      icon: <UsersIcon size={24} className="text-accent" />,
     },
     {
       title: t('totalStatuses'),
       value: wb_statuses,
       desc: t('records'),
-      icon: <MessageSquareTextIcon className={iconClass} />,
+      icon: <MessageSquareTextIcon className="text-accent" />,
     },
     {
       title: t('totalRotns'),
       value: rotn_items,
       desc: t('records'),
-      icon: <ShirtIcon className={iconClass} />,
+      icon: <ShirtIcon className="text-accent" />,
     },
   ];
 
   return (
     <div>
-      <IStats className="border-base-content/20 border" direction="vertical">
+      <IStats
+        direction="vertical"
+        className="border-base-content/10 bg-base-200 border"
+      >
         {statUnits.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}

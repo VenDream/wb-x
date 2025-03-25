@@ -40,7 +40,7 @@
     "immer": "^10.1.1",
     "jotai": "^2.12.2",
     "lucide-react": "^0.483.0",
-    "next": "15.2.3",
+    "next": "15.2.4",
     "next-intl": "4.0.2",
     "postcss": "8.5.3",
     "react": "19.0.0",
@@ -61,7 +61,7 @@
     "yet-another-react-lightbox": "^3.21.8"
   },
   "devDependencies": {
-    "@types/node": "22.13.12",
+    "@types/node": "22.13.13",
     "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
     "@types/react-window": "^1.8.8",
@@ -70,7 +70,7 @@
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "8.57.0",
-    "eslint-config-next": "15.2.3",
+    "eslint-config-next": "15.2.4",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.4",
     "husky": "^9.1.7",
