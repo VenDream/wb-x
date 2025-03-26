@@ -58,7 +58,7 @@
       "page": "Page"
     },
     "datepicker": {
-      "select": "Select Date",
+      "select": "Select a date",
       "yesterday": "Yesterday",
       "firstDayOfLastYear": "First day of last year",
       "lastDayOfLastYear": "Last day of last year",

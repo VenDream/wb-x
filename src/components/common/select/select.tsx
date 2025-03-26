@@ -53,7 +53,7 @@ export default function Select(props: SelectProps) {
   const selectedOption = options?.find(option => option.value === selected);
 
   return (
-    <Dropdown align={align} className={cn('wbx-select', className)}>
+    <Dropdown align={align} className={className}>
       <Dropdown.Toggle ref={toggleRef}>
         <Input
           readOnly

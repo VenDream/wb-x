@@ -174,6 +174,7 @@ export default function Dialog(dialogProps: DialogProps) {
         )}
         onEscapeKeyDown={onEscapeKeyDown}
         onOpenAutoFocus={evt => evt.preventDefault()}
+        onCloseAutoFocus={evt => evt.preventDefault()}
         onInteractOutside={evt => evt.preventDefault()}
         onPointerDownOutside={evt => evt.preventDefault()}
         aria-describedby={undefined}

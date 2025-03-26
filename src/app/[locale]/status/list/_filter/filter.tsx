@@ -141,20 +141,16 @@ export default function Filter(props: FilterProps) {
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('startDate')}</p>
           <DatePicker
-            name="startDate"
             date={filter.startDate}
-            className="h-[2rem] w-40 flex-1"
-            inputClassName="text-xs rounded-sm"
+            inputClassName="text-xs rounded-sm h-[2rem] w-40 flex-1"
             onChange={date => updateFilter({ startDate: date })}
           />
         </div>
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('endDate')}</p>
           <DatePicker
-            name="endDate"
             date={filter.endDate}
-            className="h-[2rem] w-40 flex-1"
-            inputClassName="text-xs rounded-sm"
+            inputClassName="text-xs rounded-sm h-[2rem] w-40 flex-1"
             onChange={date => updateFilter({ endDate: date })}
           />
         </div>

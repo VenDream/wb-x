@@ -139,8 +139,7 @@ export default function CommentItem(props: CommentItemProps) {
                 )}
               >
                 {createtime}
-                &nbsp;•&nbsp;
-                {region}
+                {region && ` • ${region}`}
               </span>
             </Tooltip>
           </span>
@@ -149,7 +148,7 @@ export default function CommentItem(props: CommentItemProps) {
       <div className={commentBody({ type: variantType })}>
         <div
           className={cn('col-start-2 col-end-4', {
-            'space-y-4': isDetailReplies,
+            'space-y-4': true,
           })}
         >
           <div
@@ -171,8 +170,7 @@ export default function CommentItem(props: CommentItemProps) {
                       class="text-xs text-base-content/50"
                     >
                       ${createtime}
-                      &nbsp;•&nbsp;
-                      ${region}
+                      ${region && ` • ${region}`}
                     </span>
                     `
                   : ''),
@@ -195,7 +193,7 @@ export default function CommentItem(props: CommentItemProps) {
           {!isDetailReplies && hasMoreReplies && (
             <span
               className={cn(
-                'relative mt-6 inline-flex cursor-pointer items-center text-xs',
+                'relative mt-2 inline-flex cursor-pointer items-center text-xs',
                 'text-[#eb7340]'
               )}
               onClick={() => showCommentsReplies(props.comment)}

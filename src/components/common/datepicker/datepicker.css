@@ -5,10 +5,14 @@
 }
 
 .react-day-picker {
-  @apply bg-base-100/50 border-base-content/10 w-[400px] p-6 font-sans backdrop-blur-lg;
+  @apply w-full border-none bg-transparent p-2 font-sans;
 
   & .rdp-month_caption {
     @apply mb-4 flex w-full items-center justify-between;
+
+    & .rdp-dropdowns {
+      @apply flex-row-reverse;
+    }
   }
 
   & .rdp-months,
@@ -21,7 +25,7 @@
   }
 
   & .rdp-weekday {
-    @apply text-xs;
+    @apply text-xs font-bold;
   }
 
   & .rdp-day {
