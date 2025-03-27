@@ -10,6 +10,8 @@
  */
 
 import { Dialog } from '@/components/common/dialog';
+import Select from '@/components/common/select';
+import { Button, Collapse } from '@/components/daisyui';
 import { LANGS } from '@/constants';
 import { cn } from '@/utils/classnames';
 import { useControllableValue } from 'ahooks';
@@ -19,7 +21,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { type CustomComponents, DayPicker } from 'react-day-picker';
 import { enUS, zhCN } from 'react-day-picker/locale';
-import Select from '../select';
 
 import 'react-day-picker/style.css';
 import './datepicker.css';
@@ -33,6 +34,16 @@ export interface DatePickerProps {
   className?: string;
   inputClassName?: string;
 }
+
+const TODAY = dayjs();
+const THIS_YEAR = TODAY.year();
+const LAST_YEAR = THIS_YEAR - 1;
+
+const YESTERDAY = TODAY.subtract(1, 'day');
+const FIRST_DAY_OF_YEAR = dayjs(`${THIS_YEAR}-01-01`);
+const LAST_DAY_OF_YEAR = dayjs(`${THIS_YEAR}-12-31`);
+const FIRST_DAY_OF_LAST_YEAR = dayjs(`${LAST_YEAR}-01-01`);
+const LAST_DAY_OF_LAST_YEAR = dayjs(`${LAST_YEAR}-12-31`);
 
 export default function DatePicker(props: DatePickerProps) {
   const t = useTranslations('global.datepicker');
@@ -69,7 +80,7 @@ export default function DatePicker(props: DatePickerProps) {
         options={isMonth ? selectOptions : selectOptions.reverse()}
         value={value?.toString()}
         onChange={onSelected}
-        inputClassName="bg-base-100/50 rounded-sm font-normal backdrop-blur-lg"
+        inputClassName="font-normal bg-transparent"
         menuClassName={cn(
           'h-[200px] w-[203px] rounded-sm font-normal border',
           'bg-base-100/50 border-base-content/10 backdrop-blur-lg'
@@ -77,6 +88,11 @@ export default function DatePicker(props: DatePickerProps) {
       />
     );
   }, []);
+
+  const quickSelect = (date: dayjs.Dayjs) => {
+    setDate(date.format('YYYY-MM-DD'));
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen} footer={null}>
@@ -125,6 +141,64 @@ export default function DatePicker(props: DatePickerProps) {
           }}
         />
       </Dialog.Content>
+      <Dialog.Footer className="p-2">
+        <Collapse
+          arrow
+          inputClassName="!h-8 !min-h-8"
+          className={cn('border-base-content/10 border-1 p-2', 'rounded-field')}
+        >
+          <Collapse.Title
+            className={cn(
+              'flex h-8 min-h-8 items-center text-sm',
+              'after:!top-[calc(50%_+_4px)] after:!translate-y-[-50%]'
+            )}
+          >
+            {t('quickSelect')}
+          </Collapse.Title>
+          <Collapse.Content
+            className={cn('grid grid-cols-2 gap-2 peer-checked:pt-2')}
+          >
+            <Button
+              size="sm"
+              color="accent"
+              onClick={() => quickSelect(YESTERDAY)}
+            >
+              {t('yesterday')}
+            </Button>
+            <Button size="sm" color="accent" onClick={() => quickSelect(TODAY)}>
+              {t('today')}
+            </Button>
+            <Button
+              size="sm"
+              color="accent"
+              onClick={() => quickSelect(FIRST_DAY_OF_YEAR)}
+            >
+              {t('firstDayOfYear')}
+            </Button>
+            <Button
+              size="sm"
+              color="accent"
+              onClick={() => quickSelect(LAST_DAY_OF_YEAR)}
+            >
+              {t('lastDayOfYear')}
+            </Button>
+            <Button
+              size="sm"
+              color="accent"
+              onClick={() => quickSelect(FIRST_DAY_OF_LAST_YEAR)}
+            >
+              {t('firstDayOfLastYear')}
+            </Button>
+            <Button
+              size="sm"
+              color="accent"
+              onClick={() => quickSelect(LAST_DAY_OF_LAST_YEAR)}
+            >
+              {t('lastDayOfLastYear')}
+            </Button>
+          </Collapse.Content>
+        </Collapse>
+      </Dialog.Footer>
     </Dialog>
   );
 }

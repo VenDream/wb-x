@@ -1,9 +1,5 @@
 @reference "../../../app/[locale]/global.css";
 
-.rdp-popover {
-  @apply duration-100;
-}
-
 .react-day-picker {
   @apply w-full border-none bg-transparent p-2 font-sans;
 
@@ -38,7 +34,7 @@
     @apply pointer-events-none;
 
     & button {
-      @apply !bg-primary/50 text-primary-content;
+      @apply !bg-primary/50 text-base-content;
     }
   }
 

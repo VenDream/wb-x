@@ -59,10 +59,11 @@
     },
     "datepicker": {
       "select": "Select a date",
+      "quickSelect": "Quick select",
+      "today": "Today",
       "yesterday": "Yesterday",
       "firstDayOfLastYear": "First day of last year",
       "lastDayOfLastYear": "Last day of last year",
-      "today": "Today",
       "firstDayOfYear": "First day of this year",
       "lastDayOfYear": "Last day of this year"
     },

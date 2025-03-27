@@ -14,6 +14,7 @@
 export type * from './avatar';
 export type * from './badge';
 export type * from './button';
+export type * from './collapse';
 export type * from './drawer';
 export type * from './dropdown';
 export type * from './indicator';
@@ -32,6 +33,7 @@ export type * from './toggle';
 export { default as Avatar } from './avatar';
 export { default as Badge } from './badge';
 export { default as Button } from './button';
+export { default as Collapse } from './collapse';
 export { default as Drawer } from './drawer';
 export { default as Dropdown } from './dropdown';
 export { default as Indicator } from './indicator';

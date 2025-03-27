@@ -59,10 +59,11 @@
     },
     "datepicker": {
       "select": "选择日期",
+      "quickSelect": "快速选择",
+      "today": "今天",
       "yesterday": "昨天",
       "firstDayOfLastYear": "去年的第一天",
       "lastDayOfLastYear": "去年的最后一天",
-      "today": "今天",
       "firstDayOfYear": "今年的第一天",
       "lastDayOfYear": "今年的最后一天"
     },

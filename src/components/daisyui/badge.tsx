@@ -29,7 +29,7 @@ function Badge(props: BadgeProps) {
     color,
     className,
     children,
-    ...badgeProps
+    ...spanProps
   } = props;
 
   const daisyUIClasses = cn(
@@ -57,7 +57,7 @@ function Badge(props: BadgeProps) {
   );
 
   return (
-    <span className={daisyUIClasses} {...badgeProps}>
+    <span className={daisyUIClasses} {...spanProps}>
       {children}
     </span>
   );
