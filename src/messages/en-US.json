@@ -142,7 +142,7 @@
         "comments": "Comments",
         "likes": "Likes"
       },
-      "updateFrequency": "Data source is updated once per hour.",
+      "updateFrequency": "Data is updated hourly.",
       "notExists": "The post does not exist",
       "noData": "No matching posts found",
       "noDataTips": "Please check the filter options or try switching the data source"

@@ -28,6 +28,7 @@ import InfiniteLoader from 'react-window-infinite-loader';
 import { toast } from 'sonner';
 import { VirtualListContext } from './context';
 import ListRow from './list-row';
+import { LOAD_ALL_ITEM } from './placeholders';
 import type {
   VirtualListCtx,
   VirtualListHandle,
@@ -53,6 +54,7 @@ function VirtualListRenderFunc<T, R>(
     estimatedRowHeight = 50,
     concatList = Array.prototype.concat,
     renderRowItemContent,
+    renderNoMoreContent,
 
     noDataProps,
 
@@ -84,14 +86,15 @@ function VirtualListRenderFunc<T, R>(
       const fetchListData = getDataFetcher({ limit, offset, needTotal: true });
       const data = await fetchListData();
       const list = parseListData(data);
+      const isLoadAll = list.length < limit;
 
-      if (pageNo === 0) {
-        setDataList(list);
-      } else {
-        setDataList(prevList => concatList(prevList, list));
-      }
-      if (list.length < limit) setIsLoadAll(true);
+      setDataList(prevList => {
+        const newList = pageNo === 0 ? list : concatList(prevList, list);
+        isLoadAll && list.length > 0 && newList.push(LOAD_ALL_ITEM);
+        return newList;
+      });
 
+      if (isLoadAll) setIsLoadAll(true);
       if (getTotalParser && onTotalUpdate) {
         const parseListTotal = getTotalParser();
         const total = parseListTotal(data);
@@ -142,8 +145,16 @@ function VirtualListRenderFunc<T, R>(
       setRowHeight,
       getRowItemKey,
       renderRowItemContent,
+      renderNoMoreContent,
     }),
-    [dataList, getRowItemKey, gutter, renderRowItemContent, setRowHeight]
+    [
+      dataList,
+      getRowItemKey,
+      gutter,
+      renderNoMoreContent,
+      renderRowItemContent,
+      setRowHeight,
+    ]
   );
 
   const isNoData = pageNo === 0 && isLoadAll && dataList.length === 0;
