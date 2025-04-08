@@ -89,7 +89,7 @@ function VirtualListRenderFunc<T, R>(
       const isLoadAll = list.length < limit;
 
       setDataList(prevList => {
-        const newList = pageNo === 0 ? list : concatList(prevList, list);
+        const newList = isNewDataFetch ? list : concatList(prevList, list);
         isLoadAll && list.length > 0 && newList.push(LOAD_ALL_ITEM);
         return newList;
       });

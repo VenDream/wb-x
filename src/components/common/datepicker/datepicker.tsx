@@ -60,6 +60,35 @@ export default function DatePicker(props: DatePickerProps) {
     return date ? dayjs(date).toDate() : undefined;
   }, [date]);
 
+  const quickSelectDays = useMemo(() => {
+    return [
+      {
+        label: t('yesterday'),
+        value: YESTERDAY,
+      },
+      {
+        label: t('today'),
+        value: TODAY,
+      },
+      {
+        label: t('firstDayOfYear'),
+        value: FIRST_DAY_OF_YEAR,
+      },
+      {
+        label: t('lastDayOfYear'),
+        value: LAST_DAY_OF_YEAR,
+      },
+      {
+        label: t('firstDayOfLastYear'),
+        value: FIRST_DAY_OF_LAST_YEAR,
+      },
+      {
+        label: t('lastDayOfLastYear'),
+        value: LAST_DAY_OF_LAST_YEAR,
+      },
+    ];
+  }, [t]);
+
   const Dropdown = useCallback((props: DropdownProps) => {
     const { options = [], value, onChange } = props;
 
@@ -156,46 +185,17 @@ export default function DatePicker(props: DatePickerProps) {
             {t('quickSelect')}
           </Collapse.Title>
           <Collapse.Content
-            className={cn('grid grid-cols-2 gap-2 peer-checked:pt-2')}
+            className={cn('grid grid-cols-2 gap-2', 'peer-checked:pt-2')}
           >
-            <Button
-              size="sm"
-              color="accent"
-              onClick={() => quickSelect(YESTERDAY)}
-            >
-              {t('yesterday')}
-            </Button>
-            <Button size="sm" color="accent" onClick={() => quickSelect(TODAY)}>
-              {t('today')}
-            </Button>
-            <Button
-              size="sm"
-              color="accent"
-              onClick={() => quickSelect(FIRST_DAY_OF_YEAR)}
-            >
-              {t('firstDayOfYear')}
-            </Button>
-            <Button
-              size="sm"
-              color="accent"
-              onClick={() => quickSelect(LAST_DAY_OF_YEAR)}
-            >
-              {t('lastDayOfYear')}
-            </Button>
-            <Button
-              size="sm"
-              color="accent"
-              onClick={() => quickSelect(FIRST_DAY_OF_LAST_YEAR)}
-            >
-              {t('firstDayOfLastYear')}
-            </Button>
-            <Button
-              size="sm"
-              color="accent"
-              onClick={() => quickSelect(LAST_DAY_OF_LAST_YEAR)}
-            >
-              {t('lastDayOfLastYear')}
-            </Button>
+            {quickSelectDays.map(item => (
+              <Button
+                key={item.value.toString()}
+                size="sm"
+                onClick={() => quickSelect(item.value)}
+              >
+                {item.label}
+              </Button>
+            ))}
           </Collapse.Content>
         </Collapse>
       </Dialog.Footer>

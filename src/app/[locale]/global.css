@@ -69,6 +69,11 @@ input[type='number'].appearance-none {
   @apply pointer-events-none;
 }
 
+.input,
+.textarea {
+  @apply placeholder-base-content/50;
+}
+
 .yarl__container,
 .yarl__thumbnails_container {
   @apply !bg-black/80 !backdrop-blur-lg;
