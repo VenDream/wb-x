@@ -7,9 +7,9 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDbStatusVideo } from '@/api/client';
-import { Slide, useLightbox } from '@/components/common/lightbox';
-import { FAKE_POSTER, FAKE_VIDEO } from '@/contants/debug';
+import { getStatusVideo } from '@/api/client';
+import { type Slide, useLightbox } from '@/components/common/lightbox';
+import { FAKE_POSTER, FAKE_VIDEO } from '@/constants/debug';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
 import { PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -30,7 +30,7 @@ export default function CardVideo() {
 
   const posterClass = twMerge(
     'relative flex items-center justify-center',
-    'aspect-video rounded shadow-sm',
+    'aspect-video rounded-sm shadow-xs',
     'before:absolute before:top-0 before:left-0 before:bg-black/30',
     'before:content-[""], before:w-full before:h-full before:rounded'
   );
@@ -43,7 +43,7 @@ export default function CardVideo() {
   const fetchVideoSrc = async (callback: () => void) => {
     try {
       setIsLoading(true);
-      const src = await getDbStatusVideo(status.id);
+      const src = await getStatusVideo(status.id);
       const proxiedVideoUrl = getProxiedVideoUrl(src);
       const video: Slide = {
         type: 'video',
@@ -51,7 +51,7 @@ export default function CardVideo() {
         height: WIDTH / (16 / 9),
         poster: FAKE_POSTER || poster,
         title: (
-          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+          <p className="h-[2rem] text-sm leading-[2rem] font-normal">
             {title}.mp4
           </p>
         ),

@@ -10,10 +10,9 @@
 import { appendCookie } from '@/api/client';
 import { Dialog } from '@/components/common/dialog';
 import { Textarea } from '@/components/daisyui';
-import { cn } from '@/utils/classnames';
 import { CookieIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { PropsWithChildren, useRef, useState } from 'react';
+import { type PropsWithChildren, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 interface IProps extends PropsWithChildren {
@@ -61,7 +60,7 @@ export default function AddCookiesDialog(props: IProps) {
       {
         loading: operatingTips,
         success: operationOkTips,
-        error: (err: Error) => operationFailedTips + ': ' + err.message,
+        error: (err: Error) => `${operationFailedTips}: ${err.message}`,
       }
     );
   };
@@ -90,10 +89,9 @@ export default function AddCookiesDialog(props: IProps) {
         <Textarea
           ref={textareaRef}
           rows={4}
+          color={!isNewCookiesValid ? 'error' : undefined}
           readOnly={isAdding}
-          className={cn('no-scrollbar w-full resize-none break-all', {
-            'textarea-error': !isNewCookiesValid,
-          })}
+          className="w-full resize-none break-all"
           value={cookies}
           onChange={e => {
             setCookies(e.target.value);

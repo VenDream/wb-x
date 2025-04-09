@@ -8,14 +8,14 @@
  */
 
 import Image from '@/components/common/image';
-import { Slide, useLightbox } from '@/components/common/lightbox';
-import { FAKE_IMG } from '@/contants/debug';
+import { type Slide, useLightbox } from '@/components/common/lightbox';
+import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
+import { getFileName } from '@/utils/common';
 import { getImageVariants } from '@/utils/weibo';
 import { useMemo, useState } from 'react';
 
-import { getFileName } from '@/utils/common';
-import './image-grid.sass';
+import './image-grid.css';
 
 interface ImageGridProps {
   images: string[];
@@ -53,7 +53,7 @@ export default function ImageGrid(props: ImageGridProps) {
         type: 'image',
         src: FAKE_IMG(idx) || src,
         title: (
-          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+          <p className="h-[2rem] text-sm leading-[2rem] font-normal">
             {idx + 1} / {images.length} - {filename}
           </p>
         ),
@@ -62,9 +62,9 @@ export default function ImageGrid(props: ImageGridProps) {
     });
   }, [images, isSinaImg]);
 
-  const MAX_DISPLAY_IMAGES = Math.pow(cols, 2);
+  const MAX_DISPLAY_IMAGES = cols ** 2;
   const REMAIN_IMAGES_NUM = images.length - MAX_DISPLAY_IMAGES;
-  const DISPLAY_IMAGES_NUM = !!showHasMoreIndicator
+  const DISPLAY_IMAGES_NUM = showHasMoreIndicator
     ? MAX_DISPLAY_IMAGES
     : images.length;
   const GRID_COLS_CLASS =
@@ -105,8 +105,8 @@ export default function ImageGrid(props: ImageGridProps) {
             key={idx}
             {...dataProps}
             className={cn(
-              'aspect-square h-full w-full border border-base-content/10',
-              'relative cursor-zoom-in rounded shadow-sm',
+              'border-base-content/10 aspect-square h-full w-full border',
+              'relative cursor-zoom-in rounded-sm shadow-xs',
               {
                 'has-more': hasMore,
               }
@@ -116,7 +116,7 @@ export default function ImageGrid(props: ImageGridProps) {
             <Image
               alt="IMG"
               src={FAKE_IMG(idx) || thumbnail}
-              className="aspect-square !h-full !w-full rounded object-cover"
+              className="aspect-square !h-full !w-full rounded-sm object-cover"
             />
           </div>
         );

@@ -8,7 +8,7 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
-import { fadeIn } from '@/contants/motions';
+import { fadeIn } from '@/constants/motions';
 import { cn } from '@/utils/classnames';
 import EVENT_EMITTER, { RESIZE_ROW_ITEM } from '@/utils/eventemitter';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';

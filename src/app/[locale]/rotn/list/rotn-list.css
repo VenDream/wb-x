@@ -1,0 +1,16 @@
+.rotn-masonry-list {
+  --rotn-masonry-gap: 20px;
+
+  display: flex;
+  width: auto;
+  margin-left: calc(-1 * var(--rotn-masonry-gap));
+
+  .rotn-masonry-list-column {
+    padding-left: var(--rotn-masonry-gap);
+    background-clip: padding-box;
+
+    & > div {
+      margin-bottom: var(--rotn-masonry-gap);
+    }
+  }
+}

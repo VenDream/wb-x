@@ -9,7 +9,6 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { useTheme } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
 import {
   CircleAlertIcon,
@@ -27,14 +26,12 @@ interface IProps extends ToasterProps {
 
 export default function Toaster(props: IProps) {
   const { font, ...toasterProps } = props;
-  const { theme } = useTheme();
 
   return (
     <Sonner
       offset="5%"
       visibleToasts={3}
       position="top-center"
-      theme={theme as ToasterProps['theme']}
       className="flex flex-col items-center"
       icons={{
         info: <InfoIcon size={20} className="text-info" />,
@@ -45,9 +42,9 @@ export default function Toaster(props: IProps) {
       toastOptions={{
         unstyled: true,
         className: cn(
-          'flex items-center justify-center gap-2 shadow-sm text-sm py-2 px-6',
-          'min-w-[300px] max-w-[60vw] rounded-[--rounded-box] text-base-content',
-          'bg-base-100/80 backdrop-blur border border-base-content/20'
+          'flex items-center justify-center gap-2 shadow-xs text-sm py-2 px-6',
+          'min-w-[300px] max-w-[60vw] rounded-box text-base-content',
+          'bg-base-100/80 backdrop-blur-lg border border-base-content/20'
         ),
         classNames: {
           content: cn(font, 'break-all'),

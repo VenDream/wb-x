@@ -1,82 +1,204 @@
+'use client';
+
 /*
  * DatePicker
  *
  * @Author: VenDream
- * @Date: 2024-9-6
+ * @Date: 2025-3-18
  *
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { LANGS } from '@/contants';
+import { Dialog } from '@/components/common/dialog';
+import Select from '@/components/common/select';
+import { Button, Collapse } from '@/components/daisyui';
+import { LANGS } from '@/constants';
 import { cn } from '@/utils/classnames';
-import dayjs from '@/utils/dayjs';
-import ReactDatePicker, {
-  DatepickerType,
-} from '@tarabao/react-tailwindcss-datepicker';
+import { useControllableValue } from 'ahooks';
+import dayjs from 'dayjs';
+import { CalendarIcon, XIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useCallback, useMemo, useState } from 'react';
+import { type CustomComponents, DayPicker } from 'react-day-picker';
+import { enUS, zhCN } from 'react-day-picker/locale';
 
-import './datepicker.sass';
+import 'react-day-picker/style.css';
+import './datepicker.css';
 
-const FIRST_DAY = '01-01';
-const LAST_DAY = '12-31';
-const THIS_YEAR = dayjs().year();
-const LAST_YEAR = dayjs().subtract(1, 'year').year();
+type DropdownProps = Parameters<CustomComponents['Dropdown']>[0];
 
-export default function DatePicker(props: DatepickerType) {
+export interface DatePickerProps {
+  date?: string;
+  onChange?: (date: string) => void;
+
+  className?: string;
+  inputClassName?: string;
+}
+
+const TODAY = dayjs();
+const THIS_YEAR = TODAY.year();
+const LAST_YEAR = THIS_YEAR - 1;
+
+const YESTERDAY = TODAY.subtract(1, 'day');
+const FIRST_DAY_OF_YEAR = dayjs(`${THIS_YEAR}-01-01`);
+const LAST_DAY_OF_YEAR = dayjs(`${THIS_YEAR}-12-31`);
+const FIRST_DAY_OF_LAST_YEAR = dayjs(`${LAST_YEAR}-01-01`);
+const LAST_DAY_OF_LAST_YEAR = dayjs(`${LAST_YEAR}-12-31`);
+
+export default function DatePicker(props: DatePickerProps) {
   const t = useTranslations('global.datepicker');
   const locale = useLocale();
 
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useControllableValue<string>(props, {
+    defaultValue: undefined,
+    valuePropName: 'date',
+    trigger: 'onChange',
+  });
+
+  const pickedDate = useMemo(() => {
+    return date ? dayjs(date).toDate() : undefined;
+  }, [date]);
+
+  const quickSelectDays = useMemo(() => {
+    return [
+      {
+        label: t('yesterday'),
+        value: YESTERDAY,
+      },
+      {
+        label: t('today'),
+        value: TODAY,
+      },
+      {
+        label: t('firstDayOfYear'),
+        value: FIRST_DAY_OF_YEAR,
+      },
+      {
+        label: t('lastDayOfYear'),
+        value: LAST_DAY_OF_YEAR,
+      },
+      {
+        label: t('firstDayOfLastYear'),
+        value: FIRST_DAY_OF_LAST_YEAR,
+      },
+      {
+        label: t('lastDayOfLastYear'),
+        value: LAST_DAY_OF_LAST_YEAR,
+      },
+    ];
+  }, [t]);
+
+  const Dropdown = useCallback((props: DropdownProps) => {
+    const { options = [], value, onChange } = props;
+
+    const isMonth = options.length === 12;
+    const selectOptions = options.map(option => ({
+      label: option.label,
+      value: option.value.toString(),
+    }));
+
+    const onSelected = (value: string) => {
+      const evt: Record<string, any> = {};
+      evt.target = { value: +value };
+      onChange?.(evt as any);
+    };
+
+    return (
+      <Select
+        options={isMonth ? selectOptions : selectOptions.reverse()}
+        value={value?.toString()}
+        onChange={onSelected}
+        inputClassName="font-normal bg-transparent"
+        menuClassName={cn(
+          'h-[200px] w-[203px] rounded-sm font-normal border',
+          'bg-base-100/50 border-base-content/10 backdrop-blur-lg'
+        )}
+      />
+    );
+  }, []);
+
+  const quickSelect = (date: dayjs.Dayjs) => {
+    setDate(date.format('YYYY-MM-DD'));
+    setOpen(false);
+  };
+
   return (
-    <ReactDatePicker
-      readOnly
-      showShortcuts
-      placeholder={t('select')}
-      i18n={locale === LANGS.en ? 'en' : 'zh'}
-      configs={{
-        shortcuts: {
-          yesterday: t('yesterday'),
-          today: t('today'),
-          firstDayOfLastYear: {
-            text: t('firstDayOfLastYear'),
-            period: {
-              start: new Date(`${LAST_YEAR}-${FIRST_DAY}`),
-              end: new Date(`${LAST_YEAR}-${FIRST_DAY}`),
+    <Dialog open={open} onOpenChange={setOpen} footer={null}>
+      <Dialog.Trigger asChild>
+        <button
+          type="button"
+          className={cn(
+            'input flex items-center justify-between',
+            {
+              'text-base-content/50': !date,
             },
-          },
-          lastDayOfLastYear: {
-            text: t('lastDayOfLastYear'),
-            period: {
-              start: new Date(`${LAST_YEAR}-${LAST_DAY}`),
-              end: new Date(`${LAST_YEAR}-${LAST_DAY}`),
-            },
-          },
-          firstDayOfYear: {
-            text: t('firstDayOfYear'),
-            period: {
-              start: new Date(`${THIS_YEAR}-${FIRST_DAY}`),
-              end: new Date(`${THIS_YEAR}-${FIRST_DAY}`),
-            },
-          },
-          lastDayOfYear: {
-            text: t('lastDayOfYear'),
-            period: {
-              start: new Date(`${THIS_YEAR}-${LAST_DAY}`),
-              end: new Date(`${THIS_YEAR}-${LAST_DAY}`),
-            },
-          },
-        },
-      }}
-      {...props}
-      containerClassName={cn(
-        'wbx-datepicker relative',
-        props.containerClassName
-      )}
-      inputClassName={cn(
-        'w-full h-full rounded input input-bordered focus:outline-offset-0',
-        props.inputClassName
-      )}
-    />
+            props.inputClassName
+          )}
+        >
+          {date || t('select')}
+          {date && (
+            <XIcon
+              size={16}
+              className="cursor-pointer"
+              onClick={e => {
+                setDate('');
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            />
+          )}
+        </button>
+      </Dialog.Trigger>
+      <Dialog.Title>
+        <CalendarIcon size={18} className="mr-2 !stroke-2" />
+        {t('select')}
+      </Dialog.Title>
+      <Dialog.Content>
+        <DayPicker
+          mode="single"
+          hideNavigation
+          defaultMonth={pickedDate}
+          captionLayout="dropdown"
+          components={{ Dropdown }}
+          className={cn('react-day-picker', props.className)}
+          locale={locale === LANGS.zh ? zhCN : enUS}
+          selected={pickedDate}
+          onSelect={date => {
+            setDate(dayjs(date).format('YYYY-MM-DD'));
+            setOpen(false);
+          }}
+        />
+      </Dialog.Content>
+      <Dialog.Footer className="p-2">
+        <Collapse
+          arrow
+          inputClassName="!h-8 !min-h-8"
+          className={cn('border-base-content/10 border-1 p-2', 'rounded-field')}
+        >
+          <Collapse.Title
+            className={cn(
+              'flex h-8 min-h-8 items-center text-sm',
+              'after:!top-[calc(50%_+_4px)] after:!translate-y-[-50%]'
+            )}
+          >
+            {t('quickSelect')}
+          </Collapse.Title>
+          <Collapse.Content
+            className={cn('grid grid-cols-2 gap-2', 'peer-checked:pt-2')}
+          >
+            {quickSelectDays.map(item => (
+              <Button
+                key={item.value.toString()}
+                size="sm"
+                onClick={() => quickSelect(item.value)}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Collapse.Content>
+        </Collapse>
+      </Dialog.Footer>
+    </Dialog>
   );
 }
-
-export type * from 'react-tailwindcss-datepicker';

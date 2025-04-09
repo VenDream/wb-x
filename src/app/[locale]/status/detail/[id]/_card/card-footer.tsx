@@ -8,6 +8,7 @@
  */
 
 import { useDialog } from '@/components/common/dialog';
+import FavouriteBtn from '@/components/common/favourite-btn';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
@@ -28,9 +29,15 @@ import { cardFooter } from './variants';
 export default function CardFooter() {
   const t = useTranslations('pages.status');
   const { status, isRetweet } = useContext(CardCtx);
-  const { id, source, createdAt, repostsCount, commentsCount, attitudesCount } =
-    status!;
-
+  const {
+    id,
+    source,
+    region,
+    createdAt,
+    repostsCount,
+    commentsCount,
+    attitudesCount,
+  } = status as Backend.Status;
   const [ct, setCt] = useState('');
   const [rc, setRc] = useState('0');
   const [cc, setCc] = useState('0');
@@ -67,32 +74,38 @@ export default function CardFooter() {
         )}
       >
         <div className="flex gap-4">
-          <span className="flex items-center">
-            <Repeat2Icon size={16} className="mr-1" />
-            {rc}
-          </span>
-          <Button
-            variant="link"
-            animation={false}
-            onClick={showComments}
-            className={cn(
-              'm-0 h-auto min-h-0 gap-0 p-0 text-base-content/60 no-underline',
-              'text-xs hover:text-accent'
-            )}
-          >
-            <MessageCircleMoreIcon size={16} className="mr-1" />
-            {cc}
-          </Button>
-          <span className="flex items-center">
-            <ThumbsUpIcon size={16} className="relative top-[-1px] mr-1" />
-            {ac}
-          </span>
+          <FavouriteBtn status={status as Backend.Status} />
+          <Tooltip message={t('footer.reposts')} className="text-xs">
+            <span className="flex items-center">
+              <Repeat2Icon size={16} className="mr-1" />
+              {rc}
+            </span>
+          </Tooltip>
+          <Tooltip message={t('footer.comments')} className="text-xs">
+            <Button
+              link
+              onClick={showComments}
+              className={cn(
+                'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
+                'hover:text-accent text-xs active:!translate-none'
+              )}
+            >
+              <MessageCircleMoreIcon size={16} className="mr-1" />
+              {cc}
+            </Button>
+          </Tooltip>
+          <Tooltip message={t('footer.likes')} className="text-xs">
+            <span className="flex items-center">
+              <ThumbsUpIcon size={16} className="relative top-[-1px] mr-1" />
+              {ac}
+            </span>
+          </Tooltip>
         </div>
         {isRetweet && (
           <Tooltip message={createdAt} className="text-xs">
             <div
               className={cn(
-                'flex cursor-text items-center tracking-tight text-base-content/50'
+                'text-base-content/50 flex cursor-text items-center tracking-tight'
               )}
             >
               {ct}
@@ -100,6 +113,12 @@ export default function CardFooter() {
                 <>
                   &nbsp;•&nbsp;
                   {source}
+                </>
+              )}
+              {region && region !== source && (
+                <>
+                  &nbsp;•&nbsp;
+                  {region}
                 </>
               )}
             </div>

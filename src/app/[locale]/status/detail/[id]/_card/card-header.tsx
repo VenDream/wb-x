@@ -8,18 +8,20 @@
  */
 
 import AuthGuard from '@/components/common/auth-guard';
+import Image from '@/components/common/image';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/contants';
-import { FAKE_IMG } from '@/contants/debug';
+import { WEIBO_HOST } from '@/constants';
+import { FAKE_IMG } from '@/constants/debug';
+import { cn } from '@/utils/classnames';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
 import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
 
 export default function CardHeader() {
   const { status, isRetweet } = useContext(CardCtx);
-  const { user, createdAt, source } = status!;
+  const { user, createdAt, source, region } = status as Backend.Status;
 
   const [ct, setCt] = useState('');
 
@@ -56,38 +58,61 @@ export default function CardHeader() {
     );
 
   return (
-    <div className="grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
-      <div className="relative row-start-1 row-end-3 flex items-center justify-center">
-        <Avatar
-          src={FAKE_IMG() || getImageVariants(user.avatar).sm}
-          border
-          size="xs"
-          shape="circle"
-          borderColor="primary"
-          className="row-start-1 row-end-3 flex items-center justify-center"
-        />
+    <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4 tracking-tight">
+      <div
+        className={cn(
+          'relative row-start-1 row-end-3 flex items-center justify-center'
+        )}
+      >
+        <Avatar>
+          <div
+            className={cn(
+              'outline-primary relative h-10 w-10 rounded-full',
+              'outline-2 outline-offset-3'
+            )}
+          >
+            <Image
+              alt={user.name}
+              src={FAKE_IMG() || getImageVariants(user.avatar).sm}
+            />
+          </div>
+        </Avatar>
         <AuthGuard fallback={null}>
-          <div className="absolute left-1/2 top-[calc(100%_+_12px)] z-10 w-10 -translate-x-1/2">
+          <div
+            className={cn(
+              'absolute left-1/2 z-10 w-10 -translate-x-1/2',
+              'top-[calc(100%_+_12px)]'
+            )}
+          >
             <TrackingsBtn
               user={user}
+              block
               iconOnly
-              fullWidth
               iconSize={14}
               className="h-5 min-h-0"
             />
           </div>
         </AuthGuard>
       </div>
-
       <span className="flex items-center gap-4 text-sm">{user.name}</span>
       <span className="inline-flex items-center">
         <Tooltip message={createdAt} className="text-xs">
-          <span className="flex cursor-text items-center text-xs text-base-content/50">
+          <span
+            className={cn(
+              'text-base-content/50 flex cursor-text items-center text-xs'
+            )}
+          >
             {ct}
             {source && (
               <>
                 &nbsp;•&nbsp;
                 {source}
+              </>
+            )}
+            {region && region !== source && (
+              <>
+                &nbsp;•&nbsp;
+                {region}
               </>
             )}
           </span>

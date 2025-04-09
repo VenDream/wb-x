@@ -9,103 +9,75 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  useTheme,
-} from '@/components/daisyui';
-import { THEMES } from '@/contants';
+import { Button, Dropdown } from '@/components/daisyui';
+import { THEMES } from '@/constants';
+import useTheme from '@/hooks/use-theme';
 import { cn } from '@/utils/classnames';
-import { getLsTheme, isDarkTheme, setLsTheme } from '@/utils/theme';
 import { ChevronDownIcon, CircleCheckBigIcon, PaletteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect } from 'react';
-
-import './theme-change.sass';
+import { useEffect, useState } from 'react';
+import { themeChange } from 'theme-change';
 
 export default function ThemeChange() {
-  const { theme, setTheme } = useTheme();
   const t = useTranslations('global.theming');
-
-  const applyTheme = useCallback(
-    (t: string) => {
-      const html = document.getElementsByTagName('html')[0];
-      const provider = document.getElementsByClassName('wbx-theme-provoder')[0];
-
-      html.setAttribute('data-theme', t);
-      provider.setAttribute('data-theme', t);
-
-      if (isDarkTheme(t)) {
-        html.classList.add('dark');
-      } else {
-        html.classList.remove('dark');
-      }
-      setTheme(t);
-    },
-    [setTheme]
-  );
-
-  const switchTheme = (t: string) => {
-    applyTheme(t);
-    setLsTheme(t);
-  };
+  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useTheme();
 
   useEffect(() => {
-    const t = getLsTheme();
-    t && applyTheme(t);
-    setTimeout(() => {
-      const root = document.getElementsByTagName('html')[0];
-      root.classList.remove('preparing');
-    });
-  }, [applyTheme]);
+    setMounted(true);
+
+    const loadingMask = document.querySelector('[data-role="loading-mask"]');
+    loadingMask?.classList.add('hidden');
+  }, []);
+
+  useEffect(() => {
+    mounted && theme && themeChange(false);
+  }, [theme, mounted]);
+
+  // @note prevent hydration error
+  if (!mounted) return null;
 
   return (
-    <Dropdown end className="theme-change">
-      <DropdownToggle button={false}>
-        <Button color="ghost">
+    <Dropdown align="end" className="theme-change">
+      <Dropdown.Toggle>
+        <Button ghost>
           <PaletteIcon size={18} />
           <span className="text-sm">{t('switcherLabel')}</span>
           <ChevronDownIcon size={18} />
         </Button>
-      </DropdownToggle>
-      <DropdownMenu
+      </Dropdown.Toggle>
+      <Dropdown.Menu
         className={cn(
-          'mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto rounded-[--rounded-box]',
-          'border border-base-content/10 bg-base-100/50 shadow backdrop-blur'
+          'no-scrollbar z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto',
+          'bg-base-100/50 border-base-content/10 border backdrop-blur-lg'
         )}
       >
-        {THEMES.map((t, i) => {
+        {Object.values(THEMES).map(t => {
           const isSelected = t === theme;
           return (
-            <DropdownItem key={i} anchor={false}>
-              <div className="theme-item flex" onClick={() => switchTheme(t)}>
-                <div
-                  data-theme={t}
-                  className="flex w-full items-center justify-between rounded border border-base-content/10 p-2 shadow"
-                >
-                  <div className="flex items-center">
-                    {isSelected ? (
-                      <CircleCheckBigIcon size={16} className="mr-2" />
-                    ) : (
-                      <div className="mr-2 h-4 w-4" />
-                    )}
-                    {t}
-                  </div>
-                  <div className="flex h-4 gap-1">
-                    <div className="w-2 rounded bg-primary" />
-                    <div className="w-2 rounded bg-secondary" />
-                    <div className="w-2 rounded bg-accent" />
-                    <div className="w-2 rounded bg-neutral" />
-                  </div>
+            <Dropdown.Item key={t}>
+              <div
+                data-set-theme={t}
+                className="flex h-10 items-center gap-3"
+                onClick={() => setTheme(t as DaisyUI.Theme)}
+              >
+                {isSelected ? (
+                  <CircleCheckBigIcon size={16} />
+                ) : (
+                  <div className="h-4 w-4" />
+                )}
+                <p className="basis-1/2 text-left">{t.toUpperCase()}</p>
+                <div className="flex h-4 gap-1 bg-transparent" data-theme={t}>
+                  <div className="bg-primary w-2 rounded-xs" />
+                  <div className="bg-secondary w-2 rounded-xs" />
+                  <div className="bg-accent w-2 rounded-xs" />
+                  <div className="bg-neutral w-2 rounded-xs" />
                 </div>
               </div>
-            </DropdownItem>
+            </Dropdown.Item>
           );
         })}
-      </DropdownMenu>
+      </Dropdown.Menu>
     </Dropdown>
   );
 }

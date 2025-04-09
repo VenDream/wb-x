@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
 
 execSync('eslint --ext .js,.jsx,.ts,.tsx ./ --cache --quiet --fix', {
   stdio: 'inherit',

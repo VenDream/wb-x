@@ -13,8 +13,8 @@ import Loading from '@/components/common/loading';
 import { NoData } from '@/components/common/no-data';
 import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
+import type { ForwardedRef } from 'react';
 import React, {
-  ForwardedRef,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -28,6 +28,7 @@ import InfiniteLoader from 'react-window-infinite-loader';
 import { toast } from 'sonner';
 import { VirtualListContext } from './context';
 import ListRow from './list-row';
+import { LOAD_ALL_ITEM } from './placeholders';
 import type {
   VirtualListCtx,
   VirtualListHandle,
@@ -53,6 +54,7 @@ function VirtualListRenderFunc<T, R>(
     estimatedRowHeight = 50,
     concatList = Array.prototype.concat,
     renderRowItemContent,
+    renderNoMoreContent,
 
     noDataProps,
 
@@ -62,7 +64,8 @@ function VirtualListRenderFunc<T, R>(
   } = props;
 
   const t = useTranslations('global.dataFetching');
-  const listRef = useRef<VariableSizeList<T>>();
+  const listRef = useRef<VariableSizeList<T>>(null);
+  const canLoadMoreRef = useRef(false);
 
   const [pageNo, setPageNo] = useState(0);
   const [isLoadAll, setIsLoadAll] = useState(false);
@@ -80,17 +83,18 @@ function VirtualListRenderFunc<T, R>(
       const limit = pageSize;
       const offset = pageNo * limit;
       const parseListData = getDataParser();
-      const fetchListData = getDataFetcher({ limit, offset });
+      const fetchListData = getDataFetcher({ limit, offset, needTotal: true });
       const data = await fetchListData();
       const list = parseListData(data);
+      const isLoadAll = list.length < limit;
 
-      if (pageNo === 0) {
-        setDataList(list);
-      } else {
-        setDataList(prevList => concatList(prevList, list));
-      }
-      if (list.length < limit) setIsLoadAll(true);
+      setDataList(prevList => {
+        const newList = isNewDataFetch ? list : concatList(prevList, list);
+        isLoadAll && list.length > 0 && newList.push(LOAD_ALL_ITEM);
+        return newList;
+      });
 
+      if (isLoadAll) setIsLoadAll(true);
       if (getTotalParser && onTotalUpdate) {
         const parseListTotal = getTotalParser();
         const total = parseListTotal(data);
@@ -141,12 +145,32 @@ function VirtualListRenderFunc<T, R>(
       setRowHeight,
       getRowItemKey,
       renderRowItemContent,
+      renderNoMoreContent,
     }),
-    [dataList, getRowItemKey, gutter, renderRowItemContent, setRowHeight]
+    [
+      dataList,
+      getRowItemKey,
+      gutter,
+      renderNoMoreContent,
+      renderRowItemContent,
+      setRowHeight,
+    ]
   );
 
   const isNoData = pageNo === 0 && isLoadAll && dataList.length === 0;
   const isFirstLoading = pageNo === 0 && isLoading;
+
+  const loadMore = useCallback(() => {
+    // stop the first loadMore request
+    if (!canLoadMoreRef.current) {
+      canLoadMoreRef.current = true;
+      return;
+    }
+
+    if (isLoading || isLoadAll) return;
+
+    setPageNo(pn => pn + 1);
+  }, [isLoadAll, isLoading]);
 
   useEffect(() => {
     fetchDataList();
@@ -162,6 +186,7 @@ function VirtualListRenderFunc<T, R>(
       setDataList([]);
       setIsLoadAll(false);
       rowHeightsRef.current = {};
+      canLoadMoreRef.current = false;
     },
   }));
 
@@ -179,7 +204,7 @@ function VirtualListRenderFunc<T, R>(
                 threshold={loadingThreshold}
                 isItemLoaded={idx => isLoadAll || idx < dataList.length}
                 itemCount={isLoadAll ? dataList.length : dataList.length + 1}
-                loadMoreItems={() => setPageNo(pageNo + 1)}
+                loadMoreItems={loadMore}
               >
                 {({ onItemsRendered, ref }) => (
                   <VariableSizeList

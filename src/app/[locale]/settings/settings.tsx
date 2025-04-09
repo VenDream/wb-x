@@ -11,52 +11,49 @@
 
 import AuthGuard from '@/components/common/auth-guard';
 import MotionContainer from '@/components/common/motion-container';
-import { Tab, Tabs } from '@/components/daisyui';
-import useUser from '@/hooks/use-user';
+import Tabs from '@/components/common/tabs';
+import { CookieIcon, SlidersHorizontalIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import CookiesSettings from './cookies';
 import LocalSettings from './local';
-import ServerSettings from './server';
 
-type SettingsType = 'local' | 'server' | 'cookies';
+type SettingsType = 'local' | 'cookies';
 
 export default function Settings() {
-  const { isAdmin } = useUser();
   const t = useTranslations('pages.settings.tabs');
-  const [settingsType, setSettingsType] = useState<SettingsType>('local');
+  const [activeTab, setActiveTab] = useState<SettingsType>('local');
 
-  const EmptyTab = (props: { value: string }) => (
-    <Tab className="hidden" value={props.value} />
-  );
+  const isLocalActive = activeTab === 'local';
+  const isCookiesActive = activeTab === 'cookies';
 
   return (
-    <div className="w-[800px] space-y-4 pr-4">
-      <Tabs boxed value={settingsType} onChange={setSettingsType}>
-        <Tab value="local">{t('local')}</Tab>
-        {isAdmin ? (
-          <Tab value="server">{t('server')}</Tab>
-        ) : (
-          <EmptyTab value="1" />
-        )}
-        {isAdmin ? (
-          <Tab value="cookies">{t('cookies')}</Tab>
-        ) : (
-          <EmptyTab value="2" />
-        )}
-      </Tabs>
-      <div className="rounded-[--rounded-box] bg-base-200">
-        {settingsType === 'local' && (
+    <div className="w-[800px] pr-4">
+      <Tabs
+        size="sm"
+        name="settings"
+        items={[
+          {
+            label: t('local'),
+            value: 'local' as SettingsType,
+            icon: <SlidersHorizontalIcon size={16} />,
+          },
+          {
+            label: t('cookies'),
+            value: 'cookies' as SettingsType,
+            icon: <CookieIcon size={16} />,
+          },
+        ]}
+        value={activeTab}
+        onChange={value => setActiveTab(value as SettingsType)}
+      />
+      <div className="bg-base-200 rounded-box mt-4">
+        {isLocalActive && (
           <MotionContainer className="p-4">
             <LocalSettings />
           </MotionContainer>
         )}
-        {settingsType === 'server' && (
-          <AuthGuard>
-            <ServerSettings />
-          </AuthGuard>
-        )}
-        {settingsType === 'cookies' && (
+        {isCookiesActive && (
           <AuthGuard>
             <CookiesSettings />
           </AuthGuard>

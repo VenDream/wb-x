@@ -8,49 +8,26 @@
  */
 
 import { getApiHost } from '@/utils/api-host';
-import { get } from '@/utils/request';
+import { get } from '@/utils/request/server';
 import { appendURLParams } from '@/utils/url';
 
-export async function getDbStatusDetail(id: string) {
-  let url = getApiHost() + '/api/db/status';
-  url = appendURLParams(url, { id });
-  const status = await get<Backend.Status>(url);
-  return status;
-}
+type UserListParams = PaginationParams & Backend.UserListFilterParams;
 
-export async function getDbRetweetStatusDetail(id: string) {
-  let url = getApiHost() + '/api/db/retweet_status';
-  url = appendURLParams(url, { id });
-  const status = await get<Backend.Status>(url);
-  return status;
-}
-
-export async function getDbRotnItem(id: string) {
-  let url = getApiHost() + '/api/db/rotn';
-  url = appendURLParams(url, { id });
-  const item = await get<Backend.ROTNItem>(url);
-  return item;
-}
-
-export async function getDbUsers(params: PaginationParams) {
-  let url = getApiHost() + '/api/db/user/list';
+export async function getUserList(params: UserListParams) {
+  let url = `${getApiHost()}/api/db/weibo/users/list`;
   url = appendURLParams(url, params);
-  const users = await get<Backend.UserList>(url);
+  const users = await get<Backend.DBList<Backend.User>>(url);
   return users;
 }
 
+export async function getTrackingUsers() {
+  return getUserList({ limit: 9999, isTracking: true });
+}
+
 export async function getDatabaseInfo() {
-  const url = getApiHost() + '/api/db/info';
+  const url = `${getApiHost()}/api/db/info`;
   const info = await get<Backend.DbInfo>(url, {
     next: { tags: ['db-info'] },
   });
   return info;
-}
-
-export async function getTrackingUsers() {
-  const url = getApiHost() + '/api/config/users/list';
-  const data = await get<{ userIds: string[]; count: number }>(url, {
-    next: { tags: ['tracking-users'] },
-  });
-  return data;
 }

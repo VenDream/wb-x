@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { LS_KEYS } from '@/contants';
+import { LS_KEYS } from '@/constants';
 import { atom, createStore } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
@@ -18,12 +18,11 @@ export const DEFAULT_SETTINGS: App.Settings = {
 
 export const settingsAtom = atomWithStorage<App.Settings>(
   LS_KEYS.SETTINGS,
-  DEFAULT_SETTINGS,
-  undefined,
-  { getOnInit: true }
+  DEFAULT_SETTINGS
 );
 
-export const trackingUsersAtom = atom<string[]>([]);
+export const userTrackingsAtom = atom<Record<string, boolean>>({});
+export const statusFavouritesAtom = atom<Record<string, boolean>>({});
 
 const store = createStore();
 export default store;

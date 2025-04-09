@@ -14,7 +14,3 @@ import { revalidateTag } from 'next/cache';
 export async function refreshDbInfo() {
   revalidateTag('db-info');
 }
-
-export async function refreshTrackingUsers() {
-  revalidateTag('tracking-users');
-}

@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { WEIBO_HOST } from '@/contants';
+import { WEIBO_HOST } from '@/constants';
 
 type Replacer = string | ((substring: string, ...args: any[]) => string);
 
@@ -65,8 +65,8 @@ export function preprocessCommentText(
   const rules: ReplaceRule[] = [
     // reply text: 回复xxx
     {
-      regex: /^回复\s?\<a[^\>]+\>(.+)\<\/a\>\:/g,
-      value: `<span class="reply-user"> ${replyTo} $1：</span>`,
+      regex: /^(回复|Reply)\s?\<a[^\>]+\>(.+)\<\/a\>\:/g,
+      value: `<span class="reply-user"> ${replyTo} $2：</span>`,
     },
     // weibo profile: https://weibo.com/n/xxx
     {
@@ -84,31 +84,8 @@ export function preprocessCommentText(
   }, text);
 
   if (isReply && !commentText.startsWith('<span class="reply-user">')) {
-    commentText = '<span class="reply-user">：</span>' + commentText;
+    commentText = `<span class="reply-user">：</span>${commentText}`;
   }
 
   return commentText;
-}
-
-/**
- * preprocess source text
- *
- * @export
- * @param {string} text text
- */
-export function preprocessSourceText(text: string) {
-  const rules: ReplaceRule[] = [
-    {
-      regex: /来自(.+)$/g,
-      value: ' • $1',
-    },
-  ];
-
-  return rules.reduce((prevText, rule) => {
-    const { regex, value } = rule;
-    // string
-    if (typeof value === 'string') return prevText.replace(regex, value);
-    // function
-    return prevText.replace(regex, value);
-  }, text);
 }

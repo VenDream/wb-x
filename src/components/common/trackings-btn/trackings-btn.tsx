@@ -9,18 +9,14 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import {
-  appendTrackingUser,
-  removeTrackingUser,
-  triggerFullScan,
-} from '@/api/client';
-import { refreshTrackingUsers } from '@/app/actions';
+import { trackUser, triggerFullScan, untrackUser } from '@/api/client';
 import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
-import { Button, ButtonProps } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/contants';
-import useTrackings, { useIsTracking } from '@/hooks/use-trackings';
+import { Button, type ButtonProps } from '@/components/daisyui';
+import { WEIBO_HOST } from '@/constants';
+import { userTrackingsAtom } from '@/store';
 import { cn } from '@/utils/classnames';
+import { useAtom } from 'jotai';
 import { UserMinusIcon, UserPlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
@@ -30,24 +26,35 @@ interface IProps extends ButtonProps {
   user: Backend.User;
   iconOnly?: boolean;
   iconSize?: number;
+  onTrackUser?: () => void;
+  onUntrackUser?: () => void;
 }
 
 export default function TrackingsBtn(props: IProps) {
   const t1 = useTranslations('pages.user');
   const t2 = useTranslations('global.status');
   const t3 = useTranslations('global.action');
-  const { user, iconOnly, iconSize = 16, ...btnProps } = props;
+  const {
+    user,
+    iconOnly,
+    iconSize = 16,
+    onTrackUser,
+    onUntrackUser,
+    ...btnProps
+  } = props;
 
-  const isTracking = useIsTracking(user.id);
   const shouldAskForScanning = useRef(false);
-  const [, updateTrackings] = useTrackings();
+  const [userTrackings, setUserTrackings] = useAtom(userTrackingsAtom);
   const { show: showDialog, update: updateDialog } = useDialog();
+
+  const userId = user.id;
+  const isTracking = userTrackings[userId] ?? user.isTracking;
 
   const username = (
     <a
       target="_blank"
       rel="noreferrer"
-      href={`${WEIBO_HOST}/${user.id}`}
+      href={`${WEIBO_HOST}/${userId}`}
       className="text-accent underline underline-offset-4"
     >
       @{user.name}
@@ -64,6 +71,13 @@ export default function TrackingsBtn(props: IProps) {
   const schedulingOkTips = schedulingTips + t2('success');
   const schedulingFailedTips = schedulingTips + t2('error');
 
+  const updateUserTrackings = (patch: Record<string, boolean>) => {
+    setUserTrackings(trackings => ({
+      ...trackings,
+      ...patch,
+    }));
+  };
+
   const askForScanning = () => {
     const dialogId = showDialog({
       preset: 'success',
@@ -77,7 +91,7 @@ export default function TrackingsBtn(props: IProps) {
           updateDialog(dialogId, { loading: true });
           toast.promise(
             new Promise<void>((innerResolve, reject) =>
-              triggerFullScan(user.id)
+              triggerFullScan(userId)
                 .then(() => {
                   innerResolve();
                   outerResolve(true);
@@ -90,7 +104,7 @@ export default function TrackingsBtn(props: IProps) {
             {
               loading: schedulingTips,
               success: schedulingOkTips,
-              error: (err: Error) => schedulingFailedTips + ': ' + err.message,
+              error: (err: Error) => `${schedulingFailedTips}: ${err.message}`,
             }
           );
         });
@@ -98,8 +112,8 @@ export default function TrackingsBtn(props: IProps) {
     });
   };
 
-  const toggleTrackingStatus = () => {
-    const toggleApi = isTracking ? removeTrackingUser : appendTrackingUser;
+  const toggleUserTrackings = () => {
+    const toggleAPI = isTracking ? untrackUser : trackUser;
 
     const dialogId = showDialog({
       preset: 'confirm',
@@ -111,18 +125,18 @@ export default function TrackingsBtn(props: IProps) {
           updateDialog(dialogId, { loading: true });
           toast.promise(
             new Promise<void>((innerResolve, reject) =>
-              toggleApi(user.id)
+              toggleAPI(userId)
                 .then(() => {
-                  refreshTrackingUsers().then(() => {
-                    if (isTracking) {
-                      updateTrackings(ids => ids.filter(id => id !== user.id));
-                    } else {
-                      updateTrackings(ids => [...ids, user.id]);
-                      shouldAskForScanning.current = true;
-                    }
-                    innerResolve();
-                    outerResolve(true);
-                  });
+                  if (isTracking) {
+                    updateUserTrackings({ [userId]: false });
+                    onUntrackUser?.();
+                  } else {
+                    updateUserTrackings({ [userId]: true });
+                    onTrackUser?.();
+                    shouldAskForScanning.current = true;
+                  }
+                  innerResolve();
+                  outerResolve(true);
                 })
                 .catch((err: Error) => {
                   reject(err);
@@ -132,7 +146,7 @@ export default function TrackingsBtn(props: IProps) {
             {
               loading: operatingTips,
               success: operationOkTips,
-              error: (err: Error) => operationFailedTips + ': ' + err.message,
+              error: (err: Error) => `${operationFailedTips}: ${err.message}`,
             }
           );
         });
@@ -150,16 +164,14 @@ export default function TrackingsBtn(props: IProps) {
     <Button
       size="xs"
       color={isTracking ? 'error' : 'info'}
-      startIcon={
-        isTracking ? (
-          <UserMinusIcon size={iconSize} />
-        ) : (
-          <UserPlusIcon size={iconSize} />
-        )
-      }
-      onClick={toggleTrackingStatus}
+      onClick={toggleUserTrackings}
       {...btnProps}
     >
+      {isTracking ? (
+        <UserMinusIcon size={iconSize} />
+      ) : (
+        <UserPlusIcon size={iconSize} />
+      )}
       {iconOnly ? null : isTracking ? t1('untrack') : t1('track')}
     </Button>
   );

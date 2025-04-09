@@ -9,13 +9,13 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { Menu, MenuItem } from '@/components/daisyui';
+import { Menu } from '@/components/daisyui';
 import {
   ADMIN_ROUTES,
-  PRIMARY_ROUTE_KEYS,
   PRIMARY_ROUTES,
-  PrimaryRouteKey,
-} from '@/contants';
+  PRIMARY_ROUTE_KEYS,
+  type PrimaryRouteKey,
+} from '@/constants';
 import useUser from '@/hooks/use-user';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -39,7 +39,7 @@ export default function Leftsider() {
         });
   }, [isAdmin]);
 
-  const isActive = useCallback(
+  const isActiveRoute = useCallback(
     (routePath: string) => {
       return routePath === '/'
         ? pathname === routePath
@@ -50,20 +50,28 @@ export default function Leftsider() {
 
   return (
     <Menu
+      size="lg"
       className={cn(
-        'h-full w-60 gap-2 border-r border-base-content/10 bg-base-100 p-4',
-        '!transition-none !duration-0'
+        'border-base-content/10 bg-base-100 h-full w-60 gap-2 border-r p-4'
       )}
     >
       {PRIMARY_ROUTE_KEYS.map(k => {
         const p = routes[k];
         if (!p) return null;
+        const isActive = isActiveRoute(p);
+
         return (
-          <MenuItem key={k}>
-            <Link href={p} className={cn('text-base', { active: isActive(p) })}>
+          <Menu.Item key={k}>
+            <Link
+              href={p}
+              className={cn('text-base', {
+                'menu-active': isActive,
+                'pointer-events-none': isActive,
+              })}
+            >
               {ICONS[k as keyof typeof PRIMARY_ROUTES]} {t(k.toLowerCase())}
             </Link>
-          </MenuItem>
+          </Menu.Item>
         );
       })}
     </Menu>

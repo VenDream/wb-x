@@ -1,0 +1,97 @@
+@import 'tailwindcss';
+@plugin 'daisyui' {
+  themes: all;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@utility backdrop-blur-xs {
+  backdrop-filter: blur(4px);
+}
+
+@utility backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+}
+
+@utility backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+@utility backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    @apply hidden;
+  }
+}
+
+html {
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  &::-webkit-scrollbar-thumb,
+  & *::-webkit-scrollbar-thumb {
+    @apply bg-base-content/15 rounded-full;
+  }
+
+  &::-webkit-scrollbar-track,
+  & *::-webkit-scrollbar-track {
+    @apply hidden;
+  }
+}
+
+[data-type='loading'] {
+  .sonner-loading-wrapper {
+    @apply !static;
+  }
+}
+
+input[type='number'].appearance-none::-webkit-inner-spin-button,
+input[type='number'].appearance-none::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'].appearance-none {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.btn {
+  @apply font-normal;
+}
+
+.tabs .tab-active {
+  @apply pointer-events-none;
+}
+
+.input,
+.textarea {
+  @apply placeholder-base-content/50;
+}
+
+.yarl__container,
+.yarl__thumbnails_container {
+  @apply !bg-black/80 !backdrop-blur-lg;
+}
+
+.yarl__thumbnails_vignette,
+.yarl__slide_captions_container {
+  @apply !bg-transparent !bg-none;
+}
+
+.yarl__thumbnails_thumbnail {
+  @apply !rounded-none !border-white/50 !bg-transparent;
+}
+.yarl__thumbnails_thumbnail_active {
+  @apply !border-accent !border-[3px];
+}
+
+.rdp-root {
+  --rdp-accent-color: var(--color-primary) !important;
+  --rdp-selected-border: 1px solid var(--color-primary) !important;
+}

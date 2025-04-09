@@ -8,9 +8,9 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
-import { APP_NAME } from '@/contants';
+import { APP_NAME } from '@/constants';
 import { DatabaseIcon } from 'lucide-react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import RefreshBtn from './refresh-btn';
 import Stats from './stats';

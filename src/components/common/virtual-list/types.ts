@@ -8,7 +8,7 @@
  */
 
 import type { NoDataProps } from '@/components/common/no-data';
-import React from 'react';
+import type React from 'react';
 
 export interface VirtualListHandle {
   /** reset */
@@ -26,6 +26,8 @@ export interface VirtualListCtx<T = any> {
   getRowItemKey: (idx: number, item: T) => string;
   /** render row item content */
   renderRowItemContent: (data: T) => React.ReactNode;
+  /** render no more content */
+  renderNoMoreContent?: () => React.ReactNode;
 }
 
 export interface VirtualListProps<T, R> {
@@ -39,6 +41,8 @@ export interface VirtualListProps<T, R> {
   getTotalParser?: () => (data: R) => number;
   /** render row item content */
   renderRowItemContent: VirtualListCtx<T>['renderRowItemContent'];
+  /** render no more content */
+  renderNoMoreContent?: VirtualListCtx<T>['renderNoMoreContent'];
 
   /** custom class */
   className?: string;

@@ -9,7 +9,7 @@
 
 'use client';
 
-import { LANGS } from '@/contants';
+import { LANGS } from '@/constants';
 import { redirect, usePathname } from 'next/navigation';
 
 export default function NotFound() {

@@ -1,0 +1,9 @@
+---
+description: Best practices for Next.js applications and routing
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+- Use the App Router for improved performance and simpler data fetching.
+- Implement proper error boundaries to handle runtime errors gracefully.
+- Utilize Next.js's built-in internationalization features with `next-intl`.
+- Optimize images using the `next/image` component for better performance.

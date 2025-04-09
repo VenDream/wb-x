@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
 import pc from 'picocolors';
 
 execSync('tsc --project ./tsconfig.json --noEmit || exit 1', {

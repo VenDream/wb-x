@@ -7,7 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { cva, VariantProps } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
 /* -------------------------------------------------------------------------- */
 /*                                Card Variants                               */
@@ -20,7 +21,7 @@ export const card = cva(
     'p-4',
     'border',
     'relative',
-    'rounded-[--rounded-box]',
+    'rounded-box',
     'status-card',
     'border-base-content/10',
   ],
@@ -37,7 +38,7 @@ export const card = cva(
 export const cardBody = cva(['card-body', 'relative'], {
   variants: {
     type: {
-      default: ['my-2', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
+      default: ['my-2', 'grid', 'grid-cols-[1fr_8fr]', 'gap-0', 'p-0'],
       retweet: ['p-2'],
     },
   },
@@ -46,7 +47,7 @@ export const cardBody = cva(['card-body', 'relative'], {
 export const cardFooter = cva(['relative'], {
   variants: {
     type: {
-      default: ['my-4', 'grid', 'grid-cols-[1fr,8fr]', 'gap-0', 'p-0'],
+      default: ['my-4', 'grid', 'grid-cols-[1fr_8fr]', 'gap-0', 'p-0'],
       retweet: ['p-2'],
     },
   },
@@ -73,7 +74,7 @@ export const commentBody = cva(['text-justify', 'peer'], {
       default: [
         'my-2',
         'grid',
-        'grid-cols-[1fr,8fr]',
+        'grid-cols-[1fr_8fr]',
         'gap-0',
         'p-0',
         'text-sm',
@@ -89,7 +90,7 @@ export const commnetLikes = cva(
     variants: {
       type: {
         default: ['top-[18px]', 'right-2'],
-        reply: ['top-[2px]', 'right-0', , 'hidden', 'peer-hover:flex'],
+        reply: ['top-[2px]', 'right-0', 'hidden', 'peer-hover:flex'],
       },
     },
   }

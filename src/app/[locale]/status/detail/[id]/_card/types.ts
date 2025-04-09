@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 /* -------------------------------------------------------------------------- */
 /*                                    Card                                    */
@@ -19,7 +19,7 @@ interface BaseCardProps {
   /** card menu */
   menu?: CardMenuOpts;
   /** render custom menus */
-  renderCustomMenus?: (ctx: CardContext) => JSX.Element;
+  renderCustomMenus?: (ctx: CardContext) => React.JSX.Element;
 }
 
 export type CardProps = BaseCardProps &
@@ -48,7 +48,7 @@ export interface CardContext {
   /** source status id */
   sourceStatusId: string;
   /** render custom menus */
-  renderCustomMenus?: (ctx: CardContext) => JSX.Element;
+  renderCustomMenus?: (ctx: CardContext) => React.JSX.Element;
 }
 
 export interface CardMenuOpts {

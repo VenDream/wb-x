@@ -7,20 +7,14 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from '@/components/daisyui';
+import { Button, Dropdown } from '@/components/daisyui';
 import {
   PRIMARY_ROUTES,
   SECONDARY_ROUTES,
   WEIBO_HOST,
   WEIBO_IMAGES_DOWNLOAD_API,
-} from '@/contants';
-import { WEIBO_ICON } from '@/contants/svgs';
+} from '@/constants';
+import { WEIBO_ICON } from '@/constants/svgs';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { copyText } from '@/utils/common';
@@ -42,7 +36,7 @@ const ALIGN_END_TRIGGER_W = 1450;
 export default function CardMenu() {
   const cardCtx = useContext(CardCtx);
   const { status, isRetweet, menu, renderCustomMenus } = cardCtx;
-  const { id, user, images } = status!;
+  const { id, user, images } = status as Backend.Status;
   const t = useTranslations('pages.status.menu');
   const [alignEnd, setAlignEnd] = useState(false);
 
@@ -65,106 +59,109 @@ export default function CardMenu() {
 
   return (
     <Dropdown
-      end={alignEnd}
+      align="end"
       className={cn('absolute right-[14px]', {
         'top-[18px]': isRetweet,
         'top-[35px]': !isRetweet,
       })}
     >
-      <DropdownToggle button={false}>
+      <Dropdown.Toggle>
         <Button
+          ghost
           size="sm"
-          color="ghost"
           className="h-[2.1rem] w-[2.1rem] rounded-full p-0"
         >
           <EllipsisVerticalIcon size={20} />
         </Button>
-      </DropdownToggle>
-      <DropdownMenu
+      </Dropdown.Toggle>
+      <Dropdown.Menu
         className={cn(
-          'z-20 mt-2 w-[190px] rounded border border-base-content/10',
-          'bg-base-100/50 backdrop-blur will-change-transform'
+          'border-base-content/10 z-20 mt-2 w-[190px] rounded-sm border',
+          'bg-base-100/50 backdrop-blur-lg will-change-transform'
         )}
       >
         {!!menu.copyId && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <span
-              className="rounded p-2"
+              className="rounded-sm p-2"
               onClick={() => {
                 copyText(id);
                 toast.success(t('copySuccessTips'));
+                (document.activeElement as HTMLDivElement)?.blur();
               }}
             >
               <CopyIcon size={16} className="!stroke-2" />
               {t('copyID')}
             </span>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.copyUid && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <span
-              className="rounded p-2"
+              className="rounded-sm p-2"
               onClick={() => {
                 copyText(user.id);
                 toast.success(t('copySuccessTips'));
+                (document.activeElement as HTMLDivElement)?.blur();
               }}
             >
               <IdCardIcon size={16} className="!stroke-2" />
               {t('copyUID')}
             </span>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.viewOriginal && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <Link
               target="_blank"
               rel="noreferrer"
-              className="rounded p-2"
+              className="rounded-sm p-2"
               href={`${WEIBO_HOST}/detail/${id}`}
             >
               {WEIBO_ICON}
               {t('source')}
             </Link>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.dlImages && hasImages && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <a
               target="_blank"
-              className="rounded p-2"
+              rel="noreferrer"
+              className="rounded-sm p-2"
               href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
             >
               <ImageDownIcon size={16} className="!stroke-2" />
               {t('download')}
             </a>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.viewComments && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <Link
               target="_blank"
-              className="rounded p-2"
+              className="rounded-sm p-2"
               href={`${SECONDARY_ROUTES.STATUS_DETAIL}/${id}#comments`}
             >
               <MessageCircleMoreIcon size={16} className="!stroke-2" />
               {t('comments')}
             </Link>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
         {!!menu.viewOpPosts && (
-          <DropdownItem anchor={false}>
+          <Dropdown.Item>
             <Link
               target="_blank"
-              className="rounded p-2"
+              className="rounded-sm p-2"
               href={`${PRIMARY_ROUTES.WEIBO}?uid=${user.id}`}
             >
               <SquareArrowOutUpRightIcon size={16} className="!stroke-2" />
               {t('opPosts')}
             </Link>
-          </DropdownItem>
+          </Dropdown.Item>
         )}
-        {renderCustomMenus && renderCustomMenus(cardCtx)}
-      </DropdownMenu>
+        {renderCustomMenus?.(cardCtx)}
+      </Dropdown.Menu>
     </Dropdown>
   );
 }

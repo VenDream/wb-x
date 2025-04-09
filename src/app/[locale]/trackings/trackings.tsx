@@ -9,13 +9,12 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { getUserIdByName, searchUserById } from '@/api/client';
+import { getUserByName } from '@/api/client';
 import UserCard from '@/app/[locale]/user/list/[[...page]]/user-card';
 import Counter from '@/components/common/counter';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
-import { Button, Input, Stat, StatItem, Stats } from '@/components/daisyui';
-import useTrackings from '@/hooks/use-trackings';
+import { Button, Input, Stats } from '@/components/daisyui';
 import {
   AudioLinesIcon,
   CircleXIcon,
@@ -27,12 +26,17 @@ import {
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-export default function Trackings() {
+interface IProps {
+  users: Backend.User[];
+}
+
+export default function Trackings(props: IProps) {
+  const { users: initialUsers } = props;
   const t = useTranslations('pages.trackings');
-  const [trackings] = useTrackings();
 
   const [username, setUsername] = useState('');
   const [user, setUser] = useState<Backend.User>();
+  const [users, setUsers] = useState<Backend.User[]>(initialUsers);
 
   const [isSearching, setIsSearching] = useState(false);
   const [searchFailedReason, setSearchFailedReason] = useState('');
@@ -48,8 +52,8 @@ export default function Trackings() {
 
     try {
       setIsSearching(true);
-      const { uid } = await getUserIdByName(username);
-      const user = await searchUserById(uid);
+      const user = await getUserByName(username);
+      user.isTracking = users.some(u => u.id === user.id);
       setUser(user);
     } catch (err) {
       const error = err as Error;
@@ -74,20 +78,20 @@ export default function Trackings() {
           <UsersIcon size={24} className="mr-2" />
           {t('title')}
         </h1>
-        <Stats className="stats-vertical border border-base-content/20">
-          <Stat className="min-w-80">
-            <StatItem variant="figure" className="">
+        <Stats className="stats-vertical border-base-content/20 border">
+          <Stats.Stat className="min-w-80">
+            <Stats.Figure className="">
               <AudioLinesIcon
                 size={24}
-                className="relative top-1 text-accent"
+                className="text-accent relative top-1"
               />
-            </StatItem>
-            <StatItem variant="title">{t('stat.title')}</StatItem>
-            <StatItem variant="value" className="text-accent">
-              <Counter from={0} to={trackings.length} />
-            </StatItem>
-            <StatItem variant="desc">{t('stat.desc')}</StatItem>
-          </Stat>
+            </Stats.Figure>
+            <Stats.Title>{t('stat.title')}</Stats.Title>
+            <Stats.Value className="text-accent">
+              <Counter from={0} to={users.length} />
+            </Stats.Value>
+            <Stats.Desc>{t('stat.desc')}</Stats.Desc>
+          </Stats.Stat>
         </Stats>
       </div>
       <div className="space-y-4">
@@ -114,19 +118,19 @@ export default function Trackings() {
               color="primary"
               onClick={searchUser}
               disabled={isSearching}
-              startIcon={<UserRoundSearchIcon size={16} />}
               className="h-9 min-h-9"
             >
+              <UserRoundSearchIcon size={16} />
               {t('add.search')}
             </Button>
             <Button
               size="sm"
-              color="ghost"
+              ghost
               onClick={reset}
               disabled={isSearching}
-              startIcon={<RotateCcwIcon size={16} />}
-              className="h-9 min-h-9 bg-base-content/10"
+              className="bg-base-content/10 border-base-content/10 h-9 min-h-9"
             >
+              <RotateCcwIcon size={16} />
               {t('add.reset')}
             </Button>
           </div>
@@ -138,7 +142,7 @@ export default function Trackings() {
             )}
             {searchFailedReason && (
               <MotionContainer>
-                <p className="flex items-center gap-2 text-sm text-error">
+                <p className="text-error flex items-center gap-2 text-sm">
                   <CircleXIcon size={20} className="text-error" />
                   {searchFailedReason}
                 </p>
@@ -148,7 +152,13 @@ export default function Trackings() {
               <MotionContainer className="w-80">
                 <UserCard
                   user={user}
-                  className="bg-transparent shadow-sm outline-base-content/20"
+                  onTrackUser={() => {
+                    setUsers(users => [...users, user]);
+                  }}
+                  onUntrackUser={() => {
+                    setUsers(users => users.filter(u => u.id !== user.id));
+                  }}
+                  className="outline-base-content/20 bg-transparent shadow-xs"
                 />
               </MotionContainer>
             )}

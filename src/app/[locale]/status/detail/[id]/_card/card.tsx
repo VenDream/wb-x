@@ -19,7 +19,7 @@ import CardCtx, { DEFAULT_MENU } from './context';
 import type { CardContext, CardProps } from './types';
 import { card } from './variants';
 
-import './card.sass';
+import './card.css';
 
 export default function Card(props: CardProps) {
   const { status, isRetweet, sourceStatusId, menu, renderCustomMenus } = props;
@@ -47,8 +47,8 @@ export default function Card(props: CardProps) {
         <CardMenu />
         {/* <div
           className={cn(
-            'absolute left-0 top-0 z-50 flex h-full w-full items-center',
-            'justify-center rounded-[inherit] bg-base-200/30 backdrop-blur-lg'
+            'absolute top-0 left-0 z-50 flex h-full w-full items-center',
+            'bg-base-200/30 justify-center rounded-[inherit] backdrop-blur-lg'
           )}
         >
           CARD - {status.id}

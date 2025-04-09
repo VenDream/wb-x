@@ -1,0 +1,9 @@
+---
+description: Best practices for React development
+globs: **/*.{ts,tsx,js,jsx}
+alwaysApply: false
+---
+- Use functional components with hooks instead of class components.
+- Implement proper state management using libraries like Jotai for global state.
+- Utilize `useCallback` and `useMemo` for performance optimization.
+- Leverage `ahooks` for custom hooks to reduce boilerplate code.

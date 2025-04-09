@@ -8,17 +8,17 @@
  */
 
 import { getStatusCommentsReplies } from '@/api/client';
-import GhostTabs from '@/components/common/ghost-tabs';
 import LoadingIndicator from '@/components/common/loading-indicator';
+import Tabs from '@/components/common/tabs';
 import { usePrevious } from 'ahooks';
-import { ArrowUpDownIcon } from 'lucide-react';
+import { ArrowDownUpIcon, FlameIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import CommentItem from './comment-item';
 import type { CommentsRepliesProps } from './types';
 
-import './comments-replies.sass';
+import './comments-replies.css';
 
 export default function CommentsReplies(props: CommentsRepliesProps) {
   const t = useTranslations('pages.status.comments');
@@ -66,9 +66,9 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
     }
   }, [comment.id, orderBy]);
 
-  const switchOrderBy = (orderBy: Backend.CommentsRepliesOrderBy) => {
+  const switchOrderBy = (orderBy: string | number) => {
     maxIdRef.current = '';
-    setOrderBy(orderBy);
+    setOrderBy(orderBy as Backend.CommentsRepliesOrderBy);
   };
 
   useEffect(() => {
@@ -88,35 +88,34 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         comment={comment}
         isDetailReplies
         sorter={
-          <>
-            <div className="h-[1px] bg-base-content/10" />
-            <GhostTabs
-              size="sm"
-              value={orderBy}
-              onChange={switchOrderBy}
-              icon={
-                <ArrowUpDownIcon size={16} className="text-base-content/50" />
-              }
-              options={[
-                {
-                  label: t('orderByHot'),
-                  value: 'hot',
-                },
-                {
-                  label: t('orderByTime'),
-                  value: 'time',
-                },
-              ]}
-            />
-          </>
+          <Tabs
+            size="xs"
+            name="comments-replies-order"
+            className="space-x-0 bg-transparent p-0"
+            value={orderBy}
+            onChange={switchOrderBy}
+            items={[
+              {
+                label: t('orderByHot'),
+                value: 'hot',
+                icon: <FlameIcon size={16} />,
+              },
+              {
+                label: t('orderByTime'),
+                value: 'time',
+                icon: <ArrowDownUpIcon size={16} />,
+              },
+            ]}
+          />
         }
       />
       <LoadingIndicator
+        size="xs"
         isLoading={isLoading}
         isLoadAll={isLoadAll}
         isNoData={comment.comments.length === 0}
         loadMore={fetchCommentsReplies}
-        scrollLoading={{ enable: !isLoadFailed, threshold: 500 }}
+        scrollLoading={{ enabled: !isLoadFailed, threshold: 0 }}
       />
     </div>
   );

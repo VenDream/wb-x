@@ -10,12 +10,17 @@
  */
 
 import { getStatusComments } from '@/api/client';
-import GhostTabs from '@/components/common/ghost-tabs';
 import LoadingIndicator from '@/components/common/loading-indicator';
+import Tabs from '@/components/common/tabs';
 import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
-import { ArrowUpDownIcon, MessageSquareQuoteIcon } from 'lucide-react';
+import {
+  ArrowDownUpIcon,
+  ArrowUpDownIcon,
+  FlameIcon,
+  MessageSquareQuoteIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import {
   useCallback,
@@ -75,9 +80,9 @@ export default function CommentList(props: CommentListProps) {
     }
   }, [orderBy, props.id]);
 
-  const switchOrderBy = (orderBy: Backend.CommentsOrderBy) => {
+  const switchOrderBy = (orderBy: string | number) => {
     maxIdRef.current = '';
-    setOrderBy(orderBy);
+    setOrderBy(orderBy as Backend.CommentsOrderBy);
   };
 
   useEffect(() => {
@@ -109,16 +114,16 @@ export default function CommentList(props: CommentListProps) {
     <div
       ref={listRef}
       className={cn(
-        'relative mt-4 w-[40rem] rounded-[--rounded-box] shadow-sm',
+        'rounded-box relative mt-4 w-[40rem] shadow-xs',
         props.className
       )}
     >
       <div
         ref={listHeaderRef}
         className={cn(
-          'flex items-center justify-between border border-base-content/10',
-          'sticky left-0 top-0 rounded-[--rounded-box] rounded-b-none p-4',
-          'z-10 w-full bg-base-200/30 backdrop-blur',
+          'border-base-content/10 flex items-center justify-between border',
+          'rounded-box sticky top-0 left-0 rounded-b-none p-4',
+          'bg-base-200/30 z-10 w-full backdrop-blur-lg',
           {
             'rounded-t-none': isSticky,
           }
@@ -130,30 +135,34 @@ export default function CommentList(props: CommentListProps) {
             {t('label')} ({total})
           </p>
         )}
-        <GhostTabs
-          size="sm"
+        <Tabs
+          size="xs"
+          name="comments-order"
+          className="space-x-0 bg-transparent p-0"
           value={orderBy}
           onChange={switchOrderBy}
-          icon={<ArrowUpDownIcon size={16} className="text-base-content/50" />}
-          options={[
+          items={[
             {
               label: t('orderByHot'),
               value: 'hot',
+              icon: <FlameIcon size={16} />,
             },
             {
               label: t('orderByDesc'),
               value: 'desc',
+              icon: <ArrowDownUpIcon size={16} />,
             },
             {
               label: t('orderByAsc'),
               value: 'asc',
+              icon: <ArrowUpDownIcon size={16} />,
             },
           ]}
         />
       </div>
       <div
         className={cn(
-          'rounded-[--rounded-box] rounded-t-none border border-t-0',
+          'rounded-box rounded-t-none border border-t-0',
           'border-base-content/10 bg-base-200/30 p-4'
         )}
       >
@@ -165,7 +174,7 @@ export default function CommentList(props: CommentListProps) {
           isLoadAll={isLoadAll}
           isNoData={commentList.length === 0}
           loadMore={fetchCommentList}
-          scrollLoading={{ enable: !isLoadFailed, threshold: 500 }}
+          scrollLoading={{ enabled: !isLoadFailed, threshold: 200 }}
         />
       </div>
     </div>

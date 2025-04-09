@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { AnimationPlaybackControls, useAnimate } from 'framer-motion';
+import { type AnimationPlaybackControls, useAnimate } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 
 interface CounterProps {
@@ -65,17 +65,9 @@ export default function Counter(props: CounterProps) {
       });
     }
     return () => {
-      controls && controls.stop();
+      controls?.stop();
     };
-  }, [
-    animate,
-    duration,
-    getFormattedValue,
-    innerFrom,
-    innerTo,
-    localeString,
-    scope,
-  ]);
+  }, [animate, duration, getFormattedValue, innerFrom, innerTo, scope]);
 
   return <p ref={scope}>{defaultValue}</p>;
 }

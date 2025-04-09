@@ -9,30 +9,27 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getDbRetweetStatusList, getDbStatusList } from '@/api/client';
+import { getStatusList } from '@/api/client';
 import Loading from '@/components/common/loading';
 import VirtualList, {
-  VirtualListHandle,
-  VirtualListProps,
+  type VirtualListHandle,
+  type VirtualListProps,
 } from '@/components/common/virtual-list';
+import { DEFAULT_FAV_UID, ESTIMATE_COUNT } from '@/constants';
+import useUser from '@/hooks/use-user';
 import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
 import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StatusCard } from '../detail';
 import Filter from './_filter';
 
 export const defaultFilterParams: Backend.StatusListFilterParams = {
-  dataSource: 'trackings',
-  uid: '',
-  keyword: '',
-  original: false,
-  leastImagesCount: '',
-  startDate: '',
-  endDate: '',
-  needTotal: true,
+  order: 'desc',
+  orderBy: 'createdAt',
+  isTracking: true,
 };
 
 export default function StatusList() {
@@ -41,25 +38,19 @@ export default function StatusList() {
   const [total, setTotal] = useState(-1);
   const [isFetching, setIsFetching] = useState(false);
 
+  const { isInited, user } = useUser();
   const searchParams = useSearchParams();
+
+  const userEmail = user?.emailAddresses[0].emailAddress;
 
   const [filterParams, setFilterParams] =
     useState<Backend.StatusListFilterParams>(() => {
-      if (typeof window === 'undefined') return defaultFilterParams;
-
       const uid = searchParams.get('uid');
-      const urlParams: Backend.StatusListFilterParams = { uid: uid || '' };
-
-      return {
-        ...defaultFilterParams,
-        ...urlParams,
-      };
+      const initParams = { ...defaultFilterParams };
+      if (typeof window === 'undefined') return initParams;
+      uid && (initParams.uid = uid);
+      return initParams;
     });
-
-  const fetchListData =
-    filterParams.dataSource === 'trackings'
-      ? getDbStatusList
-      : getDbRetweetStatusList;
 
   const updateFilterParams = useCallback(
     (patch: Partial<Backend.StatusListFilterParams>) => {
@@ -69,44 +60,64 @@ export default function StatusList() {
     []
   );
 
-  const listProps: VirtualListProps<Backend.Status, Backend.StatusList> =
-    useMemo(
-      () => ({
-        getDataFetcher: params => () =>
-          fetchListData({ ...params, ...filterParams }),
-        getDataParser: () => data => data.statuses,
-        getTotalParser: () => data => data.total as number,
-        getRowItemKey: (_, list) => list.id,
-        renderRowItemContent: data => <StatusCard status={data} />,
-        concatList: (prevList, list) =>
-          dedupeStatusList([...prevList, ...list]),
-        onTotalUpdate: total => setTotal(total),
-        onDataFetchingStart: () => setIsFetching(true),
-        onDataFetchingEnd: () => setIsFetching(false),
-        className: 'pl-72 2xl:pl-0',
-        estimatedRowHeight: 500,
-        noDataProps: {
-          tips: t('noData'),
-          tooltips: t('noDataTips'),
-          tooltipsClassName: 'text-xs',
-          icon: <CircleHelpIcon size={16} className="!stroke-2" />,
-        },
-      }),
-      [t, fetchListData, filterParams]
-    );
+  const resetFilterParams = useCallback(() => {
+    setFilterParams(params => ({
+      ...defaultFilterParams,
+      favUid: params.favUid,
+    }));
+    listRef.current?.reset();
+  }, []);
+
+  const listProps: VirtualListProps<
+    Backend.Status,
+    Backend.DBList<Backend.Status>
+  > = useMemo(
+    () => ({
+      getDataFetcher: params => () =>
+        getStatusList({ ...params, ...filterParams }),
+      getDataParser: () => data => data.list,
+      getTotalParser: () => data => data.total as number,
+      getRowItemKey: (_, item) => item.id,
+      renderRowItemContent: data => <StatusCard status={data} />,
+      concatList: (prevList, list) => dedupeStatusList([...prevList, ...list]),
+      onTotalUpdate: total => setTotal(total),
+      onDataFetchingStart: () => setIsFetching(true),
+      onDataFetchingEnd: () => setIsFetching(false),
+      className: 'pl-72 2xl:pl-0',
+      estimatedRowHeight: 500,
+      noDataProps: {
+        tips: t('noData'),
+        tooltips: t('noDataTips'),
+        tooltipsClassName: 'text-xs',
+        icon: <CircleHelpIcon size={16} className="!stroke-2" />,
+      },
+    }),
+    [t, filterParams]
+  );
+
+  useEffect(() => {
+    if (isInited) {
+      // @FIXME: treat user email as fav uid
+      const favUid = userEmail || DEFAULT_FAV_UID;
+      updateFilterParams({ favUid });
+    }
+  }, [isInited, updateFilterParams, userEmail]);
 
   return (
     <div className="relative h-[calc(100vh-8rem)]">
-      <VirtualList {...listProps} ref={listRef} />
-      <div className="absolute left-0 top-0">
+      {isInited && filterParams.favUid && (
+        <VirtualList {...listProps} ref={listRef} />
+      )}
+      <div className="absolute top-0 left-0">
         <Filter
           filterParams={filterParams}
+          resetFilterParams={resetFilterParams}
           updateFilterParams={updateFilterParams}
         />
         <div
           className={cn(
-            'mt-6 flex w-72 flex-col gap-2 pt-4 text-xs text-base-content/80',
-            'border-t border-base-content/10 drop-shadow-md'
+            'text-base-content/80 mt-6 flex w-72 flex-col gap-2 pt-4 text-xs',
+            'border-base-content/10 border-t drop-shadow-md'
           )}
         >
           <p className="flex items-center">
@@ -116,7 +127,7 @@ export default function StatusList() {
           {isFetching ? (
             <Loading
               size={16}
-              textClass="text-base-content/80"
+              textClass="text-base-content/80 text-xs"
               loaderClass="text-base-content/80"
             />
           ) : total >= 0 ? (
@@ -126,7 +137,7 @@ export default function StatusList() {
                 s: () => <>&nbsp;</>,
                 total: () => (
                   <span className="text-accent underline underline-offset-4">
-                    {total}
+                    {total === ESTIMATE_COUNT ? '1000+' : total}
                   </span>
                 ),
               })}

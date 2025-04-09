@@ -8,11 +8,11 @@
  */
 
 import LightboxComponent, {
-  AnimationSettings,
-  CarouselSettings,
-  LightboxExternalProps,
-  LightboxProps,
-  Plugin,
+  type AnimationSettings,
+  type CarouselSettings,
+  type LightboxExternalProps,
+  type LightboxProps,
+  type Plugin,
 } from 'yet-another-react-lightbox';
 
 import Captions from 'yet-another-react-lightbox/plugins/captions';

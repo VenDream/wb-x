@@ -31,7 +31,7 @@ export default function CookiesSettings() {
   const { show: showDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const [isOperating, setIsOperating] = useState(false);
-  const [cookies, setCookies] = useState<Backend.Cookie[]>([]);
+  const [cookies, setCookies] = useState<string[]>([]);
 
   const operatingTips = t1('status.operating');
   const operationOkTips = operatingTips + t2('success');
@@ -44,7 +44,7 @@ export default function CookiesSettings() {
   const getCookies = useCallback(async () => {
     try {
       setIsLoading(true);
-      const cookies = await listCookies();
+      const { list: cookies } = await listCookies();
       setCookies(cookies);
     } catch (err) {
       console.error(err);
@@ -56,12 +56,12 @@ export default function CookiesSettings() {
 
   const update = (idx: number) => {
     const cookie = cookies[idx];
-    if (!cookie.value) return toast.error(t1('status.noInput'));
+    if (!cookie) return toast.error(t1('status.noInput'));
 
     setIsOperating(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        updateCookie(idx, cookie.value)
+        updateCookie(idx, cookie)
           .then(() => {
             getCookies();
             resolve();
@@ -74,19 +74,19 @@ export default function CookiesSettings() {
       {
         loading: operatingTips,
         success: operationOkTips,
-        error: (err: Error) => operationFailedTips + ': ' + err.message,
+        error: (err: Error) => `${operationFailedTips}: ${err.message}`,
       }
     );
   };
 
   const check = (idx: number) => {
     const cookie = cookies[idx];
-    if (!cookie.value) return toast.error(t1('status.noInput'));
+    if (!cookie) return toast.error(t1('status.noInput'));
 
     setIsOperating(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        checkCookie(cookie.value)
+        checkCookie(idx)
           .then(data => {
             const { isValid } = data;
             isValid ? resolve() : reject();
@@ -125,7 +125,7 @@ export default function CookiesSettings() {
           {
             loading: operatingTips,
             success: operationOkTips,
-            error: (err: Error) => operationFailedTips + ': ' + err.message,
+            error: (err: Error) => `${operationFailedTips}: ${err.message}`,
           }
         );
         return true;
@@ -146,17 +146,20 @@ export default function CookiesSettings() {
       <div className={cn('relative space-y-4 p-4')}>
         {cookies.length > 0 ? (
           cookies.map((cookie, idx) => (
-            <div key={cookie.idx} className="flex gap-4">
-              <label>Cookie #{cookie.idx + 1}</label>
+            <div key={idx} className="flex gap-4">
+              <label htmlFor={`cookie-${idx}`} className="basis-20">
+                Cookie #{idx + 1}
+              </label>
               <Textarea
+                id={`cookie-${idx}`}
                 rows={4}
-                value={cookie.value}
+                value={cookie}
                 placeholder={t1('addCookie.placeholder')}
-                className="no-scrollbar flex-1 resize-none break-all"
+                className="flex-1 resize-none break-all"
                 onChange={e =>
                   setCookies(cookies => {
                     const newCookies = [...cookies];
-                    newCookies[idx].value = e.target.value;
+                    newCookies[idx] = e.target.value;
                     return newCookies;
                   })
                 }
@@ -185,7 +188,7 @@ export default function CookiesSettings() {
         ) : (
           <NoData className="justify-start" />
         )}
-        <div className="h-[1px] bg-base-content/10" />
+        <div className="bg-base-content/10 h-[1px]" />
         <AddCookies onAdded={getCookies}>
           <Button size="sm" color="primary">
             <PlusIcon size={16} />
@@ -193,7 +196,7 @@ export default function CookiesSettings() {
           </Button>
         </AddCookies>
         {isOperating && (
-          <div className="absolute inset-0 !mt-0 h-full w-full bg-base-100/80" />
+          <div className="bg-base-100/80 absolute inset-0 !mt-0 h-full w-full" />
         )}
       </div>
     </MotionContainer>

@@ -7,12 +7,13 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
+import Image from '@/components/common/image';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/contants';
-import { FAKE_IMG } from '@/contants/debug';
+import { WEIBO_HOST } from '@/constants';
+import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
@@ -20,6 +21,8 @@ import { useTranslations } from 'next-intl';
 interface IProps {
   user: Backend.User;
   className?: string;
+  onTrackUser?: () => void;
+  onUntrackUser?: () => void;
 }
 
 export default function UserCard(props: IProps) {
@@ -34,19 +37,24 @@ export default function UserCard(props: IProps) {
     <MotionContainer
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-2 py-6',
-        'rounded-[--rounded-box] bg-base-200/30 outline outline-base-content/10',
-        'outline-1 hover:shadow hover:outline-info',
+        'bg-base-200/30 outline-base-content/10 rounded-box outline',
+        'hover:outline-info outline-1 hover:shadow',
         '!will-change-transform',
         props.className
       )}
     >
-      <Avatar
-        src={FAKE_IMG() || getImageVariants(avatar).sm}
-        border
-        size="sm"
-        shape="circle"
-        borderColor="info"
-      />
+      <Avatar>
+        <div
+          className={cn(
+            'outline-primary relative h-12 w-12 rounded-full outline-2 outline-offset-3'
+          )}
+        >
+          <Image
+            alt={name}
+            src={FAKE_IMG(+id % 1000) || getImageVariants(avatar).sm}
+          />
+        </div>
+      </Avatar>
       <a
         target="_blank"
         rel="noreferrer"
@@ -59,7 +67,11 @@ export default function UserCard(props: IProps) {
       >
         <p title={name}>{name ? `@${name}` : '-'}</p>
       </a>
-      <TrackingsBtn user={props.user} />
+      <TrackingsBtn
+        user={props.user}
+        onTrackUser={props.onTrackUser}
+        onUntrackUser={props.onUntrackUser}
+      />
       <p className={cn(blockClasses, 'text-xs')}>
         {t('follows')}：{followCount || 0}
         <br />
@@ -68,7 +80,7 @@ export default function UserCard(props: IProps) {
       <Tooltip
         delayDuration={500}
         message={desc || '-'}
-        className="max-w-64 break-all border border-info text-justify text-xs"
+        className="border-info max-w-64 border text-justify text-xs break-all"
       >
         <p
           className={cn(

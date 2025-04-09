@@ -8,11 +8,13 @@
  */
 
 import Image from '@/components/common/image';
-import { Slide, useLightbox } from '@/components/common/lightbox';
+import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { Button } from '@/components/daisyui';
-import { FAKE_IMG } from '@/contants/debug';
+import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
-import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react';
+import useEmblaCarousel, {
+  type UseEmblaCarouselType,
+} from 'embla-carousel-react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -20,12 +22,14 @@ type EmblaOptionsType = NonNullable<Parameters<typeof useEmblaCarousel>[0]>;
 type EmblaCarouselType = NonNullable<UseEmblaCarouselType[1]>;
 
 interface Item {
-  name?: string;
+  id: string;
   image: string;
+  name?: string;
 }
 
 interface IProps {
   items: Item[];
+  slideItems?: Item[];
 
   gap?: number;
   cols?: number;
@@ -42,10 +46,11 @@ interface IProps {
 export default function Carousel(props: IProps) {
   const {
     items,
+    slideItems,
 
     gap = 10,
     cols = 1,
-    aspectRatio = 1,
+    aspectRatio,
 
     buttons = true,
     counter = true,
@@ -60,7 +65,6 @@ export default function Carousel(props: IProps) {
   const [totalSnaps, setTotalSnaps] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
-  const numLength = String(items.length).length;
 
   const { openLightbox, renderLightbox } = useLightbox();
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -78,33 +82,28 @@ export default function Carousel(props: IProps) {
   };
 
   const btnClass = cn(
-    'h-8 w-8 rounded-full border-base-content/20 p-0 shadow-sm',
+    'h-8 w-8 rounded-full border-base-content/20 p-0 shadow-xs',
     'disabled:border-base-300 disabled:bg-base-300'
   );
 
-  const getDefaultName = useCallback(
-    (idx: number) => String(idx + 1).padStart(numLength, '0'),
-    [numLength]
-  );
-
   const slides = useMemo<Slide[]>(() => {
-    return items.map((item, idx) => {
-      let src = item.image;
-      let download = item.image;
-      let filename = item.name || getDefaultName(idx);
+    return (slideItems || items).map((item, idx) => {
+      const src = item.image;
+      const download = item.image;
+      const filename = item.name;
 
       return {
         type: 'image',
-        src: FAKE_IMG(idx) || src,
-        title: (
-          <p className="h-[2rem] text-sm font-normal leading-[2rem]">
+        src: FAKE_IMG(item.id) || src,
+        title: filename ? (
+          <p className="h-[2rem] text-sm leading-[2rem] font-normal">
             {idx + 1} / {items.length} - {filename}
           </p>
-        ),
+        ) : undefined,
         download,
       };
     });
-  }, [getDefaultName, items]);
+  }, [items, slideItems]);
 
   const previewSlides = (idx: number) => {
     setCurrSlide(idx);
@@ -134,13 +133,15 @@ export default function Carousel(props: IProps) {
 
   return (
     <div className="space-y-4">
-      <div ref={emblaRef} className={cn('overflow-hidden', className)}>
+      <div
+        ref={items.length > 1 ? emblaRef : null}
+        className={cn('overflow-hidden', className)}
+      >
         <div
           style={{ marginLeft: -gap }}
           className="flex h-full w-full will-change-transform"
         >
           {items.map((item, idx) => {
-            const name = getDefaultName(idx) + ' - ' + (item.name || '');
             return (
               <div
                 key={item.image}
@@ -150,61 +151,68 @@ export default function Carousel(props: IProps) {
               >
                 <div
                   className={cn(
-                    'relative h-full w-full rounded border shadow-sm',
-                    'border-base-content/10'
+                    'relative h-full w-full rounded-sm border shadow-xs',
+                    'border-base-content/10',
+                    {
+                      'cursor-pointer': items.length === 1,
+                    }
                   )}
                 >
                   <Image
                     alt="IMG"
-                    src={FAKE_IMG(idx) || item.image}
                     className="rounded-[inherit]"
+                    src={FAKE_IMG(item.id) || item.image}
                   />
-                  <p
-                    title={name}
-                    onClick={e => e.stopPropagation()}
-                    className={cn(
-                      'absolute bottom-0 left-0 w-full bg-black/60 px-2 py-0.5',
-                      'rounded-[inherit] rounded-t-none text-xs text-white/80',
-                      'line-clamp-1 break-all leading-5'
-                    )}
-                  >
-                    {name}
-                  </p>
+                  {item.name && (
+                    <p
+                      title={item.name}
+                      onClick={e => e.stopPropagation()}
+                      className={cn(
+                        'absolute bottom-0 left-0 w-full bg-black/60 px-2 py-0.5',
+                        'rounded-[inherit] rounded-t-none text-xs text-white/80',
+                        'line-clamp-1 leading-5 break-all'
+                      )}
+                    >
+                      {item.name}
+                    </p>
+                  )}
                 </div>
               </div>
             );
           })}
         </div>
       </div>
-      <div className="flex items-center justify-between">
-        {buttons && (
-          <div className="flex items-center gap-2">
-            <Button
-              size="sm"
-              variant="outline"
-              disabled={!canPrev}
-              className={btnClass}
-              onClick={() => emblaApi?.scrollPrev()}
-            >
-              <ChevronLeftIcon size={16} />
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              disabled={!canNext}
-              className={btnClass}
-              onClick={() => emblaApi?.scrollNext()}
-            >
-              <ChevronRightIcon size={16} />
-            </Button>
-          </div>
-        )}
-        {counter && (
-          <span className="select-none text-base-content">
-            {currSnap} / {totalSnaps}
-          </span>
-        )}
-      </div>
+      {(buttons || counter) && (
+        <div className="flex items-center justify-between">
+          {buttons && (
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                outline
+                disabled={!canPrev}
+                className={btnClass}
+                onClick={() => emblaApi?.scrollPrev()}
+              >
+                <ChevronLeftIcon size={16} />
+              </Button>
+              <Button
+                size="sm"
+                outline
+                disabled={!canNext}
+                className={btnClass}
+                onClick={() => emblaApi?.scrollNext()}
+              >
+                <ChevronRightIcon size={16} />
+              </Button>
+            </div>
+          )}
+          {counter && (
+            <span className="text-base-content select-none">
+              {currSnap} / {totalSnaps}
+            </span>
+          )}
+        </div>
+      )}
       {lightbox && renderLightbox({ slides, index: currSlide })}
     </div>
   );

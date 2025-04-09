@@ -10,11 +10,12 @@
  */
 
 import MotionContainer from '@/components/common/motion-container';
-import { dialogMotion } from '@/contants/motions';
+import { dialogMotion } from '@/constants/motions';
 import { cn } from '@/utils/classnames';
 import * as ITooltip from '@radix-ui/react-tooltip';
 import { AnimatePresence } from 'framer-motion';
-import { ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 
 interface IProps extends ITooltip.TooltipProps {
   message: ReactNode;
@@ -40,15 +41,15 @@ export default function Tooltip(props: IProps) {
               <MotionContainer
                 motion={dialogMotion}
                 className={cn(
-                  'flex items-center justify-center px-4 py-2 text-sm shadow-sm',
-                  'border border-base-content/10 bg-base-100/50 backdrop-blur',
-                  'rounded-[--rounded-box]',
+                  'flex items-center justify-center px-4 py-2 text-sm shadow-xs',
+                  'border-base-content/10 bg-base-100/50 border backdrop-blur-lg',
+                  'rounded-box mb-2',
                   className
                 )}
               >
                 {message}
               </MotionContainer>
-              <ITooltip.Arrow className="fill-none stroke-base-content/10" />
+              {/* <ITooltip.Arrow className="stroke-base-content/10 fill-none" /> */}
             </ITooltip.Content>
           </ITooltip.Portal>
         )}

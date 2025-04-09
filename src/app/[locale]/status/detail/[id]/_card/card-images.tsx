@@ -13,7 +13,7 @@ import CardCtx from './context';
 
 export default function CardIamges() {
   const { status } = useContext(CardCtx);
-  const { images } = status!;
+  const { images } = status as Backend.Status;
 
   return (
     <ImageGrid

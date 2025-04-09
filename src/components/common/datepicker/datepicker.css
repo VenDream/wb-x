@@ -1,0 +1,44 @@
+@reference "../../../app/[locale]/global.css";
+
+.react-day-picker {
+  @apply w-full border-none bg-transparent p-2 font-sans;
+
+  & .rdp-month_caption {
+    @apply mb-4 flex w-full items-center justify-between;
+
+    & .rdp-dropdowns {
+      @apply flex-row-reverse;
+    }
+  }
+
+  & .rdp-months,
+  & .rdp-month_grid {
+    @apply w-full max-w-full;
+
+    & .rdp-month {
+      @apply w-full;
+    }
+  }
+
+  & .rdp-weekday {
+    @apply text-xs font-bold;
+  }
+
+  & .rdp-day {
+    & button {
+      @apply hover:border-primary hover:bg-primary/50 hover:border-1;
+    }
+  }
+
+  & .rdp-selected {
+    @apply pointer-events-none;
+
+    & button {
+      @apply !bg-primary/50 text-base-content;
+    }
+  }
+
+  & .rdp-day_button {
+    @apply rounded-field w-full text-sm;
+  }
+}

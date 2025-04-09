@@ -7,52 +7,61 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { useTranslations } from 'next-intl';
-import { PropsWithChildren } from 'react';
-import { DEFAULT_THEMES } from 'react-daisyui/dist/defaultThemes';
+import type { DARK_THEMES, THEMES } from '@/constants';
+import type { useTranslations } from 'next-intl';
+import type { PropsWithChildren } from 'react';
 
 declare global {
   /* ------------------------------------------------------------------------ */
   /*                                  Globals                                 */
   /* ------------------------------------------------------------------------ */
-  type LocaleProps<T = any> = T & { params: { locale: string } };
   type ChildrenProps<T = any> = PropsWithChildren<T>;
   type ParamsBody = { params: Promise<Record<string, any>> };
 
   interface PaginationParams {
-    /** page size */
+    /** limit */
     limit?: number;
     /** offset */
     offset?: number;
-    /** need total flag */
+    /** return total or not */
     needTotal?: boolean;
   }
 
   type TFunction = ReturnType<typeof useTranslations>;
 
-  type Themes = typeof DEFAULT_THEMES;
-  type DarkTheme = readonly Extract<
-    (typeof DEFAULT_THEMES)[number],
-    | 'dark'
-    | 'synthwave'
-    | 'halloween'
-    | 'forest'
-    | 'aqua'
-    | 'black'
-    | 'luxury'
-    | 'dracula'
-    | 'business'
-    | 'night'
-    | 'coffee'
-  >;
+  /* ------------------------------------------------------------------------ */
+  /*                                 Daisy UI                                 */
+  /* ------------------------------------------------------------------------ */
+  namespace DaisyUI {
+    type Theme = (typeof THEMES)[number];
+    type DarkTheme = (typeof DARK_THEMES)[number];
+
+    interface Style {
+      outline?: boolean;
+      dash?: boolean;
+      soft?: boolean;
+      ghost?: boolean;
+      link?: boolean;
+    }
+
+    type Color =
+      | 'neutral'
+      | 'primary'
+      | 'secondary'
+      | 'accent'
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'error';
+
+    type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  }
 
   /* ------------------------------------------------------------------------ */
   /*                                    App                                   */
   /* ------------------------------------------------------------------------ */
   namespace App {
-    interface StoreState {
-      trackingUsers: string[];
-    }
+    interface StoreState {}
 
     interface Settings {
       /** use image porxy */
@@ -66,32 +75,37 @@ declare global {
     /* ---------------------------------------------------------------------- */
     /*                                  Misc                                  */
     /* ---------------------------------------------------------------------- */
-    interface Cookie {
-      /** index */
-      idx: number;
-      /** cookie value */
-      value: string;
-    }
-
     interface ScanningParams {
       /** uid */
       uid: string;
-      /** how many days to scan from now on */
-      days?: number;
-      /** scan all posts */
-      all?: boolean;
-      /** scan from which sinceid */
+      /** sinceid */
       sinceid?: string;
-      /** scan from which date */
-      startDate?: string;
-      /** scan until which date */
-      endDate?: string;
-      /** use cookie or not */
-      useCookie?: boolean;
+
+      /** scan all or not */
+      all?: boolean;
       /** upload or not */
       upload?: boolean;
+      /** use cookie or not */
+      useCookie?: boolean;
       /** force upload or not */
       forceUpload?: boolean;
+
+      /** days to scan */
+      days?: number;
+      /** start date */
+      startDate?: string;
+      /** end date */
+      endDate?: string;
+
+      /** trigger only */
+      triggerOnly?: boolean;
+      /** all tracking uids */
+      allTrackingUids?: boolean;
+    }
+
+    interface DBList<T> {
+      list: T[];
+      total?: number;
     }
 
     /* ---------------------------------------------------------------------- */
@@ -111,34 +125,44 @@ declare global {
       /** follow count */
       followCount: number;
       /** followers count */
-      followersCount: number;
+      followersCount: string;
+      /** is tracking */
+      isTracking: boolean;
     }
 
-    interface UserList {
-      users: User[];
-      count: number;
-      total?: number;
+    interface UserListFilterParams {
+      /** id */
+      id?: string;
+      /** keyword */
+      keyword?: string;
+      /** is tracking */
+      isTracking?: boolean;
     }
 
     /* ---------------------------------------------------------------------- */
     /*                                 Status                                 */
     /* ---------------------------------------------------------------------- */
     interface Status {
-      /** id */
+      /** status id */
       id: string;
+      /** status bid */
+      bid: string;
+
       /** author */
       user: User;
-      /** content (rich text) */
+      /** text */
       text: string;
-      /** content (plaintext) */
+      /** raw text */
       rawText: string;
-      /** create time */
+      /** create at */
       createdAt: string;
       /** source */
       source: string;
+      /** region */
+      region: string;
       /** images count */
       imagesCount: number;
-      /** image urls */
+      /** images */
       images: string[];
       /** video */
       video: StatusVideo | null;
@@ -149,7 +173,20 @@ declare global {
       /** attitudes count */
       attitudesCount: number;
       /** retweeted status */
-      retweetedStatus?: Status;
+      retweetedStatus: Status | null;
+
+      /** is top */
+      isTop: boolean;
+      /** is edited */
+      isEdited: boolean;
+      /** is original */
+      isOriginal: boolean;
+      /** is favourite */
+      isFavourite: boolean;
+      /** has video */
+      hasVideo: boolean;
+      /** has images */
+      hasImages: boolean;
     }
 
     interface StatusVideo {
@@ -173,67 +210,70 @@ declare global {
       durationStr: string;
     }
 
-    interface StatusList {
-      statuses: Status[];
-      count: number;
-      total?: number;
-    }
-
-    interface RetweetStatusList {
-      retweetStatuses: Status[];
-      count: number;
-      total?: number;
-    }
-
-    type StatusListDataSource = 'trackings' | 'retweets';
-
-    interface StatusListFilterParams {
-      /** data source */
-      dataSource?: StatusListDataSource;
-      /** uid */
+    type StatusListFilterParams = {
+      /** status id */
+      id?: string;
+      /** status uid */
       uid?: string;
-      /** keyword */
-      keyword?: string;
-      /** original flag */
-      original?: boolean;
-      /** least images count */
-      leastImagesCount?: string;
+      /** fav uid */
+      favUid?: string;
+      /** is tracking */
+      isTracking?: boolean;
+      /** is original */
+      isOriginal?: boolean;
+      /** is favourite */
+      isFavourite?: boolean;
+      /** has video */
+      hasVideo?: boolean;
+      /** has images */
+      hasImages?: boolean;
       /** start date */
       startDate?: string;
       /** end date */
       endDate?: string;
-      /** need total flag */
-      needTotal?: boolean;
-    }
+      /** least images count */
+      leastImagesCount?: number;
+
+      /** order by */
+      orderBy?: string;
+      /** order */
+      order?: 'asc' | 'desc';
+      /** keyword */
+      keyword?: string;
+    };
 
     type CommentsOrderBy = 'asc' | 'desc' | 'hot';
     type CommentsRepliesOrderBy = 'time' | 'hot';
 
     interface StatusComment {
-      /** comment Id */
+      /** comment id */
       id: string;
-      /** comment content (rich text) */
+      /** text */
       text: string;
-      /** comment images */
+      /** images */
       images: string[];
       /** source */
       source: string;
-      /** comment content (plaintext) */
+      /** region */
+      region: string;
+      /** raw text */
       rawText: string;
-      /** comment create time */
+      /** create at */
       createdAt: string;
-      /** comment likes count */
+      /** likes count */
       likesCount: number;
-      /** commnet user */
+      /** comment user */
       user: User & { isOP: boolean };
-      /** replay user */
+      /** reply user */
       replyUser: StatusComment['user'] | null;
       /** total replies */
       totalReplies: number;
+      /** comments */
+      comments: StatusComment[];
       /** has more replies */
       hasMoreReplies: boolean;
-      /** comment replies */
-      comments: StatusComment[];
+      /** is liked by author */
+      isLikedByAuthor: boolean;
     }
 
     interface StatusCommentList {
@@ -246,13 +286,13 @@ declare global {
     /* ---------------------------------------------------------------------- */
     /*                                  ROTN                                  */
     /* ---------------------------------------------------------------------- */
-    type ROTN_TYPE = 'ALL' | 'RO' | 'TN';
+    type ROTN_TYPE = '' | 'RO' | 'TN';
 
     interface ROTNItem {
       /** id */
       id: string;
       /** type */
-      type: Type;
+      type: ROTN_TYPE;
       /** item name */
       name: string;
       /** original url */
@@ -261,34 +301,26 @@ declare global {
       images: string[];
     }
 
-    interface ROTNItemList {
-      items: ROTNItem[];
-      count: number;
-      total?: number;
-    }
-
     /* ---------------------------------------------------------------------- */
     /*                                 DB info                                */
     /* ---------------------------------------------------------------------- */
     interface DbInfo {
       /** db file size */
-      fileSize: string;
-      records: {
+      size: string;
+      tables: {
         /** user records */
-        user: number;
+        wb_users: number;
         /** status records */
-        status: number;
-        /** retweet status records */
-        retweetStatus: number;
+        wb_statuses: number;
         /** rotn records */
-        rotn: number;
+        rotn_items: number;
       };
     }
   }
 }
 
 declare module 'react' {
-  declare function IForwardRef<T, P = {}>(
+  declare function IForwardRef<T, P = Record<string, any>>(
     render: (props: P, ref: Ref<T>) => ReactElement | null
   ): (props: P & RefAttributes<T>) => ReactElement | null;
 }

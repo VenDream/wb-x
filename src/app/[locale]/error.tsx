@@ -12,7 +12,7 @@
 import MotionContainer from '@/components/common/motion-container';
 import { Button } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
-import { CircleXIcon } from 'lucide-react';
+import { CircleXIcon, RotateCcwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
@@ -21,7 +21,7 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function ErrorUI({ error, reset }: ErrorProps) {
   const t = useTranslations('global');
 
   useEffect(() => {
@@ -29,10 +29,8 @@ export default function Error({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <MotionContainer
-      className={cn('rounded-[--rounded-box] bg-base-200 p-4', 'max-w-7xl')}
-    >
-      <div className="flex items-center text-error">
+    <MotionContainer className={cn('bg-base-200 rounded-box p-4', 'max-w-7xl')}>
+      <div className="text-error flex items-center">
         <CircleXIcon size={20} className="mr-2" />
         {t('misc.systemDown')} :(
       </div>
@@ -42,6 +40,7 @@ export default function Error({ error, reset }: ErrorProps) {
         onClick={() => reset()}
         className="mt-4 min-w-[5rem] text-white"
       >
+        <RotateCcwIcon size={16} />
         {t('action.retry')}
       </Button>
     </MotionContainer>

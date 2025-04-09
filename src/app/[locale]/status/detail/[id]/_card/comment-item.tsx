@@ -8,12 +8,13 @@
  */
 
 import { useDialog } from '@/components/common/dialog';
+import Image from '@/components/common/image';
 import ImageGrid from '@/components/common/image-grid';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import { Avatar } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/contants';
-import { FAKE_IMG } from '@/contants/debug';
+import { WEIBO_HOST } from '@/constants';
+import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit, htmlString } from '@/utils/common';
 import { getCreateTime, getImageVariants } from '@/utils/weibo';
@@ -25,19 +26,16 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import CommentsReplies from './comments-replies';
-import {
-  preprocessCommentText,
-  preprocessSourceText,
-} from './text-preprocessor';
+import { preprocessCommentText } from './text-preprocessor';
 import type { CommentItemProps } from './types';
 import {
-  CommentVariants,
+  type CommentVariants,
   comment,
   commentBody,
   commnetLikes,
 } from './variants';
 
-import './comment-item.sass';
+import './comment-item.css';
 
 export default function CommentItem(props: CommentItemProps) {
   const t = useTranslations('pages.status.comments');
@@ -47,7 +45,7 @@ export default function CommentItem(props: CommentItemProps) {
     id,
     user,
     createdAt,
-    source,
+    region,
     text,
     images,
     comments,
@@ -86,11 +84,6 @@ export default function CommentItem(props: CommentItemProps) {
     [createdAt]
   );
 
-  const sourceFrom = useMemo(
-    () => (source ? preprocessSourceText(source) : ''),
-    [source]
-  );
-
   const showCommentsReplies = (comment: Backend.StatusComment) => {
     showDialog({
       footer: null,
@@ -113,21 +106,26 @@ export default function CommentItem(props: CommentItemProps) {
       className={comment({ type: variantType })}
     >
       {!isReply && (
-        <div className="grid grid-cols-[1fr,8fr] grid-rows-2 pt-4 tracking-tight">
-          <Avatar
-            src={FAKE_IMG() || getImageVariants(user.avatar).sm}
-            border
-            size="xs"
-            shape="circle"
-            borderColor="primary"
-            className="row-start-1 row-end-3 flex items-center justify-center"
-          />
+        <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4 tracking-tight">
+          <Avatar className="row-start-1 row-end-3 flex items-center justify-center">
+            <div
+              className={cn(
+                'outline-primary relative h-10 w-10 rounded-full',
+                'outline-2 outline-offset-3'
+              )}
+            >
+              <Image
+                alt={user.name}
+                src={FAKE_IMG() || getImageVariants(user.avatar).sm}
+              />
+            </div>
+          </Avatar>
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
               <span
                 style={{ zoom: 0.8 }}
-                className="ml-1 border border-accent px-0.5 text-xs text-accent"
+                className="border-accent text-accent ml-1 border px-0.5 text-xs"
               >
                 {t('op')}
               </span>
@@ -137,21 +135,25 @@ export default function CommentItem(props: CommentItemProps) {
             <Tooltip message={createdAt} className="text-xs">
               <span
                 className={cn(
-                  'flex cursor-text items-center text-xs text-base-content/50'
+                  'text-base-content/50 flex cursor-text items-center text-xs'
                 )}
               >
                 {createtime}
-                {sourceFrom}
+                {region && ` • ${region}`}
               </span>
             </Tooltip>
           </span>
         </div>
       )}
       <div className={commentBody({ type: variantType })}>
-        <div className="col-start-2 col-end-4 space-y-4">
+        <div
+          className={cn('col-start-2 col-end-4', {
+            'space-y-4': true,
+          })}
+        >
           <div
             className={cn(
-              'comment-text break-all text-left leading-5 tracking-tight',
+              'comment-text text-left leading-5 tracking-tight break-all',
               {
                 'text-justify': isReply,
               }
@@ -168,7 +170,7 @@ export default function CommentItem(props: CommentItemProps) {
                       class="text-xs text-base-content/50"
                     >
                       ${createtime}
-                      ${sourceFrom}
+                      ${region && ` • ${region}`}
                     </span>
                     `
                   : ''),
@@ -179,8 +181,8 @@ export default function CommentItem(props: CommentItemProps) {
           {comments.length > 0 && (
             <div
               className={cn(
-                'comments-replies flex flex-col gap-1 bg-base-200/30 p-2',
-                'rounded border border-base-content/10'
+                'comments-replies bg-base-200/30 flex flex-col gap-1 p-2',
+                'border-base-content/10 mt-4 rounded-sm border'
               )}
             >
               {comments.map(cm => (
@@ -191,14 +193,14 @@ export default function CommentItem(props: CommentItemProps) {
           {!isDetailReplies && hasMoreReplies && (
             <span
               className={cn(
-                'relative !mt-6 inline-flex cursor-pointer items-center text-xs',
+                'relative mt-2 inline-flex cursor-pointer items-center text-xs',
                 'text-[#eb7340]'
               )}
               onClick={() => showCommentsReplies(props.comment)}
             >
               <div
                 className={cn(
-                  'absolute left-0 top-[-10px] h-[1px] w-full bg-base-content/10'
+                  'bg-base-content/10 absolute top-[-10px] left-0 h-[1px] w-full'
                 )}
               />
               {t('totalReplies', { num: totalReplies })}

@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { LANGS } from '@/contants';
+import { LANGS } from '@/constants';
 import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
 

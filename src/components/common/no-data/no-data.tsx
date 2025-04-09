@@ -11,7 +11,7 @@ import Tooltip from '@/components/common/tooltip';
 import { cn } from '@/utils/classnames';
 import { BracketsIcon, CircleHelpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface IProps {
   tips?: ReactNode;
@@ -28,7 +28,7 @@ export function NoData(props: IProps) {
   return (
     <p
       className={cn(
-        'flex items-center justify-center gap-2 text-sm text-base-content/50',
+        'text-base-content/50 flex items-center justify-center gap-2 text-sm',
         className
       )}
     >
@@ -50,7 +50,7 @@ export function NoMoreData(props: IProps) {
   return (
     <p
       className={cn(
-        'flex items-center justify-center text-sm text-base-content/50',
+        'text-base-content/50 flex items-center justify-center text-sm',
         className
       )}
     >

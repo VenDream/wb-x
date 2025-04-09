@@ -11,18 +11,16 @@
 
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
-import { Button } from '@/components/daisyui';
+import useIsDarkTheme from '@/hooks/use-is-dark-theme';
 import { cn } from '@/utils/classnames';
-import { FileCodeIcon, SaveIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useControllableValue } from 'ahooks';
+import { FileCodeIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 import type { HighlighterCore } from 'shiki';
-import { getHighlighterCore } from 'shiki/core';
-import theme from 'shiki/themes/min-light.mjs';
-import getWasmInlined from 'shiki/wasm';
+import { createHighlighter } from 'shiki';
 
-import './code-editor.sass';
+import './code-editor.css';
 
 interface CodeEditorProps {
   /** title */
@@ -31,65 +29,68 @@ interface CodeEditorProps {
   code: string;
   /** languange */
   lang: string;
-  /** onSave callback */
-  onSave?: (code: string) => void;
+  /** onCodeChange callback */
+  onCodeChange?: (code: string) => void;
 }
 
 export default function CodeEditor(props: CodeEditorProps) {
-  const t = useTranslations('global');
-  const { title, lang, onSave } = props;
-  const [code, setCode] = useState(props.code);
+  const { title, lang } = props;
+
+  const [code, setCode] = useControllableValue(props, {
+    defaultValue: props.code,
+    valuePropName: 'code',
+    trigger: 'onCodeChange',
+  });
   const [highlighter, setHighlighter] = useState<HighlighterCore>();
+
+  const isDark = useIsDarkTheme();
+
+  console.log('isDark', isDark);
 
   useEffect(() => {
     (async function setup() {
-      const highlighter = await getHighlighterCore({
-        themes: [theme],
-        langs: [import('shiki/langs/yaml.mjs')],
-        loadWasm: getWasmInlined,
+      const highlighter = await createHighlighter({
+        langs: [lang],
+        themes: ['min-light', 'min-dark'],
       });
-      setTimeout(() => {
-        setHighlighter(highlighter);
-      }, 500);
+      setHighlighter(highlighter);
     })();
-  }, []);
+  }, [lang]);
 
   return highlighter ? (
-    <MotionContainer className="flex min-h-[50vh] w-full flex-col justify-start bg-base-100">
+    <MotionContainer
+      className={cn(
+        'flex w-full flex-col justify-start',
+        'border-primary rounded-sm border'
+      )}
+    >
       {title && (
         <p
           className={cn(
-            'flex items-center rounded-[--rounded-box]',
-            'rounded-b-none bg-base-200 p-2 text-sm',
-            'border-b border-base-content/10'
+            'flex items-center rounded-sm',
+            'bg-primary rounded-b-none p-2 text-xs',
+            'border-primary text-primary-content border-b'
           )}
         >
           <FileCodeIcon size={16} className="mr-2" />
           {title}
         </p>
       )}
-      <Editor
-        value={code}
-        onValueChange={code => setCode(code)}
-        highlight={code =>
-          highlighter.codeToHtml(code, { lang, theme: 'min-light' })
-        }
-        className={cn(
-          'code-editor__container flex-1 rounded-[--rounded-box]',
-          'rounded-t-none'
-        )}
-        preClassName="code-editor__pre"
-        textareaClassName="code-editor__textarea"
-        padding={10}
-        style={{
-          fontSize: 13,
-        }}
-      />
-      <div className="mt-4">
-        <Button size="sm" color="primary" onClick={() => onSave?.(code)}>
-          <SaveIcon size={16} />
-          {t('action.save')}
-        </Button>
+      <div className="code-editor flex-1">
+        <Editor
+          value={code}
+          onValueChange={code => setCode(code)}
+          highlight={code =>
+            highlighter.codeToHtml(code, {
+              lang,
+              theme: isDark ? 'min-dark' : 'min-light',
+            })
+          }
+          className={cn('code-editor__container rounded-sm', 'rounded-t-none')}
+          padding={10}
+          textareaClassName="code-editor__textarea"
+          style={{ fontSize: 13 }}
+        />
       </div>
     </MotionContainer>
   ) : (

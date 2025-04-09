@@ -8,7 +8,7 @@
  */
 
 import { getScrollableAncestor } from '@/utils/common';
-import { RefObject, useEffect } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 export interface ScrollLoadingOptions {
   callback?: (intersectionRatio: number) => void;
@@ -17,7 +17,7 @@ export interface ScrollLoadingOptions {
 }
 
 export default function useScrollLoading(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   options?: ScrollLoadingOptions
 ) {
   const { callback, threshold = 0, observerOptions = {} } = options || {};
@@ -43,5 +43,5 @@ export default function useScrollLoading(
     return () => {
       observer.unobserve(element);
     };
-  }, [callback, observerOptions, options, ref, threshold]);
+  }, [callback, observerOptions, ref, threshold]);
 }

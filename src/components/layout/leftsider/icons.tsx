@@ -7,8 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { PrimaryRouteKey } from '@/contants';
-import { ROTN_ICON, WEIBO_ICON } from '@/contants/svgs';
+import type { PrimaryRouteKey } from '@/constants';
+import { ROTN_ICON, WEIBO_ICON } from '@/constants/svgs';
 import {
   AudioLinesIcon,
   HouseIcon,

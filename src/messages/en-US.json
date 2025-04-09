@@ -1,5 +1,8 @@
 {
   "global": {
+    "layout": {
+      "loading": "Loading..."
+    },
     "pages": {
       "home": "Home",
       "weibo": "Weibo",
@@ -55,11 +58,12 @@
       "page": "Page"
     },
     "datepicker": {
-      "select": "Select Date",
+      "select": "Select a date",
+      "quickSelect": "Quick select",
+      "today": "Today",
       "yesterday": "Yesterday",
       "firstDayOfLastYear": "First day of last year",
       "lastDayOfLastYear": "Last day of last year",
-      "today": "Today",
       "firstDayOfYear": "First day of this year",
       "lastDayOfYear": "Last day of this year"
     },
@@ -76,16 +80,15 @@
       "totalDbSize": "Total File Size",
       "totalUsers": "Total Users",
       "totalStatuses": "Total Posts",
-      "totalRetweetStatuses": "Total Retweet Posts",
       "totalRotns": "Total ROTNs"
     },
     "status": {
       "comments": {
         "label": "Comments",
-        "orderByAsc": "Older First",
-        "orderByDesc": "Newer First",
-        "orderByHot": "Hot",
-        "orderByTime": "Timeline (Newer First)",
+        "orderByAsc": "Earlier First",
+        "orderByDesc": "Recent First",
+        "orderByHot": "Most Popular",
+        "orderByTime": "Timeline (Recent First)",
         "replyTo": "replied to",
         "op": "OP",
         "replies": "Comment replies",
@@ -93,16 +96,25 @@
       },
       "filter": {
         "dataSource": "Data Source",
+        "all": "All",
         "trackings": "Trackings",
-        "retweets": "Retweets",
-        "uid": "UID",
-        "keyword": "Keyword",
+
+        "id": "Post ID",
+        "uid": "User ID",
         "original": "Original",
         "originalTips": "Posts without retweets",
+        "favourite": "Favourite",
+        "hasVideo": "With videos",
+        "hasImages": "With images",
+        "endDate": "EndDate",
+        "startDate": "StartDate",
         "leastImagesCount": "Images count",
         "leastImagesCountTips": "Least images count",
-        "startDate": "StartDate",
-        "endDate": "EndDate",
+        "order": "Order",
+        "asc": "Asc",
+        "desc": "Desc",
+        "keyword": "Keyword",
+
         "totalStatuses": "<total></total><s></s>weibo posts were found."
       },
       "menu": {
@@ -121,8 +133,18 @@
         "loading": "Fetching post full text...",
         "failed": "Fetching post full text..failed, please retry"
       },
-      "updateFrequency": "The data is updated once per hour.",
-      "noData": "No matching data found",
+      "footer": {
+        "favourite": "Favourite",
+        "unfavourite": "Unfavourite",
+        "favouriteOperating": "Adding to favourites...",
+        "unfavouriteOperating": "Removing from favourites...",
+        "reposts": "Reposts",
+        "comments": "Comments",
+        "likes": "Likes"
+      },
+      "updateFrequency": "Data is updated hourly.",
+      "notExists": "The post does not exist",
+      "noData": "No matching posts found",
       "noDataTips": "Please check the filter options or try switching the data source"
     },
     "rotn": {
@@ -131,8 +153,14 @@
         "ro": "RO",
         "tn": "TN"
       },
+      "search": {
+        "placeholder": "Enter ROTN ID to search",
+        "search": "Search",
+        "reset": "Reset"
+      },
       "noImages": "No images",
-      "sourceURL": "Source URL"
+      "sourceURL": "Source URL",
+      "sourceURLTips": "View source URL"
     },
     "user": {
       "follows": "follows",
@@ -170,7 +198,6 @@
     "settings": {
       "tabs": {
         "local": "LOCAL SETTINGS",
-        "server": "SERVER SETTINGS",
         "cookies": "COOKIES SETTINGS"
       },
       "local": {
@@ -178,34 +205,27 @@
         "useVideoProxy": "Enable Video Proxy",
         "successTips": "Settings saved"
       },
-      "server": {
-        "title": "Save Settings",
-        "confirm": "This operation will trigger a service restart, continue ?",
-        "nothingChanged": "Skipped due to no changes",
-        "fetchFailed": "Failed to fetch settings, please retry",
-        "saveFailed": "Failed to save settings, please retry"
-      },
       "cookies": {
         "operation": {
           "add": "Add",
-          "save": "Save",
+          "save": "Update",
           "check": "Check",
           "delete": "Delete"
         },
         "addCookie": {
-          "title": "Add Cookies",
-          "placeholder": "Input the cookies string, which must contain the \"SUB\" field"
+          "title": "Add Cookie",
+          "placeholder": "Input the Cookie string, which must contain the \"SUB\" field"
         },
         "deleteConfirm": {
-          "title": "Delete Cookies",
-          "confirm": "Are you sure to delete this cookies ?"
+          "title": "Delete Cookie",
+          "confirm": "Are you sure to delete this Cookie ?"
         },
         "status": {
           "checking": "Checking...",
           "valid": "Valid",
           "invalid": "Invalid",
           "operating": "Operating...",
-          "fetchFailed": "Failed to fetch cookies, please retry",
+          "fetchFailed": "Failed to fetch Cookie, please retry",
           "noInput": "Cookie string is required"
         }
       }
