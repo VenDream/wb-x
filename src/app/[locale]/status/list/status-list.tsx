@@ -77,7 +77,7 @@ export default function StatusList() {
         getStatusList({ ...params, ...filterParams }),
       getDataParser: () => data => data.list,
       getTotalParser: () => data => data.total as number,
-      getRowItemKey: (_, list) => list.id,
+      getRowItemKey: (_, item) => item.id,
       renderRowItemContent: data => <StatusCard status={data} />,
       concatList: (prevList, list) => dedupeStatusList([...prevList, ...list]),
       onTotalUpdate: total => setTotal(total),
