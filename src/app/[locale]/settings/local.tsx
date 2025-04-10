@@ -8,6 +8,7 @@
  */
 
 import { Button, Toggle } from '@/components/daisyui';
+import useHasMounted from '@/hooks/use-has-mounted';
 import { settingsAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { SaveIcon } from 'lucide-react';
@@ -19,6 +20,7 @@ export default function LocalSettings() {
   const t1 = useTranslations('pages.settings.local');
   const t2 = useTranslations('global.action');
 
+  const hasMounted = useHasMounted();
   const [lsSettings, setLsSettings] = useAtom(settingsAtom);
   const [settings, setSettings] = useState(lsSettings);
 
@@ -37,6 +39,8 @@ export default function LocalSettings() {
   useEffect(() => {
     setSettings(lsSettings);
   }, [lsSettings]);
+
+  if (!hasMounted) return null;
 
   return (
     <div className="space-y-8">

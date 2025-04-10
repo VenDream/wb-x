@@ -15,7 +15,8 @@ import VirtualList, {
   type VirtualListHandle,
   type VirtualListProps,
 } from '@/components/common/virtual-list';
-import { DEFAULT_FAV_UID, ESTIMATE_COUNT } from '@/constants';
+import { ESTIMATE_COUNT } from '@/constants';
+import useFavUid from '@/hooks/use-fav-uid';
 import useUser from '@/hooks/use-user';
 import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
@@ -38,10 +39,9 @@ export default function StatusList() {
   const [total, setTotal] = useState(-1);
   const [isFetching, setIsFetching] = useState(false);
 
-  const { isInited, user } = useUser();
+  const favUid = useFavUid();
+  const { isInited } = useUser();
   const searchParams = useSearchParams();
-
-  const userEmail = user?.emailAddresses[0].emailAddress;
 
   const [filterParams, setFilterParams] =
     useState<Backend.StatusListFilterParams>(() => {
@@ -97,11 +97,9 @@ export default function StatusList() {
 
   useEffect(() => {
     if (isInited) {
-      // @FIXME: treat user email as fav uid
-      const favUid = userEmail || DEFAULT_FAV_UID;
       updateFilterParams({ favUid });
     }
-  }, [isInited, updateFilterParams, userEmail]);
+  }, [isInited, updateFilterParams, favUid]);
 
   return (
     <div className="relative h-[calc(100vh-8rem)]">

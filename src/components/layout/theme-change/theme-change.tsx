@@ -58,7 +58,7 @@ export default function ThemeChange() {
             <Dropdown.Item key={t}>
               <div
                 data-set-theme={t}
-                className="flex h-10 items-center gap-3"
+                className="flex h-10 items-center justify-between gap-3"
                 onClick={() => setTheme(t as DaisyUI.Theme)}
               >
                 {isSelected ? (
@@ -66,7 +66,7 @@ export default function ThemeChange() {
                 ) : (
                   <div className="h-4 w-4" />
                 )}
-                <p className="basis-1/2 text-left">{t.toUpperCase()}</p>
+                <p className="min-w-[110px] text-left">{t.toUpperCase()}</p>
                 <div className="flex h-4 gap-1 bg-transparent" data-theme={t}>
                   <div className="bg-primary w-2 rounded-xs" />
                   <div className="bg-secondary w-2 rounded-xs" />

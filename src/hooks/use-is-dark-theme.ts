@@ -1,5 +1,5 @@
 /*
- * useIsDarkTheme Hooks
+ * useIsDarkTheme
  *
  * @Author: VenDream
  * @Date: 2025-03-24 15:11:26

@@ -13,9 +13,8 @@ import { favouriteStatus, unfavouriteStatus } from '@/api/client';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
-import { DEFAULT_FAV_UID } from '@/constants';
 import { favouriteBtnMotion } from '@/constants/motions';
-import useUser from '@/hooks/use-user';
+import useFavUid from '@/hooks/use-fav-uid';
 import { statusFavouritesAtom } from '@/store';
 import { cn } from '@/utils/classnames';
 import { useAtom } from 'jotai';
@@ -32,11 +31,10 @@ export default function FavouriteBtn(props: IProps) {
   const t1 = useTranslations('pages.status.footer');
   const t2 = useTranslations('global.status');
 
-  const { user } = useUser();
+  const favUid = useFavUid();
   const [isOperating, setIsOperating] = useState(false);
   const [statusFavourites, setStatusFavourites] = useAtom(statusFavouritesAtom);
 
-  const uid = user?.id || DEFAULT_FAV_UID;
   const sid = props.status.id;
   const isFavourite = statusFavourites[sid] ?? props.status.isFavourite;
 
@@ -61,7 +59,7 @@ export default function FavouriteBtn(props: IProps) {
     setIsOperating(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        toggleAPI(uid, sid)
+        toggleAPI(favUid, sid)
           .then(() => {
             updateStatusFavourites({ [sid]: !isFavourite });
             resolve();
