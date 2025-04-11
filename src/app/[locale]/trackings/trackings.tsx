@@ -52,7 +52,7 @@ export default function Trackings(props: IProps) {
 
     try {
       setIsSearching(true);
-      const user = await getUserByName(username);
+      const user = await getUserByName(username.replace(/^@/, ''));
       user.isTracking = users.some(u => u.id === user.id);
       setUser(user);
     } catch (err) {

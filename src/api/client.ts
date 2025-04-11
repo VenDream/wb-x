@@ -160,7 +160,7 @@ export async function triggerScan(params: Backend.ScanningParams) {
     ...params,
     triggerOnly: true,
   };
-  const rlt = await post('/api/weibo/scan', scanParams);
+  const rlt = await post('/api/weibo/user/scan', scanParams);
   return rlt;
 }
 

@@ -77,7 +77,7 @@
     "home": {
       "title": "Database",
       "records": "records",
-      "totalDbSize": "Total File Size",
+      "totalDbSize": "Total DB File Size",
       "totalUsers": "Total Users",
       "totalStatuses": "Total Posts",
       "totalRotns": "Total ROTNs"

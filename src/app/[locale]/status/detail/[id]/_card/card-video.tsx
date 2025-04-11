@@ -10,12 +10,12 @@
 import { getStatusVideo } from '@/api/client';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/constants/debug';
+import { cn } from '@/utils/classnames';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
-import { PlayIcon } from 'lucide-react';
+import { LoaderCircleIcon, PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 import { toast } from 'sonner';
-import { twMerge } from 'tailwind-merge';
 import CardCtx from './context';
 
 const WIDTH = 1280 * 0.8;
@@ -28,10 +28,10 @@ export default function CardVideo() {
   const [slides, setSlides] = useState<Slide[]>([]);
   const { openLightbox, renderLightbox } = useLightbox();
 
-  const posterClass = twMerge(
+  const posterClass = cn(
     'relative flex items-center justify-center',
     'aspect-video rounded-sm shadow-xs',
-    'before:absolute before:top-0 before:left-0 before:bg-black/30',
+    'before:absolute before:top-0 before:left-0 before:bg-black/50',
     'before:content-[""], before:w-full before:h-full before:rounded'
   );
 
@@ -92,9 +92,9 @@ export default function CardVideo() {
         }}
       >
         {isLoading ? (
-          <div className="loading w-[2rem] text-white/90" />
+          <LoaderCircleIcon size={30} className="animate-spin" />
         ) : (
-          <PlayIcon size={48} className="z-10 text-white/90" />
+          <PlayIcon size={30} className="z-10 text-white/90" />
         )}
       </div>
       {renderLightbox({ slides })}

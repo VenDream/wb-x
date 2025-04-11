@@ -77,10 +77,10 @@
     "home": {
       "title": "数据库",
       "records": "条",
-      "totalDbSize": "文件总大小",
-      "totalUsers": "用户记录总数",
-      "totalStatuses": "微博记录总数",
-      "totalRotns": "ROTN记录总数"
+      "totalDbSize": "数据库文件总大小",
+      "totalUsers": "用户总数",
+      "totalStatuses": "微博总数",
+      "totalRotns": "ROTN商品总数"
     },
     "status": {
       "comments": {

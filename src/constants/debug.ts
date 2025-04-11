@@ -20,7 +20,7 @@ export const FAKE_IMG = (
 };
 
 export const FAKE_VIDEO = IS_DEBUG
-  ? 'https://player.vimeo.com/external/372335193.sd.mp4?s=80151fa22b2eba81883c8641f2c9e493762c7357&profile_id=164&oauth2_token_id=57447761'
+  ? 'https://www.w3schools.com/html/mov_bbb.mp4'
   : '';
 
 export const FAKE_POSTER = IS_DEBUG
