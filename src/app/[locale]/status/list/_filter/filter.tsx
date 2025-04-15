@@ -200,7 +200,11 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.isOriginal}
-            onChange={e => updateFilter({ isOriginal: e.target.checked })}
+            onChange={e =>
+              updateFilter({
+                isOriginal: e.target.checked ? true : undefined,
+              })
+            }
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -210,7 +214,11 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.hasVideo}
-            onChange={e => updateFilter({ hasVideo: e.target.checked })}
+            onChange={e =>
+              updateFilter({
+                hasVideo: e.target.checked ? true : undefined,
+              })
+            }
           />
         </div>
         <div className="flex h-[2rem] items-center gap-1">
@@ -220,7 +228,11 @@ export default function Filter(props: FilterProps) {
           <Toggle
             color="primary"
             checked={!!filter.hasImages}
-            onChange={e => updateFilter({ hasImages: e.target.checked })}
+            onChange={e =>
+              updateFilter({
+                hasImages: e.target.checked ? true : undefined,
+              })
+            }
           />
         </div>
       </div>
