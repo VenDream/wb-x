@@ -46,7 +46,7 @@ export async function getStatusList(params: StatusListParams) {
 export async function getStatusVideo(id: string) {
   let url = '/api/weibo/status/video';
   url = appendURLParams(url, { id });
-  const { video: videoUrl } = await get<{ video: string }>(url);
+  const { url: videoUrl } = await get<{ url: string }>(url);
   return videoUrl;
 }
 
