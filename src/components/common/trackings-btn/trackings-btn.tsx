@@ -23,7 +23,7 @@ import { useRef } from 'react';
 import { toast } from 'sonner';
 
 interface IProps extends ButtonProps {
-  user: Backend.User;
+  user: Weibo.User;
   iconOnly?: boolean;
   iconSize?: number;
   onTrackUser?: () => void;

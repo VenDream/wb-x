@@ -10,7 +10,7 @@
 import { DialogProvider } from '@/components/common/dialog';
 import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
 
-export default function Provider({ children }: ChildrenProps<App.StoreState>) {
+export default function Provider({ children }: ChildrenProps) {
   return (
     <TooltipProvider>
       <DialogProvider>{children}</DialogProvider>

@@ -26,7 +26,7 @@ export default function CardBody() {
   const t = useTranslations('pages.status');
   const { status, sourceStatusId, isRetweet, renderCustomMenus } =
     useContext(CardCtx);
-  const { id, text, retweetedStatus } = status as Backend.Status;
+  const { id, text, retweetedStatus } = status as Weibo.Status;
 
   const [statusText, setStatusText] = useState(text);
   const prevStatusText = usePrevious(statusText);

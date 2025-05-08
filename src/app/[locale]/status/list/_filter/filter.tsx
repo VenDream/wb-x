@@ -21,11 +21,11 @@ import { defaultFilterParams } from '../status-list';
 
 interface FilterProps {
   /** filter params */
-  filterParams: Backend.StatusListFilterParams;
+  filterParams: Weibo.StatusListFilterParams;
   /** reset filter params */
   resetFilterParams: () => void;
   /** update filter params */
-  updateFilterParams: (patch: Partial<Backend.StatusListFilterParams>) => void;
+  updateFilterParams: (patch: Partial<Weibo.StatusListFilterParams>) => void;
 }
 
 export default function Filter(props: FilterProps) {
@@ -34,13 +34,13 @@ export default function Filter(props: FilterProps) {
   const { filterParams, resetFilterParams, updateFilterParams } = props;
 
   const [filter, setFilter] =
-    useState<Backend.StatusListFilterParams>(filterParams);
+    useState<Weibo.StatusListFilterParams>(filterParams);
 
-  const updateFilter = (patch: Partial<Backend.StatusListFilterParams>) => {
+  const updateFilter = (patch: Partial<Weibo.StatusListFilterParams>) => {
     setFilter(f => ({ ...f, ...patch }));
   };
 
-  const applyFilter = (f?: Backend.StatusListFilterParams) => {
+  const applyFilter = (f?: Weibo.StatusListFilterParams) => {
     updateFilterParams(f || filter);
   };
 

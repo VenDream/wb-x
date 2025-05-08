@@ -176,10 +176,6 @@ function VirtualListRenderFunc<T, R>(
     fetchDataList();
   }, [fetchDataList]);
 
-  useEffect(() => {
-    pageNo > 0 && isLoadAll && toast.info(t('noMore'));
-  }, [isLoadAll, pageNo, t]);
-
   useImperativeHandle(ref, () => ({
     reset: () => {
       setPageNo(0);

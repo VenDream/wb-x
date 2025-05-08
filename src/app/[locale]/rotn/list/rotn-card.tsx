@@ -16,7 +16,7 @@ import { SquareArrowOutUpRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
-  item: Backend.ROTNItem;
+  item: ROTN.BrandItem;
 }
 
 const CAROUSEL_GAP = 0;

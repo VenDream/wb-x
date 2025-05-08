@@ -15,7 +15,7 @@ import type { ReactNode } from 'react';
 
 interface BaseCardProps {
   /** status */
-  status: Backend.Status;
+  status: Weibo.Status;
   /** card menu */
   menu?: CardMenuOpts;
   /** render custom menus */
@@ -40,7 +40,7 @@ export type CardProps = BaseCardProps &
 
 export interface CardContext {
   /** status */
-  status: Backend.Status | null;
+  status: Weibo.Status | null;
   /** card menu */
   menu: CardMenuOpts;
   /** is retweet status */
@@ -81,7 +81,7 @@ export interface CommentListProps {
 
 export interface CommentItemProps {
   /** status comment */
-  comment: Backend.StatusComment;
+  comment: Weibo.Comment;
   /** comment sorter */
   sorter?: ReactNode;
   /** if is a comment reply */
@@ -92,5 +92,5 @@ export interface CommentItemProps {
 
 export interface CommentsRepliesProps {
   /** status comment */
-  comment: Backend.StatusComment;
+  comment: Weibo.Comment;
 }

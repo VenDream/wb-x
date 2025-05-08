@@ -40,11 +40,11 @@ export default function CommentList(props: CommentListProps) {
   const listRef = useRef<HTMLDivElement>(null);
   const listHeaderRef = useRef<HTMLDivElement>(null);
   const [total, setTotal] = useState(0);
-  const [orderBy, setOrderBy] = useState<Backend.CommentsOrderBy>('hot');
+  const [orderBy, setOrderBy] = useState<Weibo.CommentsOrderBy>('hot');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
   const [isLoadFailed, setIsLoadFailed] = useState(false);
-  const [commentList, setCommentList] = useState<Backend.StatusComment[]>([]);
+  const [commentList, setCommentList] = useState<Weibo.Comment[]>([]);
 
   const prevOrderBy = usePrevious(orderBy);
   const prevCommentList = usePrevious(commentList);
@@ -82,7 +82,7 @@ export default function CommentList(props: CommentListProps) {
 
   const switchOrderBy = (orderBy: string | number) => {
     maxIdRef.current = '';
-    setOrderBy(orderBy as Backend.CommentsOrderBy);
+    setOrderBy(orderBy as Weibo.CommentsOrderBy);
   };
 
   useEffect(() => {

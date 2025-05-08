@@ -14,20 +14,20 @@ import { appendURLParams } from '@/utils/url';
 /*                                    Types                                   */
 /* -------------------------------------------------------------------------- */
 
-type StatusListParams = PaginationParams & Backend.StatusListFilterParams;
+type StatusListParams = PaginationParams & Weibo.StatusListFilterParams;
 type StatusCommentsParams = {
   id: string;
   maxId?: string;
-  orderBy?: Backend.CommentsOrderBy;
+  orderBy?: Weibo.CommentsOrderBy;
 };
 type StatusCommentsRepliesParams = {
   id: string;
   maxId?: string;
-  orderBy?: Backend.CommentsRepliesOrderBy;
+  orderBy?: Weibo.CommentsRepliesOrderBy;
 };
 type ROTNListParams = PaginationParams & {
   id?: string;
-  type?: Backend.ROTN_TYPE;
+  type?: ROTN.Type;
 };
 
 /* -------------------------------------------------------------------------- */
@@ -39,7 +39,7 @@ export async function getStatusList(params: StatusListParams) {
   if (params.startDate) params.startDate += ' 00:00:00';
   if (params.endDate) params.endDate += ' 23:59:59';
   url = appendURLParams(url, params);
-  const statuses = await get<Backend.DBList<Backend.Status>>(url);
+  const statuses = await get<DB.List<Weibo.Status>>(url);
   return statuses;
 }
 
@@ -53,7 +53,7 @@ export async function getStatusVideo(id: string) {
 export async function getStatusComments(params: StatusCommentsParams) {
   let url = '/api/weibo/status/comments';
   url = appendURLParams(url, params);
-  const comments = await get<Backend.StatusCommentList>(url);
+  const comments = await get<Weibo.CommentList>(url);
   return comments;
 }
 
@@ -62,14 +62,14 @@ export async function getStatusCommentsReplies(
 ) {
   let url = '/api/weibo/status/comments/replies';
   url = appendURLParams(url, params);
-  const comments = await get<Backend.StatusCommentList>(url);
+  const comments = await get<Weibo.CommentList>(url);
   return comments;
 }
 
 export async function getStatusDetail(id: string) {
   let url = '/api/weibo/status/detail';
   url = appendURLParams(url, { id });
-  const status = await get<Backend.Status>(url);
+  const status = await get<Weibo.Status>(url);
   return status;
 }
 
@@ -92,7 +92,7 @@ export async function unfavouriteStatus(uid: string, sid: string) {
 export async function getUserByName(name: string) {
   let url = '/api/weibo/user/info';
   url = appendURLParams(url, { name });
-  const data = await get<Backend.User>(url);
+  const data = await get<Weibo.User>(url);
   return data;
 }
 
@@ -115,7 +115,7 @@ export async function untrackUser(uid: string) {
 export async function getRotnList(params: ROTNListParams) {
   let url = '/api/db/rotn/items/list';
   url = appendURLParams(url, params);
-  const items = await get<Backend.DBList<Backend.ROTNItem>>(url);
+  const items = await get<DB.List<ROTN.BrandItem>>(url);
   return items;
 }
 
@@ -124,7 +124,7 @@ export async function getRotnList(params: ROTNListParams) {
 /* -------------------------------------------------------------------------- */
 
 export async function listCookies() {
-  const cookies = await get<Backend.DBList<string>>('/api/weibo/cookies/list');
+  const cookies = await get<DB.List<string>>('/api/weibo/cookies/list');
   return cookies;
 }
 
@@ -155,8 +155,8 @@ export async function appendCookie(cookie: string) {
 /*                                  Scanning                                  */
 /* -------------------------------------------------------------------------- */
 
-export async function triggerScan(params: Backend.ScanningParams) {
-  const scanParams: Backend.ScanningParams = {
+export async function triggerScan(params: Weibo.ScanningParams) {
+  const scanParams: Weibo.ScanningParams = {
     ...params,
     triggerOnly: true,
   };
@@ -165,7 +165,7 @@ export async function triggerScan(params: Backend.ScanningParams) {
 }
 
 export async function triggerFullScan(uid: string) {
-  const fullScanParams: Backend.ScanningParams = {
+  const fullScanParams: Weibo.ScanningParams = {
     uid,
     all: true,
     upload: true,

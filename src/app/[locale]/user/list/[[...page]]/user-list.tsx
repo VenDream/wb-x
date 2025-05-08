@@ -15,7 +15,7 @@ import Paginator from './paginator';
 import UserCard from './user-card';
 
 interface UsersListProps {
-  users: Backend.User[];
+  users: Weibo.User[];
   pageNo: number;
   total: number;
 }

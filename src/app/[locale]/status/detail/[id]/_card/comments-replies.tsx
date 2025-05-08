@@ -22,13 +22,13 @@ import './comments-replies.css';
 
 export default function CommentsReplies(props: CommentsRepliesProps) {
   const t = useTranslations('pages.status.comments');
-  const [comment, setComment] = useState<Backend.StatusComment>(() => ({
+  const [comment, setComment] = useState<Weibo.Comment>(() => ({
     ...props.comment,
     comments: [],
   }));
 
   const maxIdRef = useRef('');
-  const [orderBy, setOrderBy] = useState<Backend.CommentsRepliesOrderBy>('hot');
+  const [orderBy, setOrderBy] = useState<Weibo.CommentsRepliesOrderBy>('hot');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadAll, setIsLoadAll] = useState(false);
   const [isLoadFailed, setIsLoadFailed] = useState(false);
@@ -68,7 +68,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
 
   const switchOrderBy = (orderBy: string | number) => {
     maxIdRef.current = '';
-    setOrderBy(orderBy as Backend.CommentsRepliesOrderBy);
+    setOrderBy(orderBy as Weibo.CommentsRepliesOrderBy);
   };
 
   useEffect(() => {

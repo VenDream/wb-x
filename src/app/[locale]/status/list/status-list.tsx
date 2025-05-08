@@ -27,7 +27,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StatusCard } from '../detail';
 import Filter from './_filter';
 
-export const defaultFilterParams: Backend.StatusListFilterParams = {
+export const defaultFilterParams: Weibo.StatusListFilterParams = {
   order: 'desc',
   orderBy: 'createdAt',
   isTracking: true,
@@ -44,7 +44,7 @@ export default function StatusList() {
   const searchParams = useSearchParams();
 
   const [filterParams, setFilterParams] =
-    useState<Backend.StatusListFilterParams>(() => {
+    useState<Weibo.StatusListFilterParams>(() => {
       const uid = searchParams.get('uid');
       const initParams = { ...defaultFilterParams };
       if (typeof window === 'undefined') return initParams;
@@ -53,7 +53,7 @@ export default function StatusList() {
     });
 
   const updateFilterParams = useCallback(
-    (patch: Partial<Backend.StatusListFilterParams>) => {
+    (patch: Partial<Weibo.StatusListFilterParams>) => {
       setFilterParams(params => ({ ...params, ...patch }));
       listRef.current?.reset();
     },
@@ -69,8 +69,8 @@ export default function StatusList() {
   }, []);
 
   const listProps: VirtualListProps<
-    Backend.Status,
-    Backend.DBList<Backend.Status>
+    Weibo.Status,
+    DB.List<Weibo.Status>
   > = useMemo(
     () => ({
       getDataFetcher: params => () =>

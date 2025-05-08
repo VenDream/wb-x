@@ -34,7 +34,7 @@ export default function StatusDetail(props: IProps) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [, setIsUpstream] = useState(false);
-  const [status, setStatus] = useState<Backend.Status | null>(null);
+  const [status, setStatus] = useState<Weibo.Status | null>(null);
 
   const fetchStatusDetail = useCallback(async () => {
     try {

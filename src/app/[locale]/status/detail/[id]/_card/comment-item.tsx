@@ -55,7 +55,7 @@ export default function CommentItem(props: CommentItemProps) {
   } = props.comment;
 
   const getUserName = useCallback(
-    (user: Backend.StatusComment['replyUser']) => {
+    (user: Weibo.Comment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
       const username = htmlString(`
         <a href="${WEIBO_HOST}/${user.id}" target="_blank" rel="noreferrer" class="username">
@@ -84,7 +84,7 @@ export default function CommentItem(props: CommentItemProps) {
     [createdAt]
   );
 
-  const showCommentsReplies = (comment: Backend.StatusComment) => {
+  const showCommentsReplies = (comment: Weibo.Comment) => {
     showDialog({
       footer: null,
       title: t('replies'),

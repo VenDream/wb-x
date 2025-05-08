@@ -9,6 +9,7 @@
 
 import { getUserList } from '@/api/server';
 import MotionContainer from '@/components/common/motion-container';
+import { NoData } from '@/components/common/no-data';
 import { PAGINATION_LIMIT } from '@/constants';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -38,7 +39,7 @@ export default async function Page({ params }: ParamsBody) {
       {users.length > 0 ? (
         <UsersList users={users} pageNo={pageNo} total={total} />
       ) : (
-        notFound()
+        <NoData />
       )}
     </MotionContainer>
   );

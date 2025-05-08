@@ -19,7 +19,7 @@ import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
-  user: Backend.User;
+  user: Weibo.User;
   className?: string;
   onTrackUser?: () => void;
   onUntrackUser?: () => void;

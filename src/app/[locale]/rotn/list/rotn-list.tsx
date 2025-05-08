@@ -41,8 +41,8 @@ export default function RotnList() {
 
   const [id, setId] = useState('');
   const [itemId, setItemId] = useState('');
-  const [items, setItems] = useState<Backend.ROTNItem[]>([]);
-  const [itemType, setItemType] = useState<Backend.ROTN_TYPE>('');
+  const [items, setItems] = useState<ROTN.BrandItem[]>([]);
+  const [itemType, setItemType] = useState<ROTN.Type>('');
 
   const listHeaderRef = useRef<HTMLDivElement>(null);
   const isSticky = useDetectSticky(listHeaderRef);
@@ -79,7 +79,7 @@ export default function RotnList() {
   }, [isLoadAll, isLoading, isLoadFailed]);
 
   const switchItemType = (type: string | number) => {
-    setItemType(type as Backend.ROTN_TYPE);
+    setItemType(type as ROTN.Type);
     setPageNo(0);
     setItems([]);
   };

@@ -21,7 +21,7 @@ import CardCtx from './context';
 
 export default function CardHeader() {
   const { status, isRetweet } = useContext(CardCtx);
-  const { user, createdAt, source, region } = status as Backend.Status;
+  const { user, createdAt, source, region } = status as Weibo.Status;
 
   const [ct, setCt] = useState('');
 

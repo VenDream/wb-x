@@ -36,7 +36,7 @@ const ALIGN_END_TRIGGER_W = 1450;
 export default function CardMenu() {
   const cardCtx = useContext(CardCtx);
   const { status, isRetweet, menu, renderCustomMenus } = cardCtx;
-  const { id, user, images } = status as Backend.Status;
+  const { id, user, images } = status as Weibo.Status;
   const t = useTranslations('pages.status.menu');
   const [alignEnd, setAlignEnd] = useState(false);
 

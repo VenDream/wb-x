@@ -37,7 +37,7 @@ export default function CardFooter() {
     repostsCount,
     commentsCount,
     attitudesCount,
-  } = status as Backend.Status;
+  } = status as Weibo.Status;
   const [ct, setCt] = useState('');
   const [rc, setRc] = useState('0');
   const [cc, setCc] = useState('0');
@@ -74,7 +74,7 @@ export default function CardFooter() {
         )}
       >
         <div className="flex gap-4">
-          <FavouriteBtn status={status as Backend.Status} />
+          <FavouriteBtn status={status as Weibo.Status} />
           <Tooltip message={t('footer.reposts')} className="text-xs">
             <span className="flex items-center">
               <Repeat2Icon size={16} className="mr-1" />

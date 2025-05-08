@@ -24,7 +24,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 interface IProps {
-  status: Backend.Status;
+  status: Weibo.Status;
 }
 
 export default function FavouriteBtn(props: IProps) {

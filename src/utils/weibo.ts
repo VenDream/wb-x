@@ -108,10 +108,10 @@ export function getProxiedVideoUrl(src: string) {
  * dedupe status list
  *
  * @export
- * @param {Backend.Status[]} list status list
+ * @param {Weibo.Status[]} list status list
  */
-export function dedupeStatusList(list: Backend.Status[]) {
-  const map = new Map<string, Backend.Status>();
+export function dedupeStatusList(list: Weibo.Status[]) {
+  const map = new Map<string, Weibo.Status>();
   list.forEach(status => {
     map.set(status.id, status);
   });

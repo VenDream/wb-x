@@ -27,7 +27,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 interface IProps {
-  users: Backend.User[];
+  users: Weibo.User[];
 }
 
 export default function Trackings(props: IProps) {
@@ -35,8 +35,8 @@ export default function Trackings(props: IProps) {
   const t = useTranslations('pages.trackings');
 
   const [username, setUsername] = useState('');
-  const [user, setUser] = useState<Backend.User>();
-  const [users, setUsers] = useState<Backend.User[]>(initialUsers);
+  const [user, setUser] = useState<Weibo.User>();
+  const [users, setUsers] = useState<Weibo.User[]>(initialUsers);
 
   const [isSearching, setIsSearching] = useState(false);
   const [searchFailedReason, setSearchFailedReason] = useState('');
