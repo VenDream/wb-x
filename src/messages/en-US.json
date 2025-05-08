@@ -75,11 +75,16 @@
   },
   "pages": {
     "home": {
-      "title": "Database",
+      "dbTitle": "Database",
+      "wbTitle": "Weibo",
+      "twitterTitle": "Twitter",
+      "rotnTitle": "ROTN",
       "records": "records",
       "totalDbSize": "Total DB File Size",
-      "totalUsers": "Total Users",
-      "totalStatuses": "Total Posts",
+      "totalWeiboUsers": "Total Weibo Users",
+      "totalWeiboStatuses": "Total Weibo Posts",
+      "totalTwitterUsers": "Total Twitter Users",
+      "totalTwitterTweets": "Total Twitter Tweets",
       "totalRotns": "Total ROTNs"
     },
     "status": {

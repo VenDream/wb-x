@@ -75,11 +75,16 @@
   },
   "pages": {
     "home": {
-      "title": "数据库",
+      "dbTitle": "数据库",
+      "wbTitle": "微博",
+      "twitterTitle": "推特",
+      "rotnTitle": "ROTN",
       "records": "条",
       "totalDbSize": "数据库文件总大小",
-      "totalUsers": "用户总数",
-      "totalStatuses": "微博总数",
+      "totalWeiboUsers": "微博用户总数",
+      "totalWeiboStatuses": "微博博文总数",
+      "totalTwitterUsers": "推特用户总数",
+      "totalTwitterTweets": "推特推文总数",
       "totalRotns": "ROTN商品总数"
     },
     "status": {
