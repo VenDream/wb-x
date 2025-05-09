@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getStatusVideo } from '@/api/client';
+import { weibo } from '@/api/client';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
@@ -43,7 +43,7 @@ export default function CardVideo() {
   const fetchVideoSrc = async (callback: () => void) => {
     try {
       setIsLoading(true);
-      const src = await getStatusVideo(status.id);
+      const src = await weibo.getStatusVideo(status.id);
       const proxiedVideoUrl = getProxiedVideoUrl(src);
       const video: Slide = {
         type: 'video',

@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { getTrackingUsers } from '@/api/server';
+import { twitter, weibo } from '@/api/server';
 import type { Metadata } from 'next';
 import Trackings from './trackings';
 
@@ -16,6 +16,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { list: users = [] } = await getTrackingUsers();
-  return <Trackings users={users} />;
+  const getUsersLists = () =>
+    Promise.all([weibo.getTrackingUsers(), twitter.getTrackingUsers()]);
+
+  const [wbUsersList, twUsersList] = await getUsersLists();
+
+  return (
+    <Trackings weiboUsers={wbUsersList.list} twitterUsers={twUsersList.list} />
+  );
 }

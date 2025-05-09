@@ -111,8 +111,8 @@ export default function DatePicker(props: DatePickerProps) {
         onChange={onSelected}
         inputClassName="font-normal bg-transparent"
         menuClassName={cn(
-          'h-[200px] w-[203px] rounded-sm font-normal border',
-          'bg-base-100/50 border-base-content/10 backdrop-blur-lg'
+          'h-[200px] w-[203px] rounded-sm font-normal backdrop-blur-lg',
+          'bg-base-100/50 '
         )}
       />
     );

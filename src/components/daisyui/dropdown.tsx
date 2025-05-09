@@ -23,7 +23,9 @@ export interface DropdownProps
 
 export interface DropdownToggleProps
   extends React.PropsWithChildren,
-    React.HTMLAttributes<HTMLDivElement> {}
+    React.HTMLAttributes<HTMLDivElement> {
+  disabled?: boolean;
+}
 
 export interface DropdownMenuProps
   extends React.PropsWithChildren,
@@ -62,7 +64,7 @@ function Dropdown(props: DropdownProps) {
 
 const DropdownToggle = forwardRef<HTMLDivElement, DropdownToggleProps>(
   (props, ref) => {
-    const { className, children, ...divProps } = props;
+    const { className, children, disabled, ...divProps } = props;
 
     return (
       <div
@@ -70,7 +72,7 @@ const DropdownToggle = forwardRef<HTMLDivElement, DropdownToggleProps>(
         ref={ref}
         // biome-ignore lint/a11y/useSemanticElements: <explanation>
         role="button"
-        className={className}
+        className={cn(className, { 'pointer-events-none': disabled })}
         {...divProps}
       >
         {children}

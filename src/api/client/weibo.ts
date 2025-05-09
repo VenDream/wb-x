@@ -1,18 +1,14 @@
 /*
- * Clientside APIs
+ * Weibo Clientside APIs
  *
  * @Author: VenDream
- * @Date: 2023-08-24 10:52:57
+ * @Date: 2025-05-09 14:45:39
  *
- * Copyright © 2023 VenDream. All Rights Reserved.
+ * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
 import { get, post } from '@/utils/request/client';
 import { appendURLParams } from '@/utils/url';
-
-/* -------------------------------------------------------------------------- */
-/*                                    Types                                   */
-/* -------------------------------------------------------------------------- */
 
 type StatusListParams = PaginationParams & Weibo.StatusListFilterParams;
 type StatusCommentsParams = {
@@ -25,10 +21,29 @@ type StatusCommentsRepliesParams = {
   maxId?: string;
   orderBy?: Weibo.CommentsRepliesOrderBy;
 };
-type ROTNListParams = PaginationParams & {
-  id?: string;
-  type?: ROTN.Type;
-};
+
+/* -------------------------------------------------------------------------- */
+/*                                    Users                                   */
+/* -------------------------------------------------------------------------- */
+
+export async function getUserByName(name: string) {
+  let url = '/api/weibo/user/info';
+  url = appendURLParams(url, { name });
+  const data = await get<Weibo.User>(url);
+  return data;
+}
+
+export async function trackUser(uid: string) {
+  const url = '/api/weibo/user/track';
+  const rlt = await post(url, { uid });
+  return rlt;
+}
+
+export async function untrackUser(uid: string) {
+  const url = '/api/weibo/user/untrack';
+  const rlt = await post(url, { uid });
+  return rlt;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Status                                   */
@@ -83,40 +98,6 @@ export async function unfavouriteStatus(uid: string, sid: string) {
   const url = '/api/weibo/status/unfavourite';
   const rlt = await post(url, { uid, statusId: sid });
   return rlt;
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                    Users                                   */
-/* -------------------------------------------------------------------------- */
-
-export async function getUserByName(name: string) {
-  let url = '/api/weibo/user/info';
-  url = appendURLParams(url, { name });
-  const data = await get<Weibo.User>(url);
-  return data;
-}
-
-export async function trackUser(uid: string) {
-  const url = '/api/weibo/user/track';
-  const rlt = await post(url, { uid });
-  return rlt;
-}
-
-export async function untrackUser(uid: string) {
-  const url = '/api/weibo/user/untrack';
-  const rlt = await post(url, { uid });
-  return rlt;
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                    ROTN                                    */
-/* -------------------------------------------------------------------------- */
-
-export async function getRotnList(params: ROTNListParams) {
-  let url = '/api/db/rotn/items/list';
-  url = appendURLParams(url, params);
-  const items = await get<DB.List<ROTN.BrandItem>>(url);
-  return items;
 }
 
 /* -------------------------------------------------------------------------- */

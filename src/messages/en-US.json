@@ -1,5 +1,9 @@
 {
   "global": {
+    "platform": {
+      "weibo": "Weibo",
+      "twitter": "Twitter"
+    },
     "layout": {
       "loading": "Loading..."
     },
@@ -9,7 +13,6 @@
       "rotn": "ROTN",
       "user": "User",
       "trackings": "Trackings",
-      "scanning": "Scanning",
       "settings": "Settings"
     },
     "locale": {
@@ -188,7 +191,8 @@
     "trackings": {
       "title": "Tracking Users",
       "stat": {
-        "title": "Total tracking users",
+        "wbTitle": "Total Weibo tracking users",
+        "twTitle": "Total Twitter tracking users",
         "desc": "counts"
       },
       "add": {
@@ -202,8 +206,8 @@
     },
     "settings": {
       "tabs": {
-        "local": "LOCAL SETTINGS",
-        "cookies": "COOKIES SETTINGS"
+        "local": "Local Settings",
+        "cookies": "Weibo Cookies"
       },
       "local": {
         "useImageProxy": "Enable Image Proxy",

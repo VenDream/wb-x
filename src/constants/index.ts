@@ -31,6 +31,7 @@ export type Lang = (typeof LANGS)[keyof typeof LANGS];
 
 export const DEFAULT_FAV_UID = 'yeshenxue@qq.com';
 export const WEIBO_HOST = 'https://weibo.com';
+export const TWITTER_HOST = 'https://x.com';
 export const WEIBO_IMAGES_DOWNLOAD_API =
   '/api/weibo/status/images?responseType=zip';
 
@@ -56,7 +57,6 @@ export const PRIMARY_ROUTE_KEYS = [
   'ROTN',
   'USER',
   'TRACKINGS',
-  // 'SCANNING',
   'SETTINGS',
 ] as const;
 export type PrimaryRouteKey = (typeof PRIMARY_ROUTE_KEYS)[number];
@@ -67,7 +67,6 @@ export const PRIMARY_ROUTES: Record<PrimaryRouteKey, string> = {
   ROTN: '/rotn/list',
   USER: '/user/list',
   TRACKINGS: '/trackings',
-  // SCANNING: '/scanning',
   SETTINGS: '/settings',
 };
 
@@ -82,7 +81,6 @@ export const ADMIN_ROUTES: Partial<typeof PRIMARY_ROUTES> = {
   ROTN: PRIMARY_ROUTES.ROTN,
   USER: PRIMARY_ROUTES.USER,
   TRACKINGS: PRIMARY_ROUTES.TRACKINGS,
-  // SCANNING: PRIMARY_ROUTES.SCANNING,
 };
 
 /* -------------------------------------------------------------------------- */

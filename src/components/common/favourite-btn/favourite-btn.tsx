@@ -9,13 +9,13 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-import { favouriteStatus, unfavouriteStatus } from '@/api/client';
+import { weibo } from '@/api/client';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
 import { favouriteBtnMotion } from '@/constants/motions';
 import useFavUid from '@/hooks/use-fav-uid';
-import { statusFavouritesAtom } from '@/store';
+import { wbStatusFavouritesAtom } from '@/store';
 import { cn } from '@/utils/classnames';
 import { useAtom } from 'jotai';
 import { HeartIcon } from 'lucide-react';
@@ -33,7 +33,9 @@ export default function FavouriteBtn(props: IProps) {
 
   const favUid = useFavUid();
   const [isOperating, setIsOperating] = useState(false);
-  const [statusFavourites, setStatusFavourites] = useAtom(statusFavouritesAtom);
+  const [statusFavourites, setStatusFavourites] = useAtom(
+    wbStatusFavouritesAtom
+  );
 
   const sid = props.status.id;
   const isFavourite = statusFavourites[sid] ?? props.status.isFavourite;
@@ -54,7 +56,9 @@ export default function FavouriteBtn(props: IProps) {
   const toggleStatusFavourites = () => {
     if (isOperating) return;
 
-    const toggleAPI = isFavourite ? unfavouriteStatus : favouriteStatus;
+    const toggleAPI = isFavourite
+      ? weibo.unfavouriteStatus
+      : weibo.favouriteStatus;
 
     setIsOperating(true);
     toast.promise(

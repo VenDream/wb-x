@@ -9,7 +9,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { getStatusDetail, getStatusList } from '@/api/client';
+import { weibo } from '@/api/client';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
@@ -40,14 +40,14 @@ export default function StatusDetail(props: IProps) {
     try {
       setIsLoading(true);
       // try searching from DB first
-      const statuses = await getStatusList({ id: props.id, favUid: uid });
+      const statuses = await weibo.getStatusList({ id: props.id, favUid: uid });
       if (statuses.list.length > 0) {
         setStatus(statuses.list[0]);
       } else if (TRY_FETCHING_FROM_UPSTREAM) {
         /**
          * @TODO support fetching from upstream API later
          */
-        const status = await getStatusDetail(props.id);
+        const status = await weibo.getStatusDetail(props.id);
         setStatus(status);
         setIsUpstream(true);
       }

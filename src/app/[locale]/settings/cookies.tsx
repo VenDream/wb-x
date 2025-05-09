@@ -7,12 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import {
-  checkCookie,
-  listCookies,
-  removeCookie,
-  updateCookie,
-} from '@/api/client';
+import { weibo } from '@/api/client';
 import { useDialog } from '@/components/common/dialog';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
@@ -44,7 +39,7 @@ export default function CookiesSettings() {
   const getCookies = useCallback(async () => {
     try {
       setIsLoading(true);
-      const { list: cookies } = await listCookies();
+      const { list: cookies } = await weibo.listCookies();
       setCookies(cookies);
     } catch (err) {
       console.error(err);
@@ -61,7 +56,8 @@ export default function CookiesSettings() {
     setIsOperating(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        updateCookie(idx, cookie)
+        weibo
+          .updateCookie(idx, cookie)
           .then(() => {
             getCookies();
             resolve();
@@ -86,7 +82,8 @@ export default function CookiesSettings() {
     setIsOperating(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        checkCookie(idx)
+        weibo
+          .checkCookie(idx)
           .then(data => {
             const { isValid } = data;
             isValid ? resolve() : reject();
@@ -112,7 +109,8 @@ export default function CookiesSettings() {
         setIsOperating(true);
         toast.promise(
           new Promise<void>((resolve, reject) =>
-            removeCookie(idx)
+            weibo
+              .removeCookie(idx)
               .then(() => {
                 getCookies();
                 resolve();

@@ -1,10 +1,10 @@
 /*
- * Serverside APIs
+ * Weibo Serverside APIs
  *
  * @Author: VenDream
- * @Date: 2023-08-18 14:40:26
+ * @Date: 2025-05-09 14:38:24
  *
- * Copyright © 2023 VenDream. All Rights Reserved.
+ * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
 import { getApiHost } from '@/utils/api-host';
@@ -22,12 +22,4 @@ export async function getUserList(params: UserListParams) {
 
 export async function getTrackingUsers() {
   return getUserList({ limit: 9999, isTracking: true });
-}
-
-export async function getDatabaseInfo() {
-  const url = `${getApiHost()}/api/db/info`;
-  const info = await get<DB.Info>(url, {
-    next: { tags: ['db-info'] },
-  });
-  return info;
 }

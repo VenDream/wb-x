@@ -1,5 +1,9 @@
 {
   "global": {
+    "platform": {
+      "weibo": "微博",
+      "twitter": "推特"
+    },
     "layout": {
       "loading": "少女祈祷中..."
     },
@@ -9,7 +13,6 @@
       "rotn": "ROTN",
       "user": "用户",
       "trackings": "正在追踪",
-      "scanning": "扫描",
       "settings": "设置"
     },
     "locale": {
@@ -188,7 +191,8 @@
     "trackings": {
       "title": "正在追踪",
       "stat": {
-        "title": "追踪用户总数",
+        "wbTitle": "微博追踪用户总数",
+        "twTitle": "推特追踪用户总数",
         "desc": "人"
       },
       "add": {
@@ -203,7 +207,7 @@
     "settings": {
       "tabs": {
         "local": "本地设置",
-        "cookies": "Cookies设置"
+        "cookies": "微博Cookies"
       },
       "local": {
         "useImageProxy": "启用图片代理",

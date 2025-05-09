@@ -12,14 +12,16 @@ import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/constants';
+import { TWITTER_HOST, WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
+import { extractPlainTextFromRichText } from '@/utils/common';
 import { getImageVariants } from '@/utils/weibo';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
-  user: Weibo.User;
+  platform: Platform;
+  user: Weibo.User | Twitter.User;
   className?: string;
   onTrackUser?: () => void;
   onUntrackUser?: () => void;
@@ -27,19 +29,43 @@ interface IProps {
 
 export default function UserCard(props: IProps) {
   const t = useTranslations('pages.user');
+
+  const { screenName } = props.user as Twitter.User;
   const { id, name, avatar, desc, followCount, followersCount } = props.user;
 
+  const isWeibo = props.platform === 'weibo';
+  const isTwitter = props.platform === 'twitter';
   const blockClasses = 'w-[80%] text-center';
 
   if (!id || +id <= 0) return null;
 
+  const userLink = isWeibo
+    ? `${WEIBO_HOST}/${id}`
+    : `${TWITTER_HOST}/${screenName}`;
+
+  const descRawText = extractPlainTextFromRichText(desc);
+  const descHtml = (
+    <div
+      className={cn(
+        blockClasses,
+        'line-clamp-2 h-[3em] text-xs leading-normal',
+        {
+          '*:hover:text-[#1da1f2]': isTwitter,
+          '*:hover:underline': isTwitter,
+          '*:hover:underline-offset-4': isTwitter,
+        }
+      )}
+      dangerouslySetInnerHTML={{ __html: desc || '-' }}
+    />
+  );
+
   return (
     <MotionContainer
+      data-platform={props.platform}
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-2 py-6',
         'bg-base-200/30 outline-base-content/10 rounded-box outline',
         'hover:outline-info outline-1 hover:shadow',
-        '!will-change-transform',
         props.className
       )}
     >
@@ -55,20 +81,29 @@ export default function UserCard(props: IProps) {
           />
         </div>
       </Avatar>
-      <a
-        target="_blank"
-        rel="noreferrer"
-        href={`${WEIBO_HOST}/${id}`}
-        className={cn(
-          blockClasses,
-          'line-clamp-1 text-sm hover:underline',
-          'hover:text-accent hover:underline-offset-4'
+      <div className="flex w-[80%] flex-col items-center gap-0.5">
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href={userLink}
+          className={cn(
+            blockClasses,
+            'line-clamp-1 w-auto text-sm hover:underline',
+            'hover:text-accent hover:underline-offset-4'
+          )}
+        >
+          <p className="text-center">{isWeibo ? `@${name}` : name}</p>
+        </a>
+        {isTwitter && (
+          <p className="text-base-content/50 w-full text-center text-xs">
+            {`@${screenName}`}
+          </p>
         )}
-      >
-        <p title={name}>{name ? `@${name}` : '-'}</p>
-      </a>
+      </div>
+
       <TrackingsBtn
         user={props.user}
+        platform={props.platform}
         onTrackUser={props.onTrackUser}
         onUntrackUser={props.onUntrackUser}
       />
@@ -79,17 +114,10 @@ export default function UserCard(props: IProps) {
       </p>
       <Tooltip
         delayDuration={500}
-        message={desc || '-'}
+        message={descRawText}
         className="border-info max-w-64 border text-justify text-xs break-all"
       >
-        <p
-          className={cn(
-            blockClasses,
-            'line-clamp-2 h-[3em] text-xs leading-normal'
-          )}
-        >
-          {desc || '-'}
-        </p>
+        {descHtml}
       </Tooltip>
     </MotionContainer>
   );

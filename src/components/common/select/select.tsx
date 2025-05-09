@@ -25,6 +25,7 @@ export interface SelectProps {
   options?: SelectOption[];
   align?: DropdownProps['align'];
   placeholder?: string;
+  disabled?: boolean;
 
   className?: string;
   inputClassName?: string;
@@ -37,6 +38,7 @@ export default function Select(props: SelectProps) {
     options,
     align,
     placeholder,
+    disabled,
     className,
     inputClassName,
     menuClassName,
@@ -54,9 +56,10 @@ export default function Select(props: SelectProps) {
 
   return (
     <Dropdown align={align} className={className}>
-      <Dropdown.Toggle ref={toggleRef}>
+      <Dropdown.Toggle ref={toggleRef} disabled={disabled}>
         <Input
           readOnly
+          disabled={disabled}
           placeholder={placeholder}
           value={selectedOption?.label || ''}
           className={cn('select cursor-pointer', inputClassName)}
@@ -65,6 +68,7 @@ export default function Select(props: SelectProps) {
       <Dropdown.Menu
         className={cn(
           'bg-base-100 mt-2 flex flex-col flex-nowrap overflow-auto',
+          'border-base-content/10 border',
           menuClassName
         )}
       >

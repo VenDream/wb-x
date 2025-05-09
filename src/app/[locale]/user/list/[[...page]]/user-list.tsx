@@ -27,7 +27,7 @@ export default function UsersList(props: UsersListProps) {
     <>
       <div className={cn('rounded-box grid grid-cols-5 gap-6 px-2 py-4')}>
         {users.map(user => (
-          <UserCard key={user.id} user={user} />
+          <UserCard key={user.id} user={user} platform="weibo" />
         ))}
       </div>
       <Paginator

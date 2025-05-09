@@ -8,6 +8,8 @@
  */
 
 namespace Twitter {
+  type Platform = 'twitter';
+
   /* ------------------------------------------------------------------------ */
   /*                                   User                                   */
   /* ------------------------------------------------------------------------ */
@@ -145,7 +147,7 @@ namespace Twitter {
     leastVideosCount?: number;
   }
 
-  interface ScannerOption {
+  interface ScanningParams {
     /** uid */
     uid: string;
     /** cursor */

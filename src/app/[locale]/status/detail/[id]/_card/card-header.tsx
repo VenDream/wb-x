@@ -44,6 +44,7 @@ export default function CardHeader() {
             </a>
             <AuthGuard fallback={null}>
               <TrackingsBtn
+                platform="weibo"
                 user={user}
                 iconOnly
                 iconSize={14}
@@ -85,6 +86,7 @@ export default function CardHeader() {
             )}
           >
             <TrackingsBtn
+              platform="weibo"
               user={user}
               block
               iconOnly

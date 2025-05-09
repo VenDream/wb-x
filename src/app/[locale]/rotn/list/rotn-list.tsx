@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getRotnList } from '@/api/client';
+import { rotn } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import Tabs from '@/components/common/tabs';
 import { Button, Input } from '@/components/daisyui';
@@ -54,7 +54,7 @@ export default function RotnList() {
       setIsLoading(true);
       const limit = PAGINATION_LIMIT * 2;
       const offset = pageNo * limit;
-      const { list: items = [] } = await getRotnList({
+      const { list: items = [] } = await rotn.getItemList({
         id: itemId,
         limit,
         offset,

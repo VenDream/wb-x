@@ -8,13 +8,13 @@
  */
 
 import { Button, Dropdown } from '@/components/daisyui';
+import { WeiboIcon } from '@/components/icons';
 import {
   PRIMARY_ROUTES,
   SECONDARY_ROUTES,
   WEIBO_HOST,
   WEIBO_IMAGES_DOWNLOAD_API,
 } from '@/constants';
-import { WEIBO_ICON } from '@/constants/svgs';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { copyText } from '@/utils/common';
@@ -118,7 +118,7 @@ export default function CardMenu() {
               className="rounded-sm p-2"
               href={`${WEIBO_HOST}/detail/${id}`}
             >
-              {WEIBO_ICON}
+              <WeiboIcon size={16} className="!stroke-2" />
               {t('source')}
             </Link>
           </Dropdown.Item>

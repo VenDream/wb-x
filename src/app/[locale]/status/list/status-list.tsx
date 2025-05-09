@@ -9,7 +9,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getStatusList } from '@/api/client';
+import { weibo } from '@/api/client';
 import Loading from '@/components/common/loading';
 import VirtualList, {
   type VirtualListHandle,
@@ -74,7 +74,7 @@ export default function StatusList() {
   > = useMemo(
     () => ({
       getDataFetcher: params => () =>
-        getStatusList({ ...params, ...filterParams }),
+        weibo.getStatusList({ ...params, ...filterParams }),
       getDataParser: () => data => data.list,
       getTotalParser: () => data => data.total as number,
       getRowItemKey: (_, item) => item.id,

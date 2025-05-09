@@ -21,8 +21,11 @@ export const settingsAtom = atomWithStorage<App.Settings>(
   DEFAULT_SETTINGS
 );
 
-export const userTrackingsAtom = atom<Record<string, boolean>>({});
-export const statusFavouritesAtom = atom<Record<string, boolean>>({});
+export const wbUserTrackingsAtom = atom<Record<string, boolean>>({});
+export const wbStatusFavouritesAtom = atom<Record<string, boolean>>({});
+
+export const twUserTrackingsAtom = atom<Record<string, boolean>>({});
+export const twStatusFavouritesAtom = atom<Record<string, boolean>>({});
 
 const store = createStore();
 export default store;

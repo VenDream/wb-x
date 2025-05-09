@@ -211,3 +211,18 @@ export function genUniqueId(n = 6) {
 export function camel2Kebab(str: string) {
   return str.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
+
+/**
+ * extract plain text from rich text
+ *
+ * @export
+ * @param {string} richText rich text
+ */
+export function extractPlainTextFromRichText(richText: string) {
+  if (!richText) return '';
+
+  const div = document.createElement('div');
+  div.innerHTML = richText;
+
+  return div.textContent || '';
+}

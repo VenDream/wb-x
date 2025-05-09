@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getUserList } from '@/api/server';
+import { weibo } from '@/api/server';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
 import { PAGINATION_LIMIT } from '@/constants';
@@ -28,7 +28,7 @@ export default async function Page({ params }: ParamsBody) {
 
   const pageNo = Number(page) - 1;
   const pageSize = PAGINATION_LIMIT;
-  const { list: users = [], total = 0 } = await getUserList({
+  const { list: users = [], total = 0 } = await weibo.getUserList({
     limit: pageSize,
     offset: pageNo * pageSize,
     needTotal: true,

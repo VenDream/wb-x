@@ -24,6 +24,8 @@ declare global {
   }
 
   type TFunction = ReturnType<typeof useTranslations>;
+
+  type Platform = Weibo.Platform | Twitter.Platform;
 }
 
 declare module 'react' {

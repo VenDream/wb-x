@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getStatusCommentsReplies } from '@/api/client';
+import { weibo } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import Tabs from '@/components/common/tabs';
 import { usePrevious } from 'ahooks';
@@ -39,7 +39,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
     try {
       setIsLoading(true);
       const maxId = maxIdRef.current || '';
-      const resp = await getStatusCommentsReplies({
+      const resp = await weibo.getStatusCommentsReplies({
         id: comment.id,
         maxId,
         orderBy,
