@@ -173,18 +173,23 @@
     "user": {
       "follows": "follows",
       "followers": "followers",
+      "wbPosts": "statuses",
+      "twPosts": "tweets",
+      "homepage": "homepage",
+      "location": "location",
       "desc": "desc",
+      "noDesc": "No description",
       "track": "track",
       "untrack": "untrack",
       "trackTips": "Add to trackings",
       "untrackTips": "Remove from trackings",
       "trackingOperating": "Adding to trackings...",
       "untrackingOperating": "Removing from trackings...",
-      "addToTrackings": "Are you sure to start tracking user <username></username> ?",
-      "removeFromTrackings": "Are you sure to stop tracking user <username></username> ?",
+      "addToTrackings": "Are you sure to start tracking <platform></platform> user <username></username> ?",
+      "removeFromTrackings": "Are you sure to stop tracking <platform></platform> user <username></username> ?",
       "askForScanning": {
         "title": "Successfully added",
-        "desc": "Do you want to schedule a full scan task for user <username></username> ?",
+        "desc": "Do you want to schedule a full scan task for <platform></platform> user <username></username> ?",
         "schedulingTips": "Task scheduling..."
       }
     },

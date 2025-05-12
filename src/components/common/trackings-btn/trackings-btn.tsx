@@ -35,6 +35,7 @@ export default function TrackingsBtn(props: IProps) {
   const t1 = useTranslations('pages.user');
   const t2 = useTranslations('global.status');
   const t3 = useTranslations('global.action');
+  const t4 = useTranslations('global.platform');
   const {
     user,
     iconOnly,
@@ -128,6 +129,7 @@ export default function TrackingsBtn(props: IProps) {
     const dialogId = showDialog({
       preset: 'confirm',
       content: t1.rich(isTracking ? 'removeFromTrackings' : 'addToTrackings', {
+        platform: () => t4(props.platform),
         username: () => username,
       }),
       onOk: async () => {

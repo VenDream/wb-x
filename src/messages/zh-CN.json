@@ -171,20 +171,25 @@
       "sourceURLTips": "查看源链接"
     },
     "user": {
-      "follows": "关注",
-      "followers": "粉丝",
+      "follows": "正在关注",
+      "followers": "关注者",
+      "wbPosts": "微博",
+      "twPosts": "推特",
+      "homepage": "主页",
+      "location": "位置",
       "desc": "简介",
+      "noDesc": "暂无简介",
       "track": "追踪",
       "untrack": "取消追踪",
       "trackTips": "追踪",
       "untrackTips": "移除追踪",
       "trackingOperating": "添加追踪中...",
       "untrackingOperating": "移除追踪中...",
-      "addToTrackings": "确认开始追踪用户 <username></username> 吗？",
-      "removeFromTrackings": "确认取消追踪用户 <username></username> 吗？",
+      "addToTrackings": "确认开始追踪<platform></platform>用户 <username></username> 吗？",
+      "removeFromTrackings": "确认取消追踪<platform></platform>用户 <username></username> 吗？",
       "askForScanning": {
         "title": "已添加",
-        "desc": "现在要创建一个对用户 <username></username> 的全量扫描任务吗？",
+        "desc": "现在要创建一个对<platform></platform>用户 <username></username> 的全量扫描任务吗？",
         "schedulingTips": "任务创建中..."
       }
     },
