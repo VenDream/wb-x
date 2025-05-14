@@ -11,7 +11,7 @@
       "home": "Home",
       "weibo": "Weibo",
       "rotn": "ROTN",
-      "user": "User",
+      "users": "Users",
       "trackings": "Trackings",
       "settings": "Settings"
     },
@@ -170,19 +170,21 @@
       "sourceURL": "Source URL",
       "sourceURLTips": "View source URL"
     },
-    "user": {
+    "users": {
       "follows": "follows",
       "followers": "followers",
       "wbPosts": "statuses",
       "twPosts": "tweets",
       "homepage": "homepage",
       "location": "location",
+      "visit": "visit",
       "desc": "desc",
       "noDesc": "No description",
       "track": "track",
       "untrack": "untrack",
       "trackTips": "Add to trackings",
       "untrackTips": "Remove from trackings",
+      "isTracking": "only trackings",
       "trackingOperating": "Adding to trackings...",
       "untrackingOperating": "Removing from trackings...",
       "addToTrackings": "Are you sure to start tracking <platform></platform> user <username></username> ?",
@@ -191,6 +193,11 @@
         "title": "Successfully added",
         "desc": "Do you want to schedule a full scan task for <platform></platform> user <username></username> ?",
         "schedulingTips": "Task scheduling..."
+      },
+      "search": {
+        "placeholder": "Enter username to search",
+        "search": "Search",
+        "reset": "Reset"
       }
     },
     "trackings": {

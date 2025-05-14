@@ -26,6 +26,15 @@ type StatusCommentsRepliesParams = {
 /*                                    Users                                   */
 /* -------------------------------------------------------------------------- */
 
+type UserListParams = PaginationParams & Weibo.UserListFilterParams;
+
+export async function getUserList(params: UserListParams) {
+  let url = '/api/db/weibo/users/list';
+  url = appendURLParams(url, params);
+  const users = await get<DB.List<Weibo.User>>(url);
+  return users;
+}
+
 export async function getUserByName(name: string) {
   let url = '/api/weibo/user/info';
   url = appendURLParams(url, { name });

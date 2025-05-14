@@ -93,10 +93,10 @@ export default function LoadingIndicator(props: LoadingIndicatorProps) {
     <div ref={triggerRef} className={rootClass}>
       {isLoading ? (
         <Loading align="center" textClass={textClass} size={iconSize} />
-      ) : isLoadAll ? (
-        <NoMoreData className={textClass} />
       ) : isNoData ? (
         <NoData className={textClass} />
+      ) : isLoadAll ? (
+        <NoMoreData className={textClass} />
       ) : !enabled ? (
         <Button size={size} onClick={loadMore}>
           {t('loadMore')}

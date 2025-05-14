@@ -14,6 +14,15 @@ import { appendURLParams } from '@/utils/url';
 /*                                    Users                                   */
 /* -------------------------------------------------------------------------- */
 
+type UserListParams = PaginationParams & Twitter.UserListFilterParams;
+
+export async function getUserList(params: UserListParams) {
+  let url = '/api/db/twitter/users/list';
+  url = appendURLParams(url, params);
+  const users = await get<DB.List<Twitter.User>>(url);
+  return users;
+}
+
 export async function getUserByName(name: string) {
   let url = '/api/twitter/user/info';
   url = appendURLParams(url, { name });

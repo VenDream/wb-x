@@ -219,7 +219,7 @@ export function camel2Kebab(str: string) {
  * @param {string} richText rich text
  */
 export function extractPlainTextFromRichText(richText: string) {
-  if (!richText) return '';
+  if (typeof window === 'undefined' || !richText) return '';
 
   const div = document.createElement('div');
   div.innerHTML = richText;

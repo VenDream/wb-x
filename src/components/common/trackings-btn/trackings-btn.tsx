@@ -32,7 +32,7 @@ interface IProps extends ButtonProps {
 }
 
 export default function TrackingsBtn(props: IProps) {
-  const t1 = useTranslations('pages.user');
+  const t1 = useTranslations('pages.users');
   const t2 = useTranslations('global.status');
   const t3 = useTranslations('global.action');
   const t4 = useTranslations('global.platform');
@@ -92,7 +92,10 @@ export default function TrackingsBtn(props: IProps) {
     const dialogId = showDialog({
       preset: 'success',
       title: t1('askForScanning.title'),
-      content: t1.rich('askForScanning.desc', { username: () => username }),
+      content: t1.rich('askForScanning.desc', {
+        platform: () => t4(props.platform),
+        username: () => username,
+      }),
       okBtnLabel: t3('yes'),
       cancelBtnLabel: t3('no'),
       cancelBtn: undefined,

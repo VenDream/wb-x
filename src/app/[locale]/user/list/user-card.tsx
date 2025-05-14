@@ -18,7 +18,12 @@ import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { extractPlainTextFromRichText } from '@/utils/common';
 import { getImageVariants } from '@/utils/weibo';
-import { LinkIcon, MapPinIcon, UsersIcon } from 'lucide-react';
+import {
+  LinkIcon,
+  MapPinIcon,
+  SquareArrowOutUpRightIcon,
+  UsersIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
@@ -37,11 +42,13 @@ interface UserMetaItem {
 }
 
 export default function UserCard(props: IProps) {
-  const t = useTranslations('pages.user');
+  const t = useTranslations('pages.users');
 
-  const { statusCount } = props.user as Weibo.User;
-  const { screenName, tweetsCount, link, location } =
-    props.user as Twitter.User;
+  const wbUser = props.user as Weibo.User;
+  const twUser = props.user as Twitter.User;
+
+  const { statusCount } = wbUser;
+  const { screenName, tweetsCount, link, location } = twUser;
   const { id, name, avatar, desc, followCount, followersCount } = props.user;
 
   const isWeibo = props.platform === 'weibo';
@@ -80,33 +87,33 @@ export default function UserCard(props: IProps) {
     ];
 
     if (isTwitter) {
-      if (location) {
+      link &&
+        items.push({
+          icon: <LinkIcon size={14} />,
+          label: t('homepage'),
+          content: (
+            <Tooltip message={link} className="border-primary text-xs">
+              <a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className={cn(
+                  'hover:text-accent text-xs break-all',
+                  'hover:underline hover:underline-offset-3'
+                )}
+              >
+                {t('visit')}{' '}
+                <SquareArrowOutUpRightIcon size={13} className="inline" />
+              </a>
+            </Tooltip>
+          ),
+        });
+      location &&
         items.push({
           icon: <MapPinIcon size={14} />,
           label: t('location'),
           content: location || '-',
         });
-      }
-
-      if (link) {
-        items.push({
-          icon: <LinkIcon size={14} />,
-          label: t('homepage'),
-          content: (
-            <a
-              href={link}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(
-                'text-xs break-all',
-                'hover:text-accent hover:underline hover:underline-offset-3'
-              )}
-            >
-              {link}
-            </a>
-          ),
-        });
-      }
     }
 
     return items;
@@ -125,11 +132,10 @@ export default function UserCard(props: IProps) {
 
   return (
     <MotionContainer
-      data-platform={props.platform}
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-3 py-6',
-        'bg-base-200/30 outline-base-content/10 rounded-box outline',
-        'hover:outline-primary outline-1 hover:shadow',
+        'bg-base-200/30 border-base-content/10 rounded-box border',
+        'hover:border-primary group border-1 hover:shadow',
         props.className
       )}
     >
@@ -158,7 +164,7 @@ export default function UserCard(props: IProps) {
             'hover:text-accent hover:underline hover:underline-offset-4'
           )}
         >
-          {isWeibo ? `@${name}` : name}
+          {name}
         </a>
         {isTwitter && (
           <p className="text-base-content/50 w-full text-center text-xs">
@@ -174,15 +180,25 @@ export default function UserCard(props: IProps) {
       />
       <div className="bg-base-content/10 h-[1px] w-full" />
       <div
-        className={cn(blockClasses, 'flex flex-col items-center gap-1 text-xs')}
+        className={cn(
+          blockClasses,
+          'flex flex-col items-center gap-1 text-xs',
+          {
+            'h-[3.5rem]': isWeibo,
+            'h-[6rem]': isTwitter,
+          }
+        )}
       >
-        {userMetaItems.map(item => (
-          <div key={item.label} className="flex w-full items-center gap-2">
+        {userMetaItems.map((item, idx) => (
+          <div key={idx} className="flex w-full items-center gap-2">
             <p className="flex basis-1/2 items-center justify-end gap-1">
               {item.icon}
               {item.label}
             </p>
-            <p className="line-clamp-1 min-w-0 flex-1 text-left">
+            <p
+              title={typeof item.content === 'string' ? item.content : ''}
+              className="line-clamp-1 min-w-0 flex-1 text-left break-all"
+            >
               {item.content}
             </p>
           </div>
@@ -193,13 +209,13 @@ export default function UserCard(props: IProps) {
         <Tooltip
           delayDuration={500}
           message={descText}
-          className="border-primary max-w-64 border text-justify text-xs break-all"
+          className="border-primary max-w-72 text-justify text-xs break-all"
         >
           <div
             className={cn(
               blockClasses,
-              'text-center text-xs',
-              'line-clamp-3 leading-normal break-all',
+              'h-[3em] text-center text-xs',
+              'line-clamp-2 leading-normal break-all',
               {
                 '[&_a]:hover:text-accent': isTwitter,
                 '[&_a]:hover:underline': isTwitter,
@@ -210,7 +226,7 @@ export default function UserCard(props: IProps) {
           />
         </Tooltip>
       ) : (
-        <p className="text-base-content/50 text-center text-xs">
+        <p className="text-base-content/50 h-[3em] text-center text-xs">
           {t('noDesc')}
         </p>
       )}

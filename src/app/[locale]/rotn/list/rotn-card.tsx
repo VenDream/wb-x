@@ -42,7 +42,7 @@ export default function RotnCard(props: IProps) {
   return (
     <MotionContainer
       className={cn(
-        'border-base-content/10 flex flex-col gap-2 rounded-sm border p-4',
+        'border-base-content/10 flex flex-col gap-2 border p-4',
         'bg-base-200 rounded-box h-full text-sm shadow-sm'
       )}
     >

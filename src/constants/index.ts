@@ -55,7 +55,7 @@ export const PRIMARY_ROUTE_KEYS = [
   'HOME',
   'WEIBO',
   'ROTN',
-  'USER',
+  'USERS',
   'TRACKINGS',
   'SETTINGS',
 ] as const;
@@ -65,7 +65,7 @@ export const PRIMARY_ROUTES: Record<PrimaryRouteKey, string> = {
   HOME: '/',
   WEIBO: '/status/list',
   ROTN: '/rotn/list',
-  USER: '/user/list',
+  USERS: '/user/list',
   TRACKINGS: '/trackings',
   SETTINGS: '/settings',
 };
@@ -79,7 +79,7 @@ export const SECONDARY_ROUTES: Record<SecondaryRouteKey, string> = {
 
 export const ADMIN_ROUTES: Partial<typeof PRIMARY_ROUTES> = {
   ROTN: PRIMARY_ROUTES.ROTN,
-  USER: PRIMARY_ROUTES.USER,
+  USERS: PRIMARY_ROUTES.USERS,
   TRACKINGS: PRIMARY_ROUTES.TRACKINGS,
 };
 

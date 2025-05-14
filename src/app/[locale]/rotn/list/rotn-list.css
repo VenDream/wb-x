@@ -3,6 +3,7 @@
 
   display: flex;
   width: auto;
+  padding: 8px;
   margin-left: calc(-1 * var(--rotn-masonry-gap));
 
   .rotn-masonry-list-column {

@@ -20,7 +20,7 @@ const ICONS: Record<PrimaryRouteKey, React.ReactNode> = {
   HOME: <HouseIcon size={18} />,
   WEIBO: <WeiboIcon size={18} />,
   ROTN: <ROTNIcon size={18} />,
-  USER: <UserIcon size={18} />,
+  USERS: <UserIcon size={18} />,
   TRACKINGS: <AudioLinesIcon size={18} />,
   SETTINGS: <SettingsIcon size={18} />,
 };
