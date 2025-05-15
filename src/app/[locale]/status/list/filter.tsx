@@ -17,7 +17,7 @@ import { cn } from '@/utils/classnames';
 import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { defaultFilterParams } from '../status-list';
+import { defaultFilterParams } from './status-list';
 
 interface FilterProps {
   /** filter params */

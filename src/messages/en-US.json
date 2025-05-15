@@ -10,6 +10,7 @@
     "pages": {
       "home": "Home",
       "weibo": "Weibo",
+      "twitter": "Twitter",
       "rotn": "ROTN",
       "users": "Users",
       "trackings": "Trackings",
@@ -153,6 +154,58 @@
       "updateFrequency": "Data is updated hourly.",
       "notExists": "The post does not exist",
       "noData": "No matching posts found",
+      "noDataTips": "Please check the filter options or try switching the data source"
+    },
+    "tweet": {
+      "filter": {
+        "dataSource": "Data Source",
+        "all": "All",
+        "trackings": "Trackings",
+
+        "id": "Tweet ID",
+        "uid": "User ID",
+        "original": "Original",
+        "originalTips": "Tweets without retweeted/quoted tweets",
+        "favourite": "Favourite",
+        "hasVideo": "With videos",
+        "hasImages": "With images",
+        "endDate": "EndDate",
+        "startDate": "StartDate",
+        "leastImagesCount": "Images count",
+        "leastImagesCountTips": "Least images count",
+        "leastVideosCount": "Videos count",
+        "leastVideosCountTips": "Least videos count",
+        "order": "Order",
+        "asc": "Asc",
+        "desc": "Desc",
+        "keyword": "Keyword",
+
+        "totalTweets": "<total></total><s></s>tweets were found."
+      },
+      "menu": {
+        "comments": "View comments",
+        "source": "View original tweet",
+        "download": "DL images zip",
+        "copyID": "Copy tweet ID",
+        "copyUID": "Copy user ID",
+        "copySuccessTips": "Copied to clipboard",
+        "opPosts": "View all OP's tweets"
+      },
+      "footer": {
+        "favourite": "Favourite",
+        "unfavourite": "Unfavourite",
+        "favouriteOperating": "Adding to favourites...",
+        "unfavouriteOperating": "Removing from favourites...",
+        "views": "Views",
+        "likes": "Likes",
+        "reposts": "Reposts",
+        "comments": "Comments",
+        "bookmarks": "Bookmarks"
+      },
+      "retweet": "Retweeted",
+      "updateFrequency": "Data is updated hourly.",
+      "notExists": "The tweet does not exist",
+      "noData": "No matching tweets found",
       "noDataTips": "Please check the filter options or try switching the data source"
     },
     "rotn": {

@@ -9,13 +9,13 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-import { weibo } from '@/api/client';
+import { twitter, weibo } from '@/api/client';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
 import { favouriteBtnMotion } from '@/constants/motions';
 import useFavUid from '@/hooks/use-fav-uid';
-import { wbStatusFavouritesAtom } from '@/store';
+import { twTweetFavouritesAtom, wbStatusFavouritesAtom } from '@/store';
 import { cn } from '@/utils/classnames';
 import { useAtom } from 'jotai';
 import { HeartIcon } from 'lucide-react';
@@ -24,48 +24,59 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 
 interface IProps {
-  status: Weibo.Status;
+  platform: Platform;
+  post: Weibo.Status | Twitter.Tweet;
 }
 
 export default function FavouriteBtn(props: IProps) {
-  const t1 = useTranslations('pages.status.footer');
-  const t2 = useTranslations('global.status');
+  const { platform, post } = props;
+
+  const isWeibo = platform === 'weibo';
+
+  const t1 = useTranslations('global.status');
+
+  const i18nKey = isWeibo ? 'pages.status.footer' : 'pages.tweet.footer';
+  const t2 = useTranslations(i18nKey);
 
   const favUid = useFavUid();
   const [isOperating, setIsOperating] = useState(false);
-  const [statusFavourites, setStatusFavourites] = useAtom(
-    wbStatusFavouritesAtom
+  const [postFavourites, setPostFavourites] = useAtom(
+    isWeibo ? wbStatusFavouritesAtom : twTweetFavouritesAtom
   );
 
-  const sid = props.status.id;
-  const isFavourite = statusFavourites[sid] ?? props.status.isFavourite;
+  const postId = post.id;
+  const isFavourite = postFavourites[postId] ?? post.isFavourite;
 
   const operatingTips = isFavourite
-    ? t1('unfavouriteOperating')
-    : t1('favouriteOperating');
-  const operationOkTips = operatingTips + t2('success');
-  const operationFailedTips = operatingTips + t2('error');
+    ? t2('unfavouriteOperating')
+    : t2('favouriteOperating');
+  const operationOkTips = operatingTips + t1('success');
+  const operationFailedTips = operatingTips + t1('error');
 
-  const updateStatusFavourites = (patch: Record<string, boolean>) => {
-    setStatusFavourites(favourites => ({
+  const updatePostFavourites = (patch: Record<string, boolean>) => {
+    setPostFavourites(favourites => ({
       ...favourites,
       ...patch,
     }));
   };
 
-  const toggleStatusFavourites = () => {
+  const togglePostFavourites = () => {
     if (isOperating) return;
 
     const toggleAPI = isFavourite
-      ? weibo.unfavouriteStatus
-      : weibo.favouriteStatus;
+      ? isWeibo
+        ? weibo.unfavouriteStatus
+        : twitter.unfavouriteTweet
+      : isWeibo
+        ? weibo.favouriteStatus
+        : twitter.favouriteTweet;
 
     setIsOperating(true);
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        toggleAPI(favUid, sid)
+        toggleAPI(favUid, postId)
           .then(() => {
-            updateStatusFavourites({ [sid]: !isFavourite });
+            updatePostFavourites({ [postId]: !isFavourite });
             resolve();
           })
           .catch((err: Error) => {
@@ -86,11 +97,11 @@ export default function FavouriteBtn(props: IProps) {
   return (
     <Tooltip
       className="text-xs"
-      message={isFavourite ? t1('unfavourite') : t1('favourite')}
+      message={isFavourite ? t2('unfavourite') : t2('favourite')}
     >
       <Button
         link
-        onClick={toggleStatusFavourites}
+        onClick={togglePostFavourites}
         className={cn(
           'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
           'hover:text-accent text-xs active:!translate-none'

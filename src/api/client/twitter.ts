@@ -43,6 +43,38 @@ export async function untrackUser(uid: string) {
 }
 
 /* -------------------------------------------------------------------------- */
+/*                                   Tweets                                   */
+/* -------------------------------------------------------------------------- */
+
+type TweetListParams = PaginationParams & Twitter.TweetListFilterParams;
+
+export async function getTweetList(params: TweetListParams) {
+  let url = '/api/db/twitter/tweets/list';
+  url = appendURLParams(url, params);
+  const tweets = await get<DB.List<Twitter.Tweet>>(url);
+  return tweets;
+}
+
+export async function getTweetDetail(id: string) {
+  let url = '/api/twitter/tweet/detail';
+  url = appendURLParams(url, { id });
+  const tweet = await get<Twitter.Tweet>(url);
+  return tweet;
+}
+
+export async function favouriteTweet(uid: string, tid: string) {
+  const url = '/api/twitter/tweet/favourite';
+  const rlt = await post(url, { uid, tweetId: tid });
+  return rlt;
+}
+
+export async function unfavouriteTweet(uid: string, tid: string) {
+  const url = '/api/twitter/tweet/unfavourite';
+  const rlt = await post(url, { uid, tweetId: tid });
+  return rlt;
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                  Scanning                                  */
 /* -------------------------------------------------------------------------- */
 

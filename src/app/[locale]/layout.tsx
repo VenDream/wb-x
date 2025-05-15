@@ -11,7 +11,7 @@ import Loading from '@/components/common/loading';
 import Toaster from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
 import { LANGS, META_DATA } from '@/constants';
-import { font } from '@/fonts';
+import { googleFont, localFont } from '@/fonts';
 import { routing } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { enUS, zhCN } from '@clerk/localizations';
@@ -26,6 +26,9 @@ import Provider from './provider';
 import './global.css';
 
 export const metadata = META_DATA;
+
+const USE_LOCAL_FONT = true;
+const font = USE_LOCAL_FONT ? localFont : googleFont;
 
 if (process.env.LOCAL_PROXY_ENABLED === 'true') {
   const proxyUrl = process.env.LOCAL_PROXY_URL as string;

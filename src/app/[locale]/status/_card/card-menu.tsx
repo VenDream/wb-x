@@ -31,11 +31,11 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import CardCtx from './context';
 
-const ALIGN_END_TRIGGER_W = 1450;
+const ALIGN_END_TRIGGER_W = 1536; // 2xl
 
 export default function CardMenu() {
   const cardCtx = useContext(CardCtx);
-  const { status, isRetweet, menu, renderCustomMenus } = cardCtx;
+  const { status, isRetweet, menu } = cardCtx;
   const { id, user, images } = status as Weibo.Status;
   const t = useTranslations('pages.status.menu');
   const [alignEnd, setAlignEnd] = useState(false);
@@ -59,7 +59,7 @@ export default function CardMenu() {
 
   return (
     <Dropdown
-      align="end"
+      align={alignEnd ? 'end' : 'start'}
       className={cn('absolute right-[14px]', {
         'top-[18px]': isRetweet,
         'top-[35px]': !isRetweet,
@@ -160,7 +160,6 @@ export default function CardMenu() {
             </Link>
           </Dropdown.Item>
         )}
-        {renderCustomMenus?.(cardCtx)}
       </Dropdown.Menu>
     </Dropdown>
   );

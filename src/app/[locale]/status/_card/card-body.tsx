@@ -24,8 +24,7 @@ import { cardBody } from './variants';
 
 export default function CardBody() {
   const t = useTranslations('pages.status');
-  const { status, sourceStatusId, isRetweet, renderCustomMenus } =
-    useContext(CardCtx);
+  const { status, sourceStatusId, isRetweet } = useContext(CardCtx);
   const { id, text, retweetedStatus } = status as Weibo.Status;
 
   const [statusText, setStatusText] = useState(text);
@@ -68,11 +67,11 @@ export default function CardBody() {
   }, [id, isRetweet, prevStatusText, sourceStatusId, statusText]);
 
   return (
-    <div className={cardBody({ type: isRetweet ? 'retweet' : 'default' })}>
+    <div className={cardBody({ type: isRetweet ? 'retweet' : 'source' })}>
       <div className="col-start-2 col-end-4 space-y-4">
         <div
           onClick={showFullText}
-          className="status-text pr-8 text-sm leading-6 tracking-tight"
+          className="status-text pr-8 text-sm leading-6"
           dangerouslySetInnerHTML={{
             __html: preprocessStatusText(statusText),
           }}
@@ -80,12 +79,7 @@ export default function CardBody() {
         <CardImages />
         <CardVideo />
         {retweetedStatus && (
-          <Card
-            isRetweet
-            sourceStatusId={id}
-            status={retweetedStatus}
-            renderCustomMenus={renderCustomMenus}
-          />
+          <Card isRetweet sourceStatusId={id} status={retweetedStatus} />
         )}
       </div>
     </div>

@@ -17,7 +17,8 @@ import { WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit, htmlString } from '@/utils/common';
-import { getCreateTime, getImageVariants } from '@/utils/weibo';
+import { getCreateTime } from '@/utils/datetime';
+import { getImageVariants } from '@/utils/weibo';
 import {
   ChevronDownIcon,
   MessageCircleMoreIcon,
@@ -97,7 +98,20 @@ export default function CommentItem(props: CommentItemProps) {
     });
   };
 
-  const variantType: CommentVariants['type'] = isReply ? 'reply' : 'default';
+  const getImageThumbnail = useCallback((img: string) => {
+    return getImageVariants(img).bmiddle;
+  }, []);
+
+  const getImageSlide = useCallback((img: string) => {
+    const variants = getImageVariants(img);
+    return {
+      src: variants.lg,
+      download: variants.origin,
+      filename: variants.filename,
+    };
+  }, []);
+
+  const variantType: CommentVariants['type'] = isReply ? 'reply' : 'source';
 
   return (
     <MotionContainer
@@ -106,7 +120,7 @@ export default function CommentItem(props: CommentItemProps) {
       className={comment({ type: variantType })}
     >
       {!isReply && (
-        <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4 tracking-tight">
+        <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4">
           <Avatar className="row-start-1 row-end-3 flex items-center justify-center">
             <div
               className={cn(
@@ -152,12 +166,9 @@ export default function CommentItem(props: CommentItemProps) {
           })}
         >
           <div
-            className={cn(
-              'comment-text text-left leading-5 tracking-tight break-all',
-              {
-                'text-justify': isReply,
-              }
-            )}
+            className={cn('comment-text text-left leading-5 break-all', {
+              'text-justify': isReply,
+            })}
             dangerouslySetInnerHTML={{
               __html:
                 userName +
@@ -176,7 +187,14 @@ export default function CommentItem(props: CommentItemProps) {
                   : ''),
             }}
           />
-          {!isReply && <ImageGrid cols={5} isSinaImg images={images} />}
+          {!isReply && (
+            <ImageGrid
+              cols={5}
+              images={images}
+              getImageSlide={getImageSlide}
+              getImageThumbnail={getImageThumbnail}
+            />
+          )}
           {sorter}
           {comments.length > 0 && (
             <div

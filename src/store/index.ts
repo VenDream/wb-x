@@ -25,7 +25,7 @@ export const wbUserTrackingsAtom = atom<Record<string, boolean>>({});
 export const wbStatusFavouritesAtom = atom<Record<string, boolean>>({});
 
 export const twUserTrackingsAtom = atom<Record<string, boolean>>({});
-export const twStatusFavouritesAtom = atom<Record<string, boolean>>({});
+export const twTweetFavouritesAtom = atom<Record<string, boolean>>({});
 
 const store = createStore();
 export default store;

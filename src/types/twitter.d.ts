@@ -120,7 +120,7 @@ namespace Twitter {
     isTracking?: boolean;
   }
 
-  interface TweetsListFilterParams {
+  interface TweetListFilterParams {
     /** tweet id */
     id?: string;
     /** tweet uid */
@@ -145,6 +145,13 @@ namespace Twitter {
     leastImagesCount?: number;
     /** least videos count */
     leastVideosCount?: number;
+
+    /** order by */
+    orderBy?: string;
+    /** order */
+    order?: 'asc' | 'desc';
+    /** keyword */
+    keyword?: string;
   }
 
   interface ScanningParams {

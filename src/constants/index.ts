@@ -54,6 +54,7 @@ export const ESTIMATE_COUNT = 1000.1;
 export const PRIMARY_ROUTE_KEYS = [
   'HOME',
   'WEIBO',
+  'TWITTER',
   'ROTN',
   'USERS',
   'TRACKINGS',
@@ -64,17 +65,19 @@ export type PrimaryRouteKey = (typeof PRIMARY_ROUTE_KEYS)[number];
 export const PRIMARY_ROUTES: Record<PrimaryRouteKey, string> = {
   HOME: '/',
   WEIBO: '/status/list',
+  TWITTER: '/tweet/list',
   ROTN: '/rotn/list',
   USERS: '/user/list',
   TRACKINGS: '/trackings',
   SETTINGS: '/settings',
 };
 
-export const SECONDARY_ROUTE_KEYS = ['STATUS_DETAIL'] as const;
+export const SECONDARY_ROUTE_KEYS = ['STATUS_DETAIL', 'TWEET_DETAIL'] as const;
 export type SecondaryRouteKey = (typeof SECONDARY_ROUTE_KEYS)[number];
 
 export const SECONDARY_ROUTES: Record<SecondaryRouteKey, string> = {
   STATUS_DETAIL: '/status/detail',
+  TWEET_DETAIL: '/tweet/detail',
 };
 
 export const ADMIN_ROUTES: Partial<typeof PRIMARY_ROUTES> = {

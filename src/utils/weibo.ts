@@ -7,11 +7,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { LANGS } from '@/constants';
-import dayjs, { EN, ZH } from '@/utils/dayjs';
-import type { OpUnitType } from 'dayjs';
-import { getLocale } from './common';
 import { getAppSettings } from './settings';
+import { fixHttps } from './url';
 
 const SINAIMG_PROXY = process.env.NEXT_PUBLIC_SINAIMG_PROXY;
 const SINAVIDEO_PROXY = process.env.NEXT_PUBLIC_SINAVIDEO_PROXY;
@@ -47,9 +44,6 @@ export function getImageVariants(src: string): ImageVariants {
     woriginal: url,
     origin: url,
   };
-
-  const fixHttps = (url: string) =>
-    url.startsWith('//') ? `https:${url}` : url;
 
   // default src
   if (!src || src.includes('default')) return defaultVariants;
@@ -116,49 +110,4 @@ export function dedupeStatusList(list: Weibo.Status[]) {
     map.set(status.id, status);
   });
   return Array.from(map.values());
-}
-
-interface GetCreateTimeOptions {
-  relative?: boolean;
-  relativeUnit?: OpUnitType;
-  relativeValue?: number;
-  relativeAlways?: boolean;
-}
-
-type ConcreteGetCreateTimeOptions = {
-  [key in keyof GetCreateTimeOptions]-?: GetCreateTimeOptions[key];
-};
-
-const DEFUALT_OPTIONS: GetCreateTimeOptions = {
-  relative: true,
-  relativeUnit: 'month',
-  relativeValue: 6,
-  relativeAlways: false,
-};
-
-/**
- * get weibo create time
- *
- * @export
- * @param {string} ct createtime
- * @param {GetCreateTimeOptions} [options] options
- */
-export function getCreateTime(ct: string, options?: GetCreateTimeOptions) {
-  const { relative, relativeUnit, relativeValue, relativeAlways } = {
-    ...DEFUALT_OPTIONS,
-    ...options,
-  } as ConcreteGetCreateTimeOptions;
-
-  const now = dayjs();
-  const createtime = dayjs(ct);
-  const diffs = now.diff(createtime, relativeUnit, true);
-
-  if (!!relativeAlways || (!!relative && diffs < relativeValue)) {
-    const locale = getLocale();
-    return dayjs(ct)
-      .locale(locale === LANGS.en ? EN : ZH)
-      .fromNow();
-  }
-
-  return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
 }

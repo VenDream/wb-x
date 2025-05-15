@@ -1,0 +1,11 @@
+@reference "../../global.css";
+
+.tweet-card {
+  @apply tracking-tight;
+
+  & .tweet-text {
+    & a {
+      @apply text-[#1da1f2] underline underline-offset-4;
+    }
+  }
+}

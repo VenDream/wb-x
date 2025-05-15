@@ -15,7 +15,8 @@ import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
-import { getCreateTime, getImageVariants } from '@/utils/weibo';
+import { getCreateTime } from '@/utils/datetime';
+import { getImageVariants } from '@/utils/weibo';
 import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
 
@@ -59,7 +60,7 @@ export default function CardHeader() {
     );
 
   return (
-    <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4 tracking-tight">
+    <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4">
       <div
         className={cn(
           'relative row-start-1 row-end-3 flex items-center justify-center'

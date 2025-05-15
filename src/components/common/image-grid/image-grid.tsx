@@ -12,7 +12,6 @@ import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { getFileName } from '@/utils/common';
-import { getImageVariants } from '@/utils/weibo';
 import { useMemo, useState } from 'react';
 
 import './image-grid.css';
@@ -21,18 +20,18 @@ interface ImageGridProps {
   images: string[];
   cols?: 2 | 3 | 4 | 5;
   className?: string;
-  isSinaImg?: boolean;
   showHasMoreIndicator?: boolean;
+  getImageThumbnail?: (img: string) => string;
+  getImageSlide?: (img: string) => {
+    src: string;
+    download: string;
+    filename?: string;
+  };
 }
 
 export default function ImageGrid(props: ImageGridProps) {
-  const {
-    images,
-    className,
-    cols = 3,
-    isSinaImg,
-    showHasMoreIndicator,
-  } = props;
+  const { images, className, cols = 3, showHasMoreIndicator } = props;
+  const { getImageThumbnail, getImageSlide } = props;
   const { openLightbox, renderLightbox } = useLightbox();
 
   const [slideIdx, setSlideIdx] = useState(0);
@@ -42,11 +41,11 @@ export default function ImageGrid(props: ImageGridProps) {
       let download = img;
       let filename = getFileName(img);
 
-      if (isSinaImg) {
-        const { lg, origin, filename: fn } = getImageVariants(img);
-        src = lg;
-        download = origin;
-        filename = fn || filename;
+      if (getImageSlide) {
+        const slide = getImageSlide(img);
+        src = slide.src;
+        download = slide.download;
+        filename = slide.filename || filename;
       }
 
       return {
@@ -60,7 +59,7 @@ export default function ImageGrid(props: ImageGridProps) {
         download,
       };
     });
-  }, [images, isSinaImg]);
+  }, [getImageSlide, images]);
 
   const MAX_DISPLAY_IMAGES = cols ** 2;
   const REMAIN_IMAGES_NUM = images.length - MAX_DISPLAY_IMAGES;
@@ -86,10 +85,7 @@ export default function ImageGrid(props: ImageGridProps) {
   return (
     <div className={cn('image-grid grid gap-1', className, GRID_COLS_CLASS)}>
       {images.slice(0, DISPLAY_IMAGES_NUM).map((img, idx) => {
-        let thumbnail = img;
-        if (isSinaImg) {
-          thumbnail = getImageVariants(img).bmiddle;
-        }
+        const thumbnail = getImageThumbnail?.(img) ?? img;
 
         const hasMore =
           !!showHasMoreIndicator &&

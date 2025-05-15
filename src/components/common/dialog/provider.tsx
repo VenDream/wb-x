@@ -9,7 +9,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { generateId } from '@/utils/id';
+import { genUniqueId } from '@/utils/common';
 import { produce } from 'immer';
 import { useTranslations } from 'next-intl';
 import { type PropsWithChildren, useCallback, useMemo, useState } from 'react';
@@ -57,7 +57,7 @@ export default function DialogProvider(props: PropsWithChildren) {
 
   const show = useCallback(
     (props: DialogProps) => {
-      const id = generateId(6);
+      const id = genUniqueId(6);
       setInstances(instances => {
         const instance: DialogInstance = {
           id,

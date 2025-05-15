@@ -219,7 +219,7 @@ export default function UserCard(props: IProps) {
               {
                 '[&_a]:hover:text-accent': isTwitter,
                 '[&_a]:hover:underline': isTwitter,
-                '[&_a]:hover:underline-offset-4': isTwitter,
+                '[&_a]:hover:underline-offset-3': isTwitter,
               }
             )}
             dangerouslySetInnerHTML={{ __html: desc }}

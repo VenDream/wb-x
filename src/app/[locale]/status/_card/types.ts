@@ -18,8 +18,6 @@ interface BaseCardProps {
   status: Weibo.Status;
   /** card menu */
   menu?: CardMenuOpts;
-  /** render custom menus */
-  renderCustomMenus?: (ctx: CardContext) => React.JSX.Element;
 }
 
 export type CardProps = BaseCardProps &
@@ -47,8 +45,6 @@ export interface CardContext {
   isRetweet: boolean;
   /** source status id */
   sourceStatusId: string;
-  /** render custom menus */
-  renderCustomMenus?: (ctx: CardContext) => React.JSX.Element;
 }
 
 export interface CardMenuOpts {
