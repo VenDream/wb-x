@@ -1,11 +1,9 @@
 @reference "../../global.css";
 
 .status-card {
-  @apply tracking-tight;
-
   & .status-text {
     & a {
-      @apply text-[#eb7340] underline underline-offset-4;
+      @apply text-[#eb7340] underline underline-offset-3;
     }
 
     & .url-icon {

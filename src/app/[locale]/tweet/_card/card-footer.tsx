@@ -23,13 +23,13 @@ import {
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
+import { getSourceIcon } from './icons';
 import { cardFooter } from './variants';
 
 export default function CardFooter() {
   const t = useTranslations('pages.tweet');
   const { tweet, isRetweet } = useContext(CardCtx);
   const {
-    id,
     source,
     createdAt,
     viewCount,
@@ -115,7 +115,7 @@ export default function CardFooter() {
           </Tooltip>
         </div>
         {isRetweet && (
-          <Tooltip message={createdAt} className="text-xs">
+          <Tooltip message={`${createdAt} • ${source}`} className="text-xs">
             <div
               className={cn(
                 'text-base-content/50 flex cursor-text items-center'
@@ -125,7 +125,7 @@ export default function CardFooter() {
               {source && (
                 <>
                   &nbsp;•&nbsp;
-                  {source}
+                  {getSourceIcon(source)}
                 </>
               )}
             </div>

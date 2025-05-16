@@ -13,11 +13,10 @@ import { useMemo } from 'react';
 import CardBody from './card-body';
 import CardFooter from './card-footer';
 import CardHeader from './card-header';
+import CardMenu from './card-menu';
 import CardCtx, { DEFAULT_MENU } from './context';
 import type { CardContext, TweetCardProps } from './types';
 import { card } from './variants';
-
-import './card.css';
 
 export default function Card(props: TweetCardProps) {
   const { tweet, menu, isRetweet, sourceTweetId } = props;
@@ -40,6 +39,7 @@ export default function Card(props: TweetCardProps) {
       <CardCtx.Provider value={ctx}>
         <CardHeader />
         <CardBody />
+        <CardMenu />
         <CardFooter />
       </CardCtx.Provider>
     </div>

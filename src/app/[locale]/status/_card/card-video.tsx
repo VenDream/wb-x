@@ -9,10 +9,11 @@
 
 import { weibo } from '@/api/client';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
+import { PlayIcon } from '@/components/icons';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
-import { LoaderCircleIcon, PlayIcon } from 'lucide-react';
+import { LoaderCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 import { toast } from 'sonner';
@@ -31,7 +32,7 @@ export default function CardVideo() {
   const posterClass = cn(
     'relative flex items-center justify-center',
     'aspect-video rounded-sm shadow-xs',
-    'before:absolute before:top-0 before:left-0 before:bg-black/50',
+    'before:absolute before:top-0 before:left-0 before:bg-black/30',
     'before:content-[""], before:w-full before:h-full before:rounded'
   );
 
@@ -50,6 +51,7 @@ export default function CardVideo() {
         width: WIDTH,
         height: WIDTH / (16 / 9),
         poster: FAKE_POSTER || poster,
+        download: proxiedVideoUrl,
         title: (
           <p className="h-[2rem] text-sm leading-[2rem] font-normal">
             {title}.mp4
@@ -94,7 +96,7 @@ export default function CardVideo() {
         {isLoading ? (
           <LoaderCircleIcon size={30} className="animate-spin" />
         ) : (
-          <PlayIcon size={30} className="z-10 text-white/90" />
+          <PlayIcon size={50} className="z-10 text-white/80" />
         )}
       </div>
       {renderLightbox({ slides })}

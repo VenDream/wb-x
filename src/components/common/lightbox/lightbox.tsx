@@ -35,7 +35,7 @@ export default function Lightbox(props: LightboxExternalProps) {
   const hasVideo = slides.some(s => s.type === 'video');
 
   let plugins: Plugin[] = hasVideo
-    ? [Captions, Video]
+    ? [Captions, Download, Video]
     : [Captions, Download, Fullscreen, Slideshow, Thumbnails, Zoom];
 
   if (slides.length <= 1) {

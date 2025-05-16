@@ -161,7 +161,7 @@ export default function UserCard(props: IProps) {
           className={cn(
             blockClasses,
             'line-clamp-1 w-auto text-center text-sm',
-            'hover:text-accent hover:underline hover:underline-offset-4'
+            'hover:text-accent hover:underline hover:underline-offset-3'
           )}
         >
           {name}

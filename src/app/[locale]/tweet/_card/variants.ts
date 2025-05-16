@@ -18,7 +18,7 @@ import { cva } from 'class-variance-authority';
 export type CardVariants = VariantProps<typeof card>;
 
 export const card = cva(
-  cn('tweet-card p-4 border relative rounded-box  border-base-content/10'),
+  cn('p-4 border relative rounded-box  border-base-content/10'),
   {
     variants: {
       type: {

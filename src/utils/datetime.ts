@@ -56,3 +56,22 @@ export function getCreateTime(ct: string, options?: GetCreateTimeOptions) {
 
   return createtime.format('YYYY-MM-DD[\xa0\xa0]HH:mm');
 }
+
+/**
+ * get video duration
+ *
+ * @export
+ * @param {number} duration duration in seconds
+ */
+export function getVideoDuration(duration: number) {
+  const hours = Math.floor(duration / 3600);
+  const minutes = Math.floor((duration % 3600) / 60);
+  const seconds = Math.round(duration % 60);
+
+  const padZero = (num: number) => num.toString().padStart(2, '0');
+  const hrs = padZero(hours);
+  const mins = padZero(minutes);
+  const secs = padZero(seconds);
+
+  return hours > 0 ? `${hrs}:${mins}:${secs}` : `${mins}:${secs}`;
+}

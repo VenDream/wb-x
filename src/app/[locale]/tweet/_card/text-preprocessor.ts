@@ -23,7 +23,13 @@ interface ReplaceRule {
  * @param {string} text text
  */
 export function preprocessTweetText(text: string) {
-  const rules: ReplaceRule[] = [];
+  const rules: ReplaceRule[] = [
+    // replace \n with <br />
+    {
+      regex: /\n/g,
+      value: '<br />',
+    },
+  ];
 
   return rules.reduce((prevText, rule) => {
     const { regex, value } = rule;

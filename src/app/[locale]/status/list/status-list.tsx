@@ -134,7 +134,7 @@ export default function StatusList() {
               {t.rich('filter.totalStatuses', {
                 s: () => <>&nbsp;</>,
                 total: () => (
-                  <span className="text-accent underline underline-offset-4">
+                  <span className="text-accent underline underline-offset-3">
                     {total === ESTIMATE_COUNT ? '1000+' : total}
                   </span>
                 ),

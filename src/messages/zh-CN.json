@@ -202,7 +202,7 @@
         "comments": "评论",
         "bookmarks": "书签"
       },
-      "retweet": "转发推特",
+      "retweet": "<i></i>已转发",
       "updateFrequency": "数据每小时更新一次。",
       "notExists": "该推特不存在",
       "noData": "暂无符合条件的推特",

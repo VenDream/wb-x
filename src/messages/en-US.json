@@ -202,7 +202,7 @@
         "comments": "Comments",
         "bookmarks": "Bookmarks"
       },
-      "retweet": "Retweeted",
+      "retweet": "<i></i>Retweeted",
       "updateFrequency": "Data is updated hourly.",
       "notExists": "The tweet does not exist",
       "noData": "No matching tweets found",

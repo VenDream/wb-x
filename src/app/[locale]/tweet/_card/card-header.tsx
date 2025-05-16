@@ -19,6 +19,7 @@ import { getCreateTime } from '@/utils/datetime';
 import { getImageVariants } from '@/utils/twitter';
 import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
+import { getSourceIcon } from './icons';
 
 export default function CardHeader() {
   const { tweet, isRetweet } = useContext(CardCtx);
@@ -37,7 +38,7 @@ export default function CardHeader() {
           target="_blank"
           rel="noreferrer"
           href={`${TWITTER_HOST}/${user.screenName}`}
-          className="text-[#1da1f2] underline underline-offset-4"
+          className="text-[#1da1f2] underline underline-offset-3"
         >
           @{user.name}
         </a>
@@ -93,7 +94,7 @@ export default function CardHeader() {
       </div>
       <span className="flex items-center gap-4 text-sm">{user.name}</span>
       <span className="inline-flex items-center">
-        <Tooltip message={createdAt} className="text-xs">
+        <Tooltip message={`${createdAt} • ${source}`} className="text-xs">
           <span
             className={cn(
               'text-base-content/50 flex cursor-text items-center text-xs'
@@ -103,7 +104,7 @@ export default function CardHeader() {
             {source && (
               <>
                 &nbsp;•&nbsp;
-                {source}
+                {getSourceIcon(source)}
               </>
             )}
           </span>

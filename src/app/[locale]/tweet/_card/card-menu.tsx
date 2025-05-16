@@ -1,19 +1,18 @@
 /*
- * Weibo Status Card Menu
+ * Twitter Tweet Card Menu
  *
  * @Author: VenDream
- * @Date: 2023-11-29 10:19:02
+ * @Date: 2025-05-16 14:56:38
  *
- * Copyright © 2023 VenDream. All Rights Reserved.
+ * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
 import { Button, Dropdown } from '@/components/daisyui';
-import { WeiboIcon } from '@/components/icons';
+import { TwitterIcon } from '@/components/icons';
 import {
   PRIMARY_ROUTES,
-  SECONDARY_ROUTES,
-  WEIBO_HOST,
-  WEIBO_IMAGES_DOWNLOAD_API,
+  TWITTER_HOST,
+  TWITTER_IMAGES_DOWNLOAD_API,
 } from '@/constants';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -35,9 +34,9 @@ const ALIGN_END_TRIGGER_W = 1536; // 2xl
 
 export default function CardMenu() {
   const cardCtx = useContext(CardCtx);
-  const { status, isRetweet, menu } = cardCtx;
-  const { id, user, images } = status as Weibo.Status;
-  const t = useTranslations('pages.status.menu');
+  const { tweet, isRetweet, menu } = cardCtx;
+  const { id, user, images } = tweet as Twitter.Tweet;
+  const t = useTranslations('pages.tweet.menu');
   const [alignEnd, setAlignEnd] = useState(false);
 
   const hasImages = images.length > 0;
@@ -116,9 +115,9 @@ export default function CardMenu() {
               target="_blank"
               rel="noreferrer"
               className="rounded-sm p-2"
-              href={`${WEIBO_HOST}/detail/${id}`}
+              href={`${TWITTER_HOST}/${user.screenName}/status/${id}`}
             >
-              <WeiboIcon size={16} className="!stroke-2" />
+              <TwitterIcon size={16} className="!stroke-2" />
               {t('source')}
             </Link>
           </Dropdown.Item>
@@ -129,7 +128,7 @@ export default function CardMenu() {
               target="_blank"
               rel="noreferrer"
               className="rounded-sm p-2"
-              href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
+              href={`${TWITTER_IMAGES_DOWNLOAD_API}&id=${id}`}
             >
               <ImageDownIcon size={16} className="!stroke-2" />
               {t('download')}
@@ -141,7 +140,7 @@ export default function CardMenu() {
             <Link
               target="_blank"
               className="rounded-sm p-2"
-              href={`${SECONDARY_ROUTES.STATUS_DETAIL}/${id}#comments`}
+              href={`${TWITTER_HOST}/${user.screenName}/status/${id}`}
             >
               <MessageCircleMoreIcon size={16} className="!stroke-2" />
               {t('comments')}
@@ -153,7 +152,7 @@ export default function CardMenu() {
             <Link
               target="_blank"
               className="rounded-sm p-2"
-              href={`${PRIMARY_ROUTES.WEIBO}?uid=${user.id}`}
+              href={`${PRIMARY_ROUTES.TWITTER}?uid=${user.id}`}
             >
               <SquareArrowOutUpRightIcon size={16} className="!stroke-2" />
               {t('opPosts')}

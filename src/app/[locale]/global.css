@@ -5,6 +5,14 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@utility backdrop-blur-4xs {
+  backdrop-filter: blur(1px);
+}
+
+@utility backdrop-blur-2xs {
+  backdrop-filter: blur(2px);
+}
+
 @utility backdrop-blur-xs {
   backdrop-filter: blur(4px);
 }

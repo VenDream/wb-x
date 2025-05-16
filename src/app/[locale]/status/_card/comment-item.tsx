@@ -9,7 +9,7 @@
 
 import { useDialog } from '@/components/common/dialog';
 import Image from '@/components/common/image';
-import ImageGrid from '@/components/common/image-grid';
+import MediaGrid, { type ImageItem } from '@/components/common/media-grid';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import { Avatar } from '@/components/daisyui';
@@ -85,6 +85,21 @@ export default function CommentItem(props: CommentItemProps) {
     [createdAt]
   );
 
+  const imageItems = useMemo(
+    () =>
+      images.map<ImageItem>(image => {
+        const { filename, origin, bmiddle, lg } = getImageVariants(image);
+        return {
+          type: 'image',
+          src: lg,
+          filename,
+          download: origin,
+          thumbnail: bmiddle,
+        };
+      }),
+    [images]
+  );
+
   const showCommentsReplies = (comment: Weibo.Comment) => {
     showDialog({
       footer: null,
@@ -97,19 +112,6 @@ export default function CommentItem(props: CommentItemProps) {
       content: <CommentsReplies comment={comment} />,
     });
   };
-
-  const getImageThumbnail = useCallback((img: string) => {
-    return getImageVariants(img).bmiddle;
-  }, []);
-
-  const getImageSlide = useCallback((img: string) => {
-    const variants = getImageVariants(img);
-    return {
-      src: variants.lg,
-      download: variants.origin,
-      filename: variants.filename,
-    };
-  }, []);
 
   const variantType: CommentVariants['type'] = isReply ? 'reply' : 'source';
 
@@ -187,14 +189,7 @@ export default function CommentItem(props: CommentItemProps) {
                   : ''),
             }}
           />
-          {!isReply && (
-            <ImageGrid
-              cols={5}
-              images={images}
-              getImageSlide={getImageSlide}
-              getImageThumbnail={getImageThumbnail}
-            />
-          )}
+          {!isReply && <MediaGrid cols={5} items={imageItems} />}
           {sorter}
           {comments.length > 0 && (
             <div

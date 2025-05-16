@@ -27,6 +27,8 @@ export const defaultFilterParams: Twitter.TweetListFilterParams = {
   order: 'desc',
   orderBy: 'createdAt',
   isTracking: true,
+  hasVideos: true,
+  // uid: '885789538689339392',
 };
 
 export default function TweetList() {

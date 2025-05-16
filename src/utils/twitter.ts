@@ -7,8 +7,7 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-// https://pbs.twimg.com/media/GqLRu2MWYAAsbi2?format=jpg&name=orig
-
+import { getFileName } from './common';
 import { fixHttps } from './url';
 
 interface ImageVariants {
@@ -27,11 +26,14 @@ interface ImageVariants {
  */
 export function getImageVariants(src: string) {
   const url = fixHttps(src);
+  const filename = `${getFileName(url)}.jpg`;
+
   const variants: ImageVariants = {
     sm: url,
     md: url,
     lg: url,
     origin: url,
+    filename,
   };
 
   // invalid src

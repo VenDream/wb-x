@@ -124,3 +124,87 @@ export function ROTNIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function AndroidIcon(props: IconProps) {
+  const { size = 18, className } = props;
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <title>ANDROID_ICON</title>
+      <path
+        fill="currentColor"
+        d="M19 13H5v7h14zm0-2a7 7 0 1 0-14 0zM6.382 3.968A8.96 8.96 0 0 1 12 2c2.125 0 4.078.736 5.618 1.968l1.453-1.453l1.414 1.414l-1.453 1.453A8.96 8.96 0 0 1 21 11v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11c0-2.125.736-4.078 1.968-5.618L3.515 3.93l1.414-1.414zM9 9a1 1 0 1 1 0-2a1 1 0 0 1 0 2m6 0a1 1 0 1 1 0-2a1 1 0 0 1 0 2"
+      />
+    </svg>
+  );
+}
+
+export function IosIcon(props: IconProps) {
+  const { size = 18, className } = props;
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <title>IOS_ICON</title>
+      <path
+        d="M16 18H7V4h9m-4.5 18a1.5 1.5 0 0 1-1.5-1.5a1.5 1.5 0 0 1 1.5-1.5a1.5 1.5 0 0 1 1.5 1.5a1.5 1.5 0 0 1-1.5 1.5m4-21h-8A2.5 2.5 0 0 0 5 3.5v17A2.5 2.5 0 0 0 7.5 23h8a2.5 2.5 0 0 0 2.5-2.5v-17A2.5 2.5 0 0 0 15.5 1z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function WebIcon(props: IconProps) {
+  const { size = 18, className } = props;
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      className={className}
+    >
+      <title>WEB_ICON</title>
+      <path
+        fill="currentColor"
+        d="M26 2h4v4h-4zm0 6h4v4h-4zm-6-6h4v4h-4zm0 6h4v4h-4z"
+      />
+      <path
+        fill="currentColor"
+        d="M28 16v6H4V6h12V4H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8v4H8v2h16v-2h-4v-4h8a2 2 0 0 0 2-2v-6ZM18 28h-4v-4h4Z"
+      />
+    </svg>
+  );
+}
+
+export function PlayIcon(props: IconProps) {
+  const { size = 18, className } = props;
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <title>PLAY_ICON</title>
+      <path
+        fill="currentColor"
+        d="M10 15.577L15.577 12L10 8.423zM4.616 19q-.691 0-1.153-.462T3 17.384V6.616q0-.691.463-1.153T4.615 5h14.77q.69 0 1.152.463T21 6.616v10.769q0 .69-.463 1.153T19.385 19z"
+      />
+    </svg>
+  );
+}
