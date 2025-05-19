@@ -189,7 +189,10 @@
         "copyID": "Copy tweet ID",
         "copyUID": "Copy user ID",
         "copySuccessTips": "Copied to clipboard",
-        "opPosts": "View all OP's tweets"
+        "opPosts": "View all OP's tweets",
+        "refresh": "Refresh tweet",
+        "refreshing": "Refreshing tweet...",
+        "refreshFailed": "Refreshing tweet...failed, please retry"
       },
       "footer": {
         "favourite": "Favourite",

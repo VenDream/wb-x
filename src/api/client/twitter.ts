@@ -74,6 +74,12 @@ export async function unfavouriteTweet(uid: string, tid: string) {
   return rlt;
 }
 
+export async function refreshTweet(id: string) {
+  const url = '/api/twitter/tweet/refresh';
+  const rlt = await post<Twitter.Tweet>(url, { id });
+  return rlt;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                  Scanning                                  */
 /* -------------------------------------------------------------------------- */

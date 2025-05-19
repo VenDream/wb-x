@@ -39,6 +39,7 @@
     "framer-motion": "^12.11.0",
     "immer": "^10.1.1",
     "jotai": "^2.12.4",
+    "lodash.merge": "^4.6.2",
     "lucide-react": "^0.510.0",
     "next": "15.3.2",
     "next-intl": "4.1.0",
@@ -62,6 +63,7 @@
     "yet-another-react-lightbox": "^3.23.1"
   },
   "devDependencies": {
+    "@types/lodash.merge": "^4.6.9",
     "@types/node": "22.15.17",
     "@types/react": "19.1.4",
     "@types/react-dom": "19.1.5",

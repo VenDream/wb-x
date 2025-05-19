@@ -9,7 +9,8 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-import { useMemo } from 'react';
+import merge from 'lodash.merge';
+import { useCallback, useMemo, useState } from 'react';
 import CardBody from './card-body';
 import CardFooter from './card-footer';
 import CardHeader from './card-header';
@@ -19,16 +20,23 @@ import type { CardContext, TweetCardProps } from './types';
 import { card } from './variants';
 
 export default function Card(props: TweetCardProps) {
-  const { tweet, menu, isRetweet, sourceTweetId } = props;
+  const { menu, isRetweet, sourceTweetId } = props;
+
+  const [tweet, setTweet] = useState<Twitter.Tweet>(props.tweet);
+
+  const updateTweet = useCallback((tweet: Partial<Twitter.Tweet>) => {
+    setTweet(prev => merge({}, prev, tweet));
+  }, []);
 
   const ctx = useMemo<CardContext>(
     () => ({
       tweet,
+      updateTweet,
       menu: { ...DEFAULT_MENU, ...menu },
       isRetweet: !!isRetweet,
       sourceTweetId: isRetweet ? sourceTweetId : tweet.id,
     }),
-    [tweet, menu, isRetweet, sourceTweetId]
+    [tweet, menu, isRetweet, sourceTweetId, updateTweet]
   );
 
   return (

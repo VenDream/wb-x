@@ -37,6 +37,8 @@ export type TweetCardProps = BaseCardProps &
 export interface CardContext {
   /** tweet */
   tweet: Twitter.Tweet | null;
+  /** update tweet */
+  updateTweet: (tweet: Partial<Twitter.Tweet>) => void;
   /** card menu */
   menu: CardMenuOpts;
   /** is retweeted/quoted tweet */

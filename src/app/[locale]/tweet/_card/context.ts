@@ -21,6 +21,7 @@ const DEFAULT_MENU: CardMenuOpts = {
 
 const CardCtx = createContext<CardContext>({
   tweet: null,
+  updateTweet: () => {},
   menu: DEFAULT_MENU,
   isRetweet: false,
   sourceTweetId: '',

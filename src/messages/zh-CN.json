@@ -189,7 +189,10 @@
         "copyID": "复制推特ID",
         "copyUID": "复制用户ID",
         "copySuccessTips": "已复制到剪贴板",
-        "opPosts": "查看Ta的所有推特"
+        "opPosts": "查看Ta的所有推特",
+        "refresh": "刷新推特",
+        "refreshing": "刷新推特中...",
+        "refreshFailed": "刷新推特失败，请重试"
       },
       "footer": {
         "favourite": "收藏",
