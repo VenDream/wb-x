@@ -10,6 +10,7 @@
  */
 
 import { twitter, weibo } from '@/api/client';
+import { UserCard } from '@/app/[locale]/user/_card';
 import Loading from '@/components/common/loading';
 import { NoData } from '@/components/common/no-data';
 import Tabs from '@/components/common/tabs';
@@ -24,7 +25,6 @@ import { toast } from 'sonner';
 import { useUrlState } from 'state-in-url';
 import Filter from './filter';
 import Paginator from './paginator';
-import UserCard from './user-card';
 
 interface UserListProps {
   platform: Platform;

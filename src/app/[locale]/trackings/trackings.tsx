@@ -10,7 +10,7 @@
  */
 
 import { twitter, weibo } from '@/api/client';
-import UserCard from '@/app/[locale]/user/list/user-card';
+import { UserCard } from '@/app/[locale]/user/_card';
 import Counter from '@/components/common/counter';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';

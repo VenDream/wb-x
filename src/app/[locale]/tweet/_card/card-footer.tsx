@@ -10,6 +10,8 @@
 import FavouriteBtn from '@/components/common/favourite-btn';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
+import { TWITTER_HOST } from '@/constants';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/datetime';
@@ -30,6 +32,8 @@ export default function CardFooter() {
   const t = useTranslations('pages.tweet');
   const { tweet, isRetweet } = useContext(CardCtx);
   const {
+    id,
+    user,
     source,
     createdAt,
     viewCount,
@@ -46,9 +50,10 @@ export default function CardFooter() {
   const [fc, setFc] = useState('0');
   const [bc, setBc] = useState('0');
 
-  const showComments = () => {
-    console.log('showComments');
-  };
+  /**
+   * @TODO show twitter comments with API
+   */
+  const showComments = () => {};
 
   useEffect(() => {
     setCt(getCreateTime(createdAt));
@@ -79,14 +84,21 @@ export default function CardFooter() {
           <Tooltip message={t('footer.comments')} className="text-xs">
             <Button
               link
-              onClick={showComments}
+              // onClick={showComments}
               className={cn(
                 'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
                 'hover:text-accent text-xs active:!translate-none'
               )}
             >
-              <MessageCircleMoreIcon size={16} className="mr-1" />
-              {cc}
+              <Link
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center"
+                href={`${TWITTER_HOST}/${user.screenName}/status/${id}`}
+              >
+                <MessageCircleMoreIcon size={16} className="mr-1" />
+                {cc}
+              </Link>
             </Button>
           </Tooltip>
           <Tooltip message={t('footer.reposts')} className="text-xs">

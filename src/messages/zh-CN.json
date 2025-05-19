@@ -251,6 +251,11 @@
         "placeholder": "输入用户名称进行搜索",
         "search": "搜索",
         "reset": "重置"
+      },
+      "menu": {
+        "more": "更多",
+        "wbPosts": "查看Ta的所有微博",
+        "twPosts": "查看Ta的所有推特"
       }
     },
     "trackings": {

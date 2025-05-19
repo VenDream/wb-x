@@ -14,6 +14,7 @@ import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
 import { TWITTER_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { getCreateTime } from '@/utils/datetime';
 import { getImageVariants } from '@/utils/twitter';
@@ -34,14 +35,14 @@ export default function CardHeader() {
   if (isRetweet)
     return (
       <div className="flex items-center gap-2 p-2">
-        <a
+        <Link
           target="_blank"
           rel="noreferrer"
           href={`${TWITTER_HOST}/${user.screenName}`}
           className="text-[#1da1f2] underline underline-offset-3"
         >
           @{user.name}
-        </a>
+        </Link>
         <AuthGuard fallback={null}>
           <TrackingsBtn
             platform="twitter"

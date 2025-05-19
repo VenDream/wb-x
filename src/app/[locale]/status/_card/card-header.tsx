@@ -14,6 +14,7 @@ import TrackingsBtn from '@/components/common/trackings-btn';
 import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { getCreateTime } from '@/utils/datetime';
 import { getImageVariants } from '@/utils/weibo';
@@ -35,14 +36,14 @@ export default function CardHeader() {
       <div className="flex items-center gap-2 p-2">
         {user.id !== '-1' ? (
           <>
-            <a
+            <Link
               target="_blank"
               rel="noreferrer"
               href={`${WEIBO_HOST}/${user.id}`}
               className="text-[#eb7340] underline underline-offset-3"
             >
               @{user.name}
-            </a>
+            </Link>
             <AuthGuard fallback={null}>
               <TrackingsBtn
                 platform="weibo"

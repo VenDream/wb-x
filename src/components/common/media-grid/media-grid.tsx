@@ -28,32 +28,29 @@ export default function MediaGrid(props: MediaGridProps) {
   const slides = useMemo<Slide[]>(() => {
     return items.map((item, idx) => {
       const filename = item.filename || getFileName(item.src);
+      const title = (
+        <p key={idx} className="h-[2rem] text-sm leading-[2rem] font-normal">
+          {idx + 1} / {items.length} - {filename}
+        </p>
+      );
 
       if (item.type === 'image') {
         return {
           type: 'image',
+          title,
           src: FAKE_IMG(idx) || item.src,
           thumbnail: item.thumbnail,
-          title: (
-            <p className="h-[2rem] text-sm leading-[2rem] font-normal">
-              {idx + 1} / {items.length} - {filename}
-            </p>
-          ),
           download: item.download,
         };
       }
 
       return {
         type: 'video',
+        title,
         poster: FAKE_POSTER || item.poster,
         width: item.aspectRatio[0],
         height: item.aspectRatio[1],
         download: item.download,
-        title: (
-          <p className="h-[2rem] text-sm leading-[2rem] font-normal">
-            {idx + 1} / {items.length} - {filename}
-          </p>
-        ),
         sources: [
           {
             src: FAKE_VIDEO || item.src,

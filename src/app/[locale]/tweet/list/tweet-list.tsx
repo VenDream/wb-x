@@ -11,24 +11,26 @@
 
 import { twitter } from '@/api/client';
 import { TweetCard } from '@/app/[locale]/tweet/_card';
+import Loading from '@/components/common/loading';
 import VirtualList, {
   type VirtualListHandle,
   type VirtualListProps,
 } from '@/components/common/virtual-list';
+import { ESTIMATE_COUNT } from '@/constants';
 import useFavUid from '@/hooks/use-fav-uid';
 import useUser from '@/hooks/use-user';
+import { cn } from '@/utils/classnames';
 import { dedupeTweetList } from '@/utils/twitter';
-import { CircleHelpIcon } from 'lucide-react';
+import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Filter from './filter';
 
 export const defaultFilterParams: Twitter.TweetListFilterParams = {
   order: 'desc',
   orderBy: 'createdAt',
   isTracking: true,
-  hasVideos: true,
-  // uid: '885789538689339392',
 };
 
 export default function TweetList() {
@@ -104,6 +106,43 @@ export default function TweetList() {
       {isInited && filterParams.favUid && (
         <VirtualList {...listProps} ref={listRef} />
       )}
+      <div className="absolute top-0 left-0">
+        <Filter
+          filterParams={filterParams}
+          resetFilterParams={resetFilterParams}
+          updateFilterParams={updateFilterParams}
+        />
+        <div
+          className={cn(
+            'text-base-content/80 mt-6 flex w-72 flex-col gap-2 pt-4 text-xs',
+            'border-base-content/10 border-t drop-shadow-md'
+          )}
+        >
+          <p className="flex items-center">
+            <ListRestartIcon size={18} className="mr-2" />
+            {t('updateFrequency')}
+          </p>
+          {isFetching ? (
+            <Loading
+              size={16}
+              textClass="text-base-content/80 text-xs"
+              loaderClass="text-base-content/80"
+            />
+          ) : total >= 0 ? (
+            <p className="flex items-center">
+              <ScanSearchIcon size={18} className="mr-2" />
+              {t.rich('filter.totalTweets', {
+                s: () => <>&nbsp;</>,
+                total: () => (
+                  <span className="text-accent underline underline-offset-3">
+                    {total === ESTIMATE_COUNT ? '1000+' : total}
+                  </span>
+                ),
+              })}
+            </p>
+          ) : null}
+        </div>
+      </div>
     </div>
   );
 }

@@ -125,7 +125,7 @@ export default function CardMenu() {
         )}
         {!!menu.dlImages && hasImages && (
           <Dropdown.Item>
-            <a
+            <Link
               target="_blank"
               rel="noreferrer"
               className="rounded-sm p-2"
@@ -133,7 +133,7 @@ export default function CardMenu() {
             >
               <ImageDownIcon size={16} className="!stroke-2" />
               {t('download')}
-            </a>
+            </Link>
           </Dropdown.Item>
         )}
         {!!menu.viewComments && (

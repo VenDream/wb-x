@@ -251,6 +251,11 @@
         "placeholder": "Enter username to search",
         "search": "Search",
         "reset": "Reset"
+      },
+      "menu": {
+        "more": "more",
+        "wbPosts": "View all OP's posts",
+        "twPosts": "View all OP's tweets"
       }
     },
     "trackings": {

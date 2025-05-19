@@ -15,6 +15,7 @@ import { Avatar } from '@/components/daisyui';
 import { TwitterIcon, WeiboIcon } from '@/components/icons';
 import { TWITTER_HOST, WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { extractPlainTextFromRichText } from '@/utils/common';
 import { getImageVariants } from '@/utils/weibo';
@@ -26,6 +27,7 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
+import CardMenu from './menu';
 
 interface IProps {
   platform: Platform;
@@ -53,7 +55,7 @@ export default function UserCard(props: IProps) {
 
   const isWeibo = props.platform === 'weibo';
   const isTwitter = props.platform === 'twitter';
-  const blockClasses = 'w-[80%] text-center';
+  const blockClasses = 'w-[85%] text-center';
 
   const postTitle = isWeibo ? t('wbPosts') : t('twPosts');
   const postCount = isWeibo ? statusCount : tweetsCount;
@@ -93,7 +95,7 @@ export default function UserCard(props: IProps) {
           label: t('homepage'),
           content: (
             <Tooltip message={link} className="border-primary text-xs">
-              <a
+              <Link
                 href={link}
                 target="_blank"
                 rel="noreferrer"
@@ -102,9 +104,9 @@ export default function UserCard(props: IProps) {
                   'hover:underline hover:underline-offset-3'
                 )}
               >
-                {t('visit')}{' '}
+                {t('visit')}&nbsp;
                 <SquareArrowOutUpRightIcon size={13} className="inline" />
-              </a>
+              </Link>
             </Tooltip>
           ),
         });
@@ -112,7 +114,7 @@ export default function UserCard(props: IProps) {
         items.push({
           icon: <MapPinIcon size={14} />,
           label: t('location'),
-          content: location || '-',
+          content: location,
         });
     }
 
@@ -135,7 +137,7 @@ export default function UserCard(props: IProps) {
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-3 py-6',
         'bg-base-200/30 border-base-content/10 rounded-box border',
-        'hover:border-primary group border-1 hover:shadow',
+        'hover:border-primary group relative border-1 hover:shadow',
         props.className
       )}
     >
@@ -152,8 +154,8 @@ export default function UserCard(props: IProps) {
           />
         </div>
       </Avatar>
-      <div className="flex w-[80%] flex-col items-center gap-0.5">
-        <a
+      <div className="flex w-[85%] flex-col items-center gap-0.5">
+        <Link
           title={name}
           target="_blank"
           rel="noreferrer"
@@ -165,19 +167,22 @@ export default function UserCard(props: IProps) {
           )}
         >
           {name}
-        </a>
+        </Link>
         {isTwitter && (
           <p className="text-base-content/50 w-full text-center text-xs">
             {`@${screenName}`}
           </p>
         )}
       </div>
-      <TrackingsBtn
-        user={props.user}
-        platform={props.platform}
-        onTrackUser={props.onTrackUser}
-        onUntrackUser={props.onUntrackUser}
-      />
+      <div className="flex w-full items-center justify-center gap-2">
+        <TrackingsBtn
+          user={props.user}
+          platform={props.platform}
+          onTrackUser={props.onTrackUser}
+          onUntrackUser={props.onUntrackUser}
+        />
+        <CardMenu platform={props.platform} user={props.user} />
+      </div>
       <div className="bg-base-content/10 h-[1px] w-full" />
       <div
         className={cn(

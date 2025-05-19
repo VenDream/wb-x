@@ -14,6 +14,7 @@ import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
 import { Button, type ButtonProps } from '@/components/daisyui';
 import { TWITTER_HOST, WEIBO_HOST } from '@/constants';
+import { Link } from '@/i18n/routing';
 import { twUserTrackingsAtom, wbUserTrackingsAtom } from '@/store';
 import { cn } from '@/utils/classnames';
 import { useAtom } from 'jotai';
@@ -61,14 +62,14 @@ export default function TrackingsBtn(props: IProps) {
     : `${TWITTER_HOST}/${(user as Twitter.User).screenName}`;
 
   const username = (
-    <a
+    <Link
       target="_blank"
       rel="noreferrer"
       href={userLink}
       className="text-accent underline underline-offset-3"
     >
       @{user.name}
-    </a>
+    </Link>
   );
 
   const operatingTips = isTracking
