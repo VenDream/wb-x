@@ -19,13 +19,13 @@ export default function CardIamges() {
   const imageItems = useMemo(
     () =>
       images.map<ImageItem>(image => {
-        const { filename, origin, md, lg } = getImageVariants(image);
+        const { filename, origin, sm, lg } = getImageVariants(image);
         return {
           type: 'image',
           src: lg,
           filename,
           download: origin,
-          thumbnail: md,
+          thumbnail: sm,
         };
       }),
     [images]

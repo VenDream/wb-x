@@ -39,6 +39,8 @@ export type CardProps = BaseCardProps &
 export interface CardContext {
   /** status */
   status: Weibo.Status | null;
+  /** update status */
+  updateStatus: (status: Partial<Weibo.Status>) => void;
   /** card menu */
   menu: CardMenuOpts;
   /** is retweet status */

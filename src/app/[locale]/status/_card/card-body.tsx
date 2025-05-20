@@ -24,11 +24,11 @@ import { cardBody } from './variants';
 
 export default function CardBody() {
   const t = useTranslations('pages.status');
-  const { status, sourceStatusId, isRetweet } = useContext(CardCtx);
+  const { status, sourceStatusId, isRetweet, updateStatus } =
+    useContext(CardCtx);
   const { id, text, retweetedStatus } = status as Weibo.Status;
 
-  const [statusText, setStatusText] = useState(text);
-  const prevStatusText = usePrevious(statusText);
+  const prevStatusText = usePrevious(text);
   const [isLoadingFullText, setIsLoadingFullText] = useState(false);
 
   const showFullText = (evt: MouseEvent<HTMLDivElement>) => {
@@ -43,7 +43,7 @@ export default function CardBody() {
           .getStatusDetail(id)
           .then(status => {
             sleep(300).then(() => {
-              setStatusText(status.text);
+              updateStatus({ text: status.text });
               setIsLoadingFullText(false);
               resolve();
             });
@@ -61,10 +61,10 @@ export default function CardBody() {
   };
 
   useEffect(() => {
-    if (prevStatusText !== undefined && prevStatusText !== statusText) {
+    if (prevStatusText !== undefined && prevStatusText !== text) {
       EVENT_EMITTER.emit(RESIZE_ROW_ITEM, isRetweet ? sourceStatusId : id);
     }
-  }, [id, isRetweet, prevStatusText, sourceStatusId, statusText]);
+  }, [id, isRetweet, prevStatusText, sourceStatusId, text]);
 
   return (
     <div className={cardBody({ type: isRetweet ? 'retweet' : 'source' })}>
@@ -73,7 +73,7 @@ export default function CardBody() {
           onClick={showFullText}
           className="status-text pr-8 text-sm leading-6"
           dangerouslySetInnerHTML={{
-            __html: preprocessStatusText(statusText),
+            __html: preprocessStatusText(text),
           }}
         />
         <CardImages />

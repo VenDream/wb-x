@@ -133,7 +133,10 @@
         "copyID": "复制微博ID",
         "copyUID": "复制用户ID",
         "copySuccessTips": "已复制到剪贴板",
-        "opPosts": "查看Ta的所有微博"
+        "opPosts": "查看Ta的所有微博",
+        "refresh": "刷新微博",
+        "refreshing": "刷新微博中...",
+        "refreshFailed": "刷新微博失败，请重试"
       },
       "video": {
         "fetchFailed": "获取视频播放源失败，请重试"

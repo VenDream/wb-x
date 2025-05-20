@@ -109,6 +109,12 @@ export async function unfavouriteStatus(uid: string, sid: string) {
   return rlt;
 }
 
+export async function refreshStatus(id: string) {
+  const url = '/api/weibo/status/refresh';
+  const rlt = await post<Weibo.Status>(url, { id });
+  return rlt;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                   Cookies                                  */
 /* -------------------------------------------------------------------------- */

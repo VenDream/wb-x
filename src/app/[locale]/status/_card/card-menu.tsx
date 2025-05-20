@@ -7,6 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
+import { weibo } from '@/api/client';
 import { Button, Dropdown } from '@/components/daisyui';
 import { WeiboIcon } from '@/components/icons';
 import {
@@ -15,6 +16,7 @@ import {
   WEIBO_HOST,
   WEIBO_IMAGES_DOWNLOAD_API,
 } from '@/constants';
+import useUser from '@/hooks/use-user';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { copyText } from '@/utils/common';
@@ -24,6 +26,7 @@ import {
   IdCardIcon,
   ImageDownIcon,
   MessageCircleMoreIcon,
+  RefreshCwIcon,
   SquareArrowOutUpRightIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -34,13 +37,38 @@ import CardCtx from './context';
 const ALIGN_END_TRIGGER_W = 1536; // 2xl
 
 export default function CardMenu() {
+  const t1 = useTranslations('pages.status.menu');
+  const t2 = useTranslations('global.status');
+
+  const { isAdmin } = useUser();
   const cardCtx = useContext(CardCtx);
-  const { status, isRetweet, menu } = cardCtx;
-  const { id, user, images } = status as Weibo.Status;
-  const t = useTranslations('pages.status.menu');
+
   const [alignEnd, setAlignEnd] = useState(false);
 
+  const { status, isRetweet, menu, updateStatus } = cardCtx;
+  const { id, user, images } = status as Weibo.Status;
   const hasImages = images.length > 0;
+
+  const refreshStatus = async () => {
+    toast.promise(
+      new Promise<void>((resolve, reject) =>
+        weibo
+          .refreshStatus(id)
+          .then(status => {
+            updateStatus(status);
+            resolve();
+          })
+          .catch(err => {
+            reject(err);
+          })
+      ),
+      {
+        loading: t1('refreshing'),
+        success: t1('refreshing') + t2('success'),
+        error: t1('refreshFailed'),
+      }
+    );
+  };
 
   const refreshAlignment = useCallback(() => {
     const w = window.innerWidth;
@@ -86,12 +114,12 @@ export default function CardMenu() {
               className="rounded-sm p-2"
               onClick={() => {
                 copyText(id);
-                toast.success(t('copySuccessTips'));
+                toast.success(t1('copySuccessTips'));
                 (document.activeElement as HTMLDivElement)?.blur();
               }}
             >
               <CopyIcon size={16} className="!stroke-2" />
-              {t('copyID')}
+              {t1('copyID')}
             </span>
           </Dropdown.Item>
         )}
@@ -101,12 +129,12 @@ export default function CardMenu() {
               className="rounded-sm p-2"
               onClick={() => {
                 copyText(user.id);
-                toast.success(t('copySuccessTips'));
+                toast.success(t1('copySuccessTips'));
                 (document.activeElement as HTMLDivElement)?.blur();
               }}
             >
               <IdCardIcon size={16} className="!stroke-2" />
-              {t('copyUID')}
+              {t1('copyUID')}
             </span>
           </Dropdown.Item>
         )}
@@ -119,7 +147,7 @@ export default function CardMenu() {
               href={`${WEIBO_HOST}/detail/${id}`}
             >
               <WeiboIcon size={16} className="!stroke-2" />
-              {t('source')}
+              {t1('source')}
             </Link>
           </Dropdown.Item>
         )}
@@ -132,7 +160,7 @@ export default function CardMenu() {
               href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
             >
               <ImageDownIcon size={16} className="!stroke-2" />
-              {t('download')}
+              {t1('download')}
             </Link>
           </Dropdown.Item>
         )}
@@ -144,7 +172,7 @@ export default function CardMenu() {
               href={`${SECONDARY_ROUTES.STATUS_DETAIL}/${id}#comments`}
             >
               <MessageCircleMoreIcon size={16} className="!stroke-2" />
-              {t('comments')}
+              {t1('comments')}
             </Link>
           </Dropdown.Item>
         )}
@@ -156,8 +184,16 @@ export default function CardMenu() {
               href={`${PRIMARY_ROUTES.WEIBO}?uid=${user.id}`}
             >
               <SquareArrowOutUpRightIcon size={16} className="!stroke-2" />
-              {t('opPosts')}
+              {t1('opPosts')}
             </Link>
+          </Dropdown.Item>
+        )}
+        {isAdmin && (
+          <Dropdown.Item>
+            <span className="rounded-sm p-2" onClick={refreshStatus}>
+              <RefreshCwIcon size={16} className="!stroke-2" />
+              {t1('refresh')}
+            </span>
           </Dropdown.Item>
         )}
       </Dropdown.Menu>

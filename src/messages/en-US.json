@@ -133,7 +133,10 @@
         "copyID": "Copy post ID",
         "copyUID": "Copy user ID",
         "copySuccessTips": "Copied to clipboard",
-        "opPosts": "View all OP's posts"
+        "opPosts": "View all OP's posts",
+        "refresh": "Refresh post",
+        "refreshing": "Refreshing post...",
+        "refreshFailed": "Refreshing post...failed, please retry"
       },
       "video": {
         "fetchFailed": "Failed to fetch video source，please retry"

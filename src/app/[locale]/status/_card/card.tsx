@@ -9,8 +9,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-// import { cn } from '@/utils/classnames';
-import { useMemo } from 'react';
+import merge from 'lodash.merge';
+import { useCallback, useMemo, useState } from 'react';
 import CardBody from './card-body';
 import CardFooter from './card-footer';
 import CardHeader from './card-header';
@@ -22,16 +22,23 @@ import { card } from './variants';
 import './card.css';
 
 export default function Card(props: CardProps) {
-  const { status, isRetweet, sourceStatusId, menu } = props;
+  const { isRetweet, sourceStatusId, menu } = props;
+
+  const [status, setStatus] = useState<Weibo.Status>(props.status);
+
+  const updateStatus = useCallback((status: Partial<Weibo.Status>) => {
+    setStatus(prev => merge({}, prev, status));
+  }, []);
 
   const ctx = useMemo<CardContext>(
     () => ({
       status,
+      updateStatus,
       menu: { ...DEFAULT_MENU, ...menu },
       isRetweet: !!isRetweet,
       sourceStatusId: isRetweet ? sourceStatusId : status.id,
     }),
-    [isRetweet, menu, sourceStatusId, status]
+    [isRetweet, menu, sourceStatusId, status, updateStatus]
   );
 
   return (
@@ -44,14 +51,6 @@ export default function Card(props: CardProps) {
         <CardBody />
         <CardFooter />
         <CardMenu />
-        {/* <div
-          className={cn(
-            'absolute top-0 left-0 z-50 flex h-full w-full items-center',
-            'bg-base-200/30 justify-center rounded-[inherit] backdrop-blur-lg'
-          )}
-        >
-          CARD - {status.id}
-        </div> */}
       </CardCtx.Provider>
     </div>
   );
