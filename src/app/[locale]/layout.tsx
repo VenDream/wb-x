@@ -20,6 +20,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import Provider from './provider';
 
@@ -68,6 +69,8 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
             >
               <Loading size={24} text={t('loading')} />
             </div>
+            {/* twitter widget SDK */}
+            <Script async src="https://platform.twitter.com/widgets.js" />
           </body>
         </NextIntlClientProvider>
       </html>

@@ -7,11 +7,10 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
+import { useDialog } from '@/components/common/dialog';
 import FavouriteBtn from '@/components/common/favourite-btn';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
-import { TWITTER_HOST } from '@/constants';
-import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/datetime';
@@ -24,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
+import CommentsList from './comments-list';
 import CardCtx from './context';
 import { getSourceIcon } from './icons';
 import { cardFooter } from './variants';
@@ -33,7 +33,6 @@ export default function CardFooter() {
   const { tweet, isRetweet } = useContext(CardCtx);
   const {
     id,
-    user,
     source,
     createdAt,
     viewCount,
@@ -42,6 +41,8 @@ export default function CardFooter() {
     favoriteCount,
     bookmarkCount,
   } = tweet as Twitter.Tweet;
+
+  const { show: showDialog } = useDialog();
 
   const [ct, setCt] = useState('');
   const [vc, setVc] = useState('0');
@@ -53,7 +54,12 @@ export default function CardFooter() {
   /**
    * @TODO show twitter comments with API
    */
-  const showComments = () => {};
+  const showComments = () => {
+    showDialog({
+      title: t('comments.label'),
+      content: <CommentsList tweetId={id} />,
+    });
+  };
 
   useEffect(() => {
     setCt(getCreateTime(createdAt));
@@ -84,21 +90,14 @@ export default function CardFooter() {
           <Tooltip message={t('footer.comments')} className="text-xs">
             <Button
               link
-              // onClick={showComments}
+              onClick={showComments}
               className={cn(
                 'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
                 'hover:text-accent text-xs active:!translate-none'
               )}
             >
-              <Link
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center"
-                href={`${TWITTER_HOST}/${user.screenName}/status/${id}`}
-              >
-                <MessageCircleMoreIcon size={16} className="mr-1" />
-                {cc}
-              </Link>
+              <MessageCircleMoreIcon size={16} className="mr-1" />
+              {cc}
             </Button>
           </Tooltip>
           <Tooltip message={t('footer.reposts')} className="text-xs">

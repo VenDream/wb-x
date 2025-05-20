@@ -160,6 +160,10 @@
       "noDataTips": "Please check the filter options or try switching the data source"
     },
     "tweet": {
+      "comments": {
+        "label": "Comments",
+        "tips": "Click the embedded card below to view comments"
+      },
       "filter": {
         "dataSource": "Data Source",
         "all": "All",

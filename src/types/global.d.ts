@@ -29,6 +29,11 @@ declare global {
   type TFunction = ReturnType<typeof useTranslations>;
 
   type Platform = Weibo.Platform | Twitter.Platform;
+
+  interface Window {
+    /** twitter widget API */
+    twttr: any;
+  }
 }
 
 declare module 'react' {
