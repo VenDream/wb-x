@@ -39,7 +39,7 @@ export default function MediaGrid(props: MediaGridProps) {
           type: 'image',
           title,
           src: FAKE_IMG(idx) || item.src,
-          thumbnail: item.thumbnail,
+          thumbnail: FAKE_IMG(idx) || item.thumbnail,
           download: item.download,
         };
       }
