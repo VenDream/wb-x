@@ -1,15 +1,19 @@
 {
   "global": {
+    "platform": {
+      "weibo": "微博",
+      "twitter": "推特"
+    },
     "layout": {
       "loading": "少女祈祷中..."
     },
     "pages": {
       "home": "首页",
       "weibo": "微博",
+      "twitter": "推特",
       "rotn": "ROTN",
-      "user": "用户",
+      "users": "用户",
       "trackings": "正在追踪",
-      "scanning": "扫描",
       "settings": "设置"
     },
     "locale": {
@@ -75,11 +79,16 @@
   },
   "pages": {
     "home": {
-      "title": "数据库",
+      "dbTitle": "数据库",
+      "wbTitle": "微博",
+      "twitterTitle": "推特",
+      "rotnTitle": "ROTN",
       "records": "条",
       "totalDbSize": "数据库文件总大小",
-      "totalUsers": "用户总数",
-      "totalStatuses": "微博总数",
+      "totalWeiboUsers": "微博用户总数",
+      "totalWeiboStatuses": "微博博文总数",
+      "totalTwitterUsers": "推特用户总数",
+      "totalTwitterTweets": "推特推文总数",
       "totalRotns": "ROTN商品总数"
     },
     "status": {
@@ -124,7 +133,10 @@
         "copyID": "复制微博ID",
         "copyUID": "复制用户ID",
         "copySuccessTips": "已复制到剪贴板",
-        "opPosts": "查看Ta的所有微博"
+        "opPosts": "查看Ta的所有微博",
+        "refresh": "刷新微博",
+        "refreshing": "刷新微博中...",
+        "refreshFailed": "刷新微博失败，请重试"
       },
       "video": {
         "fetchFailed": "获取视频播放源失败，请重试"
@@ -147,6 +159,65 @@
       "noData": "暂无符合条件的微博",
       "noDataTips": "请检查筛选条件或尝试切换数据来源"
     },
+    "tweet": {
+      "comments": {
+        "label": "评论",
+        "tips": "点击下方卡片以查看评论"
+      },
+      "filter": {
+        "dataSource": "数据来源",
+        "all": "所有推特",
+        "trackings": "正在关注",
+
+        "id": "推特ID",
+        "uid": "用户ID",
+        "original": "原创推特",
+        "originalTips": "不包含转发/引用推特的推特",
+        "favourite": "收藏推特",
+        "hasVideo": "包含视频",
+        "hasImages": "包含图片",
+        "endDate": "结束日期",
+        "startDate": "开始日期",
+        "leastImagesCount": "图片数量",
+        "leastImagesCountTips": "至少包含的图片数量",
+        "leastVideosCount": "视频数量",
+        "leastVideosCountTips": "至少包含的视频数量",
+        "order": "排序",
+        "asc": "从旧到新",
+        "desc": "从新到旧",
+        "keyword": "关键字",
+
+        "totalTweets": "共搜索到<s></s><total></total><s></s>条推特。"
+      },
+      "menu": {
+        "comments": "查看评论",
+        "source": "查看原推特",
+        "download": "下载原图",
+        "copyID": "复制推特ID",
+        "copyUID": "复制用户ID",
+        "copySuccessTips": "已复制到剪贴板",
+        "opPosts": "查看Ta的所有推特",
+        "refresh": "刷新推特",
+        "refreshing": "刷新推特中...",
+        "refreshFailed": "刷新推特失败，请重试"
+      },
+      "footer": {
+        "favourite": "收藏",
+        "unfavourite": "取消收藏",
+        "favouriteOperating": "收藏中...",
+        "unfavouriteOperating": "取消收藏中...",
+        "views": "查看",
+        "likes": "喜欢",
+        "reposts": "转发",
+        "comments": "评论",
+        "bookmarks": "书签"
+      },
+      "retweet": "<i></i>已转发",
+      "updateFrequency": "数据每小时更新一次。",
+      "notExists": "该推特不存在",
+      "noData": "暂无符合条件的推特",
+      "noDataTips": "请检查筛选条件或尝试切换数据来源"
+    },
     "rotn": {
       "type": {
         "all": "全部",
@@ -162,28 +233,46 @@
       "sourceURL": "源链接",
       "sourceURLTips": "查看源链接"
     },
-    "user": {
+    "users": {
       "follows": "关注",
       "followers": "粉丝",
-      "desc": "简介",
+      "wbPosts": "微博",
+      "twPosts": "推特",
+      "homepage": "主页",
+      "location": "位置",
+      "visit": "访问",
+      "desc": "个人简介",
+      "noDesc": "暂无简介",
       "track": "追踪",
       "untrack": "取消追踪",
       "trackTips": "追踪",
       "untrackTips": "移除追踪",
+      "isTracking": "正在追踪",
       "trackingOperating": "添加追踪中...",
       "untrackingOperating": "移除追踪中...",
-      "addToTrackings": "确认开始追踪用户 <username></username> 吗？",
-      "removeFromTrackings": "确认取消追踪用户 <username></username> 吗？",
+      "addToTrackings": "确认开始追踪<platform></platform>用户 <username></username> 吗？",
+      "removeFromTrackings": "确认取消追踪<platform></platform>用户 <username></username> 吗？",
       "askForScanning": {
         "title": "已添加",
-        "desc": "现在要创建一个对用户 <username></username> 的全量扫描任务吗？",
+        "desc": "现在要创建一个对<platform></platform>用户 <username></username> 的全量扫描任务吗？",
         "schedulingTips": "任务创建中..."
+      },
+      "search": {
+        "placeholder": "输入用户名称进行搜索",
+        "search": "搜索",
+        "reset": "重置"
+      },
+      "menu": {
+        "more": "更多",
+        "wbPosts": "查看Ta的所有微博",
+        "twPosts": "查看Ta的所有推特"
       }
     },
     "trackings": {
       "title": "正在追踪",
       "stat": {
-        "title": "追踪用户总数",
+        "wbTitle": "微博追踪用户总数",
+        "twTitle": "推特追踪用户总数",
         "desc": "人"
       },
       "add": {
@@ -198,7 +287,7 @@
     "settings": {
       "tabs": {
         "local": "本地设置",
-        "cookies": "Cookies设置"
+        "cookies": "微博Cookies"
       },
       "local": {
         "useImageProxy": "启用图片代理",

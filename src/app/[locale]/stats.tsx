@@ -10,14 +10,21 @@
 import { getDatabaseInfo } from '@/api/server';
 import Counter from '@/components/common/counter';
 import { Stats as IStats } from '@/components/daisyui';
+import { ROTNIcon, TwitterIcon, WeiboIcon } from '@/components/icons';
 import {
   BoxIcon,
-  MessageSquareTextIcon,
-  ShirtIcon,
+  DatabaseIcon,
+  SquareChartGanttIcon,
   UsersIcon,
 } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import type React from 'react';
+
+interface StatBlock {
+  title: string;
+  icon: React.ReactNode;
+  units: StatUnitProps[];
+}
 
 interface StatUnitProps {
   title: string;
@@ -44,46 +51,92 @@ export default async function Stats() {
   const t = await getTranslations('pages.home');
 
   const { size = '0MB', tables } = dbInfo || {};
-  const { wb_users = 0, wb_statuses = 0, rotn_items = 0 } = tables || {};
+  const {
+    wb_users = 0,
+    wb_statuses = 0,
+    twitter_users = 0,
+    twitter_tweets = 0,
+    rotn_items = 0,
+  } = tables || {};
   const fileSizeNum = +size.split('MB')[0] || 0;
 
-  const statUnits: StatUnitProps[] = [
+  const StatBlocks: StatBlock[] = [
     {
-      title: t('totalDbSize'),
-      value: fileSizeNum,
-      desc: 'MB',
-      icon: <BoxIcon size={24} className="text-accent" />,
+      title: t('dbTitle'),
+      icon: <DatabaseIcon size={24} className="mr-2" />,
+      units: [
+        {
+          title: t('totalDbSize'),
+          value: fileSizeNum,
+          desc: 'MB',
+          icon: <BoxIcon size={24} className="text-accent" />,
+        },
+      ],
     },
     {
-      title: t('totalUsers'),
-      value: wb_users,
-      desc: t('records'),
-      icon: <UsersIcon size={24} className="text-accent" />,
+      title: t('rotnTitle'),
+      icon: <ROTNIcon size={24} className="mr-2" />,
+      units: [
+        {
+          title: t('totalRotns'),
+          value: rotn_items,
+          desc: t('records'),
+          icon: <SquareChartGanttIcon className="text-accent" />,
+        },
+      ],
     },
     {
-      title: t('totalStatuses'),
-      value: wb_statuses,
-      desc: t('records'),
-      icon: <MessageSquareTextIcon className="text-accent" />,
+      title: t('wbTitle'),
+      icon: <WeiboIcon size={24} className="mr-2" />,
+      units: [
+        {
+          title: t('totalWeiboUsers'),
+          value: wb_users,
+          desc: t('records'),
+          icon: <UsersIcon size={24} className="text-accent" />,
+        },
+        {
+          title: t('totalWeiboStatuses'),
+          value: wb_statuses,
+          desc: t('records'),
+          icon: <SquareChartGanttIcon className="text-accent" />,
+        },
+      ],
     },
     {
-      title: t('totalRotns'),
-      value: rotn_items,
-      desc: t('records'),
-      icon: <ShirtIcon className="text-accent" />,
+      title: t('twitterTitle'),
+      icon: <TwitterIcon size={24} className="mr-2" />,
+      units: [
+        {
+          title: t('totalTwitterUsers'),
+          value: twitter_users,
+          desc: t('records'),
+          icon: <UsersIcon size={24} className="text-accent" />,
+        },
+        {
+          title: t('totalTwitterTweets'),
+          value: twitter_tweets,
+          desc: t('records'),
+          icon: <SquareChartGanttIcon className="text-accent" />,
+        },
+      ],
     },
   ];
 
-  return (
-    <div>
+  return StatBlocks.map((block, idx) => (
+    <div key={idx} className="space-y-4">
+      <h1 className="flex items-center text-2xl">
+        {block.icon}
+        {block.title}
+      </h1>
       <IStats
-        direction="vertical"
+        direction="horizontal"
         className="border-base-content/10 bg-base-200 border"
       >
-        {statUnits.map((unit, idx) => (
+        {block.units.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}
       </IStats>
     </div>
-  );
+  ));
 }

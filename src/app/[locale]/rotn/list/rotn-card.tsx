@@ -11,6 +11,7 @@ import Carousel from '@/components/common/carousel';
 import MotionContainer from '@/components/common/motion-container';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { SquareArrowOutUpRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -42,7 +43,7 @@ export default function RotnCard(props: IProps) {
   return (
     <MotionContainer
       className={cn(
-        'border-base-content/10 flex flex-col gap-2 rounded-sm border p-4',
+        'border-base-content/10 flex flex-col gap-2 border p-4',
         'bg-base-200 rounded-box h-full text-sm shadow-sm'
       )}
     >
@@ -51,7 +52,7 @@ export default function RotnCard(props: IProps) {
           {type} - {id}
         </span>
         <Tooltip message={t('sourceURLTips')} className="text-xs">
-          <a href={url} target="_blank" rel="noreferrer">
+          <Link href={url} target="_blank" rel="noreferrer">
             <Button
               ghost
               size="sm"
@@ -59,7 +60,7 @@ export default function RotnCard(props: IProps) {
             >
               <SquareArrowOutUpRightIcon size={18} />
             </Button>
-          </a>
+          </Link>
         </Tooltip>
       </p>
       {images.length > 0 ? (

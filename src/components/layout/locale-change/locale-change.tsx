@@ -10,8 +10,8 @@
  */
 
 import { Button, Dropdown } from '@/components/daisyui';
+import { EnFlagIcon, ZhFlagIcon } from '@/components/icons';
 import { LANGS } from '@/constants';
-import { EN_FLAG, ZH_FLAG } from '@/constants/svgs';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import {
@@ -59,7 +59,11 @@ export default function LocaleChange() {
                 )}
                 {l}
                 <div className="ml-2 h-7 w-7">
-                  {l === LANGS.en ? EN_FLAG : ZH_FLAG}
+                  {l === LANGS.en ? (
+                    <EnFlagIcon size={28} />
+                  ) : (
+                    <ZhFlagIcon size={28} />
+                  )}
                 </div>
               </Link>
             </Dropdown.Item>

@@ -9,9 +9,7 @@
 
 import MotionContainer from '@/components/common/motion-container';
 import { APP_NAME } from '@/constants';
-import { DatabaseIcon } from 'lucide-react';
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
 import RefreshBtn from './refresh-btn';
 import Stats from './stats';
 
@@ -23,14 +21,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const t = await getTranslations('pages.home');
-
   return (
     <MotionContainer className="space-y-4 pr-4">
-      <h1 className="flex items-center text-2xl">
-        <DatabaseIcon size={24} className="mr-2" />
-        {t('title')}
-      </h1>
       <Stats />
       <RefreshBtn />
     </MotionContainer>

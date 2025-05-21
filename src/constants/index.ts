@@ -31,8 +31,12 @@ export type Lang = (typeof LANGS)[keyof typeof LANGS];
 
 export const DEFAULT_FAV_UID = 'yeshenxue@qq.com';
 export const WEIBO_HOST = 'https://weibo.com';
+export const TWITTER_HOST = 'https://x.com';
+
 export const WEIBO_IMAGES_DOWNLOAD_API =
   '/api/weibo/status/images?responseType=zip';
+export const TWITTER_IMAGES_DOWNLOAD_API =
+  '/api/twitter/tweet/images?responseType=zip';
 
 export const LS_KEYS = {
   THEME: 'WB_X_THEME',
@@ -53,10 +57,10 @@ export const ESTIMATE_COUNT = 1000.1;
 export const PRIMARY_ROUTE_KEYS = [
   'HOME',
   'WEIBO',
+  'TWITTER',
   'ROTN',
-  'USER',
+  'USERS',
   'TRACKINGS',
-  // 'SCANNING',
   'SETTINGS',
 ] as const;
 export type PrimaryRouteKey = (typeof PRIMARY_ROUTE_KEYS)[number];
@@ -64,25 +68,26 @@ export type PrimaryRouteKey = (typeof PRIMARY_ROUTE_KEYS)[number];
 export const PRIMARY_ROUTES: Record<PrimaryRouteKey, string> = {
   HOME: '/',
   WEIBO: '/status/list',
+  TWITTER: '/tweet/list',
   ROTN: '/rotn/list',
-  USER: '/user/list',
+  USERS: '/user/list',
   TRACKINGS: '/trackings',
-  // SCANNING: '/scanning',
   SETTINGS: '/settings',
 };
 
-export const SECONDARY_ROUTE_KEYS = ['STATUS_DETAIL'] as const;
+export const SECONDARY_ROUTE_KEYS = ['STATUS_DETAIL', 'TWEET_DETAIL'] as const;
 export type SecondaryRouteKey = (typeof SECONDARY_ROUTE_KEYS)[number];
 
 export const SECONDARY_ROUTES: Record<SecondaryRouteKey, string> = {
   STATUS_DETAIL: '/status/detail',
+  TWEET_DETAIL: '/tweet/detail',
 };
 
 export const ADMIN_ROUTES: Partial<typeof PRIMARY_ROUTES> = {
+  TWITTER: PRIMARY_ROUTES.TWITTER,
   ROTN: PRIMARY_ROUTES.ROTN,
-  USER: PRIMARY_ROUTES.USER,
+  USERS: PRIMARY_ROUTES.USERS,
   TRACKINGS: PRIMARY_ROUTES.TRACKINGS,
-  // SCANNING: PRIMARY_ROUTES.SCANNING,
 };
 
 /* -------------------------------------------------------------------------- */

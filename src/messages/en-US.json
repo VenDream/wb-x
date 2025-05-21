@@ -1,15 +1,19 @@
 {
   "global": {
+    "platform": {
+      "weibo": "Weibo",
+      "twitter": "Twitter"
+    },
     "layout": {
       "loading": "Loading..."
     },
     "pages": {
       "home": "Home",
       "weibo": "Weibo",
+      "twitter": "Twitter",
       "rotn": "ROTN",
-      "user": "User",
+      "users": "Users",
       "trackings": "Trackings",
-      "scanning": "Scanning",
       "settings": "Settings"
     },
     "locale": {
@@ -75,11 +79,16 @@
   },
   "pages": {
     "home": {
-      "title": "Database",
+      "dbTitle": "Database",
+      "wbTitle": "Weibo",
+      "twitterTitle": "Twitter",
+      "rotnTitle": "ROTN",
       "records": "records",
       "totalDbSize": "Total DB File Size",
-      "totalUsers": "Total Users",
-      "totalStatuses": "Total Posts",
+      "totalWeiboUsers": "Total Weibo Users",
+      "totalWeiboStatuses": "Total Weibo Posts",
+      "totalTwitterUsers": "Total Twitter Users",
+      "totalTwitterTweets": "Total Twitter Tweets",
       "totalRotns": "Total ROTNs"
     },
     "status": {
@@ -124,7 +133,10 @@
         "copyID": "Copy post ID",
         "copyUID": "Copy user ID",
         "copySuccessTips": "Copied to clipboard",
-        "opPosts": "View all OP's posts"
+        "opPosts": "View all OP's posts",
+        "refresh": "Refresh post",
+        "refreshing": "Refreshing post...",
+        "refreshFailed": "Refreshing post...failed, please retry"
       },
       "video": {
         "fetchFailed": "Failed to fetch video source，please retry"
@@ -147,6 +159,65 @@
       "noData": "No matching posts found",
       "noDataTips": "Please check the filter options or try switching the data source"
     },
+    "tweet": {
+      "comments": {
+        "label": "Comments",
+        "tips": "Click the embedded card below to view comments"
+      },
+      "filter": {
+        "dataSource": "Data Source",
+        "all": "All",
+        "trackings": "Trackings",
+
+        "id": "Tweet ID",
+        "uid": "User ID",
+        "original": "Original",
+        "originalTips": "Tweets without retweeted/quoted tweets",
+        "favourite": "Favourite",
+        "hasVideo": "With videos",
+        "hasImages": "With images",
+        "endDate": "EndDate",
+        "startDate": "StartDate",
+        "leastImagesCount": "Images count",
+        "leastImagesCountTips": "Least images count",
+        "leastVideosCount": "Videos count",
+        "leastVideosCountTips": "Least videos count",
+        "order": "Order",
+        "asc": "Asc",
+        "desc": "Desc",
+        "keyword": "Keyword",
+
+        "totalTweets": "<total></total><s></s>tweets were found."
+      },
+      "menu": {
+        "comments": "View comments",
+        "source": "View original tweet",
+        "download": "DL images zip",
+        "copyID": "Copy tweet ID",
+        "copyUID": "Copy user ID",
+        "copySuccessTips": "Copied to clipboard",
+        "opPosts": "View all OP's tweets",
+        "refresh": "Refresh tweet",
+        "refreshing": "Refreshing tweet...",
+        "refreshFailed": "Refreshing tweet...failed, please retry"
+      },
+      "footer": {
+        "favourite": "Favourite",
+        "unfavourite": "Unfavourite",
+        "favouriteOperating": "Adding to favourites...",
+        "unfavouriteOperating": "Removing from favourites...",
+        "views": "Views",
+        "likes": "Likes",
+        "reposts": "Reposts",
+        "comments": "Comments",
+        "bookmarks": "Bookmarks"
+      },
+      "retweet": "<i></i>Retweeted",
+      "updateFrequency": "Data is updated hourly.",
+      "notExists": "The tweet does not exist",
+      "noData": "No matching tweets found",
+      "noDataTips": "Please check the filter options or try switching the data source"
+    },
     "rotn": {
       "type": {
         "all": "ALL",
@@ -162,28 +233,46 @@
       "sourceURL": "Source URL",
       "sourceURLTips": "View source URL"
     },
-    "user": {
+    "users": {
       "follows": "follows",
       "followers": "followers",
+      "wbPosts": "statuses",
+      "twPosts": "tweets",
+      "homepage": "homepage",
+      "location": "location",
+      "visit": "visit",
       "desc": "desc",
+      "noDesc": "No description",
       "track": "track",
       "untrack": "untrack",
       "trackTips": "Add to trackings",
       "untrackTips": "Remove from trackings",
+      "isTracking": "only trackings",
       "trackingOperating": "Adding to trackings...",
       "untrackingOperating": "Removing from trackings...",
-      "addToTrackings": "Are you sure to start tracking user <username></username> ?",
-      "removeFromTrackings": "Are you sure to stop tracking user <username></username> ?",
+      "addToTrackings": "Are you sure to start tracking <platform></platform> user <username></username> ?",
+      "removeFromTrackings": "Are you sure to stop tracking <platform></platform> user <username></username> ?",
       "askForScanning": {
         "title": "Successfully added",
-        "desc": "Do you want to schedule a full scan task for user <username></username> ?",
+        "desc": "Do you want to schedule a full scan task for <platform></platform> user <username></username> ?",
         "schedulingTips": "Task scheduling..."
+      },
+      "search": {
+        "placeholder": "Enter username to search",
+        "search": "Search",
+        "reset": "Reset"
+      },
+      "menu": {
+        "more": "more",
+        "wbPosts": "View all OP's posts",
+        "twPosts": "View all OP's tweets"
       }
     },
     "trackings": {
       "title": "Tracking Users",
       "stat": {
-        "title": "Total tracking users",
+        "wbTitle": "Total Weibo tracking users",
+        "twTitle": "Total Twitter tracking users",
         "desc": "counts"
       },
       "add": {
@@ -197,8 +286,8 @@
     },
     "settings": {
       "tabs": {
-        "local": "LOCAL SETTINGS",
-        "cookies": "COOKIES SETTINGS"
+        "local": "Local Settings",
+        "cookies": "Weibo Cookies"
       },
       "local": {
         "useImageProxy": "Enable Image Proxy",

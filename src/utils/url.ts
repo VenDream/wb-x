@@ -8,6 +8,18 @@
  */
 
 /**
+ * fix url protocol to https
+ *
+ * @export
+ * @param {string} url url
+ */
+export function fixHttps(url: string) {
+  if (url.startsWith('//')) return `https:${url}`;
+  if (url.startsWith('http:')) return url.replace('http:', 'https:');
+  return url;
+}
+
+/**
  * append url params
  *
  * @export

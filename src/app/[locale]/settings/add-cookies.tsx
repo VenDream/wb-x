@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { appendCookie } from '@/api/client';
+import { weibo } from '@/api/client';
 import { Dialog } from '@/components/common/dialog';
 import { Textarea } from '@/components/daisyui';
 import { CookieIcon } from 'lucide-react';
@@ -45,7 +45,8 @@ export default function AddCookiesDialog(props: IProps) {
 
     toast.promise(
       new Promise<void>((resolve, reject) =>
-        appendCookie(cookies)
+        weibo
+          .appendCookie(cookies)
           .then(() => {
             resolve();
             setCookies('');

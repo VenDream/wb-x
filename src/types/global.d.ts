@@ -12,7 +12,10 @@ import type { PropsWithChildren } from 'react';
 
 declare global {
   type ChildrenProps<T = any> = PropsWithChildren<T>;
-  type ParamsBody = { params: Promise<Record<string, any>> };
+  type ParamsBody = {
+    params: Promise<Record<string, any>>;
+    searchParams: Promise<Record<string, any>>;
+  };
 
   interface PaginationParams {
     /** limit */
@@ -24,6 +27,13 @@ declare global {
   }
 
   type TFunction = ReturnType<typeof useTranslations>;
+
+  type Platform = Weibo.Platform | Twitter.Platform;
+
+  interface Window {
+    /** twitter widget API */
+    twttr: any;
+  }
 }
 
 declare module 'react' {

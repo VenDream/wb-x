@@ -10,6 +10,7 @@
  */
 
 import { Input, Pagination } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useRef } from 'react';
 
@@ -47,6 +48,11 @@ export default function Paginator(props: PaginatorProps) {
   const pages = useMemo(() => {
     const firstPage = 1;
     const lastPage = totalPages;
+
+    if (lastPage <= 5) {
+      return Array.from({ length: lastPage }, (_, idx) => idx + 1);
+    }
+
     let middlePages = [
       currPage - 2,
       currPage - 1,
@@ -105,13 +111,16 @@ export default function Paginator(props: PaginatorProps) {
   return (
     <div className="flex items-center justify-start">
       <Pagination>
-        {pages.map((page, idx) =>
-          typeof page === 'number' ? (
+        {pages.map((page, idx) => {
+          const isActive = page === currPage;
+          return typeof page === 'number' ? (
             <Pagination.Item
               key={idx}
               size="sm"
-              active={page === currPage}
-              className="px-6"
+              active={isActive}
+              className={cn('px-6', {
+                'pointer-events-none': isActive,
+              })}
               onClick={() => {
                 onCurrentPageChange?.(page);
               }}
@@ -122,8 +131,8 @@ export default function Paginator(props: PaginatorProps) {
             <span key={idx} className="px-4">
               {page}
             </span>
-          )
-        )}
+          );
+        })}
       </Pagination>
       <div className="ml-4 flex items-center text-sm">
         {t('jumpTo')}

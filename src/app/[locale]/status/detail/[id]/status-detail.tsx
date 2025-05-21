@@ -9,7 +9,8 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { getStatusDetail, getStatusList } from '@/api/client';
+import { weibo } from '@/api/client';
+import { CommentList, StatusCard } from '@/app/[locale]/status/_card';
 import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
@@ -17,15 +18,10 @@ import { DEFAULT_FAV_UID } from '@/constants';
 import useUser from '@/hooks/use-user';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
-import StatusCard from './_card';
-import CommentList from './_card/comment-list';
 
 interface IProps {
   id: string;
 }
-
-const TRY_FETCHING_FROM_UPSTREAM = false;
-const DEBUG = true;
 
 export default function StatusDetail(props: IProps) {
   const t = useTranslations('pages.status');
@@ -33,24 +29,17 @@ export default function StatusDetail(props: IProps) {
   const uid = user?.id || DEFAULT_FAV_UID;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [, setIsUpstream] = useState(false);
   const [status, setStatus] = useState<Weibo.Status | null>(null);
 
   const fetchStatusDetail = useCallback(async () => {
     try {
       setIsLoading(true);
-      // try searching from DB first
-      const statuses = await getStatusList({ id: props.id, favUid: uid });
+      const statuses = await weibo.getStatusList({ id: props.id, favUid: uid });
       if (statuses.list.length > 0) {
         setStatus(statuses.list[0]);
-      } else if (TRY_FETCHING_FROM_UPSTREAM) {
-        /**
-         * @TODO support fetching from upstream API later
-         */
-        const status = await getStatusDetail(props.id);
-        setStatus(status);
-        setIsUpstream(true);
       }
+
+      /** @TODO try fetching from upstream */
     } catch (error) {
       console.error(error);
     } finally {

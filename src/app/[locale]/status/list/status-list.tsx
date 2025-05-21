@@ -9,7 +9,8 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import { getStatusList } from '@/api/client';
+import { weibo } from '@/api/client';
+import { StatusCard } from '@/app/[locale]/status/_card';
 import Loading from '@/components/common/loading';
 import VirtualList, {
   type VirtualListHandle,
@@ -24,8 +25,7 @@ import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { StatusCard } from '../detail';
-import Filter from './_filter';
+import Filter from './filter';
 
 export const defaultFilterParams: Weibo.StatusListFilterParams = {
   order: 'desc',
@@ -74,7 +74,7 @@ export default function StatusList() {
   > = useMemo(
     () => ({
       getDataFetcher: params => () =>
-        getStatusList({ ...params, ...filterParams }),
+        weibo.getStatusList({ ...params, ...filterParams }),
       getDataParser: () => data => data.list,
       getTotalParser: () => data => data.total as number,
       getRowItemKey: (_, item) => item.id,
@@ -83,7 +83,7 @@ export default function StatusList() {
       onTotalUpdate: total => setTotal(total),
       onDataFetchingStart: () => setIsFetching(true),
       onDataFetchingEnd: () => setIsFetching(false),
-      className: 'pl-72 2xl:pl-0',
+      className: 'pl-72 2xl:pl-4',
       estimatedRowHeight: 500,
       noDataProps: {
         tips: t('noData'),
@@ -134,7 +134,7 @@ export default function StatusList() {
               {t.rich('filter.totalStatuses', {
                 s: () => <>&nbsp;</>,
                 total: () => (
-                  <span className="text-accent underline underline-offset-4">
+                  <span className="text-accent underline underline-offset-3">
                     {total === ESTIMATE_COUNT ? '1000+' : total}
                   </span>
                 ),

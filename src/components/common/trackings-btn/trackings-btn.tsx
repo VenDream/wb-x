@@ -9,12 +9,13 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { trackUser, triggerFullScan, untrackUser } from '@/api/client';
+import { twitter, weibo } from '@/api/client';
 import { useDialog } from '@/components/common/dialog';
 import Tooltip from '@/components/common/tooltip';
 import { Button, type ButtonProps } from '@/components/daisyui';
-import { WEIBO_HOST } from '@/constants';
-import { userTrackingsAtom } from '@/store';
+import { TWITTER_HOST, WEIBO_HOST } from '@/constants';
+import { Link } from '@/i18n/routing';
+import { twUserTrackingsAtom, wbUserTrackingsAtom } from '@/store';
 import { cn } from '@/utils/classnames';
 import { useAtom } from 'jotai';
 import { UserMinusIcon, UserPlusIcon } from 'lucide-react';
@@ -23,7 +24,8 @@ import { useRef } from 'react';
 import { toast } from 'sonner';
 
 interface IProps extends ButtonProps {
-  user: Weibo.User;
+  platform: Platform;
+  user: Weibo.User | Twitter.User;
   iconOnly?: boolean;
   iconSize?: number;
   onTrackUser?: () => void;
@@ -31,9 +33,10 @@ interface IProps extends ButtonProps {
 }
 
 export default function TrackingsBtn(props: IProps) {
-  const t1 = useTranslations('pages.user');
+  const t1 = useTranslations('pages.users');
   const t2 = useTranslations('global.status');
   const t3 = useTranslations('global.action');
+  const t4 = useTranslations('global.platform');
   const {
     user,
     iconOnly,
@@ -43,22 +46,30 @@ export default function TrackingsBtn(props: IProps) {
     ...btnProps
   } = props;
 
+  const isWeibo = props.platform === 'weibo';
+  const apiClient = isWeibo ? weibo : twitter;
+
   const shouldAskForScanning = useRef(false);
-  const [userTrackings, setUserTrackings] = useAtom(userTrackingsAtom);
+  const [userTrackings, setUserTrackings] = useAtom(
+    isWeibo ? wbUserTrackingsAtom : twUserTrackingsAtom
+  );
   const { show: showDialog, update: updateDialog } = useDialog();
 
   const userId = user.id;
   const isTracking = userTrackings[userId] ?? user.isTracking;
+  const userLink = isWeibo
+    ? `${WEIBO_HOST}/${userId}`
+    : `${TWITTER_HOST}/${(user as Twitter.User).screenName}`;
 
   const username = (
-    <a
+    <Link
       target="_blank"
       rel="noreferrer"
-      href={`${WEIBO_HOST}/${userId}`}
-      className="text-accent underline underline-offset-4"
+      href={userLink}
+      className="text-accent underline underline-offset-3"
     >
       @{user.name}
-    </a>
+    </Link>
   );
 
   const operatingTips = isTracking
@@ -82,7 +93,10 @@ export default function TrackingsBtn(props: IProps) {
     const dialogId = showDialog({
       preset: 'success',
       title: t1('askForScanning.title'),
-      content: t1.rich('askForScanning.desc', { username: () => username }),
+      content: t1.rich('askForScanning.desc', {
+        platform: () => t4(props.platform),
+        username: () => username,
+      }),
       okBtnLabel: t3('yes'),
       cancelBtnLabel: t3('no'),
       cancelBtn: undefined,
@@ -91,7 +105,8 @@ export default function TrackingsBtn(props: IProps) {
           updateDialog(dialogId, { loading: true });
           toast.promise(
             new Promise<void>((innerResolve, reject) =>
-              triggerFullScan(userId)
+              apiClient
+                .triggerFullScan(userId)
                 .then(() => {
                   innerResolve();
                   outerResolve(true);
@@ -113,11 +128,12 @@ export default function TrackingsBtn(props: IProps) {
   };
 
   const toggleUserTrackings = () => {
-    const toggleAPI = isTracking ? untrackUser : trackUser;
+    const toggleAPI = isTracking ? apiClient.untrackUser : apiClient.trackUser;
 
     const dialogId = showDialog({
       preset: 'confirm',
       content: t1.rich(isTracking ? 'removeFromTrackings' : 'addToTrackings', {
+        platform: () => t4(props.platform),
         username: () => username,
       }),
       onOk: async () => {
