@@ -7,7 +7,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Space_Grotesk } from 'next/font/google';
+import { Quicksand } from 'next/font/google';
 import LocalFont from 'next/font/local';
 
 const localFont = LocalFont({
@@ -16,8 +16,11 @@ const localFont = LocalFont({
   variable: '--font-atcoverlook',
 });
 
-const googleFont = Space_Grotesk({
-  weight: ['300'],
+/**
+ * @see https://fonts.google.com
+ */
+const googleFont = Quicksand({
+  weight: ['400'],
   subsets: ['latin'],
 });
 

@@ -26,7 +26,7 @@ export default function Header() {
           </Indicator.Item>
           <Link href={PRIMARY_ROUTES.HOME}>
             <Button size="md" ghost>
-              <p className="text-lg">@W__B</p>
+              <p className="text-xl">@W__B</p>
             </Button>
           </Link>
         </Indicator>

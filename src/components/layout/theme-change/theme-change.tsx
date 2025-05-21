@@ -38,7 +38,7 @@ export default function ThemeChange() {
   if (!mounted) return null;
 
   return (
-    <Dropdown align="end" className="theme-change">
+    <Dropdown align="end">
       <Dropdown.Toggle>
         <Button ghost>
           <PaletteIcon size={18} />
@@ -48,7 +48,7 @@ export default function ThemeChange() {
       </Dropdown.Toggle>
       <Dropdown.Menu
         className={cn(
-          'no-scrollbar z-10 mt-4 h-96 w-60 flex-nowrap gap-1 overflow-auto',
+          'no-scrollbar z-10 mt-4 h-96 w-64 flex-nowrap gap-1 overflow-auto',
           'bg-base-100/50 border-base-content/10 border backdrop-blur-lg'
         )}
       >
