@@ -33,11 +33,6 @@ export const DEFAULT_FAV_UID = 'yeshenxue@qq.com';
 export const WEIBO_HOST = 'https://weibo.com';
 export const TWITTER_HOST = 'https://x.com';
 
-export const WEIBO_IMAGES_DOWNLOAD_API =
-  '/api/weibo/status/images?responseType=zip';
-export const TWITTER_IMAGES_DOWNLOAD_API =
-  '/api/twitter/tweet/images?responseType=zip';
-
 export const LS_KEYS = {
   THEME: 'WB_X_THEME',
   SETTINGS: 'WB_X_SETTINGS',

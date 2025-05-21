@@ -10,12 +10,7 @@
 import { weibo } from '@/api/client';
 import { Button, Dropdown } from '@/components/daisyui';
 import { WeiboIcon } from '@/components/icons';
-import {
-  PRIMARY_ROUTES,
-  SECONDARY_ROUTES,
-  WEIBO_HOST,
-  WEIBO_IMAGES_DOWNLOAD_API,
-} from '@/constants';
+import { PRIMARY_ROUTES, SECONDARY_ROUTES, WEIBO_HOST } from '@/constants';
 import useUser from '@/hooks/use-user';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -157,7 +152,7 @@ export default function CardMenu() {
               target="_blank"
               rel="noreferrer"
               className="rounded-sm p-2"
-              href={`${WEIBO_IMAGES_DOWNLOAD_API}&id=${id}`}
+              href={`${window.location.origin}/api/weibo/status/images?responseType=zip&id=${id}`}
             >
               <ImageDownIcon size={16} className="!stroke-2" />
               {t1('download')}
