@@ -20,7 +20,6 @@ import { cn } from '@/utils/classnames';
 import { extractPlainTextFromRichText } from '@/utils/common';
 import * as twitterUtils from '@/utils/twitter';
 import * as weiboUtils from '@/utils/weibo';
-
 import {
   LinkIcon,
   MapPinIcon,

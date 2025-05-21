@@ -129,7 +129,7 @@ export default function MediaGrid(props: MediaGridProps) {
               <div
                 className={cn(
                   'absolute inset-0 flex items-center justify-center',
-                  'backdrop-blur-4xs rounded-sm bg-black/30'
+                  'rounded-sm bg-black/30'
                 )}
               >
                 <PlayIcon size={50} className="text-white/80" />

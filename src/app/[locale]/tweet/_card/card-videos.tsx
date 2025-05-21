@@ -8,11 +8,7 @@
  */
 
 import MediaGrid, { type VideoItem } from '@/components/common/media-grid';
-import {
-  getImageVariants,
-  getProxiedImageUrl,
-  getProxiedVideoUrl,
-} from '@/utils/twitter';
+import { getImageVariants, getProxiedVideoUrl } from '@/utils/twitter';
 import { useContext, useMemo } from 'react';
 import CardCtx from './context';
 
@@ -26,7 +22,7 @@ export default function CardVideos() {
         type: 'video',
         src: getProxiedVideoUrl(video.url),
         download: getProxiedVideoUrl(video.url),
-        poster: getProxiedImageUrl(getImageVariants(video.cover).sm),
+        poster: getImageVariants(video.cover).sm,
         duration: video.duration,
         aspectRatio: video.aspectRatio,
       };
