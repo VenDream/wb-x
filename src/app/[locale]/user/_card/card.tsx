@@ -18,7 +18,9 @@ import { FAKE_IMG } from '@/constants/debug';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { extractPlainTextFromRichText } from '@/utils/common';
-import { getImageVariants } from '@/utils/weibo';
+import * as twitterUtils from '@/utils/twitter';
+import * as weiboUtils from '@/utils/weibo';
+
 import {
   LinkIcon,
   MapPinIcon,
@@ -59,6 +61,10 @@ export default function UserCard(props: IProps) {
 
   const postTitle = isWeibo ? t('wbPosts') : t('twPosts');
   const postCount = isWeibo ? statusCount : tweetsCount;
+
+  const getImageVariants = isWeibo
+    ? weiboUtils.getImageVariants
+    : twitterUtils.getImageVariants;
 
   const userLink = isWeibo
     ? `${WEIBO_HOST}/${id}`

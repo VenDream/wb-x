@@ -10,8 +10,8 @@
 import { getAppSettings } from './settings';
 import { fixHttps } from './url';
 
-const SINAIMG_PROXY = process.env.NEXT_PUBLIC_SINAIMG_PROXY;
-const SINAVIDEO_PROXY = process.env.NEXT_PUBLIC_SINAVIDEO_PROXY;
+const IMAGE_PROXY = process.env.NEXT_PUBLIC_IMAGE_PROXY;
+const VIDEO_PROXY = process.env.NEXT_PUBLIC_VIDEO_PROXY;
 
 interface ImageVariants {
   sm: string; // w360
@@ -77,8 +77,8 @@ export function getImageVariants(src: string): ImageVariants {
 export function getProxiedImageUrl(src: string) {
   const { useImageProxy } = getAppSettings();
 
-  if (!!useImageProxy && SINAIMG_PROXY) {
-    return `${SINAIMG_PROXY}?url=${encodeURIComponent(src)}`;
+  if (!!useImageProxy && IMAGE_PROXY) {
+    return `${IMAGE_PROXY}?url=${encodeURIComponent(src)}`;
   }
   return src;
 }
@@ -92,8 +92,8 @@ export function getProxiedImageUrl(src: string) {
 export function getProxiedVideoUrl(src: string) {
   const { useVideoProxy } = getAppSettings();
 
-  if (!!useVideoProxy && SINAVIDEO_PROXY) {
-    return `${SINAVIDEO_PROXY}?url=${encodeURIComponent(src)}`;
+  if (!!useVideoProxy && VIDEO_PROXY) {
+    return `${VIDEO_PROXY}?url=${encodeURIComponent(src)}`;
   }
   return src;
 }

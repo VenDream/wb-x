@@ -12,7 +12,7 @@
 import axios, { type AxiosRequestConfig } from 'axios';
 import { type Response, raiseRequestError } from '.';
 
-const apiHost = process.env.NEXT_PUBLIC_WEIBO_API;
+const apiHost = process.env.NEXT_PUBLIC_API_HOST;
 
 const instance = axios.create({
   baseURL: apiHost || '/',

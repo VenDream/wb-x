@@ -13,5 +13,5 @@
  * @export
  */
 export function getApiHost() {
-  return process.env.WEIBO_API;
+  return process.env.API_HOST;
 }

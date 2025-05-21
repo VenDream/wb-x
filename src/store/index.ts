@@ -18,7 +18,11 @@ export const DEFAULT_SETTINGS: App.Settings = {
 
 export const settingsAtom = atomWithStorage<App.Settings>(
   LS_KEYS.SETTINGS,
-  DEFAULT_SETTINGS
+  DEFAULT_SETTINGS,
+  undefined,
+  {
+    getOnInit: true,
+  }
 );
 
 export const wbUserTrackingsAtom = atom<Record<string, boolean>>({});

@@ -8,7 +8,11 @@
  */
 
 import { getFileName } from './common';
+import { getAppSettings } from './settings';
 import { fixHttps } from './url';
+
+const IMAGE_PROXY = process.env.NEXT_PUBLIC_IMAGE_PROXY;
+const VIDEO_PROXY = process.env.NEXT_PUBLIC_VIDEO_PROXY;
 
 interface ImageVariants {
   sm: string;
@@ -26,7 +30,10 @@ interface ImageVariants {
  */
 export function getImageVariants(src: string) {
   const url = fixHttps(src);
-  const filename = `${getFileName(url)}.jpg`;
+  let filename = getFileName(url);
+  if (!filename.endsWith('.jpg')) {
+    filename = `${filename}.jpg`;
+  }
 
   const variants: ImageVariants = {
     sm: url,
@@ -40,11 +47,41 @@ export function getImageVariants(src: string) {
   if (!src || !src.includes('pbs.twimg.com')) return variants;
 
   // process
-  variants.sm = url.replace('name=orig', 'name=small');
-  variants.md = url.replace('name=orig', 'name=medium');
-  variants.lg = url.replace('name=orig', 'name=large');
+  variants.sm = getProxiedImageUrl(url.replace('name=orig', 'name=small'));
+  variants.md = getProxiedImageUrl(url.replace('name=orig', 'name=medium'));
+  variants.lg = getProxiedImageUrl(url.replace('name=orig', 'name=large'));
 
   return variants;
+}
+
+/**
+ * get proxied twitter image url
+ *
+ * @export
+ * @param {string} src src
+ */
+export function getProxiedImageUrl(src: string) {
+  const { useImageProxy } = getAppSettings();
+
+  if (!!useImageProxy && IMAGE_PROXY) {
+    return `${IMAGE_PROXY}?url=${encodeURIComponent(src)}`;
+  }
+  return src;
+}
+
+/**
+ * get proxied twitter video url
+ *
+ * @export
+ * @param {string} src src
+ */
+export function getProxiedVideoUrl(src: string) {
+  const { useVideoProxy } = getAppSettings();
+
+  if (!!useVideoProxy && VIDEO_PROXY) {
+    return `${VIDEO_PROXY}?url=${encodeURIComponent(src)}`;
+  }
+  return src;
 }
 
 /**
