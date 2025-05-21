@@ -107,7 +107,7 @@ export default function UserCard(props: IProps) {
                 rel="noreferrer"
                 className={cn(
                   'hover:text-accent text-xs break-all',
-                  'hover:underline hover:underline-offset-3'
+                  'hover:underline hover:underline-offset-2'
                 )}
               >
                 {t('visit')}&nbsp;

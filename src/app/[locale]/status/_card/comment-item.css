@@ -3,7 +3,7 @@
 .comment-item {
   & .comment-text {
     & a {
-      @apply text-[#eb7340] underline underline-offset-3;
+      @apply text-[#eb7340] underline underline-offset-2;
 
       &.username {
         @apply no-underline;

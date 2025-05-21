@@ -40,7 +40,7 @@ export default function CardHeader() {
               target="_blank"
               rel="noreferrer"
               href={`${WEIBO_HOST}/${user.id}`}
-              className="text-[#eb7340] underline underline-offset-3"
+              className="text-[#eb7340] underline underline-offset-2"
             >
               @{user.name}
             </Link>

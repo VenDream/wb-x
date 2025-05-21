@@ -39,7 +39,7 @@ export default function CardHeader() {
           target="_blank"
           rel="noreferrer"
           href={`${TWITTER_HOST}/${user.screenName}`}
-          className="text-[#1da1f2] underline underline-offset-3"
+          className="text-[#1da1f2] underline underline-offset-2"
         >
           @{user.name}
         </Link>

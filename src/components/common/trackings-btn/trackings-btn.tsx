@@ -66,7 +66,7 @@ export default function TrackingsBtn(props: IProps) {
       target="_blank"
       rel="noreferrer"
       href={userLink}
-      className="text-accent underline underline-offset-3"
+      className="text-accent underline underline-offset-2"
     >
       @{user.name}
     </Link>

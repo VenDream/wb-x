@@ -134,7 +134,7 @@ export default function TweetList() {
               {t.rich('filter.totalTweets', {
                 s: () => <>&nbsp;</>,
                 total: () => (
-                  <span className="text-accent underline underline-offset-3">
+                  <span className="text-accent underline underline-offset-2">
                     {total === ESTIMATE_COUNT ? '1000+' : total}
                   </span>
                 ),

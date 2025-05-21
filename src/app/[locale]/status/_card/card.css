@@ -3,7 +3,7 @@
 .status-card {
   & .status-text {
     & a {
-      @apply text-[#eb7340] underline underline-offset-3;
+      @apply text-[#eb7340] underline underline-offset-2;
     }
 
     & .url-icon {
