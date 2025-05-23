@@ -16,7 +16,7 @@ import { Avatar } from '@/components/daisyui';
 import { WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
 import { cn } from '@/utils/classnames';
-import { formatNumberWithUnit, htmlString } from '@/utils/common';
+import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/datetime';
 import { getImageVariants } from '@/utils/weibo';
 import {
@@ -58,18 +58,24 @@ export default function CommentItem(props: CommentItemProps) {
   const getUserName = useCallback(
     (user: Weibo.Comment['replyUser']) => {
       if (!user) return 'UNKNOWN_USER';
-      const username = htmlString(`
-        <a href="${WEIBO_HOST}/${user.id}" target="_blank" rel="noreferrer" class="username">
+      const username = `
+        <a
+          target="_blank"
+          rel="noreferrer"
+          class="username"
+          href="${WEIBO_HOST}/${user.id}"
+        >
           @${user.name}
         </a>
-      `);
-      const opTag = htmlString(`
-        <span style="zoom: 80%;"
-          class="text-xs text-accent border border-accent px-0.5 ml-1"
+      `;
+      const opTag = `
+        <span
+          style="zoom: 80%;"
+          class="text-xs text-primary-content bg-primary px-2 ml-1 rounded-sm"
         >
           ${t('op')}
         </span>
-      `);
+      `;
       return user.isOP ? username + opTag : username;
     },
     [t]
@@ -139,10 +145,7 @@ export default function CommentItem(props: CommentItemProps) {
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
-              <span
-                style={{ zoom: 0.8 }}
-                className="border-accent text-accent ml-1 border px-0.5 text-xs"
-              >
+              <span className="text-primary-content bg-primary ml-1 rounded-sm px-2 text-xs">
                 {t('op')}
               </span>
             )}

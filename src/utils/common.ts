@@ -134,19 +134,6 @@ export function getScrollableAncestor(element: HTMLElement) {
 }
 
 /**
- * get trimed html string
- *
- * @export
- * @param {string} str string
- */
-export function htmlString(str: string) {
-  return str
-    .split('\n')
-    .map(s => s.trim())
-    .join('');
-}
-
-/**
  * pick object properties
  *
  * @export
