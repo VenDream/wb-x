@@ -15,6 +15,7 @@ import { Avatar } from '@/components/daisyui';
 import { TwitterIcon, WeiboIcon } from '@/components/icons';
 import { TWITTER_HOST, WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
+import useUser from '@/hooks/use-user';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { extractPlainTextFromRichText } from '@/utils/common';
@@ -46,6 +47,7 @@ interface UserMetaItem {
 
 export default function UserCard(props: IProps) {
   const t = useTranslations('pages.users');
+  const { isAdmin } = useUser();
 
   const wbUser = props.user as Weibo.User;
   const twUser = props.user as Twitter.User;
@@ -180,12 +182,14 @@ export default function UserCard(props: IProps) {
         )}
       </div>
       <div className="flex w-full items-center justify-center gap-2">
-        <TrackingsBtn
-          user={props.user}
-          platform={props.platform}
-          onTrackUser={props.onTrackUser}
-          onUntrackUser={props.onUntrackUser}
-        />
+        {isAdmin && (
+          <TrackingsBtn
+            user={props.user}
+            platform={props.platform}
+            onTrackUser={props.onTrackUser}
+            onUntrackUser={props.onUntrackUser}
+          />
+        )}
         <CardMenu platform={props.platform} user={props.user} />
       </div>
       <div className="bg-base-content/10 h-[1px] w-full" />
