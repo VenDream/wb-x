@@ -151,7 +151,7 @@ export default function DatePicker(props: DatePickerProps) {
         </button>
       </Dialog.Trigger>
       <Dialog.Title>
-        <CalendarIcon size={18} className="mr-2 !stroke-2" />
+        <CalendarIcon size={18} className="mr-2" />
         {t('select')}
       </Dialog.Title>
       <Dialog.Content>

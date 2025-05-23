@@ -28,8 +28,7 @@ interface IProps {
 export default function CardMenu(props: IProps) {
   const { platform, user } = props;
 
-  const t1 = useTranslations('pages.status.menu');
-  const t2 = useTranslations('pages.users.menu');
+  const t = useTranslations('pages.users.menu');
 
   const isWeibo = platform === 'weibo';
 
@@ -46,7 +45,7 @@ export default function CardMenu(props: IProps) {
           className="bg-base-content/10 border-base-content/10"
         >
           <CircleEllipsisIcon size={16} />
-          {t2('more')}
+          {t('more')}
         </Button>
       </Dropdown.Toggle>
       <Dropdown.Menu
@@ -60,12 +59,12 @@ export default function CardMenu(props: IProps) {
             className="rounded-sm p-2 text-xs"
             onClick={() => {
               copyText(user.id);
-              toast.success(t1('copySuccessTips'));
+              toast.success(t('copySuccessTips'));
               (document.activeElement as HTMLDivElement)?.blur();
             }}
           >
-            <CopyIcon size={14} className="!stroke-2" />
-            {t1('copyUID')}
+            <CopyIcon size={14} />
+            {t('copyUID')}
           </span>
         </Dropdown.Item>
         <Dropdown.Item>
@@ -74,8 +73,8 @@ export default function CardMenu(props: IProps) {
             className="rounded-sm p-2 text-xs"
             href={listLink}
           >
-            <SquareArrowOutUpRightIcon size={14} className="!stroke-2" />
-            {isWeibo ? t2('wbPosts') : t2('twPosts')}
+            <SquareArrowOutUpRightIcon size={14} />
+            {isWeibo ? t('wbPosts') : t('twPosts')}
           </Link>
         </Dropdown.Item>
       </Dropdown.Menu>

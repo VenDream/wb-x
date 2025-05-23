@@ -217,7 +217,7 @@ export default function CommentItem(props: CommentItemProps) {
                 )}
               />
               {t('totalReplies', { num: totalReplies })}
-              <ChevronDownIcon size={14} className="ml-1 !stroke-2" />
+              <ChevronDownIcon size={14} className="ml-1" />
             </span>
           )}
         </div>

@@ -20,7 +20,7 @@ import type { DialogProps } from './types';
 type PresetGetter = (t: TFunction) => DialogProps;
 
 const ICON_SIZE = 18;
-const ICON_CLASS = 'mr-2 !stroke-2';
+const ICON_CLASS = 'mr-2';
 
 export const DEFAULT_PRESET: DialogProps = {
   keyboard: true,

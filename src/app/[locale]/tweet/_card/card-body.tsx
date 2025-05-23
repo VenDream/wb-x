@@ -45,7 +45,7 @@ export default function CardBody() {
       <div className="col-start-2 col-end-4 space-y-4">
         <div
           className={cn(
-            'pr-8 text-sm leading-6',
+            'pr-8 text-sm leading-6 break-all',
             '[&_a]:text-[#1da1f2] [&_a]:underline [&_a]:underline-offset-2',
             {
               'text-base-content/50': isRetweeted,

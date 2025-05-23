@@ -89,7 +89,7 @@ export default function StatusList() {
         tips: t('noData'),
         tooltips: t('noDataTips'),
         tooltipsClassName: 'text-xs',
-        icon: <CircleHelpIcon size={16} className="!stroke-2" />,
+        icon: <CircleHelpIcon size={16} />,
       },
     }),
     [t, filterParams]

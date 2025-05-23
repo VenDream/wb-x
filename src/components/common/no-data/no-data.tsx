@@ -32,11 +32,11 @@ export function NoData(props: IProps) {
         className
       )}
     >
-      <BracketsIcon size={16} className="!stroke-2" />
+      <BracketsIcon size={16} />
       {tips || t('noData')}
       {tooltips && (
         <Tooltip message={tooltips} className={tooltipsClassName}>
-          {icon || <CircleHelpIcon size={16} className="!stroke-2" />}
+          {icon || <CircleHelpIcon size={16} />}
         </Tooltip>
       )}
     </p>

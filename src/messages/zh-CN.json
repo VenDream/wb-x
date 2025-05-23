@@ -129,9 +129,9 @@
       "menu": {
         "comments": "查看评论",
         "source": "查看原微博",
+        "userinfo": "查看用户信息",
         "download": "下载原图",
         "copyID": "复制微博ID",
-        "copyUID": "复制用户ID",
         "copySuccessTips": "已复制到剪贴板",
         "opPosts": "查看Ta的所有微博",
         "refresh": "刷新微博",
@@ -192,9 +192,9 @@
       "menu": {
         "comments": "查看评论",
         "source": "查看原推特",
+        "userinfo": "查看用户信息",
         "download": "下载原图",
         "copyID": "复制推特ID",
-        "copyUID": "复制用户ID",
         "copySuccessTips": "已复制到剪贴板",
         "opPosts": "查看Ta的所有推特",
         "refresh": "刷新推特",
@@ -264,8 +264,13 @@
       },
       "menu": {
         "more": "更多",
+        "copyUID": "复制用户ID",
+        "copySuccessTips": "已复制到剪贴板",
         "wbPosts": "查看Ta的所有微博",
         "twPosts": "查看Ta的所有推特"
+      },
+      "dialog": {
+        "title": "用户信息"
       }
     },
     "trackings": {

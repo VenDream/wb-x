@@ -71,7 +71,7 @@ export default function CardBody() {
       <div className="col-start-2 col-end-4 space-y-4">
         <div
           onClick={showFullText}
-          className="status-text pr-8 text-sm leading-6"
+          className="status-text pr-8 text-sm leading-6 break-all"
           dangerouslySetInnerHTML={{
             __html: preprocessStatusText(text),
           }}

@@ -83,7 +83,7 @@ export default function AddCookiesDialog(props: IProps) {
     >
       <Dialog.Trigger asChild>{props.children}</Dialog.Trigger>
       <Dialog.Title>
-        <CookieIcon size={18} className="mr-2 !stroke-2" />
+        <CookieIcon size={18} className="mr-2" />
         {t1('addCookie.title')}
       </Dialog.Title>
       <Dialog.Content>

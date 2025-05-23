@@ -194,7 +194,7 @@ export default function Filter(props: FilterProps) {
           <p className="flex w-20 items-center gap-1 text-xs">
             {t2('original')}
             <Tooltip message={t2('originalTips')} className="text-xs">
-              <CircleHelpIcon size={14} className="!stroke-2" />
+              <CircleHelpIcon size={14} />
             </Tooltip>
           </p>
           <Toggle

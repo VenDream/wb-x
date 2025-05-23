@@ -129,9 +129,9 @@
       "menu": {
         "comments": "View comments",
         "source": "View original post",
+        "userinfo": "View user info",
         "download": "DL images zip",
         "copyID": "Copy post ID",
-        "copyUID": "Copy user ID",
         "copySuccessTips": "Copied to clipboard",
         "opPosts": "View all OP's posts",
         "refresh": "Refresh post",
@@ -192,9 +192,9 @@
       "menu": {
         "comments": "View comments",
         "source": "View original tweet",
+        "userinfo": "View user info",
         "download": "DL images zip",
         "copyID": "Copy tweet ID",
-        "copyUID": "Copy user ID",
         "copySuccessTips": "Copied to clipboard",
         "opPosts": "View all OP's tweets",
         "refresh": "Refresh tweet",
@@ -264,8 +264,13 @@
       },
       "menu": {
         "more": "more",
+        "copyUID": "Copy user ID",
+        "copySuccessTips": "Copied to clipboard",
         "wbPosts": "View all OP's posts",
         "twPosts": "View all OP's tweets"
+      },
+      "dialog": {
+        "title": "User Info"
       }
     },
     "trackings": {

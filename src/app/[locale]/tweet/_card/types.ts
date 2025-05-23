@@ -50,10 +50,10 @@ export interface CardContext {
 export interface CardMenuOpts {
   /** copy ID */
   copyId?: boolean;
-  /** copy UID */
-  copyUid?: boolean;
   /** download images */
   dlImages?: boolean;
+  /** view user info */
+  viewUserInfo?: boolean;
   /** view comments */
   viewComments?: boolean;
   /** view original */
