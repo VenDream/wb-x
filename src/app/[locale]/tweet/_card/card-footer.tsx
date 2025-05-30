@@ -18,19 +18,20 @@ import {
   BookmarkIcon,
   EyeIcon,
   MessageCircleMoreIcon,
+  MessageSquareQuoteIcon,
   Repeat2Icon,
   ThumbsUpIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
-import CommentsList from './comments-list';
+import CommentList from './comment-list';
 import CardCtx from './context';
 import { getSourceIcon } from './icons';
 import { cardFooter } from './variants';
 
 export default function CardFooter() {
   const t = useTranslations('pages.tweet');
-  const { tweet, isRetweet } = useContext(CardCtx);
+  const { tweet, isRetweet, isComment } = useContext(CardCtx);
   const {
     id,
     source,
@@ -51,13 +52,16 @@ export default function CardFooter() {
   const [fc, setFc] = useState('0');
   const [bc, setBc] = useState('0');
 
-  /**
-   * @TODO show twitter comments with API
-   */
   const showComments = () => {
     showDialog({
+      footer: null,
+      classNames: {
+        wrapper: 'w-[40rem] h-[50rem] max-h-[85vh]',
+        scrollArea: 'pb-2 pr-6',
+      },
       title: t('comments.label'),
-      content: <CommentsList tweetId={id} />,
+      icon: <MessageSquareQuoteIcon size={20} className="mr-2" />,
+      content: <CommentList id={id} hideTitle />,
     });
   };
 
@@ -78,7 +82,12 @@ export default function CardFooter() {
   ]);
 
   return (
-    <div className={cardFooter({ type: isRetweet ? 'retweet' : 'source' })}>
+    <div
+      className={cardFooter({
+        type: isRetweet ? 'retweet' : 'source',
+        displayAs: isComment ? 'comment' : 'tweet',
+      })}
+    >
       <div
         className={cn(
           'col-start-2 col-end-4 flex justify-between text-xs',
@@ -86,7 +95,9 @@ export default function CardFooter() {
         )}
       >
         <div className="flex gap-3">
-          <FavouriteBtn platform="twitter" post={tweet as Twitter.Tweet} />
+          {!isComment && (
+            <FavouriteBtn platform="twitter" post={tweet as Twitter.Tweet} />
+          )}
           <Tooltip message={t('footer.comments')} className="text-xs">
             <Button
               link

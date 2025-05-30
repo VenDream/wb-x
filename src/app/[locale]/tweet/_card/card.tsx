@@ -20,7 +20,7 @@ import type { CardContext, TweetCardProps } from './types';
 import { card } from './variants';
 
 export default function Card(props: TweetCardProps) {
-  const { menu, isRetweet, sourceTweetId } = props;
+  const { menu, isRetweet, sourceTweetId, isComment } = props;
 
   const [tweet, setTweet] = useState<Twitter.Tweet>(props.tweet);
 
@@ -33,22 +33,26 @@ export default function Card(props: TweetCardProps) {
       tweet,
       updateTweet,
       menu: { ...DEFAULT_MENU, ...menu },
+      isComment: !!isComment,
       isRetweet: !!isRetweet,
       sourceTweetId: isRetweet ? sourceTweetId : tweet.id,
     }),
-    [tweet, menu, isRetweet, sourceTweetId, updateTweet]
+    [isComment, isRetweet, menu, sourceTweetId, tweet, updateTweet]
   );
 
   return (
     <div
       data-tweet-id={tweet.id}
-      className={card({ type: isRetweet ? 'retweet' : 'source' })}
+      className={card({
+        type: isRetweet ? 'retweet' : 'source',
+        displayAs: isComment ? 'comment' : 'tweet',
+      })}
     >
       <CardCtx.Provider value={ctx}>
         <CardHeader />
         <CardBody />
-        <CardMenu />
         <CardFooter />
+        {!isComment && <CardMenu />}
       </CardCtx.Provider>
     </div>
   );

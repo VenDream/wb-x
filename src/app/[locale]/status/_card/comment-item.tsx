@@ -71,7 +71,7 @@ export default function CommentItem(props: CommentItemProps) {
       const opTag = `
         <span
           style="zoom: 80%;"
-          class="text-xs text-primary-content bg-primary px-2 ml-1 rounded-sm"
+          class="text-xs text-primary-content bg-primary px-1 py-0.5 ml-1 rounded-sm"
         >
           ${t('op')}
         </span>
@@ -145,7 +145,7 @@ export default function CommentItem(props: CommentItemProps) {
           <span className="flex items-center text-sm">
             {user.name}
             {user.isOP && (
-              <span className="text-primary-content bg-primary ml-1 rounded-sm px-2 text-xs">
+              <span className="text-primary-content bg-primary ml-1 rounded-sm px-1 py-0.5 text-xs">
                 {t('op')}
               </span>
             )}

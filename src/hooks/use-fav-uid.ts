@@ -14,7 +14,7 @@ export default function useFavUid() {
   const { user } = useUser();
 
   /**
-   * @note use clerk user email as fav uid, may change in the future
+   * @note use clerk user email as fav uid, might change in the future
    */
   const userEmail = user?.emailAddresses[0].emailAddress;
   const uid = userEmail || DEFAULT_FAV_UID;

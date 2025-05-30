@@ -13,7 +13,7 @@ import { useContext, useMemo } from 'react';
 import CardCtx from './context';
 
 export default function CardVideos() {
-  const { tweet } = useContext(CardCtx);
+  const { tweet, isComment } = useContext(CardCtx);
   const { videos } = tweet as Twitter.Tweet;
 
   const videoItems = useMemo(() => {
@@ -29,5 +29,11 @@ export default function CardVideos() {
     });
   }, [videos]);
 
-  return <MediaGrid cols={3} items={videoItems} showHasMoreIndicator />;
+  return (
+    <MediaGrid
+      cols={isComment ? 4 : 3}
+      items={videoItems}
+      showHasMoreIndicator
+    />
+  );
 }

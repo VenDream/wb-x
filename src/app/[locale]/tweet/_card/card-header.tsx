@@ -23,7 +23,7 @@ import CardCtx from './context';
 import { getSourceIcon } from './icons';
 
 export default function CardHeader() {
-  const { tweet, isRetweet } = useContext(CardCtx);
+  const { tweet, isRetweet, isComment } = useContext(CardCtx);
   const { user, createdAt, source } = tweet as Twitter.Tweet;
 
   const [ct, setCt] = useState('');
@@ -43,20 +43,26 @@ export default function CardHeader() {
         >
           @{user.name}
         </Link>
-        <AuthGuard fallback={null}>
-          <TrackingsBtn
-            platform="twitter"
-            user={user}
-            iconOnly
-            iconSize={14}
-            className="h-5 min-h-0 w-10"
-          />
-        </AuthGuard>
+        {!isComment && (
+          <AuthGuard fallback={null}>
+            <TrackingsBtn
+              platform="twitter"
+              user={user}
+              iconOnly
+              iconSize={14}
+              className="h-5 min-h-0 w-10"
+            />
+          </AuthGuard>
+        )}
       </div>
     );
 
   return (
-    <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4">
+    <div
+      className={cn('grid grid-cols-[1fr_8fr] grid-rows-2', {
+        'pt-4': !isComment,
+      })}
+    >
       <div
         className={cn(
           'relative row-start-1 row-end-3 flex items-center justify-center'
@@ -75,23 +81,25 @@ export default function CardHeader() {
             />
           </div>
         </Avatar>
-        <AuthGuard fallback={null}>
-          <div
-            className={cn(
-              'absolute left-1/2 z-10 w-10 -translate-x-1/2',
-              'top-[calc(100%_+_12px)]'
-            )}
-          >
-            <TrackingsBtn
-              platform="twitter"
-              user={user}
-              block
-              iconOnly
-              iconSize={14}
-              className="h-5 min-h-0"
-            />
-          </div>
-        </AuthGuard>
+        {!isComment && (
+          <AuthGuard fallback={null}>
+            <div
+              className={cn(
+                'absolute left-1/2 z-10 w-10 -translate-x-1/2',
+                'top-[calc(100%_+_12px)]'
+              )}
+            >
+              <TrackingsBtn
+                platform="twitter"
+                user={user}
+                block
+                iconOnly
+                iconSize={14}
+                className="h-5 min-h-0"
+              />
+            </div>
+          </AuthGuard>
+        )}
       </div>
       <span className="flex items-center gap-4 text-sm">{user.name}</span>
       <span className="inline-flex items-center">

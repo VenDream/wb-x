@@ -23,6 +23,7 @@ const CardCtx = createContext<CardContext>({
   tweet: null,
   updateTweet: () => {},
   menu: DEFAULT_MENU,
+  isComment: false,
   isRetweet: false,
   sourceTweetId: '',
 });
