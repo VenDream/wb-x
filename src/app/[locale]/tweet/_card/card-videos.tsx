@@ -10,16 +10,17 @@
 import MediaGrid, { type VideoItem } from '@/components/common/media-grid';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/twitter';
 import { useContext, useMemo } from 'react';
-import CardCtx from './context';
+import { CardCtx } from './context';
 
 export default function CardVideos() {
-  const { tweet } = useContext(CardCtx);
+  const { tweet, isComment } = useContext(CardCtx);
   const { videos } = tweet as Twitter.Tweet;
 
   const videoItems = useMemo(() => {
     return videos.map<VideoItem>(video => {
       return {
         type: 'video',
+        asGif: video.duration === 0,
         src: getProxiedVideoUrl(video.url),
         download: getProxiedVideoUrl(video.url),
         poster: getImageVariants(video.cover).sm,
@@ -29,5 +30,11 @@ export default function CardVideos() {
     });
   }, [videos]);
 
-  return <MediaGrid cols={3} items={videoItems} showHasMoreIndicator />;
+  return (
+    <MediaGrid
+      cols={isComment ? 4 : 3}
+      items={videoItems}
+      showHasMoreIndicator
+    />
+  );
 }

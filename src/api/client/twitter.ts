@@ -62,6 +62,18 @@ export async function getTweetDetail(id: string) {
   return tweet;
 }
 
+export async function getConversationDetail(
+  params: Twitter.ConversationDetailParams
+) {
+  let url = '/api/twitter/tweet/conversation/detail';
+  url = appendURLParams(url, params);
+  const detail = await get<{
+    cursor: string;
+    detail: Twitter.ConversationThread[];
+  }>(url);
+  return detail;
+}
+
 export async function favouriteTweet(uid: string, tid: string) {
   const url = '/api/twitter/tweet/favourite';
   const rlt = await post(url, { uid, tweetId: tid });

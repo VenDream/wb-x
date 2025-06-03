@@ -114,7 +114,7 @@ export default function CommentList(props: CommentListProps) {
     <div
       ref={listRef}
       className={cn(
-        'rounded-box relative mt-4 w-[40rem] shadow-xs',
+        'rounded-box relative w-[40rem] shadow-xs',
         props.className
       )}
     >

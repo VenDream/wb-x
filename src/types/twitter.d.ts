@@ -108,6 +108,22 @@ namespace Twitter {
     aspectRatio: [number, number];
   }
 
+  type ConversationTweet = Tweet;
+
+  interface ConversationShowRepliesCursor {
+    /** conversation id */
+    conversationId: string;
+    /** cursor */
+    cursor: string;
+  }
+
+  interface ConversationThread {
+    /** conversation thread id */
+    id: string;
+    /** conversation thread items */
+    items: (ConversationTweet | ConversationShowRepliesCursor)[];
+  }
+
   /* ------------------------------------------------------------------------ */
   /*                                  Params                                  */
   /* ------------------------------------------------------------------------ */
@@ -152,6 +168,13 @@ namespace Twitter {
     order?: 'asc' | 'desc';
     /** keyword */
     keyword?: string;
+  }
+
+  interface ConversationDetailParams {
+    /** tweet id */
+    id: string;
+    /** cursor */
+    cursor?: string;
   }
 
   interface ScanningParams {

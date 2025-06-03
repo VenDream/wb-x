@@ -10,10 +10,10 @@
 import MediaGrid, { type ImageItem } from '@/components/common/media-grid';
 import { getImageVariants } from '@/utils/twitter';
 import { useContext, useMemo } from 'react';
-import CardCtx from './context';
+import { CardCtx } from './context';
 
 export default function CardIamges() {
-  const { tweet } = useContext(CardCtx);
+  const { tweet, isComment } = useContext(CardCtx);
   const { images } = tweet as Twitter.Tweet;
 
   const imageItems = useMemo(
@@ -31,5 +31,11 @@ export default function CardIamges() {
     [images]
   );
 
-  return <MediaGrid cols={3} items={imageItems} showHasMoreIndicator />;
+  return (
+    <MediaGrid
+      cols={isComment ? 4 : 3}
+      items={imageItems}
+      showHasMoreIndicator
+    />
+  );
 }

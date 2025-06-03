@@ -132,7 +132,10 @@ export default function CardMenu() {
             <Dropdown.Item>
               <span
                 className="rounded-sm p-2"
-                onClick={() => setShowUserinfo(true)}
+                onClick={() => {
+                  setShowUserinfo(true);
+                  closeDropdown();
+                }}
               >
                 <IdCardIcon size={16} />
                 {t1('userinfo')}
@@ -191,7 +194,13 @@ export default function CardMenu() {
           )}
           {isAdmin && (
             <Dropdown.Item>
-              <span className="rounded-sm p-2" onClick={refreshStatus}>
+              <span
+                className="rounded-sm p-2"
+                onClick={() => {
+                  refreshStatus();
+                  closeDropdown();
+                }}
+              >
                 <RefreshCwIcon size={16} />
                 {t1('refresh')}
               </span>

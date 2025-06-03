@@ -92,6 +92,7 @@ export default function MediaGrid(props: MediaGridProps) {
         const videoItem = item as VideoItem;
         const isImage = item.type === 'image';
         const isVideo = item.type === 'video';
+        const isGif = isVideo && !!videoItem.asGif;
 
         const thumbnail = imageItem.thumbnail || videoItem.poster;
         const duration = isVideo ? getVideoDuration(videoItem.duration) : null;
@@ -115,24 +116,34 @@ export default function MediaGrid(props: MediaGridProps) {
               {
                 'has-more': hasMore,
                 'cursor-zoom-in': isImage,
-                'cursor-pointer': isVideo,
+                'cursor-pointer': isVideo && !isGif,
               }
             )}
-            onClick={() => previewMedia(idx)}
+            onClick={isGif ? undefined : () => previewMedia(idx)}
           >
-            <Image
-              alt="IMG"
-              src={FAKE_IMG(idx) || thumbnail}
-              className="aspect-square !h-full !w-full rounded-sm object-cover"
-            />
+            {isGif ? (
+              <video
+                src={item.src}
+                loop
+                autoPlay
+                playsInline
+                className="h-full w-full rounded-sm object-cover"
+              />
+            ) : (
+              <Image
+                alt="IMG"
+                src={FAKE_IMG(idx) || thumbnail}
+                className="aspect-square !h-full !w-full rounded-sm object-cover"
+              />
+            )}
             {isVideo && (
               <div
                 className={cn(
-                  'absolute inset-0 flex items-center justify-center',
-                  'rounded-sm bg-black/30'
+                  'absolute inset-0 flex items-center justify-center rounded-sm',
+                  { 'bg-black/30': !isGif }
                 )}
               >
-                <PlayIcon size={50} className="text-white/80" />
+                {!isGif && <PlayIcon size={50} className="text-white/80" />}
                 <Badge
                   size="sm"
                   className={cn(
@@ -140,7 +151,7 @@ export default function MediaGrid(props: MediaGridProps) {
                     'border-black/50 bg-black/50 text-white'
                   )}
                 >
-                  {duration}
+                  {isGif ? 'GIF' : duration}
                 </Badge>
               </div>
             )}

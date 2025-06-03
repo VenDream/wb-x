@@ -16,6 +16,10 @@ interface BaseCardProps {
   tweet: Twitter.Tweet;
   /** card menu */
   menu?: CardMenuOpts;
+  /** is comment */
+  isComment?: boolean;
+  /** show timeline */
+  showTimeline?: boolean;
 }
 
 export type TweetCardProps = BaseCardProps &
@@ -41,6 +45,8 @@ export interface CardContext {
   updateTweet: (tweet: Partial<Twitter.Tweet>) => void;
   /** card menu */
   menu: CardMenuOpts;
+  /** is comment */
+  isComment: boolean;
   /** is retweeted/quoted tweet */
   isRetweet: boolean;
   /** source tweet id */
@@ -60,4 +66,32 @@ export interface CardMenuOpts {
   viewOriginal?: boolean;
   /** view op posts */
   viewOpPosts?: boolean;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Comments                                  */
+/* -------------------------------------------------------------------------- */
+
+export interface CommentListProps {
+  /** tweet id */
+  id: string;
+  /** className */
+  className?: string;
+  /** hide title */
+  hideTitle?: boolean;
+}
+
+export interface CommentThreadProps {
+  /** comment thread */
+  thread: Twitter.ConversationThread;
+}
+
+export interface CommentItemProps {
+  /** comment tweet */
+  comment: Twitter.ConversationTweet;
+}
+
+export interface CommentListContext {
+  /** update comment thread */
+  updateThread: (thread: Twitter.ConversationThread) => void;
 }

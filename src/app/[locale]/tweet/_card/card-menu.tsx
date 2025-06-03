@@ -29,7 +29,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import CardCtx from './context';
+import { CardCtx } from './context';
 
 const ALIGN_END_TRIGGER_W = 1536; // 2xl
 
@@ -132,7 +132,10 @@ export default function CardMenu() {
             <Dropdown.Item>
               <span
                 className="rounded-sm p-2"
-                onClick={() => setShowUserinfo(true)}
+                onClick={() => {
+                  setShowUserinfo(true);
+                  closeDropdown();
+                }}
               >
                 <IdCardIcon size={16} />
                 {t1('userinfo')}
@@ -191,7 +194,13 @@ export default function CardMenu() {
           )}
           {isAdmin && (
             <Dropdown.Item>
-              <span className="rounded-sm p-2" onClick={refreshTweet}>
+              <span
+                className="rounded-sm p-2"
+                onClick={() => {
+                  refreshTweet();
+                  closeDropdown();
+                }}
+              >
                 <RefreshCwIcon size={16} />
                 {t1('refresh')}
               </span>

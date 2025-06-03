@@ -13,7 +13,7 @@ import { useContext } from 'react';
 import Card from './card';
 import CardImages from './card-images';
 import CardVideos from './card-videos';
-import CardCtx from './context';
+import { CardCtx } from './context';
 import { preprocessTweetText } from './text-preprocessor';
 import { cardBody } from './variants';
 
@@ -43,20 +43,22 @@ export default function CardBody() {
   return (
     <div className={cardBody({ type: isRetweet ? 'retweet' : 'source' })}>
       <div className="col-start-2 col-end-4 space-y-4">
-        <div
-          className={cn(
-            'pr-8 text-sm leading-6 break-all',
-            '[&_a]:text-[#1da1f2] [&_a]:underline [&_a]:underline-offset-2',
-            {
-              'text-base-content/50': isRetweeted,
-            }
-          )}
-          dangerouslySetInnerHTML={{
-            __html: isRetweeted
-              ? String(t.rich('retweet', { i: () => retweetIconHtml }))
-              : preprocessTweetText(text),
-          }}
-        />
+        {(isRetweeted || text) && (
+          <div
+            className={cn(
+              'pr-8 text-sm leading-6 break-all',
+              '[&_a]:text-[#1da1f2] [&_a]:underline [&_a]:underline-offset-2',
+              {
+                'text-base-content/50': isRetweeted,
+              }
+            )}
+            dangerouslySetInnerHTML={{
+              __html: isRetweeted
+                ? String(t.rich('retweet', { i: () => retweetIconHtml }))
+                : preprocessTweetText(text),
+            }}
+          />
+        )}
         {!isRetweeted && <CardImages />}
         {!isRetweeted && <CardVideos />}
         {quotedTweet && (
