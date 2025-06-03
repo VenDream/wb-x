@@ -162,7 +162,7 @@
     "tweet": {
       "comments": {
         "label": "Comments",
-        "tips": "Click the embedded card below to view comments"
+        "showReplies": "Show replies"
       },
       "filter": {
         "dataSource": "Data Source",

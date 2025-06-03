@@ -18,6 +18,8 @@ interface BaseCardProps {
   menu?: CardMenuOpts;
   /** is comment */
   isComment?: boolean;
+  /** show timeline */
+  showTimeline?: boolean;
 }
 
 export type TweetCardProps = BaseCardProps &
@@ -87,4 +89,9 @@ export interface CommentThreadProps {
 export interface CommentItemProps {
   /** comment tweet */
   comment: Twitter.ConversationTweet;
+}
+
+export interface CommentListContext {
+  /** update comment thread */
+  updateThread: (thread: Twitter.ConversationThread) => void;
 }

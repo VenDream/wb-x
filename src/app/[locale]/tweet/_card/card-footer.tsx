@@ -25,7 +25,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import CommentList from './comment-list';
-import CardCtx from './context';
+import { CardCtx } from './context';
 import { getSourceIcon } from './icons';
 import { cardFooter } from './variants';
 

@@ -10,7 +10,7 @@
 import MediaGrid, { type ImageItem } from '@/components/common/media-grid';
 import { getImageVariants } from '@/utils/twitter';
 import { useContext, useMemo } from 'react';
-import CardCtx from './context';
+import { CardCtx } from './context';
 
 export default function CardIamges() {
   const { tweet, isComment } = useContext(CardCtx);

@@ -13,12 +13,14 @@ import { twitter } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
+import { dedupeCommentList } from '@/utils/twitter';
 import { MessageSquareQuoteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import CommentThread from './comment-thread';
-import type { CommentListProps } from './types';
+import { CommentListCtx } from './context';
+import type { CommentListContext, CommentListProps } from './types';
 
 type CommentList = Twitter.ConversationThread[];
 
@@ -36,6 +38,15 @@ export default function CommentList(props: CommentListProps) {
 
   const isSticky = useDetectSticky(listHeaderRef);
 
+  const updateThread = useCallback((thread: Twitter.ConversationThread) => {
+    setCommentList(list => {
+      const newList = [...list];
+      const index = newList.findIndex(t => t.id === thread.id);
+      if (index !== -1) newList[index] = thread;
+      return newList;
+    });
+  }, []);
+
   const fetchCommentList = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -48,7 +59,11 @@ export default function CommentList(props: CommentListProps) {
       if (cursorRef.current === '') {
         setCommentList(detail);
       } else {
-        setCommentList(list => [...list, ...detail]);
+        setCommentList(list => {
+          const newList = dedupeCommentList([...list, ...detail]);
+          if (newList.length === list.length) setIsLoadAll(true);
+          return newList;
+        });
       }
 
       cursorRef.current = cursor;
@@ -66,6 +81,13 @@ export default function CommentList(props: CommentListProps) {
   useEffect(() => {
     fetchCommentList();
   }, [fetchCommentList]);
+
+  const ctx = useMemo<CommentListContext>(
+    () => ({
+      updateThread,
+    }),
+    [updateThread]
+  );
 
   return (
     <div
@@ -98,9 +120,11 @@ export default function CommentList(props: CommentListProps) {
           'border-base-content/10 bg-base-200/30'
         )}
       >
-        {commentList.map((thread, idx) => (
-          <CommentThread key={idx} thread={thread} />
-        ))}
+        <CommentListCtx.Provider value={ctx}>
+          {commentList.map(thread => (
+            <CommentThread key={thread.id} thread={thread} />
+          ))}
+        </CommentListCtx.Provider>
         <LoadingIndicator
           className="h-[4rem]"
           isLoading={isLoading}

@@ -29,7 +29,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import CardCtx from './context';
+import { CardCtx } from './context';
 
 const ALIGN_END_TRIGGER_W = 1536; // 2xl
 

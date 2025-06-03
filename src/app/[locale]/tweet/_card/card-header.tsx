@@ -19,7 +19,7 @@ import { cn } from '@/utils/classnames';
 import { getCreateTime } from '@/utils/datetime';
 import { getImageVariants } from '@/utils/twitter';
 import { useContext, useEffect, useState } from 'react';
-import CardCtx from './context';
+import { CardCtx } from './context';
 import { getSourceIcon } from './icons';
 
 export default function CardHeader() {

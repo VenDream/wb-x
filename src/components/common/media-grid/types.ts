@@ -19,6 +19,7 @@ export interface VideoItem {
   type: 'video';
   src: string;
   poster: string;
+  asGif?: boolean;
   download: string;
   duration: number;
   filename?: string;

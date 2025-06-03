@@ -110,7 +110,7 @@ namespace Twitter {
 
   type ConversationTweet = Tweet;
 
-  interface ConversationShowMoreCursor {
+  interface ConversationShowRepliesCursor {
     /** conversation id */
     conversationId: string;
     /** cursor */
@@ -118,8 +118,10 @@ namespace Twitter {
   }
 
   interface ConversationThread {
-    /** conversation items */
-    items: (ConversationTweet | ConversationShowMoreCursor)[];
+    /** conversation thread id */
+    id: string;
+    /** conversation thread items */
+    items: (ConversationTweet | ConversationShowRepliesCursor)[];
   }
 
   /* ------------------------------------------------------------------------ */

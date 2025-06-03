@@ -97,3 +97,38 @@ export function dedupeTweetList(list: Twitter.Tweet[]) {
   });
   return Array.from(map.values());
 }
+
+/**
+ * dedupe comment list
+ *
+ * @export
+ * @param {Twitter.ConversationThread[]} list comment list
+ */
+export function dedupeCommentList(list: Twitter.ConversationThread[]) {
+  const map = new Map<string, Twitter.ConversationThread>();
+  list.forEach(thread => {
+    map.set(thread.id, thread);
+  });
+  return Array.from(map.values());
+}
+
+/**
+ * dedupe comment thread items
+ *
+ * @export
+ * @param {Twitter.ConversationTweet[]} list comment items
+ */
+export function dedupeCommentThreadItems(
+  list: Twitter.ConversationThread['items']
+) {
+  const map = new Map<
+    string,
+    Twitter.ConversationTweet | Twitter.ConversationShowRepliesCursor
+  >();
+  list.forEach(item => {
+    const tweet = item as Twitter.ConversationTweet;
+    const cursor = item as Twitter.ConversationShowRepliesCursor;
+    map.set(tweet.id || cursor.cursor, item);
+  });
+  return Array.from(map.values());
+}
