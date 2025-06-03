@@ -162,7 +162,8 @@
     "tweet": {
       "comments": {
         "label": "评论",
-        "showReplies": "查看回复"
+        "showReplies": "查看回复",
+        "fetchRepliesFailed": "获取回复失败，请重试"
       },
       "filter": {
         "dataSource": "数据来源",

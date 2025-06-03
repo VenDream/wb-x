@@ -15,6 +15,7 @@ import { cn } from '@/utils/classnames';
 import { dedupeCommentThreadItems } from '@/utils/twitter';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
+import { toast } from 'sonner';
 import TweetCard from './card';
 import { CommentListCtx } from './context';
 import type { CommentThreadProps } from './types';
@@ -41,6 +42,7 @@ export default function CommentThread(props: CommentThreadProps) {
       updateThread(newThread);
     } catch (error) {
       console.error(error);
+      toast.error(t('fetchRepliesFailed'));
     } finally {
       setIsLoading(false);
     }

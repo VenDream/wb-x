@@ -162,7 +162,8 @@
     "tweet": {
       "comments": {
         "label": "Comments",
-        "showReplies": "Show replies"
+        "showReplies": "Show replies",
+        "fetchRepliesFailed": "Failed to fetch replies, please retry"
       },
       "filter": {
         "dataSource": "Data Source",
