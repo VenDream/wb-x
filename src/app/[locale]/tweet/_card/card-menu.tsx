@@ -12,7 +12,7 @@ import { UserCard } from '@/app/[locale]/user/_card';
 import { Dialog } from '@/components/common/dialog';
 import { Button, Dropdown } from '@/components/daisyui';
 import { TwitterIcon } from '@/components/icons';
-import { PRIMARY_ROUTES, TWITTER_HOST } from '@/constants';
+import { PRIMARY_ROUTES, SECONDARY_ROUTES, TWITTER_HOST } from '@/constants';
 import useUser from '@/hooks/use-user';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -173,7 +173,7 @@ export default function CardMenu() {
               <Link
                 target="_blank"
                 className="rounded-sm p-2"
-                href={`${TWITTER_HOST}/${user.screenName}/status/${id}`}
+                href={`${SECONDARY_ROUTES.TWEET_DETAIL}/${id}#comments`}
               >
                 <MessageCircleMoreIcon size={16} />
                 {t1('comments')}

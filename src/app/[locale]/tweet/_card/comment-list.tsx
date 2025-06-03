@@ -14,9 +14,17 @@ import LoadingIndicator from '@/components/common/loading-indicator';
 import useDetectSticky from '@/hooks/use-detect-sticky';
 import { cn } from '@/utils/classnames';
 import { dedupeCommentList } from '@/utils/twitter';
+import { usePrevious } from 'ahooks';
 import { MessageSquareQuoteIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { toast } from 'sonner';
 import CommentThread from './comment-thread';
 import { CommentListCtx } from './context';
@@ -36,6 +44,7 @@ export default function CommentList(props: CommentListProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadFailed, setIsLoadFailed] = useState(false);
 
+  const prevCommentList = usePrevious(commentList);
   const isSticky = useDetectSticky(listHeaderRef);
 
   const updateThread = useCallback((thread: Twitter.ConversationThread) => {
@@ -88,6 +97,20 @@ export default function CommentList(props: CommentListProps) {
     }),
     [updateThread]
   );
+
+  useLayoutEffect(() => {
+    if (
+      prevCommentList !== undefined &&
+      prevCommentList.length === 0 &&
+      commentList.length > 0 &&
+      location.hash === '#comments'
+    ) {
+      listRef.current?.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+      });
+    }
+  }, [commentList.length, prevCommentList]);
 
   return (
     <div
