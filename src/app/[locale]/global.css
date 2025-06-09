@@ -77,6 +77,11 @@ input[type='number'].appearance-none {
   @apply pointer-events-none;
 }
 
+.menu {
+  --menu-active-bg: var(--color-primary);
+  --menu-active-fg: var(--color-primary-content);
+}
+
 .input,
 .textarea {
   @apply placeholder-base-content/50;

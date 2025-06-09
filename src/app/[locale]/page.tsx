@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <MotionContainer className="space-y-4 pr-4">
+    <MotionContainer className="space-y-4 p-0 lg:pr-4">
       <Stats />
       <RefreshBtn />
     </MotionContainer>

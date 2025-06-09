@@ -24,9 +24,11 @@ export default function LayoutBody({ children }: ChildrenProps) {
     <Provider store={store}>
       <div className="flex min-h-0 flex-1">
         <Leftsider />
-        <div className="bg-base-200 h-full min-w-0 flex-1 p-4">
+        <div className="bg-base-200 h-full min-w-0 flex-1 p-0 lg:p-4">
           <div
-            className={cn('bg-base-100 rounded-box h-full px-6 py-4 text-sm')}
+            className={cn(
+              'bg-base-100 rounded-box h-full px-6 py-0 text-sm lg:py-4'
+            )}
           >
             <ScrollArea>
               {isAdminRoute ? (

@@ -109,19 +109,19 @@ export default function Trackings(props: IProps) {
   };
 
   return (
-    <MotionContainer className="space-y-8 px-1">
+    <div className="space-y-8 px-1">
       <div className="space-y-4">
         <h1 className="flex items-center text-2xl">
           <UsersIcon size={24} className="mr-2" />
           {t2('title')}
         </h1>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center gap-4 lg:flex-row">
           {usersLists.map(list => (
             <Stats
               key={list.platform}
               className="stats-vertical border-base-content/20 border"
             >
-              <Stats.Stat className="min-w-80">
+              <Stats.Stat className="lg:min-w-80">
                 <Stats.Figure className="">
                   <AudioLinesIcon
                     size={24}
@@ -244,6 +244,6 @@ export default function Trackings(props: IProps) {
           </div>
         </div>
       </div>
-    </MotionContainer>
+    </div>
   );
 }

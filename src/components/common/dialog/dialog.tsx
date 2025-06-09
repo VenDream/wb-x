@@ -169,7 +169,7 @@ export default function Dialog(dialogProps: DialogProps) {
       <IDialog.Content
         className={cn(
           'fixed top-[50%] left-[50%] z-50 translate-x-[-50%] translate-y-[-50%]',
-          'flex w-[30rem]',
+          'flex w-[30rem] max-w-[90vw]',
           props.classNames?.wrapper
         )}
         onEscapeKeyDown={onEscapeKeyDown}
@@ -212,7 +212,9 @@ export default function Dialog(dialogProps: DialogProps) {
           </div>
           {parts.content && (
             <div className={cn('min-h-0 flex-1 text-sm', parts.contentClass)}>
-              <ScrollArea viewportClassName={cn(props.classNames?.scrollArea)}>
+              <ScrollArea
+                viewportClassName={cn('!p-0', props.classNames?.scrollArea)}
+              >
                 {parts.content || t2('content')}
               </ScrollArea>
             </div>

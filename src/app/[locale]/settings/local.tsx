@@ -66,7 +66,12 @@ export default function LocalSettings() {
           />
         </div>
       </div>
-      <Button size="sm" color="primary" onClick={applySettings}>
+      <Button
+        size="sm"
+        color="primary"
+        onClick={applySettings}
+        autoBlockOnMobile
+      >
         <SaveIcon size={16} />
         {t2('save')}
       </Button>

@@ -11,6 +11,7 @@
 
 import { Button, Dropdown } from '@/components/daisyui';
 import { THEMES } from '@/constants';
+import { useIsMobile } from '@/hooks/use-media-query';
 import useTheme from '@/hooks/use-theme';
 import { cn } from '@/utils/classnames';
 import { ChevronDownIcon, CircleCheckBigIcon, PaletteIcon } from 'lucide-react';
@@ -20,8 +21,10 @@ import { themeChange } from 'theme-change';
 
 export default function ThemeChange() {
   const t = useTranslations('global.theming');
-  const [mounted, setMounted] = useState(false);
+
+  const isMobile = useIsMobile();
   const [theme, setTheme] = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -42,14 +45,15 @@ export default function ThemeChange() {
       <Dropdown.Toggle>
         <Button ghost>
           <PaletteIcon size={18} />
-          <span className="text-sm">{t('switcherLabel')}</span>
+          {!isMobile && <span className="text-sm">{t('switcherLabel')}</span>}
           <ChevronDownIcon size={18} />
         </Button>
       </Dropdown.Toggle>
       <Dropdown.Menu
         className={cn(
           'no-scrollbar z-10 mt-4 h-96 w-64 flex-nowrap gap-1 overflow-auto',
-          'bg-base-100/50 border-base-content/10 border backdrop-blur-lg'
+          'bg-base-100/50 border-base-content/10 border backdrop-blur-lg',
+          'mr-4 lg:mr-0'
         )}
       >
         {Object.values(THEMES).map(t => {
