@@ -31,7 +31,7 @@ export default function Header() {
             'border-base-content/10 relative z-50 border-b px-0 lg:px-4',
             'lg:bg-base-100 fixed top-0 left-0 lg:relative',
             'before:bg-base-100/50 before:absolute before:inset-0 before:z-0',
-            'h-14 min-h-0 before:backdrop-blur-lg lg:h-16'
+            'h-14 min-h-0 before:backdrop-blur-lg before:content-[""] lg:h-16'
           )}
         >
           <Navbar.Start className="px-2">
