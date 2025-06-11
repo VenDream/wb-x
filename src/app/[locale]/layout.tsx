@@ -20,7 +20,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import Provider from './provider';
 
@@ -64,14 +63,16 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
             <div
               data-role="loading-mask"
               className={cn(
-                'fixed inset-0 z-50 flex items-center justify-center',
-                'bg-base-100/80 backdrop-blur-lg'
+                'fixed inset-0 z-999 flex items-center justify-center',
+                'bg-base-100/80 bg-grid backdrop-blur-lg'
               )}
             >
-              <Loading size={24} text={t('loading')} />
+              <Loading
+                size={24}
+                text={t('loading')}
+                textClass="text-sm lg:text-lg"
+              />
             </div>
-            {/* twitter widget SDK */}
-            <Script async src="https://platform.twitter.com/widgets.js" />
           </body>
         </NextIntlClientProvider>
       </html>

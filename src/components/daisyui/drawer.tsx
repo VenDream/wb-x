@@ -84,10 +84,7 @@ function DrawerSide(props: DrawerSideProps) {
 
 function DrawerOverlay(props: DrawerOverlayProps) {
   const { className, children, ...labelProps } = props;
-  const daisyUIClasses = cn(
-    'drawer-overlay bg-base-100/50 backdrop-blur-lg',
-    className
-  );
+  const daisyUIClasses = cn('drawer-overlay backdrop-blur-2xs', className);
 
   return (
     <label className={daisyUIClasses} {...labelProps} htmlFor={props.htmlFor}>

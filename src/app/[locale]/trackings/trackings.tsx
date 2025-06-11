@@ -195,7 +195,10 @@ export default function Trackings(props: IProps) {
                 ghost
                 onClick={reset}
                 disabled={isSearching}
-                className="bg-base-content/10 border-base-content/10 h-9 min-h-9"
+                className={cn(
+                  'bg-base-content/10 border-base-content/10 h-9 min-h-9',
+                  'backdrop-blur-lg'
+                )}
               >
                 <RotateCcwIcon size={16} />
                 {t2('add.reset')}
@@ -238,7 +241,6 @@ export default function Trackings(props: IProps) {
                           users.filter(u => u.id !== user.id)
                         );
                   }}
-                  className="outline-base-content/20 bg-transparent shadow-xs"
                 />
               </MotionContainer>
             )}
@@ -260,7 +262,8 @@ export default function Trackings(props: IProps) {
               onClick={reset}
               disabled={isSearching}
               className={cn(
-                'bg-base-content/10 border-base-content/10 h-9 min-h-9 flex-1'
+                'bg-base-content/10 border-base-content/10 h-9 min-h-9 flex-1',
+                'backdrop-blur-lg'
               )}
             >
               <RotateCcwIcon size={16} />

@@ -36,6 +36,37 @@
   }
 }
 
+@utility backdrop-blur-pseudo {
+  @apply before:bg-base-100/50 before:absolute before:inset-0 before:z-0;
+  @apply before:rounded-[inherit] before:backdrop-blur-lg before:content-[""];
+}
+
+@utility bg-grid {
+  --grid-line-color: color-mix(
+    in oklab,
+    var(--color-base-content) 2%,
+    transparent 98%
+  );
+  --grid-size: 24px;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      var(--grid-line-color) 0,
+      var(--grid-line-color) 1px,
+      transparent 0,
+      transparent 50%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--grid-line-color) 0,
+      var(--grid-line-color) 1px,
+      transparent 0,
+      transparent 50%
+    );
+  background-size: var(--grid-size) var(--grid-size);
+}
+
 html {
   &::-webkit-scrollbar,
   & *::-webkit-scrollbar {
@@ -50,6 +81,11 @@ html {
   &::-webkit-scrollbar-track,
   & *::-webkit-scrollbar-track {
     @apply hidden;
+  }
+
+  & body,
+  & .page-container {
+    @apply bg-grid;
   }
 }
 

@@ -1,5 +1,8 @@
 {
   "global": {
+    "app": {
+      "title": "WB_X"
+    },
     "platform": {
       "weibo": "Weibo",
       "twitter": "Twitter"
@@ -269,6 +272,9 @@
         "copySuccessTips": "Copied to clipboard",
         "wbPosts": "View all OP's posts",
         "twPosts": "View all OP's tweets"
+      },
+      "filters": {
+        "title": "Filters"
       },
       "dialog": {
         "title": "User Info"

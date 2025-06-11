@@ -15,6 +15,7 @@ import { Avatar } from '@/components/daisyui';
 import { TwitterIcon, WeiboIcon } from '@/components/icons';
 import { TWITTER_HOST, WEIBO_HOST } from '@/constants';
 import { FAKE_IMG } from '@/constants/debug';
+import { useIsMobile } from '@/hooks/use-media-query';
 import useUser from '@/hooks/use-user';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -30,11 +31,16 @@ import {
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 import CardMenu from './menu';
+import MiniUserCard from './mini';
 
-interface IProps {
+export interface UserCardProps {
   platform: Platform;
   user: Weibo.User | Twitter.User;
+
   className?: string;
+  full?: boolean;
+  mini?: boolean;
+
   onTrackUser?: () => void;
   onUntrackUser?: () => void;
 }
@@ -45,9 +51,16 @@ interface UserMetaItem {
   content: React.ReactNode;
 }
 
-export default function UserCard(props: IProps) {
+export default function UserCard(props: UserCardProps) {
   const t = useTranslations('pages.users');
+
+  const { full, mini } = props;
   const { isAdmin } = useUser();
+  const isMobile = useIsMobile();
+  const isUnspecfied =
+    typeof full === 'undefined' && typeof mini === 'undefined';
+  const isShowFull = (!mini && !!full) || (isUnspecfied && !isMobile);
+  const isShowMini = (!full && !!mini) || (isUnspecfied && isMobile);
 
   const wbUser = props.user as Weibo.User;
   const twUser = props.user as Twitter.User;
@@ -66,6 +79,8 @@ export default function UserCard(props: IProps) {
   const getImageVariants = isWeibo
     ? weiboUtils.getImageVariants
     : twitterUtils.getImageVariants;
+
+  const avatarSrc = FAKE_IMG(+id % 1000) || getImageVariants(avatar).sm;
 
   const userLink = isWeibo
     ? `${WEIBO_HOST}/${id}`
@@ -139,7 +154,9 @@ export default function UserCard(props: IProps) {
 
   if (!id || +id <= 0) return null;
 
-  return (
+  return isShowMini ? (
+    <MiniUserCard {...props} />
+  ) : isShowFull ? (
     <MotionContainer
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-3 py-6',
@@ -155,10 +172,7 @@ export default function UserCard(props: IProps) {
             'outline-primary outline-2 outline-offset-3'
           )}
         >
-          <Image
-            alt={name}
-            src={FAKE_IMG(+id % 1000) || getImageVariants(avatar).sm}
-          />
+          <Image alt={name} src={avatarSrc} />
         </div>
       </Avatar>
       <div className="flex w-[85%] flex-col items-center gap-0.5">
@@ -245,5 +259,5 @@ export default function UserCard(props: IProps) {
         </p>
       )}
     </MotionContainer>
-  );
+  ) : null;
 }

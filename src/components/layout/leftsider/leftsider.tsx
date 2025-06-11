@@ -12,6 +12,7 @@
 import { Menu } from '@/components/daisyui';
 import {
   ADMIN_ROUTES,
+  APP_DRAWER_ID,
   PRIMARY_ROUTES,
   PRIMARY_ROUTE_KEYS,
   type PrimaryRouteKey,
@@ -57,7 +58,8 @@ export default function Leftsider(props: IProps) {
 
   const closeDrawer = () => {
     if (!isMobile) return;
-    const overlay = document.querySelector('.drawer-overlay') as HTMLElement;
+    const selector = `.drawer-overlay[for="${APP_DRAWER_ID}"]`;
+    const overlay = document.querySelector(selector) as HTMLElement;
     overlay?.click();
   };
 

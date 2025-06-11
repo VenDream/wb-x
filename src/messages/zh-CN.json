@@ -1,5 +1,8 @@
 {
   "global": {
+    "app": {
+      "title": "WB_X"
+    },
     "platform": {
       "weibo": "微博",
       "twitter": "推特"
@@ -269,6 +272,9 @@
         "copySuccessTips": "已复制到剪贴板",
         "wbPosts": "查看Ta的所有微博",
         "twPosts": "查看Ta的所有推特"
+      },
+      "filters": {
+        "title": "筛选"
       },
       "dialog": {
         "title": "用户信息"

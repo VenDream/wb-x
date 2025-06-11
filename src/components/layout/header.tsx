@@ -12,26 +12,37 @@ import { APP_DRAWER_ID, PRIMARY_ROUTES } from '@/constants';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import { MenuIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Leftsider from './leftsider';
 import LocaleChange from './locale-change';
 import Profile from './profile';
 import ThemeChange from './theme-change';
 
 export default function Header() {
+  const t = useTranslations('global.app');
+
   return (
     <Drawer>
       <Drawer.Toggle id={APP_DRAWER_ID} />
       <Drawer.Side>
         <Drawer.Overlay htmlFor={APP_DRAWER_ID} />
-        <Leftsider className="bg-base-100/50 block" />
+        <div
+          className={cn(
+            'flex h-full w-60 flex-col gap-4 p-4',
+            'bg-base-100/80 border-base-content/10 border-r backdrop-blur-lg'
+          )}
+        >
+          <h3 className="pl-4 text-lg">{t('title')}</h3>
+          <div className="bg-base-content/10 h-px w-full" />
+          <Leftsider className="block w-full border-none bg-transparent p-0" />
+        </div>
       </Drawer.Side>
       <Drawer.Content>
         <Navbar
           className={cn(
-            'border-base-content/10 relative z-50 border-b px-0 lg:px-4',
+            'border-base-content/10 z-10 border-b px-0 lg:px-4',
             'lg:bg-base-100 fixed top-0 left-0 lg:relative',
-            'before:bg-base-100/50 before:absolute before:inset-0 before:z-0',
-            'h-14 min-h-0 before:backdrop-blur-lg before:content-[""] lg:h-16'
+            'backdrop-blur-pseudo h-14 min-h-0 lg:h-16'
           )}
         >
           <Navbar.Start className="px-2">
