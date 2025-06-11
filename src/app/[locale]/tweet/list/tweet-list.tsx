@@ -102,7 +102,7 @@ export default function TweetList() {
   }, [isInited, updateFilterParams, favUid]);
 
   return (
-    <div className="relative h-[calc(100vh-8rem)]">
+    <div className="relative h-[calc(100dvh-8rem)]">
       {isInited && filterParams.favUid && (
         <VirtualList {...listProps} ref={listRef} />
       )}

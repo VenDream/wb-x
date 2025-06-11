@@ -233,6 +233,9 @@
         "search": "Search",
         "reset": "Reset"
       },
+      "filters": {
+        "title": "Filters"
+      },
       "noImages": "No images",
       "sourceURL": "Source URL",
       "sourceURLTips": "View source URL"

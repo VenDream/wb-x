@@ -45,7 +45,7 @@ export default function Paginator(props: PaginatorProps) {
     () => Math.ceil(total / pageSize),
     [pageSize, total]
   );
-  const shouldHide = hideOnSinglePage && totalPages <= 1;
+  const shouldHide = hideOnSinglePage === true && totalPages <= 1;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -141,16 +141,18 @@ export default function Paginator(props: PaginatorProps) {
           );
         })}
       </Pagination>
-      <div className="flex w-full items-center justify-center lg:w-auto">
-        {t('jumpTo')}
-        <Input
-          ref={inputRef}
-          size="sm"
-          className="mx-2 w-16 p-2"
-          onKeyDown={evt => jumpPage(evt.key)}
-        />
-        {t('page')}
-      </div>
+      {totalPages > 1 && (
+        <div className="flex w-full items-center justify-center lg:w-auto">
+          {t('jumpTo')}
+          <Input
+            ref={inputRef}
+            size="sm"
+            className="mx-2 w-16 p-2"
+            onKeyDown={evt => jumpPage(evt.key)}
+          />
+          {t('page')}
+        </div>
+      )}
     </div>
   );
 }

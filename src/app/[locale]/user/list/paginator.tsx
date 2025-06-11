@@ -12,14 +12,5 @@
 import IPaginator, { type PaginatorProps } from '@/components/common/paginator';
 
 export default function Paginator(props: PaginatorProps) {
-  const { total, pageSize, defaultCurrent, onCurrentPageChange } = props;
-
-  return (
-    <IPaginator
-      total={total}
-      pageSize={pageSize}
-      defaultCurrent={defaultCurrent}
-      onCurrentPageChange={onCurrentPageChange}
-    />
-  );
+  return <IPaginator {...props} />;
 }

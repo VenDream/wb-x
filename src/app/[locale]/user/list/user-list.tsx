@@ -25,7 +25,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { useUrlState } from 'state-in-url';
 import Filter from './filter';
-import UserListMenu from './menu';
+import Menu from './menu';
 import Paginator from './paginator';
 
 interface UserListProps {
@@ -184,7 +184,7 @@ export default function UserList(props: UserListProps) {
           value={platform}
           onChange={p => switchPlatform(p as Platform)}
         />
-        <UserListMenu
+        <Menu
           keyword={localKw}
           isTracking={localIsTracking}
           setKeyword={setLocalKw}
@@ -243,6 +243,7 @@ export default function UserList(props: UserListProps) {
             total={total}
             pageSize={PAGINATION_LIMIT}
             defaultCurrent={page}
+            hideOnSinglePage={false}
             onCurrentPageChange={jumpPage}
           />
         </>
