@@ -52,8 +52,7 @@ export default function ThemeChange() {
       <Dropdown.Menu
         className={cn(
           'no-scrollbar z-10 mt-4 h-96 w-64 flex-nowrap gap-1 overflow-auto',
-          'bg-base-100/50 border-base-content/10 border backdrop-blur-lg',
-          'mr-4 lg:mr-0'
+          'bg-base-100/50 border-base-content/10 border backdrop-blur-lg'
         )}
       >
         {Object.values(THEMES).map(t => {
