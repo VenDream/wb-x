@@ -34,7 +34,7 @@ export default function LocaleChange() {
   return (
     <Dropdown align="end">
       <Dropdown.Toggle>
-        <Button ghost>
+        <Button ghost className="px-2 lg:px-4">
           <LanguagesIcon size={18} />
           {!isMobile && <span className="text-sm">{t('switcherLabel')}</span>}
           <ChevronDownIcon size={18} />
