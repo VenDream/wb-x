@@ -21,6 +21,7 @@ import { useIsMobile } from '@/hooks/use-media-query';
 import useUser from '@/hooks/use-user';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
+import { omit } from '@/utils/common';
 import { produce } from 'immer';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
@@ -48,7 +49,7 @@ export default function Leftsider(props: IProps) {
 
     // @note: temporary hide twitter route on mobile
     if (isMobile) {
-      routes.TWITTER = '';
+      return omit(routes, ['TWITTER']);
     }
 
     return routes;
