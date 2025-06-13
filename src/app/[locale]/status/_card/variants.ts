@@ -119,7 +119,7 @@ export const commnetLikes = cva(cn('flex items-center text-xs absolute'), {
       detailReplies: cn('top-[7px] lg:top-[12px] right-1'),
     },
     mode: {
-      dialog: cn('first:top-0'),
+      dialog: cn('first:top-0 !right-0'),
     },
   },
   defaultVariants: {
