@@ -11,14 +11,16 @@
 
 import AuthGuard from '@/components/common/auth-guard';
 import ScrollArea from '@/components/common/scroll-area';
-import useAdminRoute from '@/hooks/use-admin-route';
+import useIsAdminRoute from '@/hooks/use-admin-route';
+import useIsFullPage from '@/hooks/use-full-page';
 import store from '@/store';
 import { cn } from '@/utils/classnames';
 import { Provider } from 'jotai';
 import Leftsider from './leftsider';
 
 export default function LayoutBody({ children }: ChildrenProps) {
-  const isAdminRoute = useAdminRoute();
+  const isFullPage = useIsFullPage();
+  const isAdminRoute = useIsAdminRoute();
 
   return (
     <Provider store={store}>
@@ -28,10 +30,17 @@ export default function LayoutBody({ children }: ChildrenProps) {
           <div
             className={cn(
               'page-container shadow-sm',
-              'bg-base-100 rounded-box h-full px-6 py-0 text-sm lg:py-4'
+              'bg-base-100 rounded-box h-full px-6 py-0 text-sm lg:py-4',
+              {
+                'px-0': isFullPage,
+              }
             )}
           >
-            <ScrollArea>
+            <ScrollArea
+              viewportClassName={cn({
+                'pb-0 pt-14': isFullPage,
+              })}
+            >
               {isAdminRoute ? (
                 <AuthGuard noPermissionClassName="p-0">{children}</AuthGuard>
               ) : (

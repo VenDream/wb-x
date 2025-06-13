@@ -11,6 +11,7 @@ import { useDialog } from '@/components/common/dialog';
 import FavouriteBtn from '@/components/common/favourite-btn';
 import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { cn } from '@/utils/classnames';
 import { formatNumberWithUnit } from '@/utils/common';
 import { getCreateTime } from '@/utils/datetime';
@@ -43,18 +44,20 @@ export default function CardFooter() {
   const [cc, setCc] = useState('0');
   const [ac, setAc] = useState('0');
 
+  const isMobile = useIsMobile();
   const { show: showDialog } = useDialog();
 
   const showComments = () => {
     showDialog({
       footer: null,
+      fullScreen: isMobile,
       classNames: {
         wrapper: 'w-[40rem] h-[50rem] max-h-[85vh]',
-        scrollArea: 'pb-2 pr-6',
+        scrollArea: isMobile ? 'pr-0' : '!pr-4',
       },
       title: t('comments.label'),
       icon: <MessageSquareQuoteIcon size={20} className="mr-2" />,
-      content: <CommentList id={id} hideTitle className="mt-0 w-full" />,
+      content: <CommentList id={id} hideTitle className="w-full" />,
     });
   };
 
@@ -67,12 +70,7 @@ export default function CardFooter() {
 
   return (
     <div className={cardFooter({ type: isRetweet ? 'retweet' : 'source' })}>
-      <div
-        className={cn(
-          'col-start-2 col-end-4 flex justify-between text-xs',
-          'text-base-content/60'
-        )}
-      >
+      <div className={cn('text-base-content/60 flex justify-between text-xs')}>
         <div className="flex gap-3">
           <FavouriteBtn platform="weibo" post={status as Weibo.Status} />
           <Tooltip message={t('footer.comments')} className="text-xs">
@@ -105,17 +103,17 @@ export default function CardFooter() {
           <Tooltip message={createdAt} className="text-xs">
             <div
               className={cn(
-                'text-base-content/50 flex cursor-text items-center'
+                'text-base-content/60 flex cursor-text items-center'
               )}
             >
               {ct}
-              {source && (
+              {!isMobile && source && (
                 <>
                   &nbsp;•&nbsp;
                   {source}
                 </>
               )}
-              {region && region !== source && (
+              {!isMobile && region && region !== source && (
                 <>
                   &nbsp;•&nbsp;
                   {region}

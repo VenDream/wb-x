@@ -40,7 +40,7 @@ export default function Header() {
       <Drawer.Content>
         <Navbar
           className={cn(
-            'border-base-content/10 z-10 border-b px-0 lg:px-4',
+            'border-base-content/10 z-10 px-0 shadow lg:border-b lg:px-4',
             'lg:bg-base-100 fixed top-0 left-0 lg:relative',
             'backdrop-blur-pseudo h-14 min-h-0 lg:h-16'
           )}

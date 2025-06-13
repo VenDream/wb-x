@@ -84,8 +84,10 @@ export interface CommentItemProps {
   sorter?: ReactNode;
   /** if is a comment reply */
   isReply?: boolean;
-  /** if is detail replies  */
+  /** if is detail replies */
   isDetailReplies?: boolean;
+  /** display mode */
+  displayMode?: 'dialog';
 }
 
 export interface CommentsRepliesProps {

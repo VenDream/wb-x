@@ -13,6 +13,7 @@ import { weibo } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import Tabs from '@/components/common/tabs';
 import useDetectSticky from '@/hooks/use-detect-sticky';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { cn } from '@/utils/classnames';
 import { usePrevious } from 'ahooks';
 import {
@@ -49,7 +50,9 @@ export default function CommentList(props: CommentListProps) {
   const prevOrderBy = usePrevious(orderBy);
   const prevCommentList = usePrevious(commentList);
 
+  const isMobile = useIsMobile();
   const isSticky = useDetectSticky(listHeaderRef);
+  const isDialogMode = isMobile && props.hideTitle;
 
   const fetchCommentList = useCallback(async () => {
     try {
@@ -114,69 +117,85 @@ export default function CommentList(props: CommentListProps) {
     <div
       ref={listRef}
       className={cn(
-        'rounded-box relative w-[40rem] shadow-xs',
+        'relative w-full lg:w-[40rem]',
+        {
+          '-mt-3.5': isDialogMode,
+        },
         props.className
       )}
     >
-      <div
-        ref={listHeaderRef}
-        className={cn(
-          'border-base-content/10 flex items-center justify-between border',
-          'rounded-box sticky top-0 left-0 rounded-b-none p-4',
-          'bg-base-200/30 z-10 w-full backdrop-blur-lg',
-          {
-            'rounded-t-none': isSticky,
-          }
-        )}
-      >
-        {!props.hideTitle && (
-          <p className="flex items-center text-base">
-            <MessageSquareQuoteIcon size={20} className="mr-2" />
-            {t('label')} ({total})
-          </p>
-        )}
-        <Tabs
-          size="xs"
-          name="comments-order"
-          className="space-x-0 bg-transparent p-0"
-          value={orderBy}
-          onChange={switchOrderBy}
-          items={[
+      <div className="lg:shadow">
+        <div
+          ref={listHeaderRef}
+          className={cn(
+            'border-base-content/10 top-0 left-0 flex items-center justify-between',
+            'lg:rounded-box relative rounded-none p-4 lg:sticky lg:rounded-b-none',
+            'bg-base-200/30 z-1 w-full border-y backdrop-blur-lg lg:border',
             {
-              label: t('orderByHot'),
-              value: 'hot',
-              icon: <FlameIcon size={16} />,
-            },
-            {
-              label: t('orderByDesc'),
-              value: 'desc',
-              icon: <ArrowDownUpIcon size={16} />,
-            },
-            {
-              label: t('orderByAsc'),
-              value: 'asc',
-              icon: <ArrowUpDownIcon size={16} />,
-            },
-          ]}
-        />
+              'lg:rounded-t-none': isSticky,
+              hidden: isDialogMode,
+            }
+          )}
+        >
+          {!props.hideTitle && (
+            <p className="flex items-center text-base">
+              <MessageSquareQuoteIcon size={20} className="mr-2" />
+              {t('label')} ({total})
+            </p>
+          )}
+          {!isMobile && (
+            <Tabs
+              size="xs"
+              name="comments-order"
+              className="space-x-0 bg-transparent p-0"
+              value={orderBy}
+              onChange={switchOrderBy}
+              items={[
+                {
+                  label: t('orderByHot'),
+                  value: 'hot',
+                  icon: <FlameIcon size={16} />,
+                },
+                {
+                  label: t('orderByDesc'),
+                  value: 'desc',
+                  icon: <ArrowDownUpIcon size={16} />,
+                },
+                {
+                  label: t('orderByAsc'),
+                  value: 'asc',
+                  icon: <ArrowUpDownIcon size={16} />,
+                },
+              ]}
+            />
+          )}
+        </div>
+        <div
+          className={cn(
+            'lg:rounded-box rounded-none lg:rounded-t-none lg:border lg:border-t-0',
+            'border-base-content/10 border-none'
+          )}
+        >
+          {commentList.map(comment => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              displayMode={isDialogMode ? 'dialog' : undefined}
+            />
+          ))}
+        </div>
       </div>
-      <div
-        className={cn(
-          'rounded-box rounded-t-none border border-t-0',
-          'border-base-content/10 bg-base-200/30 p-4'
-        )}
-      >
-        {commentList.map(comment => (
-          <CommentItem key={comment.id} comment={comment} />
-        ))}
-        <LoadingIndicator
-          isLoading={isLoading}
-          isLoadAll={isLoadAll}
-          isNoData={commentList.length === 0}
-          loadMore={fetchCommentList}
-          scrollLoading={{ enabled: !isLoadFailed, threshold: 200 }}
-        />
-      </div>
+      <LoadingIndicator
+        isLoading={isLoading}
+        isLoadAll={isLoadAll}
+        isNoData={commentList.length === 0}
+        loadMore={fetchCommentList}
+        scrollLoading={{
+          enabled: !isMobile && !isLoadFailed,
+          threshold: 200,
+        }}
+        className="h-[3rem]"
+      />
     </div>
   );
 }

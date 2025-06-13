@@ -10,6 +10,7 @@
 import { weibo } from '@/api/client';
 import LoadingIndicator from '@/components/common/loading-indicator';
 import Tabs from '@/components/common/tabs';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { usePrevious } from 'ahooks';
 import { ArrowDownUpIcon, FlameIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -33,6 +34,7 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
   const [isLoadAll, setIsLoadAll] = useState(false);
   const [isLoadFailed, setIsLoadFailed] = useState(false);
 
+  const isMobile = useIsMobile();
   const prevOrderBy = usePrevious(orderBy);
 
   const fetchCommentsReplies = useCallback(async () => {
@@ -88,25 +90,27 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         comment={comment}
         isDetailReplies
         sorter={
-          <Tabs
-            size="xs"
-            name="comments-replies-order"
-            className="space-x-0 bg-transparent p-0"
-            value={orderBy}
-            onChange={switchOrderBy}
-            items={[
-              {
-                label: t('orderByHot'),
-                value: 'hot',
-                icon: <FlameIcon size={16} />,
-              },
-              {
-                label: t('orderByTime'),
-                value: 'time',
-                icon: <ArrowDownUpIcon size={16} />,
-              },
-            ]}
-          />
+          isMobile ? null : (
+            <Tabs
+              size="xs"
+              name="comments-replies-order"
+              className="space-x-0 bg-transparent p-0"
+              value={orderBy}
+              onChange={switchOrderBy}
+              items={[
+                {
+                  label: t('orderByHot'),
+                  value: 'hot',
+                  icon: <FlameIcon size={16} />,
+                },
+                {
+                  label: t('orderByTime'),
+                  value: 'time',
+                  icon: <ArrowDownUpIcon size={16} />,
+                },
+              ]}
+            />
+          )
         }
       />
       <LoadingIndicator
@@ -115,7 +119,8 @@ export default function CommentsReplies(props: CommentsRepliesProps) {
         isLoadAll={isLoadAll}
         isNoData={comment.comments.length === 0}
         loadMore={fetchCommentsReplies}
-        scrollLoading={{ enabled: !isLoadFailed, threshold: 0 }}
+        scrollLoading={{ enabled: !isMobile && !isLoadFailed, threshold: 0 }}
+        className="mt-2"
       />
     </div>
   );

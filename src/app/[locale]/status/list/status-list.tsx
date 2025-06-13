@@ -18,6 +18,7 @@ import VirtualList, {
 } from '@/components/common/virtual-list';
 import { ESTIMATE_COUNT } from '@/constants';
 import useFavUid from '@/hooks/use-fav-uid';
+import { useIsMobile } from '@/hooks/use-media-query';
 import useUser from '@/hooks/use-user';
 import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
@@ -25,16 +26,12 @@ import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Filter from './filter';
-
-export const defaultFilterParams: Weibo.StatusListFilterParams = {
-  order: 'desc',
-  orderBy: 'createdAt',
-  isTracking: true,
-};
+import { DEFAULT_FILTER_PARAMS, Filter, MiniFilter } from '../_filter';
 
 export default function StatusList() {
   const t = useTranslations('pages.status');
+  const isMobile = useIsMobile();
+
   const listRef = useRef<VirtualListHandle>(null);
   const [total, setTotal] = useState(-1);
   const [isFetching, setIsFetching] = useState(false);
@@ -46,7 +43,7 @@ export default function StatusList() {
   const [filterParams, setFilterParams] =
     useState<Weibo.StatusListFilterParams>(() => {
       const uid = searchParams.get('uid');
-      const initParams = { ...defaultFilterParams };
+      const initParams = { ...DEFAULT_FILTER_PARAMS };
       if (typeof window === 'undefined') return initParams;
       uid && (initParams.uid = uid);
       return initParams;
@@ -62,7 +59,7 @@ export default function StatusList() {
 
   const resetFilterParams = useCallback(() => {
     setFilterParams(params => ({
-      ...defaultFilterParams,
+      ...DEFAULT_FILTER_PARAMS,
       favUid: params.favUid,
     }));
     listRef.current?.reset();
@@ -73,6 +70,7 @@ export default function StatusList() {
     DB.List<Weibo.Status>
   > = useMemo(
     () => ({
+      gutter: isMobile ? 0 : 10,
       getDataFetcher: params => () =>
         weibo.getStatusList({ ...params, ...filterParams }),
       getDataParser: () => data => data.list,
@@ -83,7 +81,7 @@ export default function StatusList() {
       onTotalUpdate: total => setTotal(total),
       onDataFetchingStart: () => setIsFetching(true),
       onDataFetchingEnd: () => setIsFetching(false),
-      className: 'pl-72 2xl:pl-4',
+      className: 'pl-0 lg:pl-72 2xl:pl-4',
       estimatedRowHeight: 500,
       noDataProps: {
         tips: t('noData'),
@@ -92,7 +90,7 @@ export default function StatusList() {
         icon: <CircleHelpIcon size={16} />,
       },
     }),
-    [t, filterParams]
+    [isMobile, t, filterParams]
   );
 
   useEffect(() => {
@@ -102,11 +100,21 @@ export default function StatusList() {
   }, [isInited, updateFilterParams, favUid]);
 
   return (
-    <div className="relative h-[calc(100dvh-8rem)]">
+    <div
+      className={cn(
+        'no-scrollbar lg:scrollbar relative overflow-y-auto',
+        'h-[calc(100dvh-3.5rem)] lg:h-[calc(100dvh-8rem)]'
+      )}
+    >
       {isInited && filterParams.favUid && (
         <VirtualList {...listProps} ref={listRef} />
       )}
-      <div className="absolute top-0 left-0">
+      <MiniFilter
+        filterParams={filterParams}
+        resetFilterParams={resetFilterParams}
+        updateFilterParams={updateFilterParams}
+      />
+      <div className="absolute top-0 left-0 hidden lg:block">
         <Filter
           filterParams={filterParams}
           resetFilterParams={resetFilterParams}

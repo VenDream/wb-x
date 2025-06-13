@@ -50,7 +50,7 @@ export default function StatusDetail(props: IProps) {
   }, [fetchStatusDetail]);
 
   return isLoading ? (
-    <Loading align="center" />
+    <Loading align="center" className="py-2" />
   ) : (
     <MotionContainer className="flex flex-col items-center gap-4">
       {status ? (

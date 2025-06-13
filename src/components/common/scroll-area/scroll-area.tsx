@@ -20,7 +20,7 @@ export default function ScrollArea(props: IProps) {
     <IScrollArea.Root className={cn('h-full', props.className)}>
       <IScrollArea.Viewport
         className={cn(
-          'h-full w-full pt-18 pb-4 will-change-scroll lg:pt-0 lg:pb-0',
+          'h-full w-full pt-18 pb-8 will-change-scroll lg:pt-0 lg:pb-0',
           props.viewportClassName
         )}
       >

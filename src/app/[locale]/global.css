@@ -29,10 +29,17 @@
   backdrop-filter: blur(16px);
 }
 
+@utility scrollbar {
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+}
+
 @utility no-scrollbar {
   &::-webkit-scrollbar,
   & *::-webkit-scrollbar {
-    @apply hidden;
+    @apply w-0;
   }
 }
 
@@ -67,22 +74,27 @@
   background-size: var(--grid-size) var(--grid-size);
 }
 
+[data-theme='light'] {
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-black/10;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded-full bg-black/10;
+  }
+}
+
+[data-theme='dark'] {
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-white/10;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded-full bg-white/10;
+  }
+}
+
 html {
-  &::-webkit-scrollbar,
-  & *::-webkit-scrollbar {
-    @apply w-1.5;
-  }
-
-  &::-webkit-scrollbar-thumb,
-  & *::-webkit-scrollbar-thumb {
-    @apply bg-base-content/15 rounded-full;
-  }
-
-  &::-webkit-scrollbar-track,
-  & *::-webkit-scrollbar-track {
-    @apply hidden;
-  }
-
   & body,
   & .page-container {
     @apply bg-grid;
@@ -126,6 +138,15 @@ input[type='number'].appearance-none {
 .yarl__container,
 .yarl__thumbnails_container {
   @apply !bg-black/80 !backdrop-blur-lg;
+}
+
+@media (max-width: 1023px) {
+  .yarl__slide_title_container {
+    --yarl__slide_title_container_top: -4px;
+  }
+  .yarl__icon {
+    --yarl__icon_size: 24px;
+  }
 }
 
 .yarl__thumbnails_vignette,

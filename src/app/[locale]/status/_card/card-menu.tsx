@@ -93,9 +93,9 @@ export default function CardMenu() {
     <>
       <Dropdown
         align={alignEnd ? 'end' : 'start'}
-        className={cn('absolute right-[14px]', {
-          'top-[18px]': isRetweet,
-          'top-[35px]': !isRetweet,
+        className={cn('absolute right-[6px] lg:right-[14px]', {
+          'top-[10px] lg:top-[18px]': isRetweet,
+          'top-[20px] lg:top-[29px]': !isRetweet,
         })}
       >
         <Dropdown.Toggle>
@@ -226,10 +226,9 @@ export default function CardMenu() {
         <Dialog.Content>
           <UserCard
             platform="weibo"
+            full
             user={user}
             className="hover:border-base-content/10"
-            onTrackUser={() => {}}
-            onUntrackUser={() => {}}
           />
         </Dialog.Content>
       </Dialog>

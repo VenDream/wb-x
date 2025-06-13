@@ -109,6 +109,11 @@ export default function RotnList() {
           breakpointCols={BREAKPOINT_COLS}
           className="rotn-masonry-list"
           columnClassName="rotn-masonry-list-column"
+          style={
+            {
+              '--rotn-masonry-gap': isMobile ? '5px' : '20px',
+            } as React.CSSProperties
+          }
         >
           {items.map(item => (
             <div key={item.id} data-id={item.id} data-type={item.type}>
@@ -117,16 +122,16 @@ export default function RotnList() {
           ))}
         </Masonry>
       ) : null,
-    [items]
+    [isMobile, items]
   );
 
   return (
-    <div className="flex h-full flex-col gap-4 pr-0 lg:pr-6">
+    <div className="flex h-full flex-col gap-2 pr-0 lg:gap-4 lg:pr-6">
       <div className="relative top-0 lg:sticky lg:z-1">
         <Tabs
           size="sm"
           name="rotn_type"
-          itemClassName="w-20"
+          itemClassName="w-16 lg:w-20"
           value={itemType}
           onChange={switchItemType}
           items={[
@@ -181,7 +186,7 @@ export default function RotnList() {
       {isMobile ? (
         <div
           className={cn(
-            'no-scrollbar h-[calc(100dvh_-_152px)] overflow-y-auto'
+            'no-scrollbar h-[calc(100dvh_-_144px)] overflow-y-auto'
           )}
         >
           {cards}

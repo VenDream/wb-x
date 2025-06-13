@@ -85,7 +85,11 @@ export default function MiniUserCard(props: UserCardProps) {
               </Button>
             </Dialog.Trigger>
             <Dialog.Content>
-              <UserCard {...props} full />
+              <UserCard
+                {...props}
+                full
+                className="hover:border-base-content/10"
+              />
             </Dialog.Content>
           </Dialog>
         </div>

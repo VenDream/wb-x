@@ -103,16 +103,16 @@ export default function FavouriteBtn(props: IProps) {
         link
         onClick={togglePostFavourites}
         className={cn(
-          'text-base-content/60 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
+          'text-base-content/50 m-0 h-auto min-h-0 gap-0 p-0 no-underline',
           'hover:text-accent text-xs active:!translate-none'
         )}
       >
         {isFavourite ? (
           <MotionContainer motion={favouriteBtnMotion}>
-            <HeartIcon size={16} className="mr-1 fill-red-500 stroke-none" />
+            <HeartIcon size={16} className="fill-red-500 stroke-none" />
           </MotionContainer>
         ) : (
-          <HeartIcon size={16} className="mr-1" />
+          <HeartIcon size={16} />
         )}
       </Button>
     </Tooltip>

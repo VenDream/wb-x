@@ -170,7 +170,8 @@ export default function Dialog(dialogProps: DialogProps) {
         className={cn(
           'fixed top-[50%] left-[50%] z-50 translate-x-[-50%] translate-y-[-50%]',
           'flex w-[30rem] max-w-[90vw]',
-          props.classNames?.wrapper
+          props.classNames?.wrapper,
+          { 'h-screen max-h-screen w-screen max-w-screen': props.fullScreen }
         )}
         onEscapeKeyDown={onEscapeKeyDown}
         onOpenAutoFocus={evt => evt.preventDefault()}
@@ -186,7 +187,10 @@ export default function Dialog(dialogProps: DialogProps) {
           className={cn(
             'border-base-content/10 bg-base-100/50 rounded-box border p-6',
             'relative flex flex-1 flex-col gap-6 shadow-xs',
-            props.className
+            props.className,
+            {
+              'border-none': props.fullScreen,
+            }
           )}
           onAnimationComplete={def => {
             def === 'open' && props.onOpened?.();

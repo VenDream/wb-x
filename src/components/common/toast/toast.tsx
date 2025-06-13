@@ -33,9 +33,9 @@ export default function Toaster(props: IProps) {
   return (
     <Sonner
       offset={{ top: '5%' }}
-      mobileOffset={{ bottom: '5%', left: '0' }}
+      mobileOffset={{ top: '10%', left: '0' }}
       visibleToasts={3}
-      position={isMobile ? 'bottom-center' : 'top-center'}
+      position="top-center"
       className="flex flex-col items-center"
       icons={{
         info: <InfoIcon size={20} className="text-info" />,

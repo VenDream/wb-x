@@ -107,6 +107,8 @@
         "totalReplies": "{num} replies in total"
       },
       "filter": {
+        "title": "Filters",
+
         "dataSource": "Data Source",
         "all": "All",
         "trackings": "Trackings",
