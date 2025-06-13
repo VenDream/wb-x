@@ -171,7 +171,7 @@ export default function Dialog(dialogProps: DialogProps) {
           'fixed top-[50%] left-[50%] z-50 translate-x-[-50%] translate-y-[-50%]',
           'flex w-[30rem] max-w-[90vw]',
           props.classNames?.wrapper,
-          { 'h-screen max-h-screen w-screen max-w-screen': props.fullScreen }
+          { 'h-full max-h-full w-full max-w-full': props.fullScreen }
         )}
         onEscapeKeyDown={onEscapeKeyDown}
         onOpenAutoFocus={evt => evt.preventDefault()}

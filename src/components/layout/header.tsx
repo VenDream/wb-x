@@ -69,7 +69,7 @@ export default function Header() {
               </Link>
             </Indicator>
           </Navbar.Start>
-          <Navbar.End className="items-center gap-2">
+          <Navbar.End className="items-center gap-2 pr-4 lg:pr-0">
             <LocaleChange />
             <ThemeChange />
             <Profile />
