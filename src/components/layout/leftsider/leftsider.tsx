@@ -21,7 +21,6 @@ import { useIsMobile } from '@/hooks/use-media-query';
 import useUser from '@/hooks/use-user';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
-import { omit } from '@/utils/common';
 import { produce } from 'immer';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
@@ -39,21 +38,14 @@ export default function Leftsider(props: IProps) {
   const isMobile = useIsMobile();
 
   const routes = useMemo(() => {
-    const routes = isAdmin
+    return isAdmin
       ? PRIMARY_ROUTES
       : produce(PRIMARY_ROUTES, draft => {
           Object.keys(ADMIN_ROUTES).forEach(key => {
             delete draft[key as PrimaryRouteKey];
           });
         });
-
-    // @note: temporary hide twitter route on mobile
-    if (isMobile) {
-      return omit(routes, ['TWITTER']);
-    }
-
-    return routes;
-  }, [isAdmin, isMobile]);
+  }, [isAdmin]);
 
   const isActiveRoute = useCallback(
     (routePath: string) => {
@@ -81,6 +73,9 @@ export default function Leftsider(props: IProps) {
       )}
     >
       {PRIMARY_ROUTE_KEYS.map(k => {
+        // @note: temporary hide twitter route on mobile
+        if (isMobile && k === 'TWITTER') return null;
+
         const p = routes[k];
         if (!p) return null;
         const isActive = isActiveRoute(p);
