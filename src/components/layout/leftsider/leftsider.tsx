@@ -38,21 +38,14 @@ export default function Leftsider(props: IProps) {
   const isMobile = useIsMobile();
 
   const routes = useMemo(() => {
-    const routes = isAdmin
+    return isAdmin
       ? PRIMARY_ROUTES
       : produce(PRIMARY_ROUTES, draft => {
           Object.keys(ADMIN_ROUTES).forEach(key => {
             delete draft[key as PrimaryRouteKey];
           });
         });
-
-    // @note: temporary hide twitter route on mobile
-    if (isMobile) {
-      routes.TWITTER = '';
-    }
-
-    return routes;
-  }, [isAdmin, isMobile]);
+  }, [isAdmin]);
 
   const isActiveRoute = useCallback(
     (routePath: string) => {
@@ -80,6 +73,9 @@ export default function Leftsider(props: IProps) {
       )}
     >
       {PRIMARY_ROUTE_KEYS.map(k => {
+        // @note: temporary hide twitter route on mobile
+        if (isMobile && k === 'TWITTER') return null;
+
         const p = routes[k];
         if (!p) return null;
         const isActive = isActiveRoute(p);
