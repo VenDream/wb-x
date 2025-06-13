@@ -15,6 +15,8 @@ import LightboxComponent, {
   type Plugin,
 } from 'yet-another-react-lightbox';
 
+import { useIsMobile } from '@/hooks/use-media-query';
+
 import Captions from 'yet-another-react-lightbox/plugins/captions';
 import Download from 'yet-another-react-lightbox/plugins/download';
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
@@ -32,7 +34,9 @@ export type { Slide } from 'yet-another-react-lightbox';
 
 export default function Lightbox(props: LightboxExternalProps) {
   const { slides = [] } = props;
+
   const hasVideo = slides.some(s => s.type === 'video');
+  const isMobile = useIsMobile();
 
   let plugins: Plugin[] = hasVideo
     ? [Captions, Download, Video]
@@ -64,9 +68,9 @@ export default function Lightbox(props: LightboxExternalProps) {
     : {
         position: 'bottom',
         border: 1,
-        gap: 10,
-        width: 80,
-        height: 80,
+        gap: isMobile ? 5 : 10,
+        width: isMobile ? 40 : 80,
+        height: isMobile ? 40 : 80,
         imageFit: 'contain',
         showToggle: true,
       };

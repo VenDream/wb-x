@@ -11,7 +11,7 @@ import { ADMIN_ROUTES } from '@/constants';
 import { usePathname } from '@/i18n/routing';
 import { useMemo } from 'react';
 
-export default function useAdminRoute() {
+export default function useIsAdminRoute() {
   const pathname = usePathname();
   const isAdminRoute = useMemo(() => {
     return Object.values(ADMIN_ROUTES).some(p => pathname.startsWith(p));

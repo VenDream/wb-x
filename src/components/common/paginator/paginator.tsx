@@ -10,6 +10,7 @@
  */
 
 import { Input, Pagination } from '@/components/daisyui';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { cn } from '@/utils/classnames';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useRef } from 'react';
@@ -37,11 +38,14 @@ export default function Paginator(props: PaginatorProps) {
     onCurrentPageChange,
   } = props;
 
+  const isMobile = useIsMobile();
+  const displayPages = isMobile ? 3 : 5;
+
   const totalPages = useMemo(
     () => Math.ceil(total / pageSize),
     [pageSize, total]
   );
-  const shouldHide = hideOnSinglePage && totalPages <= 1;
+  const shouldHide = hideOnSinglePage === true && totalPages <= 1;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -49,7 +53,7 @@ export default function Paginator(props: PaginatorProps) {
     const firstPage = 1;
     const lastPage = totalPages;
 
-    if (lastPage <= 5) {
+    if (lastPage <= displayPages) {
       return Array.from({ length: lastPage }, (_, idx) => idx + 1);
     }
 
@@ -60,6 +64,9 @@ export default function Paginator(props: PaginatorProps) {
       currPage + 1,
       currPage + 2,
     ];
+    if (isMobile) {
+      middlePages = middlePages.slice(1, 4);
+    }
 
     if (currPage - firstPage <= 2) {
       middlePages = Array.from('0000').map((_, idx) => firstPage + idx + 1);
@@ -81,7 +88,7 @@ export default function Paginator(props: PaginatorProps) {
     }
 
     return pages;
-  }, [currPage, totalPages]);
+  }, [currPage, displayPages, isMobile, totalPages]);
 
   const jumpPage = useCallback(
     (key: string) => {
@@ -109,8 +116,8 @@ export default function Paginator(props: PaginatorProps) {
   if (shouldHide) return null;
 
   return (
-    <div className="flex items-center justify-start">
-      <Pagination>
+    <div className="flex flex-col items-center justify-start gap-4 lg:flex-row">
+      <Pagination className="w-full justify-center lg:w-auto">
         {pages.map((page, idx) => {
           const isActive = page === currPage;
           return typeof page === 'number' ? (
@@ -118,7 +125,7 @@ export default function Paginator(props: PaginatorProps) {
               key={idx}
               size="sm"
               active={isActive}
-              className={cn('px-6', {
+              className={cn('max-w-13 min-w-10', {
                 'pointer-events-none': isActive,
               })}
               onClick={() => {
@@ -128,22 +135,24 @@ export default function Paginator(props: PaginatorProps) {
               {page}
             </Pagination.Item>
           ) : (
-            <span key={idx} className="px-4">
+            <span key={idx} className="px-3 lg:px-4">
               {page}
             </span>
           );
         })}
       </Pagination>
-      <div className="ml-4 flex items-center text-sm">
-        {t('jumpTo')}
-        <Input
-          ref={inputRef}
-          size="sm"
-          className="mx-2 w-16 p-2"
-          onKeyDown={evt => jumpPage(evt.key)}
-        />
-        {t('page')}
-      </div>
+      {totalPages > 1 && (
+        <div className="flex w-full items-center justify-center lg:w-auto">
+          {t('jumpTo')}
+          <Input
+            ref={inputRef}
+            size="sm"
+            className="mx-2 w-16 p-2"
+            onKeyDown={evt => jumpPage(evt.key)}
+          />
+          {t('page')}
+        </div>
+      )}
     </div>
   );
 }

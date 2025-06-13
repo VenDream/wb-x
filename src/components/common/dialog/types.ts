@@ -23,6 +23,7 @@ export interface DialogProps extends PropsWithChildren {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 
+  fullScreen?: boolean;
   preset?: 'alert' | 'confirm' | 'info' | 'success' | 'warning' | 'error';
   disposable?: boolean;
 

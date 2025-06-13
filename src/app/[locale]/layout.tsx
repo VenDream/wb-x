@@ -10,7 +10,7 @@
 import Loading from '@/components/common/loading';
 import Toaster from '@/components/common/toast';
 import { LayoutBody, LayoutHeader } from '@/components/layout';
-import { LANGS, META_DATA } from '@/constants';
+import { LANGS, META_DATA, VIEWPORT } from '@/constants';
 import { font } from '@/fonts';
 import { routing } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -20,13 +20,13 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import Provider from './provider';
 
 import './global.css';
 
 export const metadata = META_DATA;
+export const viewport = VIEWPORT;
 
 if (process.env.LOCAL_PROXY_ENABLED === 'true') {
   const proxyUrl = process.env.LOCAL_PROXY_URL as string;
@@ -53,7 +53,7 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
     <ClerkProvider localization={locale === LANGS.en ? enUS : zhCN}>
       <html lang={locale} className={font.className}>
         <NextIntlClientProvider messages={messages}>
-          <body className="flex h-screen min-w-[1280px] flex-col overflow-hidden">
+          <body className="flex h-dvh flex-col overflow-hidden">
             <Provider>
               <LayoutHeader />
               <LayoutBody>{children}</LayoutBody>
@@ -63,14 +63,16 @@ export default async function RootLayout({ children, params }: ChildrenProps) {
             <div
               data-role="loading-mask"
               className={cn(
-                'fixed inset-0 z-50 flex items-center justify-center',
-                'bg-base-100/80 backdrop-blur-lg'
+                'fixed inset-0 z-999 flex items-center justify-center',
+                'bg-base-100/80 bg-grid backdrop-blur-lg'
               )}
             >
-              <Loading size={24} text={t('loading')} />
+              <Loading
+                size={24}
+                text={t('loading')}
+                textClass="text-sm lg:text-lg"
+              />
             </div>
-            {/* twitter widget SDK */}
-            <Script async src="https://platform.twitter.com/widgets.js" />
           </body>
         </NextIntlClientProvider>
       </html>

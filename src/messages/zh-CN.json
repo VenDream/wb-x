@@ -1,5 +1,8 @@
 {
   "global": {
+    "app": {
+      "title": "WB_X"
+    },
     "platform": {
       "weibo": "微博",
       "twitter": "推特"
@@ -104,6 +107,8 @@
         "totalReplies": "共 {num} 条回复"
       },
       "filter": {
+        "title": "筛选",
+
         "dataSource": "数据来源",
         "all": "所有微博",
         "trackings": "正在关注",
@@ -230,6 +235,9 @@
         "search": "搜索",
         "reset": "重置"
       },
+      "filters": {
+        "title": "筛选"
+      },
       "noImages": "暂无图片",
       "sourceURL": "源链接",
       "sourceURLTips": "查看源链接"
@@ -269,6 +277,9 @@
         "copySuccessTips": "已复制到剪贴板",
         "wbPosts": "查看Ta的所有微博",
         "twPosts": "查看Ta的所有推特"
+      },
+      "filters": {
+        "title": "筛选"
       },
       "dialog": {
         "title": "用户信息"

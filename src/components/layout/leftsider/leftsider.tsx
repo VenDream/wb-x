@@ -12,10 +12,12 @@
 import { Menu } from '@/components/daisyui';
 import {
   ADMIN_ROUTES,
+  APP_DRAWER_ID,
   PRIMARY_ROUTES,
   PRIMARY_ROUTE_KEYS,
   type PrimaryRouteKey,
 } from '@/constants';
+import { useIsMobile } from '@/hooks/use-media-query';
 import useUser from '@/hooks/use-user';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
@@ -24,20 +26,33 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 import ICONS from './icons';
 
-export default function Leftsider() {
+interface IProps {
+  className?: string;
+}
+
+export default function Leftsider(props: IProps) {
   const t = useTranslations('global.pages');
+
   const { isAdmin } = useUser();
   const pathname = usePathname();
+  const isMobile = useIsMobile();
 
   const routes = useMemo(() => {
-    return isAdmin
+    const routes = isAdmin
       ? PRIMARY_ROUTES
       : produce(PRIMARY_ROUTES, draft => {
           Object.keys(ADMIN_ROUTES).forEach(key => {
             delete draft[key as PrimaryRouteKey];
           });
         });
-  }, [isAdmin]);
+
+    // @note: temporary hide twitter route on mobile
+    if (isMobile) {
+      routes.TWITTER = '';
+    }
+
+    return routes;
+  }, [isAdmin, isMobile]);
 
   const isActiveRoute = useCallback(
     (routePath: string) => {
@@ -48,11 +63,20 @@ export default function Leftsider() {
     [pathname]
   );
 
+  const closeDrawer = () => {
+    if (!isMobile) return;
+    const selector = `.drawer-overlay[for="${APP_DRAWER_ID}"]`;
+    const overlay = document.querySelector(selector) as HTMLElement;
+    overlay?.click();
+  };
+
   return (
     <Menu
       size="lg"
       className={cn(
-        'border-base-content/10 bg-base-100 h-full w-60 gap-2 border-r p-4'
+        'border-base-content/10 bg-base-100 h-full w-60 gap-2 border-r p-4',
+        'hidden lg:block',
+        props.className
       )}
     >
       {PRIMARY_ROUTE_KEYS.map(k => {
@@ -61,7 +85,7 @@ export default function Leftsider() {
         const isActive = isActiveRoute(p);
 
         return (
-          <Menu.Item key={k}>
+          <Menu.Item key={k} onClick={closeDrawer} className="mb-1">
             <Link
               href={p}
               className={cn('text-base', {

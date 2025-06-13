@@ -9,7 +9,7 @@
  * Copyright © 2024 VenDream. All Rights Reserved.
  */
 
-import { Dialog } from '@/components/common/dialog';
+import { Dialog, type DialogProps } from '@/components/common/dialog';
 import Select from '@/components/common/select';
 import { Button, Collapse } from '@/components/daisyui';
 import { LANGS } from '@/constants';
@@ -33,6 +33,7 @@ export interface DatePickerProps {
 
   className?: string;
   inputClassName?: string;
+  dialogClassNames?: DialogProps['classNames'];
 }
 
 const TODAY = dayjs();
@@ -124,7 +125,12 @@ export default function DatePicker(props: DatePickerProps) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen} footer={null}>
+    <Dialog
+      open={open}
+      onOpenChange={setOpen}
+      footer={null}
+      classNames={props.dialogClassNames}
+    >
       <Dialog.Trigger asChild>
         <button
           type="button"

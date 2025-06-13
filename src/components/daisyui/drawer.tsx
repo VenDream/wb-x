@@ -19,12 +19,20 @@ export interface DrawerProps
 }
 
 export interface DrawerToggleProps
-  extends React.PropsWithChildren,
+  extends React.HTMLAttributes<HTMLInputElement> {}
+
+export interface DrawerContentProps
+  extends DrawerProps,
+    React.PropsWithChildren,
     React.HTMLAttributes<HTMLDivElement> {}
 
-export interface DrawerContentProps extends DrawerProps {}
-export interface DrawerSideProps extends DrawerToggleProps {}
-export interface DrawerOverlayProps extends DrawerToggleProps {}
+export interface DrawerSideProps extends DrawerContentProps {}
+
+export interface DrawerOverlayProps
+  extends React.LabelHTMLAttributes<HTMLLabelElement> {}
+
+export interface DrawerButtonProps
+  extends React.LabelHTMLAttributes<HTMLLabelElement> {}
 
 function Drawer(props: DrawerProps) {
   const { open, end, className, children, ...divProps } = props;
@@ -57,19 +65,15 @@ function DrawerContent(props: DrawerContentProps) {
 }
 
 function DrawerToggle(props: DrawerToggleProps) {
-  const { className, children, ...divProps } = props;
+  const { className, ...inputProps } = props;
   const daisyUIClasses = cn('drawer-toggle', className);
 
-  return (
-    <div className={daisyUIClasses} {...divProps}>
-      {children}
-    </div>
-  );
+  return <input type="checkbox" className={daisyUIClasses} {...inputProps} />;
 }
 
 function DrawerSide(props: DrawerSideProps) {
   const { className, children, ...divProps } = props;
-  const daisyUIClasses = cn('drawer-side', className);
+  const daisyUIClasses = cn('drawer-side z-99', className);
 
   return (
     <div className={daisyUIClasses} {...divProps}>
@@ -79,13 +83,24 @@ function DrawerSide(props: DrawerSideProps) {
 }
 
 function DrawerOverlay(props: DrawerOverlayProps) {
-  const { className, children, ...divProps } = props;
-  const daisyUIClasses = cn('drawer-overlay', className);
+  const { className, children, ...labelProps } = props;
+  const daisyUIClasses = cn('drawer-overlay backdrop-blur-2xs', className);
 
   return (
-    <div className={daisyUIClasses} {...divProps}>
+    <label className={daisyUIClasses} {...labelProps} htmlFor={props.htmlFor}>
       {children}
-    </div>
+    </label>
+  );
+}
+
+function DrawerButton(props: DrawerButtonProps) {
+  const { className, children, ...labelProps } = props;
+  const daisyUIClasses = cn('drawer-button', 'btn btn-ghost', className);
+
+  return (
+    <label className={daisyUIClasses} {...labelProps} htmlFor={props.htmlFor}>
+      {children}
+    </label>
   );
 }
 
@@ -94,10 +109,12 @@ DrawerContent.displayName = 'DrawerContent';
 DrawerToggle.displayName = 'DrawerToggle';
 DrawerSide.displayName = 'DrawerSide';
 DrawerOverlay.displayName = 'DrawerOverlay';
+DrawerButton.displayName = 'DrawerButton';
 
 export default Object.assign(Drawer, {
   Content: DrawerContent,
   Toggle: DrawerToggle,
   Side: DrawerSide,
   Overlay: DrawerOverlay,
+  Button: DrawerButton,
 });

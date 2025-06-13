@@ -17,6 +17,7 @@ import Tabs from '@/components/common/tabs';
 import { Button, Input } from '@/components/daisyui';
 import { TwitterIcon, WeiboIcon } from '@/components/icons';
 import { PAGINATION_LIMIT } from '@/constants';
+import { cn } from '@/utils/classnames';
 import { useMount, useUpdateEffect } from 'ahooks';
 import { RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -24,6 +25,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { useUrlState } from 'state-in-url';
 import Filter from './filter';
+import Menu from './menu';
 import Paginator from './paginator';
 
 interface UserListProps {
@@ -162,8 +164,8 @@ export default function UserList(props: UserListProps) {
   }, [refresh]);
 
   return (
-    <div className="flex h-full flex-col gap-4 pr-6 pb-1">
-      <div className="sticky top-0 z-10">
+    <div className="flex h-full flex-col gap-4 pb-1 lg:pr-6">
+      <div className="relative top-0 lg:sticky lg:z-1">
         <Tabs
           size="sm"
           name="platform"
@@ -182,7 +184,14 @@ export default function UserList(props: UserListProps) {
           value={platform}
           onChange={p => switchPlatform(p as Platform)}
         />
-        <div className="absolute top-0 right-2 flex h-full items-center gap-4">
+        <Menu
+          keyword={localKw}
+          isTracking={localIsTracking}
+          setKeyword={setLocalKw}
+          applyKeyword={applyKeyword}
+          onToggleTracking={toggleTracking}
+        />
+        <div className="absolute top-0 right-2 hidden h-full items-center gap-4 lg:flex">
           <Filter
             isTracking={localIsTracking}
             onToggleTracking={toggleTracking}
@@ -220,7 +229,12 @@ export default function UserList(props: UserListProps) {
         <NoData />
       ) : (
         <>
-          <div className="grid grid-cols-4 gap-6 p-2 2xl:grid-cols-6">
+          <div
+            className={cn(
+              'grid grid-cols-2 gap-4 px-1',
+              'lg:grid-cols-4 lg:gap-6 lg:p-2 2xl:grid-cols-6'
+            )}
+          >
             {users.map(user => (
               <UserCard key={user.id} user={user} platform={platform} />
             ))}
@@ -229,6 +243,7 @@ export default function UserList(props: UserListProps) {
             total={total}
             pageSize={PAGINATION_LIMIT}
             defaultCurrent={page}
+            hideOnSinglePage={false}
             onCurrentPageChange={jumpPage}
           />
         </>

@@ -17,36 +17,57 @@ import { cn } from '@/utils/classnames';
 import { CircleHelpIcon, RotateCcwIcon, SearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { defaultFilterParams } from './status-list';
+import { DEFAULT_FILTER_PARAMS } from './params';
 
-interface FilterProps {
+type FilterParams = Weibo.StatusListFilterParams;
+
+export interface FilterProps {
+  /** display mode */
+  displayMode?: 'drawer';
   /** filter params */
-  filterParams: Weibo.StatusListFilterParams;
+  filterParams: FilterParams;
   /** reset filter params */
   resetFilterParams: () => void;
   /** update filter params */
-  updateFilterParams: (patch: Partial<Weibo.StatusListFilterParams>) => void;
+  updateFilterParams: (patch: Partial<FilterParams>) => void;
+  /** apply filter callback */
+  onApplyFilterParams?: (params: FilterParams) => void;
+  /** reset filter callback */
+  onResetFilterParams?: (params: FilterParams) => void;
 }
 
 export default function Filter(props: FilterProps) {
   const t1 = useTranslations('global.action');
   const t2 = useTranslations('pages.status.filter');
-  const { filterParams, resetFilterParams, updateFilterParams } = props;
+  const {
+    displayMode,
+    filterParams,
+    resetFilterParams,
+    updateFilterParams,
+    onApplyFilterParams,
+    onResetFilterParams,
+  } = props;
 
-  const [filter, setFilter] =
-    useState<Weibo.StatusListFilterParams>(filterParams);
+  const isDrawerMode = displayMode === 'drawer';
+  const datepickerDialogClassNames = isDrawerMode
+    ? { mask: 'z-99', wrapper: 'z-99' }
+    : undefined;
 
-  const updateFilter = (patch: Partial<Weibo.StatusListFilterParams>) => {
+  const [filter, setFilter] = useState<FilterParams>(filterParams);
+
+  const updateFilter = (patch: Partial<FilterParams>) => {
     setFilter(f => ({ ...f, ...patch }));
   };
 
-  const applyFilter = (f?: Weibo.StatusListFilterParams) => {
+  const applyFilter = (f?: FilterParams) => {
     updateFilterParams(f || filter);
+    onApplyFilterParams?.(f || filter);
   };
 
   const resetFilter = () => {
-    setFilter(defaultFilterParams);
+    setFilter(DEFAULT_FILTER_PARAMS);
     resetFilterParams();
+    onResetFilterParams?.(DEFAULT_FILTER_PARAMS);
   };
 
   useEffect(() => {
@@ -57,10 +78,13 @@ export default function Filter(props: FilterProps) {
     <MotionContainer
       className={cn(
         'border-base-content/10 flex w-72 flex-col gap-4 border p-4',
-        'bg-base-200/30 rounded-box shadow-xs'
+        'bg-base-200/30 rounded-box shadow-xs',
+        {
+          'border-none bg-transparent p-0 shadow-none': isDrawerMode,
+        }
       )}
     >
-      <div className="m-auto flex flex-col gap-2">
+      <div className="flex w-full flex-col gap-2">
         <div className="flex items-center gap-1">
           <p className="w-20 text-xs">{t2('dataSource')}</p>
           <Tabs
@@ -69,9 +93,12 @@ export default function Filter(props: FilterProps) {
             className="bg-base-300 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
             itemClassName="basis-1/2 !rounded-sm"
             value={filter.isTracking ? 1 : 0}
-            onChange={value =>
-              applyFilter({ isTracking: value === 1 ? true : undefined })
-            }
+            onChange={value => {
+              const params: FilterParams = {
+                isTracking: value === 1 ? true : undefined,
+              };
+              isDrawerMode ? updateFilter(params) : applyFilter(params);
+            }}
             items={[
               {
                 label: t2('trackings'),
@@ -92,7 +119,12 @@ export default function Filter(props: FilterProps) {
             className="bg-base-300 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
             itemClassName="basis-1/2 !rounded-sm"
             value={filter.order}
-            onChange={value => applyFilter({ order: value as 'asc' | 'desc' })}
+            onChange={value => {
+              const params: FilterParams = {
+                order: value as 'asc' | 'desc',
+              };
+              isDrawerMode ? updateFilter(params) : applyFilter(params);
+            }}
             items={[
               {
                 label: t2('desc'),
@@ -105,35 +137,35 @@ export default function Filter(props: FilterProps) {
             ]}
           />
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex w-full items-center gap-1">
           <p className="w-20 text-xs">{t2('id')}</p>
           <Input
             value={filter.id || ''}
             size="xs"
             placeholder={t2('id')}
-            className="h-[2rem] w-40 rounded-sm"
+            className="h-[2rem] flex-1 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => updateFilter({ id: e.target.value })}
           />
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex w-full items-center gap-1">
           <p className="w-20 text-xs">{t2('uid')}</p>
           <Input
             value={filter.uid || ''}
             size="xs"
             placeholder={t2('uid')}
-            className="h-[2rem] w-40 rounded-sm"
+            className="h-[2rem] flex-1 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => updateFilter({ uid: e.target.value })}
           />
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex w-full items-center gap-1">
           <p className="w-20 text-xs">{t2('keyword')}</p>
           <Input
             value={filter.keyword || ''}
             size="xs"
             placeholder={t2('keyword')}
-            className="h-[2rem] w-40 rounded-sm"
+            className="h-[2rem] flex-1 rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => updateFilter({ keyword: e.target.value })}
           />
@@ -144,6 +176,7 @@ export default function Filter(props: FilterProps) {
             date={filter.startDate}
             inputClassName="text-xs rounded-sm h-[2rem] w-40 flex-1"
             onChange={date => updateFilter({ startDate: date })}
+            dialogClassNames={datepickerDialogClassNames}
           />
         </div>
         <div className="flex items-center gap-1">
@@ -152,16 +185,17 @@ export default function Filter(props: FilterProps) {
             date={filter.endDate}
             inputClassName="text-xs rounded-sm h-[2rem] w-40 flex-1"
             onChange={date => updateFilter({ endDate: date })}
+            dialogClassNames={datepickerDialogClassNames}
           />
         </div>
-        <div className="flex h-[2rem] items-center gap-1">
+        <div className="flex h-[2rem] w-full items-center gap-1">
           <p className="w-20 text-xs">{t2('leastImagesCount')}</p>
           <Input
             value={filter.leastImagesCount || ''}
             size="xs"
             type="number"
             placeholder={t2('leastImagesCountTips')}
-            className="m-0 h-[2rem] w-40 appearance-none rounded-sm"
+            className="m-0 h-[2rem] flex-1 appearance-none rounded-sm"
             onKeyDown={e => e.key === 'Enter' && applyFilter()}
             onChange={e => {
               const val = e.target.value;
@@ -236,17 +270,22 @@ export default function Filter(props: FilterProps) {
           />
         </div>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4">
         <Button
           size="sm"
           ghost
-          className="border-base-content/10 bg-base-content/10"
+          className="border-base-content/10 bg-base-content/10 flex-1"
           onClick={resetFilter}
         >
           <RotateCcwIcon size={16} />
           {t1('reset')}
         </Button>
-        <Button size="sm" color="primary" onClick={() => applyFilter()}>
+        <Button
+          size="sm"
+          color="primary"
+          className="flex-1"
+          onClick={() => applyFilter()}
+        >
           <SearchIcon size={16} />
           {t1('search')}
         </Button>

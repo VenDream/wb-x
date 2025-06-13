@@ -25,6 +25,8 @@ export interface ButtonProps
 
   size?: DaisyUI.Size;
   color?: DaisyUI.Color;
+
+  autoBlockOnMobile?: boolean;
 }
 
 function Button(props: ButtonProps) {
@@ -42,6 +44,7 @@ function Button(props: ButtonProps) {
     link,
     size,
     color,
+    autoBlockOnMobile,
     className,
     children,
     ...btnProps
@@ -73,6 +76,7 @@ function Button(props: ButtonProps) {
       'btn-success': color === 'success',
       'btn-warning': color === 'warning',
       'btn-error': color === 'error',
+      'not-lg:btn-block': autoBlockOnMobile,
     },
     className
   );

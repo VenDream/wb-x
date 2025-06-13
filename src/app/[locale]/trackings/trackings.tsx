@@ -16,6 +16,7 @@ import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import Select from '@/components/common/select';
 import { Button, Input, Stats } from '@/components/daisyui';
+import { cn } from '@/utils/classnames';
 import {
   AudioLinesIcon,
   CircleXIcon,
@@ -115,13 +116,13 @@ export default function Trackings(props: IProps) {
           <UsersIcon size={24} className="mr-2" />
           {t2('title')}
         </h1>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center gap-4 lg:flex-row">
           {usersLists.map(list => (
             <Stats
               key={list.platform}
               className="stats-vertical border-base-content/20 border"
             >
-              <Stats.Stat className="min-w-80">
+              <Stats.Stat className="lg:min-w-80">
                 <Stats.Figure className="">
                   <AudioLinesIcon
                     size={24}
@@ -148,8 +149,8 @@ export default function Trackings(props: IProps) {
           {t2('add.title')}
         </h1>
         <div className="space-y-4">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col items-center gap-6 lg:flex-row">
+            <div className="flex w-full items-center gap-2">
               <Select
                 value={platform}
                 disabled={isSearching}
@@ -174,11 +175,11 @@ export default function Trackings(props: IProps) {
                   setUsername(e.target.value);
                   setSearchFailedReason('');
                 }}
-                className="h-9 w-80 pr-10"
+                className="h-9 flex-1 pr-10 lg:w-80"
                 placeholder={t2('add.placeholder')}
               />
             </div>
-            <div className="flex items-center gap-2">
+            <div className="hidden w-full items-center gap-2 lg:flex">
               <Button
                 size="sm"
                 color="primary"
@@ -194,7 +195,10 @@ export default function Trackings(props: IProps) {
                 ghost
                 onClick={reset}
                 disabled={isSearching}
-                className="bg-base-content/10 border-base-content/10 h-9 min-h-9"
+                className={cn(
+                  'bg-base-content/10 border-base-content/10 h-9 min-h-9',
+                  'backdrop-blur-lg'
+                )}
               >
                 <RotateCcwIcon size={16} />
                 {t2('add.reset')}
@@ -216,7 +220,7 @@ export default function Trackings(props: IProps) {
               </MotionContainer>
             )}
             {user && (
-              <MotionContainer className="w-80">
+              <MotionContainer className="w-full lg:w-80">
                 <UserCard
                   user={user}
                   platform={platform}
@@ -237,10 +241,34 @@ export default function Trackings(props: IProps) {
                           users.filter(u => u.id !== user.id)
                         );
                   }}
-                  className="outline-base-content/20 bg-transparent shadow-xs"
                 />
               </MotionContainer>
             )}
+          </div>
+          <div className="flex w-full justify-between gap-2 lg:hidden">
+            <Button
+              size="sm"
+              color="primary"
+              onClick={searchUser}
+              disabled={isSearching}
+              className="h-9 min-h-9 flex-1"
+            >
+              <UserRoundSearchIcon size={16} />
+              {t2('add.search')}
+            </Button>
+            <Button
+              size="sm"
+              ghost
+              onClick={reset}
+              disabled={isSearching}
+              className={cn(
+                'bg-base-content/10 border-base-content/10 h-9 min-h-9 flex-1',
+                'backdrop-blur-lg'
+              )}
+            >
+              <RotateCcwIcon size={16} />
+              {t2('add.reset')}
+            </Button>
           </div>
         </div>
       </div>

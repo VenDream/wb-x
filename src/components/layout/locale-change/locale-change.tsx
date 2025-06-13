@@ -12,6 +12,7 @@
 import { Button, Dropdown } from '@/components/daisyui';
 import { EnFlagIcon, ZhFlagIcon } from '@/components/icons';
 import { LANGS } from '@/constants';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
 import {
@@ -23,17 +24,19 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 
 export default function LocaleChange() {
+  const t = useTranslations('global.locale');
+
   const locale = useLocale();
   const pathname = usePathname();
+  const isMobile = useIsMobile();
   const searchParams = useSearchParams().toString();
-  const t = useTranslations('global.locale');
 
   return (
     <Dropdown align="end">
       <Dropdown.Toggle>
         <Button ghost>
           <LanguagesIcon size={18} />
-          <span className="text-sm">{t('switcherLabel')}</span>
+          {!isMobile && <span className="text-sm">{t('switcherLabel')}</span>}
           <ChevronDownIcon size={18} />
         </Button>
       </Dropdown.Toggle>

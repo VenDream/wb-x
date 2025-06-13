@@ -1,5 +1,6 @@
 'use client';
 
+import { useIsMobile } from '@/hooks/use-media-query';
 /*
  * Toast
  *
@@ -27,9 +28,12 @@ interface IProps extends ToasterProps {
 export default function Toaster(props: IProps) {
   const { font, ...toasterProps } = props;
 
+  const isMobile = useIsMobile();
+
   return (
     <Sonner
-      offset="5%"
+      offset={{ top: '5%' }}
+      mobileOffset={{ top: '10%', left: '0' }}
       visibleToasts={3}
       position="top-center"
       className="flex flex-col items-center"
@@ -44,7 +48,8 @@ export default function Toaster(props: IProps) {
         className: cn(
           'flex items-center justify-center gap-2 shadow-xs text-sm py-2 px-6',
           'min-w-[300px] max-w-[60vw] rounded-box text-base-content',
-          'bg-base-100/80 backdrop-blur-lg border border-base-content/20'
+          'bg-base-100/80 backdrop-blur-lg border border-base-content/20',
+          '!left-1/2 -translate-x-1/2'
         ),
         classNames: {
           content: cn(font, 'break-all'),

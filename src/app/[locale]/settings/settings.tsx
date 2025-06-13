@@ -28,7 +28,7 @@ export default function Settings() {
   const isCookiesActive = activeTab === 'cookies';
 
   return (
-    <div className="w-[800px] pr-4">
+    <div className="w-full p-0 lg:w-[800px] lg:pr-4">
       <Tabs
         size="sm"
         name="settings"

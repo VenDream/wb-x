@@ -20,7 +20,7 @@ export default function ScrollArea(props: IProps) {
     <IScrollArea.Root className={cn('h-full', props.className)}>
       <IScrollArea.Viewport
         className={cn(
-          'h-full w-full will-change-scroll',
+          'h-full w-full pt-18 pb-8 will-change-scroll lg:pt-0 lg:pb-0',
           props.viewportClassName
         )}
       >
@@ -29,7 +29,7 @@ export default function ScrollArea(props: IProps) {
       <IScrollArea.Scrollbar
         orientation="vertical"
         className={cn(
-          'flex w-2.5 touch-none p-0.5 select-none',
+          'hidden w-2.5 touch-none p-0.5 select-none lg:flex',
           'transition-colors duration-[160ms] ease-out'
         )}
       >

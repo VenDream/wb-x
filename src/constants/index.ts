@@ -7,7 +7,7 @@
  * Copyright © 2023 VenDream. All Rights Reserved.
  */
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 /* -------------------------------------------------------------------------- */
 /*                                    MISC                                    */
@@ -22,6 +22,13 @@ export const META_DATA: Metadata = {
   description: 'The X makes it sound cool~',
 };
 
+export const VIEWPORT: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const LANGS = {
   en: 'en-US',
   zh: 'zh-CN',
@@ -32,6 +39,8 @@ export type Lang = (typeof LANGS)[keyof typeof LANGS];
 export const DEFAULT_FAV_UID = 'yeshenxue@qq.com';
 export const WEIBO_HOST = 'https://weibo.com';
 export const TWITTER_HOST = 'https://x.com';
+
+export const APP_DRAWER_ID = 'APP_DRAWER';
 
 export const LS_KEYS = {
   THEME: 'WB_X_THEME',

@@ -68,11 +68,11 @@ export default function CardBody() {
 
   return (
     <div className={cardBody({ type: isRetweet ? 'retweet' : 'source' })}>
-      <div className="col-start-2 col-end-4 space-y-4">
+      <div className="w-full space-y-2 lg:space-y-4">
         {text && (
           <div
             onClick={showFullText}
-            className="status-text pr-8 text-sm leading-6 break-all"
+            className="status-text text-sm leading-6 break-all"
             dangerouslySetInnerHTML={{
               __html: preprocessStatusText(text),
             }}

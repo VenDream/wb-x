@@ -13,6 +13,7 @@ import Loading from '@/components/common/loading';
 import MotionContainer from '@/components/common/motion-container';
 import { NoData } from '@/components/common/no-data';
 import { Button, Textarea } from '@/components/daisyui';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { cn } from '@/utils/classnames';
 import { PlusIcon, RadarIcon, SaveIcon, Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -23,6 +24,8 @@ import AddCookies from './add-cookies';
 export default function CookiesSettings() {
   const t1 = useTranslations('pages.settings.cookies');
   const t2 = useTranslations('global.status');
+
+  const isMobile = useIsMobile();
   const { show: showDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const [isOperating, setIsOperating] = useState(false);
@@ -144,42 +147,44 @@ export default function CookiesSettings() {
       <div className={cn('relative space-y-4 p-4')}>
         {cookies.length > 0 ? (
           cookies.map((cookie, idx) => (
-            <div key={idx} className="flex gap-4">
-              <label htmlFor={`cookie-${idx}`} className="basis-20">
+            <div key={idx} className="flex flex-col gap-4 lg:flex-row">
+              <label htmlFor={`cookie-${idx}`} className="lg:basis-20">
                 Cookie #{idx + 1}
               </label>
-              <Textarea
-                id={`cookie-${idx}`}
-                rows={4}
-                value={cookie}
-                placeholder={t1('addCookie.placeholder')}
-                className="flex-1 resize-none break-all"
-                onChange={e =>
-                  setCookies(cookies => {
-                    const newCookies = [...cookies];
-                    newCookies[idx] = e.target.value;
-                    return newCookies;
-                  })
-                }
-              />
-              <div className="flex flex-col gap-4">
-                <Button size="sm" color="primary" onClick={() => update(idx)}>
-                  <SaveIcon size={16} />
-                  {t1('operation.save')}
-                </Button>
-                <Button size="sm" color="primary" onClick={() => check(idx)}>
-                  <RadarIcon size={16} />
-                  {t1('operation.check')}
-                </Button>
-                <Button
-                  size="sm"
-                  color="error"
-                  onClick={() => remove(idx)}
-                  disabled={cookies.length <= 1}
-                >
-                  <Trash2Icon size={16} />
-                  {t1('operation.delete')}
-                </Button>
+              <div className="flex flex-1 gap-4">
+                <Textarea
+                  id={`cookie-${idx}`}
+                  rows={4}
+                  value={cookie}
+                  placeholder={t1('addCookie.placeholder')}
+                  className="flex-1 resize-none break-all"
+                  onChange={e =>
+                    setCookies(cookies => {
+                      const newCookies = [...cookies];
+                      newCookies[idx] = e.target.value;
+                      return newCookies;
+                    })
+                  }
+                />
+                <div className="flex flex-col gap-4">
+                  <Button size="sm" color="info" onClick={() => update(idx)}>
+                    <SaveIcon size={16} />
+                    {!isMobile && t1('operation.save')}
+                  </Button>
+                  <Button size="sm" color="info" onClick={() => check(idx)}>
+                    <RadarIcon size={16} />
+                    {!isMobile && t1('operation.check')}
+                  </Button>
+                  <Button
+                    size="sm"
+                    color="error"
+                    onClick={() => remove(idx)}
+                    disabled={cookies.length <= 1}
+                  >
+                    <Trash2Icon size={16} />
+                    {!isMobile && t1('operation.delete')}
+                  </Button>
+                </div>
               </div>
             </div>
           ))
@@ -188,7 +193,7 @@ export default function CookiesSettings() {
         )}
         <div className="bg-base-content/10 h-[1px]" />
         <AddCookies onAdded={getCookies}>
-          <Button size="sm" color="primary">
+          <Button size="sm" color="primary" autoBlockOnMobile>
             <PlusIcon size={16} />
             {t1('operation.add')}
           </Button>

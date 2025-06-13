@@ -37,6 +37,7 @@ export default function ErrorUI({ error, reset }: ErrorProps) {
       <Button
         size="sm"
         color="error"
+        autoBlockOnMobile
         onClick={() => reset()}
         className="mt-4 min-w-[5rem] text-white"
       >

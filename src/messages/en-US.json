@@ -1,5 +1,8 @@
 {
   "global": {
+    "app": {
+      "title": "WB_X"
+    },
     "platform": {
       "weibo": "Weibo",
       "twitter": "Twitter"
@@ -104,6 +107,8 @@
         "totalReplies": "{num} replies in total"
       },
       "filter": {
+        "title": "Filters",
+
         "dataSource": "Data Source",
         "all": "All",
         "trackings": "Trackings",
@@ -230,6 +235,9 @@
         "search": "Search",
         "reset": "Reset"
       },
+      "filters": {
+        "title": "Filters"
+      },
       "noImages": "No images",
       "sourceURL": "Source URL",
       "sourceURLTips": "View source URL"
@@ -269,6 +277,9 @@
         "copySuccessTips": "Copied to clipboard",
         "wbPosts": "View all OP's posts",
         "twPosts": "View all OP's tweets"
+      },
+      "filters": {
+        "title": "Filters"
       },
       "dialog": {
         "title": "User Info"

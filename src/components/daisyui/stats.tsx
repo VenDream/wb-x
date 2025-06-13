@@ -33,8 +33,10 @@ function Stats(props: StatsProps) {
   const daisyUIClasses = cn(
     {
       stats: true,
+      'w-full lg:w-auto': true,
       'stats-horizontal': direction === 'horizontal',
       'stats-vertical': direction === 'vertical',
+      'stats-vertical lg:stats-horizontal': !direction,
     },
     className
   );
@@ -48,8 +50,17 @@ function Stats(props: StatsProps) {
 
 function Stat(props: StatProps) {
   const { children, className, ...divProps } = props;
+
+  const daisyUIClasses = cn(
+    {
+      stat: true,
+      'w-full lg:w-auto': true,
+    },
+    className
+  );
+
   return (
-    <div className={cn('stat', className)} {...divProps}>
+    <div className={daisyUIClasses} {...divProps}>
       {children}
     </div>
   );

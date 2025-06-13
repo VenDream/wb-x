@@ -20,6 +20,7 @@ import { getCreateTime } from '@/utils/datetime';
 import { getImageVariants } from '@/utils/weibo';
 import { useContext, useEffect, useState } from 'react';
 import CardCtx from './context';
+import { cardHeader } from './variants';
 
 export default function CardHeader() {
   const { status, isRetweet } = useContext(CardCtx);
@@ -33,7 +34,7 @@ export default function CardHeader() {
 
   if (isRetweet)
     return (
-      <div className="flex items-center gap-2 p-2">
+      <div className={cardHeader({ type: 'retweet' })}>
         {user.id !== '-1' ? (
           <>
             <Link
@@ -61,16 +62,12 @@ export default function CardHeader() {
     );
 
   return (
-    <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4">
-      <div
-        className={cn(
-          'relative row-start-1 row-end-3 flex items-center justify-center'
-        )}
-      >
+    <div className={cardHeader({ type: 'source' })}>
+      <div className={cn('relative flex items-center justify-center')}>
         <Avatar>
           <div
             className={cn(
-              'outline-primary relative h-10 w-10 rounded-full',
+              'outline-primary relative h-8 w-8 rounded-full lg:h-10 lg:w-10',
               'outline-2 outline-offset-3'
             )}
           >
@@ -83,7 +80,7 @@ export default function CardHeader() {
         <AuthGuard fallback={null}>
           <div
             className={cn(
-              'absolute left-1/2 z-10 w-10 -translate-x-1/2',
+              'absolute left-1/2 z-1 w-10 -translate-x-1/2',
               'top-[calc(100%_+_12px)]'
             )}
           >
@@ -98,12 +95,13 @@ export default function CardHeader() {
           </div>
         </AuthGuard>
       </div>
-      <span className="flex items-center gap-4 text-sm">{user.name}</span>
-      <span className="inline-flex items-center">
+      <div className="flex flex-col gap-1">
+        <span className="flex items-center gap-4 text-sm">{user.name}</span>
         <Tooltip message={createdAt} className="text-xs">
           <span
             className={cn(
-              'text-base-content/50 flex cursor-text items-center text-xs'
+              'text-base-content/50 flex cursor-text items-center text-xs',
+              'line-clamp-1 pr-4'
             )}
           >
             {ct}
@@ -121,7 +119,7 @@ export default function CardHeader() {
             )}
           </span>
         </Tooltip>
-      </span>
+      </div>
     </div>
   );
 }

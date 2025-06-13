@@ -36,12 +36,15 @@ import {
   commnetLikes,
 } from './variants';
 
+import { useIsMobile } from '@/hooks/use-media-query';
 import './comment-item.css';
 
 export default function CommentItem(props: CommentItemProps) {
   const t = useTranslations('pages.status.comments');
+  const isMobile = useIsMobile();
+
   const { show: showDialog } = useDialog();
-  const { sorter, isReply, isDetailReplies } = props;
+  const { sorter, isReply, isDetailReplies, displayMode } = props;
   const {
     id,
     user,
@@ -109,30 +112,41 @@ export default function CommentItem(props: CommentItemProps) {
   const showCommentsReplies = (comment: Weibo.Comment) => {
     showDialog({
       footer: null,
+      fullScreen: isMobile,
       title: t('replies'),
       icon: <MessageCircleMoreIcon size={20} className="mr-2" />,
       classNames: {
-        wrapper: 'w-[40rem] h-[40rem] max-h-[85vh]',
-        scrollArea: 'pr-6',
+        wrapper: 'w-[40rem] h-[50rem] max-h-[85vh]',
+        scrollArea: isMobile ? 'pr-0' : '!pr-4',
       },
       content: <CommentsReplies comment={comment} />,
     });
   };
 
-  const variantType: CommentVariants['type'] = isReply ? 'reply' : 'source';
+  const isDialogMode = displayMode === 'dialog';
+  const variantType: CommentVariants['type'] = isReply
+    ? 'reply'
+    : isDetailReplies
+      ? 'detailReplies'
+      : 'source';
 
   return (
     <MotionContainer
       data-id={id}
       disable={!!isDetailReplies}
-      className={comment({ type: variantType })}
+      className={comment({ type: variantType, mode: displayMode })}
     >
       {!isReply && (
-        <div className="grid grid-cols-[1fr_8fr] grid-rows-2 pt-4">
-          <Avatar className="row-start-1 row-end-3 flex items-center justify-center">
+        <div
+          className={cn('flex gap-3 lg:gap-4', {
+            'px-1.5 py-0': isDialogMode,
+            'px-1.5 py-1.5 lg:px-2 lg:py-2': isDetailReplies,
+          })}
+        >
+          <Avatar className="flex items-center justify-center">
             <div
               className={cn(
-                'outline-primary relative h-10 w-10 rounded-full',
+                'outline-primary relative h-8 w-8 rounded-full lg:h-10 lg:w-10',
                 'outline-2 outline-offset-3'
               )}
             >
@@ -142,34 +156,37 @@ export default function CommentItem(props: CommentItemProps) {
               />
             </div>
           </Avatar>
-          <span className="flex items-center text-sm">
-            {user.name}
-            {user.isOP && (
-              <span className="text-primary-content bg-primary ml-1 rounded-sm px-1 py-0.5 text-xs">
-                {t('op')}
-              </span>
-            )}
-          </span>
-          <span className="inline-flex items-center">
-            <Tooltip message={createdAt} className="text-xs">
-              <span
-                className={cn(
-                  'text-base-content/50 flex cursor-text items-center text-xs'
-                )}
-              >
-                {createtime}
-                {region && ` • ${region}`}
-              </span>
-            </Tooltip>
-          </span>
+          <div className="flex flex-col gap-1">
+            <span className="flex items-center text-sm">
+              {user.name}
+              {user.isOP && (
+                <span
+                  className={cn(
+                    'ml-1 rounded-sm px-1 py-0.5 text-xs',
+                    'text-primary-content bg-primary'
+                  )}
+                >
+                  {t('op')}
+                </span>
+              )}
+            </span>
+            <span className="inline-flex items-center">
+              <Tooltip message={createdAt} className="text-xs">
+                <span
+                  className={cn(
+                    'text-base-content/50 flex cursor-text items-center text-xs'
+                  )}
+                >
+                  {createtime}
+                  {region && ` • ${region}`}
+                </span>
+              </Tooltip>
+            </span>
+          </div>
         </div>
       )}
-      <div className={commentBody({ type: variantType })}>
-        <div
-          className={cn('col-start-2 col-end-4', {
-            'space-y-4': true,
-          })}
-        >
+      <div className={commentBody({ type: variantType, mode: displayMode })}>
+        <div className="w-full space-y-2 lg:space-y-4">
           <div
             className={cn('comment-text text-left leading-5 break-all', {
               'text-justify': isReply,
@@ -197,8 +214,8 @@ export default function CommentItem(props: CommentItemProps) {
           {comments.length > 0 && (
             <div
               className={cn(
-                'comments-replies bg-base-200/30 flex flex-col gap-1 p-2',
-                'border-base-content/10 mt-4 rounded-sm border'
+                'comments-replies bg-base-200/50 flex flex-col gap-1 p-2',
+                'border-base-content/10 rounded-sm border'
               )}
             >
               {comments.map(cm => (
@@ -209,14 +226,15 @@ export default function CommentItem(props: CommentItemProps) {
           {!isDetailReplies && hasMoreReplies && (
             <span
               className={cn(
-                'relative mt-2 inline-flex cursor-pointer items-center text-xs',
+                'relative inline-flex cursor-pointer items-center pt-2 text-xs lg:pt-4',
                 'text-[#eb7340]'
               )}
               onClick={() => showCommentsReplies(props.comment)}
             >
               <div
                 className={cn(
-                  'bg-base-content/10 absolute top-[-10px] left-0 h-[1px] w-full'
+                  'w-full',
+                  'bg-base-content/10 absolute top-0 left-0 h-[1px]'
                 )}
               />
               {t('totalReplies', { num: totalReplies })}
@@ -225,7 +243,7 @@ export default function CommentItem(props: CommentItemProps) {
           )}
         </div>
       </div>
-      <div className={commnetLikes({ type: variantType })}>
+      <div className={commnetLikes({ type: variantType, mode: displayMode })}>
         <ThumbsUpIcon size={16} className="relative top-[-1px] mr-1" />
         {formatNumberWithUnit(likesCount || 0)}
       </div>
