@@ -123,7 +123,7 @@ export default function StatusList() {
         <div
           className={cn(
             'text-base-content/80 mt-6 flex w-72 flex-col gap-2 pt-4 text-xs',
-            'border-base-content/10 border-t drop-shadow-md'
+            'border-base-content/10 border-t drop-shadow-xs'
           )}
         >
           <p className="flex items-center">

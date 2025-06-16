@@ -110,7 +110,7 @@ export default function Trackings(props: IProps) {
   };
 
   return (
-    <MotionContainer className="space-y-8 px-1">
+    <MotionContainer className="space-y-8 p-1">
       <div className="space-y-4">
         <h1 className="flex items-center text-2xl">
           <UsersIcon size={24} className="mr-2" />
@@ -120,7 +120,10 @@ export default function Trackings(props: IProps) {
           {usersLists.map(list => (
             <Stats
               key={list.platform}
-              className="stats-vertical border-base-content/20 border"
+              className={cn(
+                'stats-vertical border-base-content/10 border',
+                'bg-base-100 shadow-sm'
+              )}
             >
               <Stats.Stat className="lg:min-w-80">
                 <Stats.Figure className="">
@@ -150,7 +153,7 @@ export default function Trackings(props: IProps) {
         </h1>
         <div className="space-y-4">
           <div className="flex flex-col items-center gap-6 lg:flex-row">
-            <div className="flex w-full items-center gap-2">
+            <div className="flex w-full items-center gap-2 lg:w-auto">
               <Select
                 value={platform}
                 disabled={isSearching}

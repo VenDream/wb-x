@@ -7,12 +7,17 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-import { Button, Drawer, Input, Toggle } from '@/components/daisyui';
+import { Button, Input, Toggle } from '@/components/daisyui';
 import { cn } from '@/utils/classnames';
-import { RotateCcwIcon, SearchIcon, SlidersHorizontalIcon } from 'lucide-react';
+import {
+  RotateCcwIcon,
+  SearchIcon,
+  SlidersHorizontalIcon,
+  XIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
-
-const DRAWER_ID = 'USER_LIST_MENU';
+import { useState } from 'react';
+import { Drawer } from 'vaul';
 
 interface IProps {
   keyword: string;
@@ -25,77 +30,98 @@ interface IProps {
 
 export default function UserListMenu(props: IProps) {
   const t = useTranslations('pages.users');
-  const { keyword, isTracking, setKeyword, onToggleTracking } = props;
+  const { keyword, isTracking, setKeyword } = props;
 
-  const closeDrawer = () => {
-    const selector = `.drawer-overlay[for="${DRAWER_ID}"]`;
-    const overlay = document.querySelector(selector) as HTMLElement;
-    overlay?.click();
-  };
+  const [open, setOpen] = useState(false);
 
   const toggleTracking = () => {
-    onToggleTracking(!isTracking);
-    // closeDrawer();
+    props.onToggleTracking(!isTracking);
+    setOpen(false);
   };
 
   const applyKeyword = (keyword: string) => {
     props.applyKeyword(keyword);
-    closeDrawer();
+    setOpen(false);
   };
 
   return (
-    <Drawer className="absolute top-2 right-2 w-auto lg:hidden" end>
-      <Drawer.Toggle id={DRAWER_ID} />
-      <Drawer.Side>
-        <Drawer.Overlay htmlFor={DRAWER_ID} />
-        <div
+    <Drawer.Root direction="bottom" open={open} onOpenChange={setOpen}>
+      <Drawer.Trigger asChild>
+        <Button
+          ghost
+          size="sm"
+          className="absolute top-2.5 right-2 w-auto lg:hidden"
+          onClick={() => setOpen(true)}
+        >
+          <SlidersHorizontalIcon size={16} />
+        </Button>
+      </Drawer.Trigger>
+      <Drawer.Portal>
+        <Drawer.Overlay
+          className={cn('bg-base-100/50 fixed inset-0 z-99 backdrop-blur-xs')}
+        />
+        <Drawer.Content
+          aria-describedby={undefined}
           className={cn(
-            'flex h-full w-60 flex-col gap-4 p-4',
-            'border-base-content/10 bg-base-100/80 border-l backdrop-blur-lg'
+            'fixed bottom-0 left-[5%] z-99 h-fit w-[90%] after:!bg-transparent'
           )}
         >
-          <h3 className="text-lg">{t('filters.title')}</h3>
-          <div className="bg-base-content/10 h-px w-full" />
-          <div className="flex flex-row items-center justify-between">
-            <span className="text-sm">{t('isTracking')}</span>
-            <Toggle
-              color="primary"
-              checked={isTracking}
-              onChange={toggleTracking}
-            />
+          <div
+            className={cn(
+              'rounded-box mb-6 p-4 shadow-sm',
+              'bg-base-100/80 border-base-content/10 border-1 backdrop-blur-lg'
+            )}
+          >
+            <div className="flex items-center justify-between">
+              <Drawer.Title>{t('filters.title')}</Drawer.Title>
+              <Drawer.Close asChild>
+                <Button size="sm" circle ghost>
+                  <XIcon size={18} />
+                </Button>
+              </Drawer.Close>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="border-base-content/10 h-6 w-full border-b" />
+              <div className="flex flex-row items-center justify-between">
+                <span className="text-sm">{t('isTracking')}</span>
+                <Toggle
+                  color="primary"
+                  checked={isTracking}
+                  onChange={toggleTracking}
+                />
+              </div>
+              <Input
+                size="sm"
+                className="w-full bg-transparent"
+                placeholder={t('search.placeholder')}
+                value={keyword}
+                onChange={e => setKeyword(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && applyKeyword(keyword)}
+              />
+              <div className="flex items-center gap-2">
+                <Button
+                  size="sm"
+                  color="primary"
+                  className="flex-1"
+                  onClick={() => applyKeyword(keyword)}
+                >
+                  <SearchIcon size={16} />
+                  {t('search.search')}
+                </Button>
+                <Button
+                  size="sm"
+                  ghost
+                  className="bg-base-content/10 flex-1"
+                  onClick={() => applyKeyword('')}
+                >
+                  <RotateCcwIcon size={16} />
+                  {t('search.reset')}
+                </Button>
+              </div>
+            </div>
           </div>
-          <Input
-            size="sm"
-            className="bg-transparent"
-            placeholder={t('search.placeholder')}
-            value={keyword}
-            onChange={e => setKeyword(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && applyKeyword(keyword)}
-          />
-          <Button
-            size="sm"
-            color="primary"
-            onClick={() => applyKeyword(keyword)}
-          >
-            <SearchIcon size={16} />
-            {t('search.search')}
-          </Button>
-          <Button
-            size="sm"
-            ghost
-            className="bg-base-content/10"
-            onClick={() => applyKeyword('')}
-          >
-            <RotateCcwIcon size={16} />
-            {t('search.reset')}
-          </Button>
-        </div>
-      </Drawer.Side>
-      <Drawer.Content>
-        <Drawer.Button htmlFor={DRAWER_ID} className="h-8">
-          <SlidersHorizontalIcon size={16} />
-        </Drawer.Button>
-      </Drawer.Content>
-    </Drawer>
+        </Drawer.Content>
+      </Drawer.Portal>
+    </Drawer.Root>
   );
 }

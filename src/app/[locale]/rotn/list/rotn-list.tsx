@@ -111,7 +111,7 @@ export default function RotnList() {
           columnClassName="rotn-masonry-list-column"
           style={
             {
-              '--rotn-masonry-gap': isMobile ? '5px' : '20px',
+              '--rotn-masonry-gap': isMobile ? '10px' : '20px',
             } as React.CSSProperties
           }
         >
@@ -131,6 +131,7 @@ export default function RotnList() {
         <Tabs
           size="sm"
           name="rotn_type"
+          className="border-base-content/10 border shadow-xs"
           itemClassName="w-16 lg:w-20"
           value={itemType}
           onChange={switchItemType}
@@ -186,7 +187,7 @@ export default function RotnList() {
       {isMobile ? (
         <div
           className={cn(
-            'no-scrollbar h-[calc(100dvh_-_144px)] overflow-y-auto'
+            'no-scrollbar h-[calc(100dvh_-_164px)] overflow-y-auto'
           )}
         >
           {cards}

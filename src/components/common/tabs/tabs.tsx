@@ -54,7 +54,7 @@ export default function Tabs(props: TabsProps) {
 
   return (
     <DaisyTabs
-      className={cn('rounded-box bg-base-200 space-x-2 p-2', className)}
+      className={cn('rounded-box bg-base-100 space-x-2 p-2', className)}
       {...tabsProps}
     >
       {items.map(item => (

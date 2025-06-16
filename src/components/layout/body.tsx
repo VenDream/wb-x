@@ -16,7 +16,7 @@ import useIsFullPage from '@/hooks/use-full-page';
 import store from '@/store';
 import { cn } from '@/utils/classnames';
 import { Provider } from 'jotai';
-import Leftsider from './leftsider';
+import { Leftsider } from './leftsider';
 
 export default function LayoutBody({ children }: ChildrenProps) {
   const isFullPage = useIsFullPage();
@@ -29,7 +29,7 @@ export default function LayoutBody({ children }: ChildrenProps) {
         <div className="bg-base-200 h-full min-w-0 flex-1 p-0 lg:p-4">
           <div
             className={cn(
-              'page-container shadow-sm',
+              'page-container shadow-xs',
               'bg-base-100 rounded-box h-full px-6 py-0 text-sm lg:py-4',
               {
                 'px-0': isFullPage,

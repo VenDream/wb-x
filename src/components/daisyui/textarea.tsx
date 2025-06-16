@@ -27,6 +27,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const daisyUIClasses = cn(
       {
         textarea: true,
+        'border-1': true,
         'textarea-ghost': ghost,
         'textarea-xs': size === 'xs',
         'textarea-sm': size === 'sm',

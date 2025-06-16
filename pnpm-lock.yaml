@@ -1,8 +1,5 @@
 lockfileVersion: 5.4
 
-overrides:
-  slash: 3.0.0
-
 specifiers:
   '@clerk/localizations': ^3.16.3
   '@clerk/nextjs': ^6.20.2
@@ -66,6 +63,7 @@ specifiers:
   tsx: ^4.19.4
   typescript: 5.8.3
   undici: 6.20.0
+  vaul: ^1.1.2
   yet-another-react-lightbox: ^3.23.2
 
 dependencies:
@@ -110,6 +108,7 @@ dependencies:
   tailwindcss: 4.1.8
   theme-change: 2.5.0
   undici: 6.20.0
+  vaul: 1.1.2_ebbtkwcz3ukfvdrdbctsmrngtm
   yet-another-react-lightbox: 3.23.2_ebbtkwcz3ukfvdrdbctsmrngtm
 
 devDependencies:
@@ -3865,7 +3864,7 @@ packages:
       fast-glob: 3.3.2
       ignore: 5.2.4
       merge2: 1.4.1
-      slash: 3.0.0
+      slash: 4.0.0
     dev: true
 
   /gopd/1.2.0:
@@ -5687,6 +5686,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /slash/4.0.0:
+    resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
+    engines: {node: '>=12'}
+    dev: true
+
   /slice-ansi/5.0.0:
     resolution: {integrity: sha512-FC+lgizVPfie0kkhqUScwRu1O/lF6NOgJmlCgK+/LYxDCTk8sGelYaHDhFcDN+Sn3Cv+3VSa4Byeo+IMCzpMgQ==}
     engines: {node: '>=12'}
@@ -6259,6 +6263,20 @@ packages:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
     dev: true
     optional: true
+
+  /vaul/1.1.2_ebbtkwcz3ukfvdrdbctsmrngtm:
+    resolution: {integrity: sha512-ZFkClGpWyI2WUQjdLJ/BaGuV6AVQiJ3uELGk3OYtP+B6yCO7Cmn9vPFXVJkRaGkOJu3m8bQMgtyzNHixULceQA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+    dependencies:
+      '@radix-ui/react-dialog': 1.1.14_ebbtkwcz3ukfvdrdbctsmrngtm
+      react: 19.1.0
+      react-dom: 19.1.0_react@19.1.0
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: false
 
   /vfile-message/4.0.2:
     resolution: {integrity: sha512-jRDZ1IMLttGj41KcZvlrYAaI3CfqpLpfpf+Mfig13viT6NKvRzWZ+lXz0Y5D60w6uJIBAOGq9mSHf0gktF0duw==}

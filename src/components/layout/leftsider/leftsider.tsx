@@ -12,7 +12,6 @@
 import { Menu } from '@/components/daisyui';
 import {
   ADMIN_ROUTES,
-  APP_DRAWER_ID,
   PRIMARY_ROUTES,
   PRIMARY_ROUTE_KEYS,
   type PrimaryRouteKey,
@@ -28,6 +27,7 @@ import ICONS from './icons';
 
 interface IProps {
   className?: string;
+  onRouteChange?: (route: string) => void;
 }
 
 export default function Leftsider(props: IProps) {
@@ -56,13 +56,6 @@ export default function Leftsider(props: IProps) {
     [pathname]
   );
 
-  const closeDrawer = () => {
-    if (!isMobile) return;
-    const selector = `.drawer-overlay[for="${APP_DRAWER_ID}"]`;
-    const overlay = document.querySelector(selector) as HTMLElement;
-    overlay?.click();
-  };
-
   return (
     <Menu
       size="lg"
@@ -81,7 +74,11 @@ export default function Leftsider(props: IProps) {
         const isActive = isActiveRoute(p);
 
         return (
-          <Menu.Item key={k} onClick={closeDrawer} className="mb-1">
+          <Menu.Item
+            key={k}
+            className="mb-1"
+            onClick={() => props.onRouteChange?.(p)}
+          >
             <Link
               href={p}
               className={cn('text-base', {

@@ -37,9 +37,9 @@ export default function MiniUserCard(props: UserCardProps) {
   return (
     <MotionContainer
       className={cn(
-        'bg-base-200/30 rounded-box h-16 min-h-16',
+        'bg-base-100 rounded-box h-16 min-h-16',
         'flex items-center justify-start gap-4 px-4',
-        'border-base-content/10 border shadow-sm',
+        'border-base-content/10 border shadow-xs',
         props.className
       )}
     >

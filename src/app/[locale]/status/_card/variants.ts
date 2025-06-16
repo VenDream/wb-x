@@ -21,11 +21,12 @@ export const card = cva(cn('status-card relative border-base-content/10'), {
   variants: {
     type: {
       source: cn(
-        'w-dvw lg:w-[40rem] bg-base-200/30 lg:shadow p-4 lg:p-6',
-        'border-b lg:border rounded-none lg:rounded-box'
+        'w-dvw lg:w-[40rem] lg:bg-base-100 lg:p-6 p-4 bg-base-100/50',
+        'border-b lg:border rounded-none lg:rounded-box lg:shadow-xs'
       ),
       retweet: cn(
-        'w-full bg-base-300/30 shadow-none p-2 lg:p-4 border rounded-box'
+        'w-full bg-base-100 shadow-xs p-2 lg:p-4 border rounded-box',
+        'lg:bg-base-200'
       ),
     },
   },

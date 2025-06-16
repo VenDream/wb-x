@@ -124,7 +124,7 @@ export default function CommentList(props: CommentListProps) {
         props.className
       )}
     >
-      <div className="lg:shadow">
+      <div className="lg:shadow-xs">
         <div
           ref={listHeaderRef}
           className={cn(

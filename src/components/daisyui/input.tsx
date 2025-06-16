@@ -26,6 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const daisyUIClasses = cn(
     {
       input: true,
+      'border-1': true,
       'input-ghost': ghost,
       'input-xs': size === 'xs',
       'input-sm': size === 'sm',
