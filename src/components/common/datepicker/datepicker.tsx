@@ -135,7 +135,7 @@ export default function DatePicker(props: DatePickerProps) {
         <button
           type="button"
           className={cn(
-            'input flex items-center justify-between',
+            'input flex items-center justify-between border-1',
             {
               'text-base-content/50': !date,
             },

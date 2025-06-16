@@ -28,10 +28,11 @@ export default function Settings() {
   const isCookiesActive = activeTab === 'cookies';
 
   return (
-    <div className="w-full p-0 lg:w-[800px] lg:pr-4">
+    <div className="w-full p-px lg:w-[800px] lg:pr-4">
       <Tabs
         size="sm"
         name="settings"
+        className="border-base-content/10 border shadow-sm"
         items={[
           {
             label: t('local'),
@@ -47,7 +48,7 @@ export default function Settings() {
         value={activeTab}
         onChange={value => setActiveTab(value as SettingsType)}
       />
-      <div className="bg-base-200 rounded-box mt-4">
+      <div className="bg-base-100 rounded-box border-base-content/10 mt-4 border shadow-sm">
         {isLocalActive && (
           <MotionContainer className="p-4">
             <LocalSettings />

@@ -16,7 +16,7 @@ export type CardVariants = VariantProps<typeof card>;
 export const card = cva(cn('p-4 relative'), {
   variants: {
     type: {
-      source: cn('w-[40rem]', 'bg-base-200/30', 'shadow'),
+      source: cn('w-[40rem]', 'bg-base-200/30', 'shadow-xs'),
       retweet: cn('w-full', 'bg-base-300/30', 'shadow-none'),
     },
     displayAs: {

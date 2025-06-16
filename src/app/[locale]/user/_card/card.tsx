@@ -161,7 +161,7 @@ export default function UserCard(props: UserCardProps) {
       className={cn(
         'flex flex-col items-center justify-between gap-4 px-3 py-6',
         'bg-base-200/30 border-base-content/10 rounded-box border',
-        'hover:border-primary group relative border-1 hover:shadow',
+        'hover:border-primary group relative border-1 hover:shadow-xs',
         props.className
       )}
     >

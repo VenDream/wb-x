@@ -164,11 +164,12 @@ export default function UserList(props: UserListProps) {
   }, [refresh]);
 
   return (
-    <div className="flex h-full flex-col gap-4 pb-1 lg:pr-6">
+    <div className="flex h-full flex-col gap-4 p-px pt-0 lg:pr-4">
       <div className="relative top-0 lg:sticky lg:z-1">
         <Tabs
           size="sm"
           name="platform"
+          className="border-base-content/10 border shadow-sm"
           items={[
             {
               label: t1('weibo'),
@@ -231,7 +232,7 @@ export default function UserList(props: UserListProps) {
         <>
           <div
             className={cn(
-              'grid grid-cols-2 gap-4 px-1',
+              'grid grid-cols-2 gap-4',
               'lg:grid-cols-4 lg:gap-6 lg:p-2 2xl:grid-cols-6'
             )}
           >

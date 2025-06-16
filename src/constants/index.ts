@@ -40,8 +40,6 @@ export const DEFAULT_FAV_UID = 'yeshenxue@qq.com';
 export const WEIBO_HOST = 'https://weibo.com';
 export const TWITTER_HOST = 'https://x.com';
 
-export const APP_DRAWER_ID = 'APP_DRAWER';
-
 export const LS_KEYS = {
   THEME: 'WB_X_THEME',
   SETTINGS: 'WB_X_SETTINGS',

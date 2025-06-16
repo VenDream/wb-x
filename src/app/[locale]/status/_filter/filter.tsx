@@ -76,9 +76,14 @@ export default function Filter(props: FilterProps) {
 
   return (
     <MotionContainer
+      motion={isDrawerMode ? {} : undefined}
+      variants={{
+        open: { opacity: 1, x: 0 },
+        closed: { opacity: 0, x: '100%' },
+      }}
       className={cn(
         'border-base-content/10 flex w-72 flex-col gap-4 border p-4',
-        'bg-base-200/30 rounded-box shadow-xs',
+        'bg-base-100 rounded-box shadow-xs',
         {
           'border-none bg-transparent p-0 shadow-none': isDrawerMode,
         }
@@ -90,7 +95,7 @@ export default function Filter(props: FilterProps) {
           <Tabs
             size="xs"
             name="isTracking"
-            className="bg-base-300 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
+            className="bg-base-200 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
             itemClassName="basis-1/2 !rounded-sm"
             value={filter.isTracking ? 1 : 0}
             onChange={value => {
@@ -116,7 +121,7 @@ export default function Filter(props: FilterProps) {
           <Tabs
             size="xs"
             name="order"
-            className="bg-base-300 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
+            className="bg-base-200 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
             itemClassName="basis-1/2 !rounded-sm"
             value={filter.order}
             onChange={value => {

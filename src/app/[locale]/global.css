@@ -44,7 +44,7 @@
 }
 
 @utility backdrop-blur-pseudo {
-  @apply before:bg-base-100/50 before:absolute before:inset-0 before:z-0;
+  @apply before:bg-base-100/80 before:absolute before:inset-0 before:z-0;
   @apply before:rounded-[inherit] before:backdrop-blur-lg before:content-[""];
 }
 
