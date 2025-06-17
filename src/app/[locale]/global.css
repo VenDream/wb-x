@@ -32,19 +32,19 @@
 @utility scrollbar {
   &::-webkit-scrollbar,
   & *::-webkit-scrollbar {
-    @apply w-1.5;
+    @apply block;
   }
 }
 
 @utility no-scrollbar {
   &::-webkit-scrollbar,
   & *::-webkit-scrollbar {
-    @apply w-0;
+    @apply hidden;
   }
 }
 
 @utility backdrop-blur-pseudo {
-  @apply before:bg-base-100/80 before:absolute before:inset-0 before:z-0;
+  @apply before:bg-base-100/50 before:absolute before:inset-0 before:z-0;
   @apply before:rounded-[inherit] before:backdrop-blur-lg before:content-[""];
 }
 
@@ -74,23 +74,37 @@
   background-size: var(--grid-size) var(--grid-size);
 }
 
-[data-theme='light'] {
-  ::-webkit-scrollbar-thumb {
+:root[data-theme='light'] {
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  &::-webkit-scrollbar-thumb,
+  & *::-webkit-scrollbar-thumb {
     @apply rounded-full bg-black/10;
   }
 
-  ::-webkit-scrollbar-track {
-    @apply rounded-full bg-black/10;
+  &::-webkit-scrollbar-track,
+  & *::-webkit-scrollbar-track {
+    @apply rounded-full bg-black/3;
   }
 }
 
-[data-theme='dark'] {
-  ::-webkit-scrollbar-thumb {
+:root[data-theme='dark'] {
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  &::-webkit-scrollbar-thumb,
+  & *::-webkit-scrollbar-thumb {
     @apply rounded-full bg-white/10;
   }
 
-  ::-webkit-scrollbar-track {
-    @apply rounded-full bg-white/10;
+  &::-webkit-scrollbar-track,
+  & *::-webkit-scrollbar-track {
+    @apply rounded-full bg-white/3;
   }
 }
 

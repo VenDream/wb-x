@@ -26,7 +26,7 @@
 
   & .rdp-day {
     & button {
-      @apply hover:border-primary hover:bg-primary/50 hover:border-1;
+      @apply hover:border-primary hover:bg-primary/80 hover:text-primary-content hover:border-1;
     }
   }
 
@@ -34,7 +34,7 @@
     @apply pointer-events-none;
 
     & button {
-      @apply !bg-primary/50 text-base-content;
+      @apply !bg-primary/80 text-primary-content;
     }
   }
 
