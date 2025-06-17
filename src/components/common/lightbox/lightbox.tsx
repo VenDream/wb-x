@@ -60,7 +60,7 @@ export default function Lightbox(props: LightboxExternalProps) {
     ? { finite: true }
     : {
         finite: slides.length <= 1,
-        preload: isMobile ? 1 : 2,
+        preload: 1,
       };
 
   const thumbnails: LightboxProps['thumbnails'] = hasVideo
@@ -72,7 +72,7 @@ export default function Lightbox(props: LightboxExternalProps) {
         width: isMobile ? 40 : 80,
         height: isMobile ? 40 : 80,
         imageFit: 'contain',
-        hidden: isMobile,
+        hidden: true,
         showToggle: true,
       };
 
