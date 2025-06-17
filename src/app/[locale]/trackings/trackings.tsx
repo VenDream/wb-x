@@ -122,7 +122,7 @@ export default function Trackings(props: IProps) {
               key={list.platform}
               className={cn(
                 'stats-vertical border-base-content/10 border',
-                'bg-base-100 shadow-sm'
+                'bg-base-100 shadow-xs'
               )}
             >
               <Stats.Stat className="lg:min-w-80">

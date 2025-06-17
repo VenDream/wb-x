@@ -32,7 +32,7 @@ export default function Settings() {
       <Tabs
         size="sm"
         name="settings"
-        className="border-base-content/10 border shadow-sm"
+        className="border-base-content/10 border shadow-xs"
         items={[
           {
             label: t('local'),
@@ -48,7 +48,7 @@ export default function Settings() {
         value={activeTab}
         onChange={value => setActiveTab(value as SettingsType)}
       />
-      <div className="bg-base-100 rounded-box border-base-content/10 mt-4 border shadow-sm">
+      <div className="bg-base-100 rounded-box border-base-content/10 mt-4 border shadow-xs">
         {isLocalActive && (
           <MotionContainer className="p-4">
             <LocalSettings />
