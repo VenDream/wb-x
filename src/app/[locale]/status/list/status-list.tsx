@@ -26,7 +26,12 @@ import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { DEFAULT_FILTER_PARAMS, Filter, MiniFilter } from '../_filter';
+import {
+  DEFAULT_FILTER_PARAMS,
+  Filter,
+  MiniFilter,
+  RefreshBtn,
+} from '../_filter';
 
 export default function StatusList() {
   const t = useTranslations('pages.status');
@@ -109,7 +114,9 @@ export default function StatusList() {
       {isInited && filterParams.favUid && (
         <VirtualList {...listProps} ref={listRef} />
       )}
+      <RefreshBtn resetFilterParams={resetFilterParams} />
       <MiniFilter
+        total={total}
         filterParams={filterParams}
         resetFilterParams={resetFilterParams}
         updateFilterParams={updateFilterParams}

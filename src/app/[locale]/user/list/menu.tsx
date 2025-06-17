@@ -68,7 +68,7 @@ export default function UserListMenu(props: IProps) {
         >
           <div
             className={cn(
-              'rounded-box mb-6 p-4 shadow-sm',
+              'rounded-box mb-6 p-4 shadow-xs',
               'bg-base-100/80 border-base-content/10 border-1 backdrop-blur-lg'
             )}
           >

@@ -95,7 +95,10 @@ export default function Filter(props: FilterProps) {
           <Tabs
             size="xs"
             name="isTracking"
-            className="bg-base-200 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
+            className={cn(
+              'bg-base-200 flex-1 flex-nowrap space-x-0 rounded-sm p-1 shadow-xs',
+              'border-base-content/20 border'
+            )}
             itemClassName="basis-1/2 !rounded-sm"
             value={filter.isTracking ? 1 : 0}
             onChange={value => {
@@ -121,7 +124,10 @@ export default function Filter(props: FilterProps) {
           <Tabs
             size="xs"
             name="order"
-            className="bg-base-200 flex-1 flex-nowrap space-x-0 rounded-sm p-1"
+            className={cn(
+              'bg-base-200 flex-1 flex-nowrap space-x-0 rounded-sm p-1 shadow-xs',
+              'border-base-content/20 border'
+            )}
             itemClassName="basis-1/2 !rounded-sm"
             value={filter.order}
             onChange={value => {

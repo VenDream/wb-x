@@ -169,7 +169,7 @@ export default function UserList(props: UserListProps) {
         <Tabs
           size="sm"
           name="platform"
-          className="border-base-content/10 border shadow-sm"
+          className="border-base-content/10 border shadow-xs"
           items={[
             {
               label: t1('weibo'),

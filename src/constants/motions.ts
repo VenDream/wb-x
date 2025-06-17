@@ -8,12 +8,12 @@
  */
 
 import { camel2Kebab } from '@/utils/common';
-import type { AnimationProps, TargetAndTransition } from 'framer-motion';
+import type { MotionProps, TargetAndTransition } from 'framer-motion';
 
 export const DEFAULT_DURATION = 0.2;
 export const DEFAULT_EASE = 'easeOut';
 export const DEFAULT_EASE_CSS = camel2Kebab(DEFAULT_EASE);
-export const DEFAULT_SPRING = {
+export const DEFAULT_SPRING: MotionProps['transition'] = {
   type: 'spring',
   mass: 0.2,
   damping: 8,
@@ -24,19 +24,19 @@ export const DEFAULT_SPRING = {
 /*                                   Common                                   */
 /* -------------------------------------------------------------------------- */
 
-export const fadeIn: AnimationProps = {
+export const fadeIn: MotionProps = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
   transition: { duration: DEFAULT_DURATION, ease: DEFAULT_EASE },
 };
 
-export const fadeOut: AnimationProps = {
+export const fadeOut: MotionProps = {
   initial: { opacity: 1 },
   exit: { opacity: 0 },
   transition: { duration: DEFAULT_DURATION, ease: DEFAULT_EASE },
 };
 
-export const fadeInFromBottom: AnimationProps = {
+export const fadeInFromBottom: MotionProps = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: DEFAULT_DURATION, ease: DEFAULT_EASE },
@@ -51,7 +51,7 @@ export const moveUp: TargetAndTransition = {
 /*                               Favourite Btns                               */
 /* -------------------------------------------------------------------------- */
 
-export const favouriteBtnMotion: AnimationProps = {
+export const favouriteBtnMotion: MotionProps = {
   initial: { opacity: 0, scale: 0.5 },
   animate: { opacity: 1, scale: 1 },
   transition: {
@@ -66,7 +66,7 @@ export const favouriteBtnMotion: AnimationProps = {
 /*                                   Dialog                                   */
 /* -------------------------------------------------------------------------- */
 
-export const dialogMotion: AnimationProps = {
+export const dialogMotion: MotionProps = {
   variants: {
     open: { opacity: 1, scale: 1 },
     closed: { opacity: 0, scale: 0.8 },
@@ -77,7 +77,7 @@ export const dialogMotion: AnimationProps = {
   transition: DEFAULT_SPRING,
 };
 
-export const dialogMaskMotion: AnimationProps = {
+export const dialogMaskMotion: MotionProps = {
   variants: {
     open: { opacity: 1 },
     closed: { opacity: 0 },

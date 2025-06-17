@@ -8,14 +8,15 @@
  */
 
 import { Button } from '@/components/daisyui';
+import { ESTIMATE_COUNT } from '@/constants';
 import { cn } from '@/utils/classnames';
-import { SlidersHorizontalIcon, XIcon } from 'lucide-react';
+import { ScanSearchIcon, SlidersHorizontalIcon, XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Drawer } from 'vaul';
 import Filter, { type FilterProps } from './filter';
 
-export default function MiniFilter(props: FilterProps) {
+export default function MiniFilter(props: FilterProps & { total: number }) {
   const t = useTranslations('pages.status.filter');
 
   const [open, setOpen] = useState(false);
@@ -24,7 +25,6 @@ export default function MiniFilter(props: FilterProps) {
     <Drawer.Root direction="right" open={open} onOpenChange={setOpen}>
       <Drawer.Trigger asChild>
         <Button
-          color="primary"
           circle
           className={cn('fixed right-5 bottom-5 h-10 w-10 shadow-xs lg:hidden')}
         >
@@ -56,6 +56,20 @@ export default function MiniFilter(props: FilterProps) {
               onApplyFilterParams={() => setOpen(false)}
               onResetFilterParams={() => setOpen(false)}
             />
+            <div className="border-base-content/10 h-0 w-full border-b" />
+            {props.total >= 0 && (
+              <p className="text-base-content/80 flex items-center text-xs">
+                <ScanSearchIcon size={14} className="mr-2" />
+                {t.rich('totalStatuses', {
+                  s: () => <>&nbsp;</>,
+                  total: () => (
+                    <span className="text-accent underline underline-offset-2">
+                      {props.total === ESTIMATE_COUNT ? '1000+' : props.total}
+                    </span>
+                  ),
+                })}
+              </p>
+            )}
           </div>
         </Drawer.Content>
       </Drawer.Portal>

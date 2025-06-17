@@ -129,7 +129,7 @@ export default async function Stats() {
         {block.icon}
         {block.title}
       </h1>
-      <IStats className="border-base-content/10 bg-base-100 border shadow-sm">
+      <IStats className="border-base-content/10 bg-base-100 border shadow-xs">
         {block.units.map((unit, idx) => (
           <StatUnit key={idx} {...unit} />
         ))}
