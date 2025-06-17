@@ -16,22 +16,23 @@ import VirtualList, {
   type VirtualListHandle,
   type VirtualListProps,
 } from '@/components/common/virtual-list';
+import { Button } from '@/components/daisyui';
 import { ESTIMATE_COUNT } from '@/constants';
 import useFavUid from '@/hooks/use-fav-uid';
 import { useIsMobile } from '@/hooks/use-media-query';
 import useUser from '@/hooks/use-user';
 import { cn } from '@/utils/classnames';
 import { dedupeStatusList } from '@/utils/weibo';
-import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
+import {
+  CircleHelpIcon,
+  ListRestartIcon,
+  RefreshCcwIcon,
+  ScanSearchIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  DEFAULT_FILTER_PARAMS,
-  Filter,
-  MiniFilter,
-  RefreshBtn,
-} from '../_filter';
+import { DEFAULT_FILTER_PARAMS, Filter, MiniFilter } from '../_filter';
 
 export default function StatusList() {
   const t = useTranslations('pages.status');
@@ -111,10 +112,19 @@ export default function StatusList() {
         'h-[calc(100dvh-3.5rem)] lg:h-[calc(100dvh-8rem)]'
       )}
     >
-      {isInited && filterParams.favUid && (
+      {true && isInited && filterParams.favUid && (
         <VirtualList {...listProps} ref={listRef} />
       )}
-      <RefreshBtn resetFilterParams={resetFilterParams} />
+      <Button
+        circle
+        onClick={() => updateFilterParams({})}
+        className={cn(
+          'fixed right-5 bottom-18 h-10 w-10 shadow-xs lg:right-15 lg:bottom-15',
+          'bg-base-content/10 border-base-content/10 border backdrop-blur-lg'
+        )}
+      >
+        <RefreshCcwIcon size={18} />
+      </Button>
       <MiniFilter
         total={total}
         filterParams={filterParams}

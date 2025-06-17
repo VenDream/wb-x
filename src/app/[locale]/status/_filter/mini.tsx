@@ -26,7 +26,10 @@ export default function MiniFilter(props: FilterProps & { total: number }) {
       <Drawer.Trigger asChild>
         <Button
           circle
-          className={cn('fixed right-5 bottom-5 h-10 w-10 shadow-xs lg:hidden')}
+          className={cn(
+            'fixed right-5 bottom-5 h-10 w-10 shadow-xs lg:hidden',
+            'bg-base-content/10 border-base-content/10 border backdrop-blur-lg'
+          )}
         >
           <SlidersHorizontalIcon size={18} />
         </Button>
@@ -56,19 +59,21 @@ export default function MiniFilter(props: FilterProps & { total: number }) {
               onApplyFilterParams={() => setOpen(false)}
               onResetFilterParams={() => setOpen(false)}
             />
-            <div className="border-base-content/10 h-0 w-full border-b" />
             {props.total >= 0 && (
-              <p className="text-base-content/80 flex items-center text-xs">
-                <ScanSearchIcon size={14} className="mr-2" />
-                {t.rich('totalStatuses', {
-                  s: () => <>&nbsp;</>,
-                  total: () => (
-                    <span className="text-accent underline underline-offset-2">
-                      {props.total === ESTIMATE_COUNT ? '1000+' : props.total}
-                    </span>
-                  ),
-                })}
-              </p>
+              <>
+                <div className="border-base-content/10 h-0 w-full border-b" />
+                <p className="text-base-content/80 flex items-center text-xs">
+                  <ScanSearchIcon size={14} className="mr-2" />
+                  {t.rich('totalStatuses', {
+                    s: () => <>&nbsp;</>,
+                    total: () => (
+                      <span className="text-accent underline underline-offset-2">
+                        {props.total === ESTIMATE_COUNT ? '1000+' : props.total}
+                      </span>
+                    ),
+                  })}
+                </p>
+              </>
             )}
           </div>
         </Drawer.Content>
