@@ -11,6 +11,7 @@ import { weibo } from '@/api/client';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { PlayIcon } from '@/components/icons';
 import { FAKE_POSTER, FAKE_VIDEO } from '@/constants/debug';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { cn } from '@/utils/classnames';
 import { getImageVariants, getProxiedVideoUrl } from '@/utils/weibo';
 import { LoaderCircleIcon } from 'lucide-react';
@@ -22,6 +23,7 @@ import CardCtx from './context';
 const WIDTH = 1280 * 0.8;
 
 export default function CardVideo() {
+  const isMobile = useIsMobile();
   const { status } = useContext(CardCtx);
   const t = useTranslations('pages.status.video');
 
@@ -39,7 +41,8 @@ export default function CardVideo() {
   if (!status || !status.video) return null;
 
   const { title, cover } = status.video;
-  const { md: poster } = getImageVariants(cover);
+  const { sm, md } = getImageVariants(cover);
+  const poster = isMobile ? sm : md;
 
   const fetchVideoSrc = async (callback: () => void) => {
     try {
