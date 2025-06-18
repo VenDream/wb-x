@@ -1,13 +1,13 @@
 @reference "../../../app/[locale]/global.css";
 
-.image-grid {
+.media-grid {
   .has-more {
     @apply relative;
     &:after {
-      @apply absolute top-0 left-0 flex h-full w-full items-center justify-center rounded text-2xl text-white;
-
-      content: attr(data-remains);
-      background: rgba(0, 0, 0, 0.5);
+      @apply content-[attr(data-remains)];
+      @apply absolute top-0 left-0 flex h-full w-full bg-black/50;
+      @apply items-center justify-center rounded text-2xl text-white;
+      @apply backdrop-blur-2xs;
     }
   }
 }
