@@ -6,8 +6,7 @@
     &:after {
       @apply content-[attr(data-remains)];
       @apply absolute top-0 left-0 flex h-full w-full bg-black/50;
-      @apply items-center justify-center rounded text-2xl text-white;
-      @apply backdrop-blur-2xs;
+      @apply items-center justify-center rounded-sm text-2xl text-white;
     }
   }
 }
