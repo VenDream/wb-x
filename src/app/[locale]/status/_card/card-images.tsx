@@ -8,29 +8,27 @@
  */
 
 import MediaGrid, { type ImageItem } from '@/components/common/media-grid';
-import { useIsMobile } from '@/hooks/use-media-query';
 import { getImageVariants } from '@/utils/weibo';
 import { useContext, useMemo } from 'react';
 import CardCtx from './context';
 
 export default function CardIamges() {
-  const isMobile = useIsMobile();
   const { status } = useContext(CardCtx);
   const { images } = status as Weibo.Status;
 
   const imageItems = useMemo(
     () =>
       images.map<ImageItem>(image => {
-        const { filename, origin, bmiddle, sm, lg } = getImageVariants(image);
+        const { filename, origin, bmiddle, lg } = getImageVariants(image);
         return {
           type: 'image',
-          src: isMobile ? bmiddle : lg,
+          src: lg,
           filename,
           download: origin,
-          thumbnail: isMobile ? sm : bmiddle,
+          thumbnail: bmiddle,
         };
       }),
-    [images, isMobile]
+    [images]
   );
 
   return <MediaGrid cols={3} items={imageItems} showHasMoreIndicator />;
