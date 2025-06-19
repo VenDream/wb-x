@@ -13,6 +13,7 @@ import Tooltip from '@/components/common/tooltip';
 import { Button } from '@/components/daisyui';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/utils/classnames';
+import { getFileName } from '@/utils/common';
 import { SquareArrowOutUpRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -33,17 +34,19 @@ const getAspectRatio = (id: string) => {
 
 export default function RotnCard(props: IProps) {
   const { id, type, images, url } = props.item;
+
   const t = useTranslations('pages.rotn');
 
   const items = images.map((img, idx) => ({
     id: String(+id + idx),
+    name: getFileName(img),
     image: img,
   }));
 
   return (
     <MotionContainer
       className={cn(
-        'border-base-content/10 flex flex-col gap-2 border p-4',
+        'border-base-content/10 flex flex-col gap-2 border p-2 lg:p-4',
         'bg-base-100 rounded-box h-full text-sm shadow-xs'
       )}
     >
@@ -68,6 +71,7 @@ export default function RotnCard(props: IProps) {
           lightbox
           items={items.splice(-1)}
           slideItems={items}
+          name={false}
           buttons={false}
           counter={false}
           gap={CAROUSEL_GAP}

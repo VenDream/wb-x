@@ -11,6 +11,7 @@ import Image from '@/components/common/image';
 import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { Button } from '@/components/daisyui';
 import { FAKE_IMG } from '@/constants/debug';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { cn } from '@/utils/classnames';
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -35,6 +36,7 @@ interface IProps {
   cols?: number;
   aspectRatio?: number;
 
+  name?: boolean;
   buttons?: boolean;
   counter?: boolean;
   lightbox?: boolean;
@@ -52,6 +54,7 @@ export default function Carousel(props: IProps) {
     cols = 1,
     aspectRatio,
 
+    name = true,
     buttons = true,
     counter = true,
     lightbox,
@@ -59,6 +62,8 @@ export default function Carousel(props: IProps) {
     className,
     emblaOptions,
   } = props;
+
+  const isMobile = useIsMobile();
 
   const [currSlide, setCurrSlide] = useState(0);
   const [currSnap, setCurrSnap] = useState(0);
@@ -95,15 +100,16 @@ export default function Carousel(props: IProps) {
       return {
         type: 'image',
         src: FAKE_IMG(item.id) || src,
-        title: filename ? (
+        title: (
           <p className="h-[2rem] text-sm leading-[2rem] font-normal">
-            {idx + 1} / {items.length} - {filename}
+            {idx + 1} / {slideItems?.length || items.length}
+            {isMobile ? '' : ` - ${filename}`}
           </p>
-        ) : undefined,
+        ),
         download,
       };
     });
-  }, [items, slideItems]);
+  }, [isMobile, items, slideItems]);
 
   const previewSlides = (idx: number) => {
     setCurrSlide(idx);
@@ -163,7 +169,7 @@ export default function Carousel(props: IProps) {
                     className="rounded-[inherit]"
                     src={FAKE_IMG(item.id) || item.image}
                   />
-                  {item.name && (
+                  {name && item.name && (
                     <p
                       title={item.name}
                       onClick={e => e.stopPropagation()}

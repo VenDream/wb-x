@@ -53,7 +53,7 @@ export default function RotnList() {
 
     try {
       setIsLoading(true);
-      const limit = PAGINATION_LIMIT * (isMobile ? 0.5 : 2);
+      const limit = PAGINATION_LIMIT * 2;
       const offset = pageNo * limit;
       const { list: items = [] } = await rotn.getItemList({
         id: itemId,
@@ -72,7 +72,7 @@ export default function RotnList() {
     } finally {
       setIsLoading(false);
     }
-  }, [isMobile, itemId, itemType, pageNo, refresh]);
+  }, [itemId, itemType, pageNo, refresh]);
 
   const loadMore = useCallback(() => {
     if (isLoadAll || isLoading || isLoadFailed) return;
