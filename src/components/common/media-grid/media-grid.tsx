@@ -12,6 +12,7 @@ import { type Slide, useLightbox } from '@/components/common/lightbox';
 import { Badge } from '@/components/daisyui';
 import { PlayIcon } from '@/components/icons';
 import { FAKE_IMG, FAKE_POSTER, FAKE_VIDEO } from '@/constants/debug';
+import { useIsMobile } from '@/hooks/use-media-query';
 import { cn } from '@/utils/classnames';
 import { getFileName } from '@/utils/common';
 import { getVideoDuration } from '@/utils/datetime';
@@ -23,6 +24,7 @@ import './media-grid.css';
 export default function MediaGrid(props: MediaGridProps) {
   const { items, className, cols = 3, showHasMoreIndicator } = props;
   const { openLightbox, renderLightbox } = useLightbox();
+  const isMobile = useIsMobile();
 
   const [slideIdx, setSlideIdx] = useState(0);
   const slides = useMemo<Slide[]>(() => {
@@ -30,7 +32,8 @@ export default function MediaGrid(props: MediaGridProps) {
       const filename = item.filename || getFileName(item.src);
       const title = (
         <p key={idx} className="h-[2rem] text-sm leading-[2rem] font-normal">
-          {idx + 1} / {items.length} - {filename}
+          {idx + 1} / {items.length}
+          {isMobile ? '' : ` - ${filename}`}
         </p>
       );
 
@@ -59,7 +62,7 @@ export default function MediaGrid(props: MediaGridProps) {
         ],
       };
     });
-  }, [items]);
+  }, [items, isMobile]);
 
   const MAX_DISPLAY_IMAGES = cols ** 2;
   const REMAIN_IMAGES_NUM = items.length - MAX_DISPLAY_IMAGES;
