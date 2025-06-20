@@ -74,7 +74,7 @@ export default function CommentItem(props: CommentItemProps) {
       const opTag = `
         <span
           style="zoom: 80%;"
-          class="text-xs text-primary-content bg-primary px-1 py-0.5 ml-1 rounded-sm"
+          class="text-xs text-primary-content bg-primary px-1 py-0.5 mx-1 rounded-sm"
         >
           ${t('op')}
         </span>
