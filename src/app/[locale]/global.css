@@ -109,9 +109,17 @@
 }
 
 html {
+  font-size: 16px;
+
   & body,
   & .page-container {
     @apply bg-grid;
+  }
+}
+
+@media (max-width: 1023px) {
+  html {
+    font-size: 17px;
   }
 }
 
