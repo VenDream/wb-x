@@ -33,8 +33,8 @@ export default function CardMenu(props: IProps) {
   const isWeibo = platform === 'weibo';
 
   const listLink = isWeibo
-    ? `${PRIMARY_ROUTES.WEIBO}?uid=${user.id}`
-    : `${PRIMARY_ROUTES.TWITTER}?uid=${user.id}`;
+    ? `${PRIMARY_ROUTES.WEIBO}?uid=${user.id}&scope=all`
+    : `${PRIMARY_ROUTES.TWITTER}?uid=${user.id}&scope=all`;
 
   return (
     <Dropdown align="center">

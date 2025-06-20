@@ -1,13 +1,13 @@
 /*
- * Weibo Status List Params
+ * Twitter Tweet List Params
  *
  * @Author: VenDream
- * @Date: 2025-06-11 15:46:27
+ * @Date: 2025-06-20 14:43:33
  *
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
-type Params = Weibo.StatusListFilterParams;
+type Params = Twitter.TweetListFilterParams;
 type ParamsKeys = keyof Params;
 
 export const DEFAULT_FILTER_PARAMS: Params = {
@@ -19,10 +19,13 @@ export const DEFAULT_FILTER_PARAMS: Params = {
 export const BOOLEAN_PARAMS_KEYS: ParamsKeys[] = [
   'isOriginal',
   'isFavourite',
-  'hasVideo',
+  'hasVideos',
   'hasImages',
 ];
-export const NUMBER_PARAMS_KEYS: ParamsKeys[] = ['leastImagesCount'];
+export const NUMBER_PARAMS_KEYS: ParamsKeys[] = [
+  'leastImagesCount',
+  'leastVideosCount',
+];
 export const STRING_PARAMS_KEYS: ParamsKeys[] = [
   'id',
   'uid',

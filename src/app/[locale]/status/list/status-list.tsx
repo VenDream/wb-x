@@ -11,6 +11,17 @@
 
 import { weibo } from '@/api/client';
 import { StatusCard } from '@/app/[locale]/status/_card';
+import {
+  DEFAULT_FILTER_PARAMS,
+  Filter,
+  MiniFilter,
+} from '@/app/[locale]/status/_filter';
+import {
+  BOOLEAN_PARAMS_KEYS,
+  NUMBER_PARAMS_KEYS,
+  PARAMS_KEYS,
+  STRING_PARAMS_KEYS,
+} from '@/app/[locale]/status/_filter/params';
 import Loading from '@/components/common/loading';
 import VirtualList, {
   type VirtualListHandle,
@@ -30,12 +41,12 @@ import {
   ScanSearchIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { DEFAULT_FILTER_PARAMS, Filter, MiniFilter } from '../_filter';
 
 export default function StatusList() {
   const t = useTranslations('pages.status');
+  const router = useRouter();
   const isMobile = useIsMobile();
 
   const listRef = useRef<VirtualListHandle>(null);
@@ -46,30 +57,77 @@ export default function StatusList() {
   const { isInited } = useUser();
   const searchParams = useSearchParams();
 
+  const getInitialParams = useCallback(() => {
+    const initParams: Record<string, any> = {
+      ...DEFAULT_FILTER_PARAMS,
+    };
+    for (const key of PARAMS_KEYS) {
+      const value = searchParams.get(key);
+
+      if (BOOLEAN_PARAMS_KEYS.includes(key)) {
+        initParams[key] = value === 'true' ? true : undefined;
+      }
+
+      if (value === undefined || value === null) continue;
+
+      if (NUMBER_PARAMS_KEYS.includes(key)) {
+        initParams[key] = Number(value);
+      } else if (STRING_PARAMS_KEYS.includes(key)) {
+        initParams[key] = value;
+      }
+    }
+
+    return initParams;
+  }, [searchParams]);
+
+  const setParamsToSearchParams = useCallback(
+    (params: Weibo.StatusListFilterParams) => {
+      const searchParams = new URLSearchParams();
+
+      for (const [key, value] of Object.entries(params)) {
+        if (value === undefined || value === null) continue;
+        const paramsKey = key as keyof Weibo.StatusListFilterParams;
+
+        if (BOOLEAN_PARAMS_KEYS.includes(paramsKey)) {
+          value === true && searchParams.set(key, 'true');
+        } else if (NUMBER_PARAMS_KEYS.includes(paramsKey)) {
+          searchParams.set(key, String(value));
+        } else if (STRING_PARAMS_KEYS.includes(paramsKey)) {
+          searchParams.set(key, value);
+        }
+      }
+      router.replace(`?${searchParams.toString()}`);
+    },
+    [router]
+  );
+
   const [filterParams, setFilterParams] =
-    useState<Weibo.StatusListFilterParams>(() => {
-      const uid = searchParams.get('uid');
-      const initParams = { ...DEFAULT_FILTER_PARAMS };
-      if (typeof window === 'undefined') return initParams;
-      uid && (initParams.uid = uid);
-      return initParams;
-    });
+    useState<Weibo.StatusListFilterParams>(getInitialParams);
 
   const updateFilterParams = useCallback(
     (patch: Partial<Weibo.StatusListFilterParams>) => {
-      setFilterParams(params => ({ ...params, ...patch }));
+      setFilterParams(params => {
+        const newParams = { ...params, ...patch };
+        setTimeout(() => {
+          setParamsToSearchParams(newParams);
+        });
+        return newParams;
+      });
       listRef.current?.reset();
     },
-    []
+    [setParamsToSearchParams]
   );
 
   const resetFilterParams = useCallback(() => {
-    setFilterParams(params => ({
-      ...DEFAULT_FILTER_PARAMS,
-      favUid: params.favUid,
-    }));
+    setFilterParams(params => {
+      const newParams = { ...DEFAULT_FILTER_PARAMS, favUid: params.favUid };
+      setTimeout(() => {
+        setParamsToSearchParams(newParams);
+      });
+      return newParams;
+    });
     listRef.current?.reset();
-  }, []);
+  }, [setParamsToSearchParams]);
 
   const listProps: VirtualListProps<
     Weibo.Status,

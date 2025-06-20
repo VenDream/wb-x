@@ -23,18 +23,21 @@ import { cn } from '@/utils/classnames';
 import { dedupeTweetList } from '@/utils/twitter';
 import { CircleHelpIcon, ListRestartIcon, ScanSearchIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Filter from './filter';
-
-export const defaultFilterParams: Twitter.TweetListFilterParams = {
-  order: 'desc',
-  orderBy: 'createdAt',
-  isTracking: true,
-};
+import {
+  BOOLEAN_PARAMS_KEYS,
+  DEFAULT_FILTER_PARAMS,
+  NUMBER_PARAMS_KEYS,
+  PARAMS_KEYS,
+  STRING_PARAMS_KEYS,
+} from './params';
 
 export default function TweetList() {
   const t = useTranslations('pages.tweet');
+  const router = useRouter();
+
   const listRef = useRef<VirtualListHandle>(null);
   const [total, setTotal] = useState(-1);
   const [isFetching, setIsFetching] = useState(false);
@@ -43,30 +46,77 @@ export default function TweetList() {
   const { isInited } = useUser();
   const searchParams = useSearchParams();
 
+  const getInitialParams = useCallback(() => {
+    const initParams: Record<string, any> = {
+      ...DEFAULT_FILTER_PARAMS,
+    };
+    for (const key of PARAMS_KEYS) {
+      const value = searchParams.get(key);
+
+      if (BOOLEAN_PARAMS_KEYS.includes(key)) {
+        initParams[key] = value === 'true' ? true : undefined;
+      }
+
+      if (value === undefined || value === null) continue;
+
+      if (NUMBER_PARAMS_KEYS.includes(key)) {
+        initParams[key] = Number(value);
+      } else if (STRING_PARAMS_KEYS.includes(key)) {
+        initParams[key] = value;
+      }
+    }
+
+    return initParams;
+  }, [searchParams]);
+
+  const setParamsToSearchParams = useCallback(
+    (params: Twitter.TweetListFilterParams) => {
+      const searchParams = new URLSearchParams();
+
+      for (const [key, value] of Object.entries(params)) {
+        if (value === undefined || value === null) continue;
+        const paramsKey = key as keyof Twitter.TweetListFilterParams;
+
+        if (BOOLEAN_PARAMS_KEYS.includes(paramsKey)) {
+          value === true && searchParams.set(key, 'true');
+        } else if (NUMBER_PARAMS_KEYS.includes(paramsKey)) {
+          searchParams.set(key, String(value));
+        } else if (STRING_PARAMS_KEYS.includes(paramsKey)) {
+          searchParams.set(key, value);
+        }
+      }
+      router.replace(`?${searchParams.toString()}`);
+    },
+    [router]
+  );
+
   const [filterParams, setFilterParams] =
-    useState<Twitter.TweetListFilterParams>(() => {
-      const uid = searchParams.get('uid');
-      const initParams = { ...defaultFilterParams };
-      if (typeof window === 'undefined') return initParams;
-      uid && (initParams.uid = uid);
-      return initParams;
-    });
+    useState<Twitter.TweetListFilterParams>(getInitialParams);
 
   const updateFilterParams = useCallback(
     (patch: Partial<Twitter.TweetListFilterParams>) => {
-      setFilterParams(params => ({ ...params, ...patch }));
+      setFilterParams(params => {
+        const newParams = { ...params, ...patch };
+        setTimeout(() => {
+          setParamsToSearchParams(newParams);
+        });
+        return newParams;
+      });
       listRef.current?.reset();
     },
-    []
+    [setParamsToSearchParams]
   );
 
   const resetFilterParams = useCallback(() => {
-    setFilterParams(params => ({
-      ...defaultFilterParams,
-      favUid: params.favUid,
-    }));
+    setFilterParams(params => {
+      const newParams = { ...DEFAULT_FILTER_PARAMS, favUid: params.favUid };
+      setTimeout(() => {
+        setParamsToSearchParams(newParams);
+      });
+      return newParams;
+    });
     listRef.current?.reset();
-  }, []);
+  }, [setParamsToSearchParams]);
 
   const listProps: VirtualListProps<
     Twitter.Tweet,

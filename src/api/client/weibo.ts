@@ -7,6 +7,7 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
+import { omit } from '@/utils/common';
 import { get, post } from '@/utils/request/client';
 import { appendURLParams } from '@/utils/url';
 
@@ -62,7 +63,10 @@ export async function getStatusList(params: StatusListParams) {
   let url = '/api/db/weibo/status/list';
   if (params.startDate) params.startDate += ' 00:00:00';
   if (params.endDate) params.endDate += ' 23:59:59';
-  url = appendURLParams(url, params);
+  url = appendURLParams(url, {
+    ...omit(params, ['scope']),
+    isTracking: params.scope === 'tracking' ? true : undefined,
+  });
   const statuses = await get<DB.List<Weibo.Status>>(url);
   return statuses;
 }
@@ -166,6 +170,7 @@ export async function triggerFullScan(uid: string) {
     all: true,
     upload: true,
     useCookie: true,
+    refreshAfterFinish: true,
   };
   return triggerScan(fullScanParams);
 }

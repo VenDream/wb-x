@@ -166,8 +166,6 @@ namespace Weibo {
     uid?: string;
     /** fav uid */
     favUid?: string;
-    /** is tracking */
-    isTracking?: boolean;
     /** is original */
     isOriginal?: boolean;
     /** is favourite */
@@ -189,6 +187,8 @@ namespace Weibo {
     order?: 'asc' | 'desc';
     /** keyword */
     keyword?: string;
+    /** scope */
+    scope?: 'tracking' | 'all';
   }
 
   interface ScanningParams {
@@ -217,5 +217,7 @@ namespace Weibo {
     triggerOnly?: boolean;
     /** all tracking uids */
     allTrackingUids?: boolean;
+    /** refresh after finish */
+    refreshAfterFinish?: boolean;
   }
 }
