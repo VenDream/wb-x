@@ -82,7 +82,7 @@ export const comment = cva(cn('comment-item w-full relative group'), {
     type: {
       source: cn(
         'p-4 border-b lg:border lg:border-t-0 border-base-content/10',
-        'bg-base-200/30'
+        'bg-base-100'
       ),
       reply: cn('rounded-md'),
       detailReplies: cn(''),
@@ -115,9 +115,9 @@ export const commentBody = cva(cn('text-justify peer flex w-full'), {
 export const commnetLikes = cva(cn('flex items-center text-xs absolute'), {
   variants: {
     type: {
-      source: cn('top-[18px] right-6'),
-      reply: cn('top-[2px] right-0 hidden peer-hover:flex'),
-      detailReplies: cn('top-[7px] lg:top-[12px] right-1'),
+      source: cn('top-[1.2rem] right-6'),
+      reply: cn('top-[0.2rem] right-0 hidden peer-hover:flex'),
+      detailReplies: cn('top-[0.5rem] lg:top-[0.75rem] right-1'),
     },
     mode: {
       dialog: cn('first:top-0 !right-0'),

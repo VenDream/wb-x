@@ -187,7 +187,7 @@ export default function RotnList() {
       {isMobile ? (
         <div
           className={cn(
-            'no-scrollbar h-[calc(100dvh_-_164px)] overflow-y-auto'
+            'no-scrollbar h-[calc(100dvh_-_172px)] overflow-y-auto'
           )}
         >
           {cards}
