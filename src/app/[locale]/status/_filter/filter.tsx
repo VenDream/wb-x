@@ -94,27 +94,27 @@ export default function Filter(props: FilterProps) {
           <p className="w-20 text-xs">{t2('dataSource')}</p>
           <Tabs
             size="xs"
-            name="isTracking"
+            name="scope"
             className={cn(
               'bg-base-200 flex-1 flex-nowrap space-x-0 rounded-sm p-1 shadow-xs',
               'border-base-content/20 border'
             )}
             itemClassName="basis-1/2 !rounded-sm"
-            value={filter.isTracking ? 1 : 0}
+            value={filter.scope}
             onChange={value => {
               const params: FilterParams = {
-                isTracking: value === 1 ? true : undefined,
+                scope: value as FilterParams['scope'],
               };
               isDrawerMode ? updateFilter(params) : applyFilter(params);
             }}
             items={[
               {
                 label: t2('trackings'),
-                value: 1,
+                value: 'tracking',
               },
               {
                 label: t2('all'),
-                value: 0,
+                value: 'all',
               },
             ]}
           />

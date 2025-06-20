@@ -185,7 +185,7 @@ export default function CardMenu() {
               <Link
                 target="_blank"
                 className="rounded-sm p-2"
-                href={`${PRIMARY_ROUTES.WEIBO}?uid=${user.id}`}
+                href={`${PRIMARY_ROUTES.WEIBO}?uid=${user.id}&scope=all`}
               >
                 <SquareArrowOutUpRightIcon size={16} />
                 {t1('opPosts')}

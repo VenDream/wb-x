@@ -143,8 +143,6 @@ namespace Twitter {
     uid?: string;
     /** fav uid */
     favUid?: string;
-    /** is tracking */
-    isTracking?: boolean;
     /** is original */
     isOriginal?: boolean;
     /** is favourite */
@@ -168,6 +166,8 @@ namespace Twitter {
     order?: 'asc' | 'desc';
     /** keyword */
     keyword?: string;
+    /** scope */
+    scope?: 'tracking' | 'all';
   }
 
   interface ConversationDetailParams {

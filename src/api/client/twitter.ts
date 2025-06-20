@@ -7,6 +7,7 @@
  * Copyright © 2025 VenDream. All Rights Reserved.
  */
 
+import { omit } from '@/utils/common';
 import { get, post } from '@/utils/request/client';
 import { appendURLParams } from '@/utils/url';
 
@@ -50,7 +51,12 @@ type TweetListParams = PaginationParams & Twitter.TweetListFilterParams;
 
 export async function getTweetList(params: TweetListParams) {
   let url = '/api/db/twitter/tweets/list';
-  url = appendURLParams(url, params);
+  if (params.startDate) params.startDate += ' 00:00:00';
+  if (params.endDate) params.endDate += ' 23:59:59';
+  url = appendURLParams(url, {
+    ...omit(params, ['scope']),
+    isTracking: params.scope === 'tracking' ? true : undefined,
+  });
   const tweets = await get<DB.List<Twitter.Tweet>>(url);
   return tweets;
 }
