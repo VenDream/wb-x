@@ -170,6 +170,7 @@ export async function triggerFullScan(uid: string) {
     all: true,
     upload: true,
     useCookie: true,
+    forceUpload: true,
     refreshAfterFinish: true,
   };
   return triggerScan(fullScanParams);
